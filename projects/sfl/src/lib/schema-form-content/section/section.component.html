@@ -1,0 +1,30 @@
+<div *ngIf="formItem.label" class="item-label">
+  <div class="arrows">
+    <img *ngIf="!config.collapsibleSections && !isContentShown"
+         (click)="toggleContentShown()"
+         class="arrow-up"
+         [src]="'assets/sfl-images/arrow-up.svg'">
+    <img *ngIf="!config.collapsibleSections && isContentShown"
+         (click)="toggleContentShown()"
+         class="arrow-down"
+         [src]="'assets/sfl-images/arrow-down.svg'">
+  </div>
+  <label
+    class="header"
+    [title]="formItem.tooltip"
+    [attr.for]="formItem.path">
+    {{formItem.label}}
+  </label>
+  <img *ngIf="formItem.helpText"
+       class="help"
+       [title]="formItem.helpText"
+       [src]="'assets/sfl-images/info.svg'">
+</div>
+<div class="description">{{formItem.description}}</div>
+<div class="item-group" [class.hidden]="!isContentShown">
+  <sfl-content
+    [formItems]="formItem.items"
+    [form]="formGroup" [config]="config"
+    [labelLengthClass]="sectionLabelLengthClass">
+  </sfl-content>
+</div>

@@ -1,0 +1,16 @@
+<div class="general-form-item">
+  <sfl-drop-down
+    [formItem]="getDropdownDataItem()"
+    [formGroup]="formGroup"
+    [config]="config"
+    (selectedKey)="onSelectValue($event)"
+    [labelLengthClass]="labelLengthClass">
+  </sfl-drop-down>
+  <div class="selected-schema-content" *ngIf="selectedKey">
+    <sfl-content
+      [formItems]="selectedOneOfChildItem.items"
+      [form]="selectedFormGroup"
+      [config]="config"
+      [labelLengthClass]="labelLengthClass"></sfl-content>
+  </div>
+</div>

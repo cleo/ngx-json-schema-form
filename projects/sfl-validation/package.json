@@ -1,0 +1,9 @@
+{
+  "name": "@cleo-cic/sfl-validation",
+  "version": "1.0.0",
+  "peerDependencies": {
+  },
+  "publishConfig": {
+    "registry": "https://api.bintray.com/npm/cleo/npm"
+  }
+}

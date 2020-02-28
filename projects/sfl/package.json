@@ -1,0 +1,14 @@
+{
+  "name": "@cleo-cic/sfl",
+  "version": "1.0.0",
+  "peerDependencies": {
+    "@angular/common": "^8.1.2",
+    "@angular/core": "^8.1.2",
+    "@angular/forms": "^8.1.2",
+    "bootstrap-sass": "^3.3.7",
+    "rxjs": "^6.5.2"
+  },
+  "publishConfig": {
+    "registry": "https://api.bintray.com/npm/cleo/npm"
+  }
+}

@@ -1,0 +1,14 @@
+<sfl-check-box
+  [formItem]="parentFormItem"
+  [formGroup]="formGroup"
+  [config]="config"
+  (toggle)="onToggle($event)">
+</sfl-check-box>
+
+<div class="item-group">
+  <sfl-content
+    [formItems]="visibleChildFormItems"
+    [form]="formGroup"
+    [config]="config">
+  </sfl-content>
+</div>
