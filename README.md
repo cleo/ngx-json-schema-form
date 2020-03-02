@@ -41,7 +41,7 @@ npm run test
    - Angular
    - [Node.js](https://nodejs.org/en/download/)
 
-2. [Install the JSON Schema Form]() into your project
+2. Install the JSON Schema Form into your project
 
 3. Install icons into your front end Angular project
    1. Open your project's angular.json file. Find the `"assets"` key. Pick a directory to store these images (ex: `./src/assets`).
@@ -50,8 +50,6 @@ npm run test
 #### UI Component Configuration
 1. Import the SFLModule into your project.
 ```
-import { SFLModule } from '@cleo-cic/sfl';
-
 @NgModule({
   declarations: [],
   exports: [],
@@ -74,8 +72,6 @@ export class ExampleModule { }
    - [Optional] Listen to the `formHeightChange` event emitted from the JSON Schema Form.
    
 ```
-import { FormDataItem, SFLComponent, SFLConfig, SFLDataItemService } from '@cleo-cic/sfl';
-
 @Component({
   selector: 'example',
   templateUrl: 'example.component.html',
@@ -122,7 +118,7 @@ export class ExampleComponent {
 1. To use the back end functionality of this library, it is recommended your project use:
    - [Node.js](https://nodejs.org/en/download/)
 
-2. [Install JSON Schema Form Validation]()
+2. Install JSON Schema Form Validation
 
 3. You will then have access to the following validation classes:
    - RequiredSchemaValueValidationService
