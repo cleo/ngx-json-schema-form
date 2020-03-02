@@ -1,5 +1,5 @@
 {
-  "name": "schema-form-library",
+  "name": "json-schema-form",
   "version": "1.0.0",
   "scripts": {
     "publish": "npm run publish-sfl && npm run publish-sfl-validation",

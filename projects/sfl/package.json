@@ -1,5 +1,5 @@
 {
-  "name": "@cleo-cic/sfl",
+  "name": "ngx-json-schema-form",
   "version": "1.0.0",
   "peerDependencies": {
     "@angular/common": "^8.1.2",

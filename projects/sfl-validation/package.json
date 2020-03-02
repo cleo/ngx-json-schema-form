@@ -1,5 +1,5 @@
 {
-  "name": "@cleo-cic/sfl-validation",
+  "name": "ngx-json-schema-form-validation",
   "version": "1.0.0",
   "peerDependencies": {
   },
