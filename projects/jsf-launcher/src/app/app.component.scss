@@ -1,0 +1,19 @@
+.validation {
+  width: 100%;
+  line-height: 35px;
+  padding-left: 20px;
+  color: white;
+
+  &.valid {
+    background: #00d696;
+  }
+
+  &.not-valid {
+    background: #f76c6c;
+  }
+}
+
+.submit-row {
+  padding: 10px;
+  float: right;
+}

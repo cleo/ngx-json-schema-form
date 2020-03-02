@@ -1,0 +1,11 @@
+@import '../form-control.component';
+
+.checkbox-form-item {
+  div.item-label, label {
+    width: unset;
+  }
+  @extend .base-form-item;
+  .form-item {
+    width: 100%;
+  }
+}

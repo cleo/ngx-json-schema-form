@@ -1,0 +1,30 @@
+div:not(:last-child) {
+  margin-bottom: 15px;
+}
+
+.section {
+  padding-left: 10px;
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+  > label {
+    font-weight: normal;
+    font-size: 18px;
+  }
+}
+
+.form-content {
+    padding-top: 5px;
+  &.section-divider:not(:last-child) {
+    border-bottom: 1px solid #ededeb;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+  }
+}
+
+.obj-cont {
+  border: 1px solid #c4c4bc;
+  padding: 10px;
+  box-shadow: 2px 1px 5px #c4c4bc;
+  border-radius: 4px;
+}
