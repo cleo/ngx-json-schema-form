@@ -3,33 +3,33 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "sfl": {
+    "jsf": {
       "projectType": "library",
-      "root": "projects/sfl",
-      "sourceRoot": "projects/sfl/src",
-      "prefix": "sfl",
+      "root": "projects/jsf",
+      "sourceRoot": "projects/jsf/src",
+      "prefix": "jsf",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/sfl/tsconfig.lib.json",
-            "project": "projects/sfl/ng-package.json"
+            "tsConfig": "projects/jsf/tsconfig.lib.json",
+            "project": "projects/jsf/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/sfl/src/test.ts",
-            "tsConfig": "projects/sfl/tsconfig.spec.json",
-            "karmaConfig": "projects/sfl/karma.conf.js"
+            "main": "projects/jsf/src/test.ts",
+            "tsConfig": "projects/jsf/tsconfig.spec.json",
+            "karmaConfig": "projects/jsf/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/sfl/tsconfig.lib.json",
-              "projects/sfl/tsconfig.spec.json"
+              "projects/jsf/tsconfig.lib.json",
+              "projects/jsf/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -38,32 +38,32 @@
         }
       }
     },
-    "sfl-launcher": {
+    "jsf-launcher": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
           "style": "scss"
         }
       },
-      "root": "projects/sfl-launcher",
-      "sourceRoot": "projects/sfl-launcher/src",
+      "root": "projects/jsf-launcher",
+      "sourceRoot": "projects/jsf-launcher/src",
       "prefix": "app",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/sfl-launcher",
-            "index": "projects/sfl-launcher/src/index.html",
-            "main": "projects/sfl-launcher/src/main.ts",
-            "polyfills": "projects/sfl-launcher/src/polyfills.ts",
-            "tsConfig": "projects/sfl-launcher/tsconfig.app.json",
+            "outputPath": "dist/jsf-launcher",
+            "index": "projects/jsf-launcher/src/index.html",
+            "main": "projects/jsf-launcher/src/main.ts",
+            "polyfills": "projects/jsf-launcher/src/polyfills.ts",
+            "tsConfig": "projects/jsf-launcher/tsconfig.app.json",
             "aot": false,
             "assets": [
-              "projects/sfl-launcher/src/favicon.ico",
-              "projects/sfl-launcher/src/assets"
+              "projects/jsf-launcher/src/favicon.ico",
+              "projects/jsf-launcher/src/assets"
             ],
             "styles": [
-              "projects/sfl-launcher/src/styles.scss",
+              "projects/jsf-launcher/src/styles.scss",
               "node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss"
             ],
             "scripts": []
@@ -72,8 +72,8 @@
             "production": {
               "fileReplacements": [
                 {
-                  "replace": "projects/sfl-launcher/src/environments/environment.ts",
-                  "with": "projects/sfl-launcher/src/environments/environment.prod.ts"
+                  "replace": "projects/jsf-launcher/src/environments/environment.ts",
+                  "with": "projects/jsf-launcher/src/environments/environment.prod.ts"
                 }
               ],
               "optimization": true,
@@ -103,33 +103,33 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "sfl-launcher:build"
+            "browserTarget": "jsf-launcher:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "sfl-launcher:build:production"
+              "browserTarget": "jsf-launcher:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "sfl-launcher:build"
+            "browserTarget": "jsf-launcher:build"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/sfl-launcher/src/test.ts",
-            "polyfills": "projects/sfl-launcher/src/polyfills.ts",
-            "tsConfig": "projects/sfl-launcher/tsconfig.spec.json",
-            "karmaConfig": "projects/sfl-launcher/karma.conf.js",
+            "main": "projects/jsf-launcher/src/test.ts",
+            "polyfills": "projects/jsf-launcher/src/polyfills.ts",
+            "tsConfig": "projects/jsf-launcher/tsconfig.spec.json",
+            "karmaConfig": "projects/jsf-launcher/karma.conf.js",
             "assets": [
-              "projects/sfl-launcher/src/favicon.ico",
-              "projects/sfl-launcher/src/assets"
+              "projects/jsf-launcher/src/favicon.ico",
+              "projects/jsf-launcher/src/assets"
             ],
             "styles": [
-              "projects/sfl-launcher/src/styles.scss"
+              "projects/jsf-launcher/src/styles.scss"
             ],
             "scripts": []
           }
@@ -138,9 +138,9 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/sfl-launcher/tsconfig.app.json",
-              "projects/sfl-launcher/tsconfig.spec.json",
-              "projects/sfl-launcher/e2e/tsconfig.json"
+              "projects/jsf-launcher/tsconfig.app.json",
+              "projects/jsf-launcher/tsconfig.spec.json",
+              "projects/jsf-launcher/e2e/tsconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -150,43 +150,43 @@
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
-            "protractorConfig": "projects/sfl-launcher/e2e/protractor.conf.js",
-            "devServerTarget": "sfl-launcher:serve"
+            "protractorConfig": "projects/jsf-launcher/e2e/protractor.conf.js",
+            "devServerTarget": "jsf-launcher:serve"
           },
           "configurations": {
             "production": {
-              "devServerTarget": "sfl-launcher:serve:production"
+              "devServerTarget": "jsf-launcher:serve:production"
             }
           }
         }
       }
     },
-    "sfl-validation": {
+    "jsf-validation": {
       "projectType": "library",
-      "root": "projects/sfl-validation",
-      "sourceRoot": "projects/sfl-validation/src",
+      "root": "projects/jsf-validation",
+      "sourceRoot": "projects/jsf-validation/src",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "tsConfig": "projects/sfl-validation/tsconfig.lib.json",
-            "project": "projects/sfl-validation/ng-package.json"
+            "tsConfig": "projects/jsf-validation/tsconfig.lib.json",
+            "project": "projects/jsf-validation/ng-package.json"
           }
         },
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "projects/sfl-validation/src/test.ts",
-            "tsConfig": "projects/sfl-validation/tsconfig.spec.json",
-            "karmaConfig": "projects/sfl-validation/karma.conf.js"
+            "main": "projects/jsf-validation/src/test.ts",
+            "tsConfig": "projects/jsf-validation/tsconfig.spec.json",
+            "karmaConfig": "projects/jsf-validation/karma.conf.js"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "projects/sfl-validation/tsconfig.lib.json",
-              "projects/sfl-validation/tsconfig.spec.json"
+              "projects/jsf-validation/tsconfig.lib.json",
+              "projects/jsf-validation/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -195,5 +195,5 @@
         }
       }
     }},
-  "defaultProject": "sfl"
+  "defaultProject": "jsf"
 }

@@ -1,0 +1,31 @@
+<div #contentDiv class="form-content"
+     *ngFor="let item of formItems"
+     [class.section]="isStaticObject(item) && item.label"
+     [class.section-divider]="config.sectionDivider && isStaticObject(item)">
+
+  <jsf-form-control
+    *ngIf="!isParent(item)"
+    [formItem]="item"
+    [formGroup]="form"
+    [config]="config"
+    [labelLengthClass]="labelLengthClass"></jsf-form-control>
+
+  <jsf-check-box-with-children
+    *ngIf="isConditionalObject(item)"
+    [formItem]="getConditionalParentFormItem(item)"
+    [formGroup]="formGroup.controls[item.key]"
+    [config]="config"></jsf-check-box-with-children>
+
+  <jsf-section
+    *ngIf="isStaticObject(item)"
+    [formItem]="getParentFormItem(item)"
+    [formGroup]="formGroup.controls[item.key]"
+    [config]="config"></jsf-section>
+
+  <jsf-one-of
+    *ngIf="isXOf(item)"
+    [item]="item"
+    [formGroup]="formGroup.controls[item.key]"
+    [config]="config"
+    [labelLengthClass]="labelLengthClass"></jsf-one-of>
+</div>

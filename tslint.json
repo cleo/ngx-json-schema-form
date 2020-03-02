@@ -171,13 +171,13 @@
     "directive-selector": [
       false,
       "attribute",
-      "sfl",
+      "jsf",
       "camelCase"
     ],
     "component-selector": [
       false,
       "element",
-      "sfl",
+      "jsf",
       "kebab-case"
     ],
     "no-inputs-metadata-property": true,

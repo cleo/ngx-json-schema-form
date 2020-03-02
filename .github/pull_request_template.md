@@ -22,6 +22,6 @@ _All items should be done and checked before merging._
 - [ ] **Details:** Fill out the _Description_, _Breaking Changes_, _3rd Party Dependency Changes_, and _Internal Tracking Number_ sections. If there's nothing for a given section, write "None".
 - [ ] **Labels:** Add one or more labels.
 - [ ] **Run Unit Tests:** Locally run the Karma unit tests for this project before merging this PR.
-- [ ] **Run Lint:** Lint the project before merging this PR. 
+- [ ] **Run Lint:** Lint the project before merging this PR.
 - [ ] **Changelog:** If any code change in this PR will run in production, add an entry to the "Unreleased" section of the `CHANGELOG.md` file.
-- [ ] **Update the Wiki:** Update the wiki with the changes for the SFL components.
+- [ ] **Update the Wiki:** Update the wiki with the changes for the JSF components.

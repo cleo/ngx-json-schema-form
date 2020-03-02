@@ -1,0 +1,37 @@
+<jsf-secured-text
+  *ngIf="isStringInput() && isSecured()"
+  [formItem]="formItem"
+  [formGroup]="formGroup"
+  [config]="config"
+  [labelLengthClass]="labelLengthClass">
+</jsf-secured-text>
+
+<jsf-text
+  *ngIf="isStringInput() && !isSecured()"
+  [formItem]="formItem"
+  [formGroup]="formGroup"
+  [config]="config"
+  [labelLengthClass]="labelLengthClass">
+</jsf-text>
+
+<jsf-check-box
+  *ngIf="formItem.type === schemaElementType.Boolean"
+  [formItem]="formItem"
+  [formGroup]="formGroup"
+  [config]="config">
+</jsf-check-box>
+
+<jsf-drop-down
+  *ngIf="isDropdown"
+  [formItem]="formItem"
+  [formGroup]="formGroup"
+  [labelLengthClass]="labelLengthClass"
+  [config]="config">
+</jsf-drop-down>
+
+<jsf-radio-button
+  *ngIf="isRadioButton"
+  [formItem]="formItem"
+  [formGroup]="formGroup"
+  [config]="config">
+</jsf-radio-button>

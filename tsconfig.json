@@ -21,17 +21,17 @@
       "dom"
     ],
     "paths": {
-      "sfl": [
-        "dist/sfl"
+      "jsf": [
+        "dist/jsf"
       ],
-      "sfl/*": [
-        "dist/sfl/*"
+      "jsf/*": [
+        "dist/jsf/*"
       ],
-      "sfl-validation": [
-        "dist/sfl-validation"
+      "jsf-validation": [
+        "dist/jsf-validation"
       ],
-      "sfl-validation/*": [
-        "dist/sfl-validation/*"
+      "jsf-validation/*": [
+        "dist/jsf-validation/*"
       ]
     }
   },

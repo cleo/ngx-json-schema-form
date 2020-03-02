@@ -2,9 +2,9 @@
   "name": "json-schema-form",
   "version": "1.0.0",
   "scripts": {
-    "publish": "npm run publish-sfl && npm run publish-sfl-validation",
-    "publish-sfl": "npm run build sfl && cd ./dist/sfl && npm publish",
-    "publish-sfl-validation": "npm run build sfl-validation && cd ./dist/sfl-validation && npm publish",
+    "publish": "npm run publish-jsf && npm run publish-jsf-validation",
+    "publish-jsf": "npm run build jsf && cd ./dist/jsf && npm publish",
+    "publish-jsf-validation": "npm run build jsf-validation && cd ./dist/jsf-validation && npm publish",
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",

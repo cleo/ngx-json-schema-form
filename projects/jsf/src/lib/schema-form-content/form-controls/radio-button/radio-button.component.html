@@ -1,0 +1,14 @@
+<div class="general-form-item">
+  <jsf-label *ngIf="formItem.label" [formItem]="formItem"></jsf-label>
+  <div class="form-item" [formGroup]="formGroup">
+    <div *ngFor="let item of formItemAsEnumType.enumOptions">
+      <input type="radio"
+             [id]="item.key"
+             [formControlName]="formItem.key"
+             [name]="formItem.key"
+             [value]="item.key">
+      <label class="radiobutton-label" [for]="item.key">{{item.text}}</label>
+    </div>
+    <div class="error-message" *ngIf="!isValid && isTouched">{{getErrorMessage()}}</div>
+  </div>
+</div>
