@@ -14,7 +14,4 @@ All notable changes to this project will be documented in this file. The changes
 	- Text Inputs
 	- Text Inputs (Secured)
 
-### Security 
-- [2](https://github.com/cleo/ngx-json-schema-form/pull/2) - Updating devDependencies
-
 [1.0.0]: https://github.com/cleo/ngx-json-schema-form/releases/tag/1.0.0
