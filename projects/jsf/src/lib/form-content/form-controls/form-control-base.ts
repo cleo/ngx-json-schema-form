@@ -1,4 +1,4 @@
-import { Input, OnInit } from '@angular/core';
+import { Directive, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { FormDataItem } from '../../models/form-data-item';
@@ -6,6 +6,7 @@ import { StringDataItem } from '../../models/string-data-item';
 import { EMAIL_REGEX, URI_REGEX } from '../../validator.service';
 import { ContentBaseComponent } from '../content-base.component';
 
+@Directive()
 export class FormControlBase extends ContentBaseComponent implements OnInit {
   @Input() formItem: FormDataItem;
   @Input() labelLengthClass: string;

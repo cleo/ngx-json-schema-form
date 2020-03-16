@@ -8,9 +8,9 @@ import { FormControlBase } from '../form-control-base';
   styleUrls: ['./text-area.component.scss']
 })
 export class TextAreaComponent extends FormControlBase implements OnInit {
-  private rows: string;
-  private cols: string;
-  private isDefaultColsWidth = true;
+  rows: string;
+  cols: string;
+  isDefaultColsWidth = true;
 
   ngOnInit(): void {
     this.rows = this.getDisplayValue('rows');

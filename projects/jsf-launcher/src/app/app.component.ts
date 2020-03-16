@@ -15,7 +15,7 @@ import schemaV2 from './schemaV2.json';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  @ViewChild(JSFComponent, { static: false }) jsfComponent: JSFComponent;
+  @ViewChild(JSFComponent) jsfComponent: JSFComponent;
   config: JSFConfig = { enableCollapsibleSections: false, showSectionDivider: true };
   isSubmitDisabled = true;
   showValidationMessage = false;

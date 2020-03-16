@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core
 import { FormGroup } from '@angular/forms';
 
 import { FormService, getLongestFieldLabelClass } from '../../form.service';
-import { CONDITIONAL_PARENT_VALUE_KEY, ConditionalParentDataItem } from '../../models/conditional-parent-data-item';
+import { ConditionalParentDataItem, CONDITIONAL_PARENT_VALUE_KEY } from '../../models/conditional-parent-data-item';
 import { FormDataItem } from '../../models/form-data-item';
 import { ContentBaseComponent } from '../content-base.component';
 

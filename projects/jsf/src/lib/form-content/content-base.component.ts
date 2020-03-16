@@ -1,7 +1,8 @@
-import { EventEmitter, Input, Output } from '@angular/core';
+import { Directive, EventEmitter, Input, Output } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { JSFConfig } from '../jsf-config';
 
+@Directive()
 export class ContentBaseComponent {
   @Input() formGroup: FormGroup;
   @Input() config: JSFConfig;
