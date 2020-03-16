@@ -1,0 +1,13 @@
+<div [class]="getLabelClasses()">
+<label
+    [title]="formItem.tooltip"
+    [attr.for]="formItem.path">
+    {{formItem.label}}
+  <span *ngIf="formItem.required" class="required-star"> *</span>
+</label>
+
+  <img *ngIf="formItem.helpText && showHelpAfterLabel"
+       class="help"
+       [title]="formItem.helpText"
+       [src]="'assets/jsf-images/info.svg'">
+</div>

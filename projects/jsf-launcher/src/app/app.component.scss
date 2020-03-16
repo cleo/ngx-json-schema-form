@@ -16,4 +16,11 @@
 .submit-row {
   padding: 10px;
   float: right;
+  button {
+    margin-left: 10px;
+    &.btn-secondary {
+      border: 1px solid lightsteelblue;
+    }
+  }
 }
+

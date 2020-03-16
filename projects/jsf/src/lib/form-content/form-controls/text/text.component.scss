@@ -1,0 +1,22 @@
+@import '../form-control.component';
+input[type="email"] {
+  line-height: 32px;
+  height : 34px;
+  border: 1px solid #c4c4bc;;
+  border-radius: 3px;
+  padding: 0 7px;
+}
+
+.event-btns {
+  display: inline-block;
+  margin-left: 10px;
+  vertical-align: top;
+}
+
+.character-counter {
+  text-align: right;
+  font-size: 12px;
+  .error {
+    color: #f12932;
+  }
+}

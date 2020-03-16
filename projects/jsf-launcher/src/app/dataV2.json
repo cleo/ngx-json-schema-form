@@ -1,0 +1,92 @@
+{
+  "checkboxes": {
+    "checkbox": false,
+    "defaultCheckbox": true,
+    "hiddenCheckbox": true
+  },
+  "checkboxesWithChildren": {
+    "checkboxWithChildren1": {
+      "value": false
+    },
+    "checkboxWithChildrenWithDefault": {
+      "textInput1": "TEST TEXT",
+      "textInput2": "",
+      "value": true
+    },
+    "hiddenCheckboxWithChildren": {
+      "textInput1": "",
+      "textInput2": "",
+      "value": true
+    }
+  },
+  "enums": {
+    "dropdowns": {
+      "dropdown1": "option1",
+      "dropdownWithDefault": "option2",
+      "hiddenDropdownWithDefault": "option2"
+    },
+    "radioButtons": {
+      "radioButton1": "option1",
+      "radioButtonsWithDefault": "defaultOption2",
+      "hiddenRadioButtonsWithDefault": "defaultOption2"
+    }
+  },
+  "dropdownsWithChildren": {
+    "dropdownWithChildren1": {
+      "option1": {
+        "child1": "TEST TEXT",
+        "child2": ""
+      }
+    },
+    "dropdownWithChildren1WithDefault": {
+      "option2": {
+        "child1": "",
+        "child2": "TEST TEXT"
+      }
+    },
+    "hiddenDropdownWithChildren": {
+      "option2": {
+        "child1": "",
+        "child2": "default value"
+      }
+    }
+  },
+  "textInputs": {
+    "textInput1": "TEST TEXT",
+    "textInputWithDefault": "TEST TEXT",
+    "urlTextInput": "",
+    "emailTextInput": "",
+    "emailListTextInput": "",
+    "textAreaInput": "email@gmail.com",
+    "hiddenTextInput": ""
+  },
+  "securedTextInput": {},
+  "integerInputs": {
+    "integerInput": "",
+    "defaultIntegerInput": 100,
+    "hiddenIntger": ""
+  },
+  "tabs": {
+    "textInputs": {
+      "textInput1": "TEST TEXT"
+    },
+    "dropdownsChildrenII": {
+      "moreDropdowns": {
+        "dd1": {
+          "child1": "TEST TEXT",
+          "child2": "HELLO"
+        }
+      },
+      "moreDropdownsDefault": {
+        "op1": {
+          "ch1": "FGIEQGFIEQGIREWGI",
+          "ch2": "TEST TEXT"
+        }
+      }
+    },
+    "integerInputs": {
+      "integerInput": "",
+      "defaultIntegerInput": 100
+    }
+  }
+}

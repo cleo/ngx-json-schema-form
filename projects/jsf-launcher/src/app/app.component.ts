@@ -1,10 +1,13 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RequiredSchemaValueValidationService } from '../../../jsf-validation/src/lib/required-schema-value-validation.service';
 import { JSFConfig } from '../../../jsf/src/lib/jsf-config';
-import { JSFDataItemService } from '../../../jsf/src/lib/jsf-data-item.service';
+import { JSFSchemaData } from '../../../jsf/src/lib/jsf-schema-data';
 import { JSFComponent } from '../../../jsf/src/lib/jsf.component';
-import { FormDataItem } from '../../../jsf/src/lib/models/form-data-item';
-import Schema from './schema.json';
+
+import dataV2 from './dataV2.json';
+import dataV1 from './outdatedSchema/dataV1.json';
+import schemaV1 from './outdatedSchema/schemaV1.json';
+import schemaV2 from './schemaV2.json';
 
 @Component({
   selector: 'app-root',
@@ -12,17 +15,38 @@ import Schema from './schema.json';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  @ViewChild(JSFComponent, { static: false }) schemaFormComponent: JSFComponent;
-  config = new JSFConfig(false, false, true);
+  @ViewChild(JSFComponent, { static: false }) jsfComponent: JSFComponent;
+  config: JSFConfig = { enableCollapsibleSections: false, showSectionDivider: true };
   isSubmitDisabled = true;
-  formDataItems: FormDataItem[];
   showValidationMessage = false;
   isValid = false;
+  schemaData: JSFSchemaData;
+  schema: any = {};
+  data: any = {};
 
-  constructor(private formDataItemService: JSFDataItemService) {}
+  version: JSFVersion = JSFVersion.V2;
+  isEdit = false;
 
   ngOnInit(): void {
-    this.formDataItems = this.formDataItemService.getFormDataItems(Schema, {}, false);
+    this.setSchemas();
+    this.schemaData = new JSFSchemaData(this.schema, this.data);
+  }
+
+  setSchemas(): any {
+    switch (this.version) {
+    case JSFVersion.V1 :
+      this.schema = schemaV1;
+      if (this.isEdit) {
+        this.data = dataV1;
+      }
+      break;
+    case JSFVersion.V2:
+      this.schema = schemaV2;
+      if (this.isEdit) {
+        this.data = dataV2;
+      }
+      break;
+    }
   }
 
   updateSubmitButtonStatus(disableSubmit: boolean): void {
@@ -34,16 +58,30 @@ export class AppComponent implements OnInit {
   }
 
   onSubmit(): void {
-    const jsonData = this.schemaFormComponent.getFormValues();
-    this.isValid = this.validate(Schema, jsonData);
+    const jsonData = this.jsfComponent.getFormValues();
+    this.isValid = this.validate(this.schema, jsonData);
     this.showValidationMessage = true;
+    // console.log(JSON.stringify(jsonData));
   }
 
   onCancel(): void {
     location.reload();
   }
 
+  onLogForm(): void {
+    // console.log(this.jsfComponent.form);
+  }
+
   private validate(schema: any, values: any): boolean {
     return RequiredSchemaValueValidationService.valuesHaveRequiredKeys(schema, values, true);
   }
+
+  buttonEvent(event: any): void {
+    // console.log(event);
+  }
+}
+
+export enum JSFVersion {
+  V1,
+  V2
 }

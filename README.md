@@ -68,7 +68,7 @@ export class ExampleModule { }
       - If there are dividers between sections
    - Inject the JSFDataItemService into your constructor and use the `getFormDataItems()` method to transform the JSON 7 schema and corresponding values into an array of FormDataItems. FormDataItems are the data model that the JSF understands and uses to generate the angular forms.
    - Create a Submit button in your component. Listen to the `disableSubmit` event emitted from the JSON Schema Form and disable your submit button.
-   - Create a ViewChild property in your component to reference your JSFComponent. Use this property to get the submitted form values by calling `this.schemaFormComponent.getFormValues();`
+   - Create a ViewChild property in your component to reference your JSFComponent. Use this property to get the submitted form values by calling `this.jsfComponent.getFormValues();`
    - [Optional] Listen to the `formHeightChange` event emitted from the JSON Schema Form.
 
 ```
@@ -78,14 +78,14 @@ export class ExampleModule { }
   styleUrls: ['./example.component.scss']
 })
 export class ExampleComponent {
-  @ViewChild(JSFComponent, { static: false }) schemaFormComponent: JSFComponent;
+  @ViewChild(JSFComponent, { static: false }) jsfComponent: JSFComponent;
   config = new JSFConfig(false, false, true);
-  formDataItems: FormDataItem[];
-    isSubmitDisabled = true;
+  schemaData: JSFSchemaData;
+  isSubmitDisabled = true;
 
   constructor(private jsfDataItemService: JSFDataItemService) {
     // grab schema and values from some service
-    this.formDataItems = this.formDataItemService.getFormDataItems(schema, values, this.config.isEdit);
+	this.schemaData = new JSFSchemaData(schema, values);
   }
 
   // this event allows you to enable/disable the submit button in the parent container
@@ -97,7 +97,7 @@ export class ExampleComponent {
   onFormHeightChange(formHeight: number): void { }
 
   getJSFFormValues(): void {
-    const jsonData = this.schemaFormComponent.getFormValues();
+    const jsonData = this.jsfComponent.getFormValues();
   }
 }
 ```
@@ -106,7 +106,7 @@ export class ExampleComponent {
 
 ``` HTML
   <jsf-component
-   [formDataItems]="formDataItems"
+   [schemaData]="schemaData"
    [config]="config"
    (disableSubmit)="onDisableSubmit($event)"
    (formHeightChange)="onFormHeightChange($event)">

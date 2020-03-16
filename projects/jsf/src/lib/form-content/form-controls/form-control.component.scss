@@ -1,0 +1,30 @@
+@import '../common';
+
+.form-item-with-label {
+  display: inline-block;
+  width: 100%;
+
+  .form-item {
+    display: inline-block;
+    vertical-align: middle;
+    @media (min-width: 500px) {
+      width: 45%;
+    }
+  }
+
+  .control-with-error {
+    width: calc(100% - 190px);
+    display: inline-block;
+  }
+
+  img.help {
+    height: 34px;
+    vertical-align: top;
+  }
+}
+
+.error-message {
+  font-size: 12px;
+  color: #f12932;
+  text-align: right;
+}

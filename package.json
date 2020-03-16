@@ -6,10 +6,11 @@
     "publish-jsf": "npm run build jsf && cd ./dist/jsf && npm publish",
     "publish-jsf-validation": "npm run build jsf-validation && cd ./dist/jsf-validation && npm publish",
     "ng": "ng",
-    "start": "ng serve",
+    "serve": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "lint-fix": "ng lint -- --fix",
     "e2e": "ng e2e"
   },
   "private": true,

@@ -1,0 +1,22 @@
+@import '../../form-controls/form-control.component';
+
+option {
+  color: #000000
+}
+
+.default-option, .default-selected {
+  color: #808080;
+}
+
+.tab-description {
+  margin: 20px 10px 10px 15px
+}
+
+.has-error {
+  border-bottom: 1px solid #ff0000;
+}
+
+.required-star {
+  color: #f00;
+  margin-left: 5px;
+}

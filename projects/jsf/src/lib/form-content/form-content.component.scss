@@ -1,0 +1,29 @@
+div:not(:last-child) {
+  margin-bottom: 10px;
+}
+  .section {
+  padding-left: 10px;
+  &:not(:first-child) {
+    margin-top: 10px;
+  }
+}
+
+.form-content {
+  margin-top: 10px;
+  &.section-divider:not(:last-child) {
+    border-bottom: 1px solid #ededeb;
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+  }
+}
+
+.obj-cont {
+  border: 1px solid #c4c4bc;
+  padding: 10px;
+  box-shadow: 2px 1px 5px #c4c4bc;
+  border-radius: 4px;
+}
+
+.hidden {
+  display: none;
+}

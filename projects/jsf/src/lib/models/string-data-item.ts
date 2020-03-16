@@ -1,39 +1,49 @@
-import { JSONSchemaProperty } from '../jsf-data-item.service';
-import { SecuredData } from '../jsf-data-item.service';
+import { SchemaStringOptions } from '../form-data-item.service';
+import { ButtonDataItem } from './button-data-item';
 import { FormDataItem } from './form-data-item';
 import { FormDataItemType } from './form-data-item';
 
 export class StringDataItem extends FormDataItem {
-  validationType: StringValidationType;
-  listOptions: StringListOptions;
-  securedItemData: SecuredData;
+  placeholder: string;
+  display: string;
+  validationSettings: StringValidationSettings;
 
-  constructor(key: string, label: string, tooltip: string, helpText: string, required: boolean,
-              pathParts: string[], type: FormDataItemType, value: any, schema: JSONSchemaProperty,
-              isEdit: boolean, public placeholder: string) {
-    super(key, label, tooltip, helpText, required, pathParts, type, value);
-    this.placeholder = placeholder || '';
-
-    this.securedItemData = { isSecured: Boolean(schema.isSecured), wasRequired: this.required };
-    if (isEdit && Boolean(schema.isSecured)) {
-      this.required = false;
-    }
-
-    this.disabledOnSubmit = this.securedItemData.isSecured && isEdit && !this.value;
-
-    const validation: string = schema.validation;
-    this.validationType = validation && Object.values(StringValidationType).includes(validation) ? validation as StringValidationType : StringValidationType.None;
-    this.listOptions = { isList: Boolean(schema.listDelimiter), delimiter: schema.listDelimiter };
+  constructor(key: string,
+              label: string,
+              tooltip: string,
+              helpText: string,
+              required: boolean,
+              pathParts: string[],
+              type: FormDataItemType,
+              value: any,
+              isReadOnly: boolean,
+              isHidden: boolean,
+              public buttons: ButtonDataItem[],
+              schemaOptions: SchemaStringOptions) {
+    super(key, label, tooltip, helpText, required, pathParts, type, value, isReadOnly, isHidden);
+    this.placeholder = schemaOptions.placeholder;
+    this.display = schemaOptions.display;
+    this.validationSettings = {
+      format: schemaOptions.format && Object.values(StringFormat).includes(schemaOptions.format) ? schemaOptions.format as StringFormat : StringFormat.None,
+      length: { minLength: schemaOptions.minLength, maxLength: schemaOptions.maxLength },
+      listDelimiter: schemaOptions.listDelimiter
+    };
   }
 }
 
-export enum StringValidationType {
+export enum StringFormat {
   Email = 'email',
-  Url = 'url',
+  Uri = 'uri',
   None = 'text'
 }
 
-export interface StringListOptions {
-  isList: boolean;
-  delimiter: string;
+export interface StringLengthOptions {
+  minLength: number;
+  maxLength: number;
+}
+
+export interface StringValidationSettings {
+  format: StringFormat;
+  length: StringLengthOptions;
+  listDelimiter: string;
 }

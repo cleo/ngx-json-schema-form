@@ -1,0 +1,9 @@
+<jsf-one-of-drop-down
+  *ngIf="item.display === display.DROPDOWN"
+  [formGroup]="formGroup"
+  [xOfDataItem]="item"
+  [config]="config"
+  [isEdit]="isEdit"
+  [labelLengthClass]="labelLengthClass"
+  (buttonEvent)="onButtonEvent($event)">
+</jsf-one-of-drop-down>
