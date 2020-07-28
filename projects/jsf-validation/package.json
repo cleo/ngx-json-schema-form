@@ -1,8 +1,9 @@
 {
-  "name": "ngx-json-schema-form-validation",
-  "version": "1.0.0",
+  "name": "@cleo/ngx-json-schema-form-validation",
+  "version": "2.0.0",
   "peerDependencies": {},
-  "publishConfig": {
-    "registry": "https://api.bintray.com/npm/cleo/npm"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/cleo/ngx-json-schema-form"
   }
 }
