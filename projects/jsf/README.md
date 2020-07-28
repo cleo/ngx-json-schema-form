@@ -1,18 +1,18 @@
 # JSON Schema Form
 
-This project is a [JSON Schema 7](http://json-schema.org) Form builder for Angular 8+. This project contains the front end code that consumes JSON Schema 
+This project is a [JSON Schema 7](http://json-schema.org) form builder for Angular 8+. This project contains the front end code that consumes JSON Schema 
 and generates a user friendly form that can be used in a web interface.
 
-This code needs to work in tandem with the back end JSON Schema Form Validation.
+This code needs to work in tandem with the back end [JSON Schema Form Validation](https://www.npmjs.com/package/@cleo/ngx-json-schema-form-validation) package.
 
 ### Getting Started
-1. Install the library in your project
+(1) Install the library in your project
 
 ```
 npm install @cleo/ngx-json-schema-form
 ```
 
-2. Import the JSFModule into your project.
+(2) Import the JSFModule into your project.
 ```
 @NgModule({
   declarations: [],
@@ -25,12 +25,12 @@ npm install @cleo/ngx-json-schema-form
 export class ExampleModule { }
 ```
 
-3. Configure your Angular component to use the JSON Schema Form. Reference the example below as well as a detailed list below of the necessary steps.
+(3) Configure your Angular component to use the JSON Schema Form. Reference the example below as well as a detailed list below of the necessary steps.
    - Create a JSFConfig object to control the commonly used confguration items:
       - If this is an edit case
       - If sections are collapsible
       - If there are dividers between sections
-   - Inject the JSFDataItemService into your constructor and use the `getFormDataItems()` method to transform the JSON 7 schema and corresponding values into an array of FormDataItems. FormDataItems are the data model that the JSF understands and uses to generate the angular forms.
+   - Inject the JSFDataItemService into your constructor and use the `getFormDataItems()` method to transform the JSON 7 Schema and corresponding values into an array of FormDataItems. FormDataItems are the data model that the JSF understands and uses to generate the angular forms.
    - Create a Submit button in your component. Listen to the `disableSubmit` event emitted from the JSON Schema Form and disable your submit button.
    - Create a ViewChild property in your component to reference your JSFComponent. Use this property to get the submitted form values by calling `this.schemaFormComponent.getFormValues();`
    - [Optional] Listen to the `formHeightChange` event emitted from the JSON Schema Form.
@@ -66,7 +66,7 @@ export class ExampleComponent {
 }
 ```
 
-4. Import the JSFComponent into your template. See example below.
+(4) Import the JSFComponent into your template. See example below.
 
 ``` HTML
   <jsf-component
