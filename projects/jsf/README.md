@@ -1,24 +1,80 @@
-# JSF
+# JSON Schema Form
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.2.14.
+This project is a [JSON Schema 7](http://json-schema.org) Form builder for Angular 8+. This project contains the front end code that consumes JSON Schema 
+and generates a user friendly form that can be used in a web interface.
 
-## Code scaffolding
+This code needs to work in tandem with the back end JSON Schema Form Validation.
 
-Run `ng generate component component-name --project jsf` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project jsf`.
-> Note: Don't forget to add `--project jsf` or else it will be added to the default project in your `angular.json` file. 
+### Getting Started
+1. Install the library in your project
 
-## Build
+```
+npm install @cleo/ngx-json-schema-form
+```
 
-Run `ng build jsf` to build the project. The build artifacts will be stored in the `dist/` directory.
+2. Import the JSFModule into your project.
+```
+@NgModule({
+  declarations: [],
+  exports: [],
+  imports: [
+    JSFModule
+  ],
+  providers: []
+})
+export class ExampleModule { }
+```
 
-## Publishing
+3. Configure your Angular component to use the JSON Schema Form. Reference the example below as well as a detailed list below of the necessary steps.
+   - Create a JSFConfig object to control the commonly used confguration items:
+      - If this is an edit case
+      - If sections are collapsible
+      - If there are dividers between sections
+   - Inject the JSFDataItemService into your constructor and use the `getFormDataItems()` method to transform the JSON 7 schema and corresponding values into an array of FormDataItems. FormDataItems are the data model that the JSF understands and uses to generate the angular forms.
+   - Create a Submit button in your component. Listen to the `disableSubmit` event emitted from the JSON Schema Form and disable your submit button.
+   - Create a ViewChild property in your component to reference your JSFComponent. Use this property to get the submitted form values by calling `this.schemaFormComponent.getFormValues();`
+   - [Optional] Listen to the `formHeightChange` event emitted from the JSON Schema Form.
 
-After building your library with `ng build jsf`, go to the dist folder `cd dist/jsf` and run `npm publish`.
+```
+@Component({
+  selector: 'example',
+  templateUrl: 'example.component.html',
+  styleUrls: ['./example.component.scss']
+})
+export class ExampleComponent {
+  @ViewChild(JSFComponent, { static: false }) schemaFormComponent: JSFComponent;
+  config = new JSFConfig(false, false, true);
+  formDataItems: FormDataItem[];
+    isSubmitDisabled = true;
 
-## Running unit tests
+  constructor(private jsfDataItemService: JSFDataItemService) {
+    // grab schema and values from some service
+    this.formDataItems = this.formDataItemService.getFormDataItems(schema, values, this.config.isEdit);
+  }
 
-Run `ng test jsf` to execute the unit tests via [Karma](https://karma-runner.github.io).
+  // this event allows you to enable/disable the submit button in the parent container
+  onDisableSubmit(disableSubmit: boolean): void {
+    this.isSubmitDisabled = disableSubmit;
+  }
 
-## Further help
+  // this event allows you to modify parent container height to match the height of the form
+  onFormHeightChange(formHeight: number): void { }
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+  getJSFFormValues(): void {
+    const jsonData = this.schemaFormComponent.getFormValues();
+  }
+}
+```
+
+4. Import the JSFComponent into your template. See example below.
+
+``` HTML
+  <jsf-component
+   [formDataItems]="formDataItems"
+   [config]="config"
+   (disableSubmit)="onDisableSubmit($event)"
+   (formHeightChange)="onFormHeightChange($event)">
+  </jsf-component>
+```
+
+_Note: be sure to only pass in a valid JSON schema object. If you don't already have your own schemas, you can use a preconfigured schema `projects/jsf-launcher/src/app/schema.json` to test with._

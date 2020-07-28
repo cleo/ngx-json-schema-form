@@ -1,24 +1,15 @@
-# JSF Validation
+# JSON Schema Form
 
-This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.1.2.
+This project validates [JSON Schema 7](http://json-schema.org) generated from the front end form builder.
+This code needs to work in tandem with the front end JSON Schema Form package.
 
-## Code scaffolding
+### Getting Started
+Install the library in your project
 
-Run `ng generate component component-name --project jsf-validation` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module --project jsf-validation`.
-> Note: Don't forget to add `--project jsf-validation` or else it will be added to the default project in your `angular.json` file. 
+```
+npm install @cleo/ngx-json-schema-form-validation
+```
 
-## Build
+Once the package has been installed, you can use the `RequiredSchemaValueValidationService` or `SecuredSchemaValueValidationService` to validate from the back end that the schema is formatted as you would expect.
 
-Run `ng build jsf-validation` to build the project. The build artifacts will be stored in the `dist/` directory.
-
-## Publishing
-
-After building your library with `ng build jsf-validation`, go to the dist folder `cd dist/jsf-validation` and run `npm publish`.
-
-## Running unit tests
-
-Run `ng test jsf-validation` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+_Note: be sure to only pass in a valid JSON schema object. If you don't already have your own schemas, you can use a preconfigured schema `projects/jsf-launcher/src/app/schema.json` to test with._
