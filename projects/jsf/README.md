@@ -45,7 +45,7 @@ export class ExampleComponent {
   @ViewChild(JSFComponent, { static: false }) schemaFormComponent: JSFComponent;
   config = new JSFConfig(false, false, true);
   formDataItems: FormDataItem[];
-    isSubmitDisabled = true;
+  isSubmitDisabled = true;
 
   constructor(private jsfDataItemService: JSFDataItemService) {
     // grab schema and values from some service
