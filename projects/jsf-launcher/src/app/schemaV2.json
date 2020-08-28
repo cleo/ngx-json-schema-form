@@ -1,0 +1,834 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "2.0.0",
+  "type": "object",
+  "display": "tabs",
+  "properties": {
+    "checkboxes": {
+      "type": "object",
+      "name": "Checkboxes",
+      "description": "This section displays checkbox functionality of the JSF. Checkboxes can never be required.",
+      "properties": {
+        "checkbox": {
+          "type": "boolean",
+          "name": "Checkbox Input",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "default": false
+        },
+        "defaultCheckbox": {
+          "type": "boolean",
+          "name": "Checkbox with Default",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "default": true
+        },
+        "readOnlyCheckbox": {
+          "type": "boolean",
+          "name": "Read Only Checkbox",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "default": true,
+          "isReadOnly": true
+        },
+        "hiddenCheckbox": {
+          "type": "boolean",
+          "name": "Hidden Checkbox",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "default": true,
+          "isHidden": true
+        }
+      }
+    },
+    "checkboxesWithChildren": {
+      "type": "object",
+      "name": "Checkboxes With Children",
+      "description": "This section displays checkbox with children functionality of the JSF. The hierarchical control extends the section control. This will display a checkbox with a label. When the checkbox is checked, it will display child items underneath it in a hierarchical structure. When the input is unchecked, the children are re-hidden. Note: The children form objects can be any form control type.",
+      "helpText": "This help text will display when you hover over the information icon",
+      "tooltip": "This tooltip will display when you hover over the label.",
+      "properties": {
+        "checkboxWithChildren1": {
+          "type": "object",
+          "isConditional": true,
+          "name": "Checkboxes With Children",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "required": [
+            "textInput1"
+          ],
+          "properties": {
+            "textInput1": {
+              "type": "string",
+              "name": "Text Input 1",
+              "default": "default value",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "placeholder": "This is placeholder text"
+            },
+            "textInput2": {
+              "type": "string",
+              "name": "Text Input 2",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "placeholder": "This is placeholder text"
+            }
+          }
+        },
+        "checkboxWithChildrenWithDefault": {
+          "type": "object",
+          "isConditional": true,
+          "name": "Checkboxes With Children with Default",
+          "default": true,
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "properties": {
+            "textInput1": {
+              "type": "string",
+              "name": "Text Input 1",
+              "default": "default value",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "placeholder": "This is placeholder text"
+            },
+            "textInput2": {
+              "type": "string",
+              "name": "Text Input 2",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "placeholder": "This is placeholder text"
+            }
+          }
+        },
+        "readOnlyCheckboxWithChildren": {
+          "type": "object",
+          "isConditional": true,
+          "name": "Read Only Checkboxes With Children",
+          "default": true,
+          "isReadOnly": true,
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "properties": {
+            "textInput1": {
+              "type": "string",
+              "name": "Text Input 1",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "placeholder": "This is placeholder text"
+            },
+            "textInput2": {
+              "type": "string",
+              "name": "Text Input 2",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "placeholder": "This is placeholder text"
+            }
+          }
+        },
+        "hiddenCheckboxWithChildren": {
+          "type": "object",
+          "isConditional": true,
+          "name": "Hidden Checkboxes With Children",
+          "default": true,
+          "isHidden": true,
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "properties": {
+            "textInput1": {
+              "type": "string",
+              "name": "Text Input 1",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "placeholder": "This is placeholder text"
+            },
+            "textInput2": {
+              "type": "string",
+              "name": "Text Input 2",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "placeholder": "This is placeholder text"
+            }
+          }
+        }
+
+      }
+    },
+    "enums": {
+      "type": "object",
+      "name": "Dropdowns & Radio Buttons",
+      "properties": {
+        "dropdowns": {
+          "type": "object",
+          "name": "Dropdowns",
+          "required": ["dropdown1"],
+          "description": "Dropdowns can be required or not required. If no values are passed in, the form will display \"Select an option...\" by default. If the dropdown is required, then the default option will be hidden once the user has selected a value. If the dropdown is not required, the default option will always be present.",
+          "properties": {
+            "dropdown1": {
+              "display": "dropdown",
+              "name": "Dropdown",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "enum": [
+                "option1",
+                "option2",
+                "option3"
+              ],
+              "enumNames": [
+                "Option 1",
+                "Option 2",
+                "Option 3"
+              ]
+            },
+            "dropdownWithDefault": {
+              "display": "dropdown",
+              "name": "Dropdown with Default",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "default": "option2",
+              "enum": [
+                "option1",
+                "option2",
+                "option3"
+              ],
+              "enumNames": [
+                "Option 1",
+                "Option 2",
+                "Option 3"
+              ]
+            },
+            "readOnlyDropdownWithDefault": {
+              "display": "dropdown",
+              "name": "Read Only Dropdown",
+              "isReadOnly": true,
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "default": "option2",
+              "enum": [
+                "option1",
+                "option2",
+                "option3"
+              ],
+              "enumNames": [
+                "Option 1",
+                "Option 2",
+                "Option 3"
+              ]
+            },
+            "hiddenDropdownWithDefault": {
+              "display": "dropdown",
+              "name": "Hidden Dropdown",
+              "isHidden": true,
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "default": "option2",
+              "enum": [
+                "option1",
+                "option2",
+                "option3"
+              ],
+              "enumNames": [
+                "Option 1",
+                "Option 2",
+                "Option 3"
+              ]
+            }
+          }
+        },
+        "radioButtons": {
+          "type": "object",
+          "name": "Radio Buttons",
+          "description": "Radio buttons will always be required. If no value is passed in, the first value will be selected by default.",
+          "properties": {
+            "radioButton1": {
+              "display": "radio-buttons",
+              "name": "Radio Buttons",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "enum": [
+                "option1",
+                "option2",
+                "option3"
+                ],
+              "enumNames": [
+                "Option 1",
+                "Option 2",
+                "Option 3"
+               ]
+            },
+            "radioButtonsWithDefault": {
+              "display": "radio-buttons",
+              "name": "Radio Buttons with Default",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "default": "defaultOption2",
+              "enum": [
+                "defaultOption1",
+                "defaultOption2",
+                "defaultOption3"
+              ],
+              "enumNames": [
+                "Option 1",
+                "Option 2",
+                "Option 3"
+              ]
+            },
+            "readOnlyRadioButtonsWithDefault": {
+              "display": "radio-buttons",
+              "name": "Read Only Radio Buttons",
+              "isReadOnly": true,
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "default": "defaultOption2",
+              "enum": [
+                "defaultOption1",
+                "defaultOption2",
+                "defaultOption3"
+              ],
+              "enumNames": [
+                "Option 1",
+                "Option 2",
+                "Option 3"
+              ]
+            },
+            "hiddenRadioButtonsWithDefault": {
+              "display": "radio-buttons",
+              "name": "HiddenRadio Buttons",
+              "isHidden": true,
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "default": "defaultOption2",
+              "enum": [
+                "defaultOption1",
+                "defaultOption2",
+                "defaultOption3"
+                ],
+              "enumNames": [
+                "Option 1",
+                "Option 2",
+                "Option 3"
+              ]
+            }
+          }
+        }
+      }
+    },
+    "dropdownsWithChildren": {
+      "type": "object",
+      "name": "Dropdowns with Children",
+      "description": "This control allows the user to select an option from the dropdown and have additional related form fields appear beneath the dropdown.",
+      "properties": {
+        "dropdownWithChildren1": {
+          "name": "Dropdown with Children",
+          "display": "dropdown",
+          "helpText": "This help text will display when you hover over the information icon",
+          "oneOf": [
+            {
+              "type": "object",
+              "name": "Option 1",
+              "key": "option1",
+              "properties": {
+                "child1": {
+                  "type": "string",
+                  "name": "Child 1 of Option 1"
+                },
+                "child2": {
+                  "type": "string",
+                  "name": "Child 2 of Option 1"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "name": "Option 2",
+              "key": "option2",
+              "required": [
+                "child2"
+              ],
+              "properties": {
+                "child1": {
+                  "type": "string",
+                  "name": "Child 1 of Option 2"
+                },
+                "child2": {
+                  "type": "string",
+                  "name": "Child 2 of Option 2"
+                }
+              }
+            }
+          ]
+        },
+        "dropdownWithChildren1WithDefault": {
+          "name": "Dropdown with Children with Default",
+          "display": "dropdown",
+          "default": "option2",
+          "oneOf": [
+            {
+              "type": "object",
+              "name": "Option 1",
+              "key": "option1",
+              "properties": {
+                "child1": {
+                  "type": "string",
+                  "name": "Child 1 of Option 1"
+                },
+                "child2": {
+                  "type": "string",
+                  "name": "Child 2 of Option 1"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "name": "Option 2",
+              "key": "option2",
+              "required": [
+                "child2"
+              ],
+              "properties": {
+                "child1": {
+                  "type": "string",
+                  "name": "Child 1 of Option 2"
+                },
+                "child2": {
+                  "type": "string",
+                  "name": "Child 2 of Option 2"
+                }
+              }
+            }
+          ]
+        },
+        "readOnlyDropdownWithChildren": {
+          "name": "Read Only Dropdown with Children",
+          "display": "dropdown",
+          "isReadOnly": true,
+          "default": "option2",
+          "oneOf": [
+            {
+              "type": "object",
+              "name": "Option 1",
+              "key": "option1",
+              "properties": {
+                "child1": {
+                  "type": "string",
+                  "name": "Child 1 of Option 1"
+                },
+                "child2": {
+                  "type": "string",
+                  "name": "Child 2 of Option 1"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "name": "Option 2",
+              "key": "option2",
+              "required": [
+                "child2"
+              ],
+              "properties": {
+                "child1": {
+                  "type": "string",
+                  "name": "Child 1 of Option 2"
+                },
+                "child2": {
+                  "type": "string",
+                  "name": "Child 2 of Option 2",
+                  "default": "default value"
+                }
+              }
+            }
+          ]
+        },
+        "hiddenDropdownWithChildren": {
+          "name": "Hidden Dropdown with Children",
+          "display": "dropdown",
+          "isHidden": true,
+          "default": "option2",
+          "oneOf": [
+            {
+              "type": "object",
+              "name": "Option 1",
+              "key": "option1",
+              "properties": {
+                "child1": {
+                  "type": "string",
+                  "name": "Child 1 of Option 1"
+                },
+                "child2": {
+                  "type": "string",
+                  "name": "Child 2 of Option 1"
+                }
+              }
+            },
+            {
+              "type": "object",
+              "name": "Option 2",
+              "key": "option2",
+              "required": [
+                "child2"
+              ],
+              "properties": {
+                "child1": {
+                  "type": "string",
+                  "name": "Child 1 of Option 2"
+                },
+                "child2": {
+                  "type": "string",
+                  "name": "Child 2 of Option 2",
+                  "default": "default value"
+                }
+              }
+            }
+          ]
+        }
+      }
+    },
+    "textInputs": {
+      "type": "object",
+      "name": "Text Inputs",
+      "description": "This section displays the functionality of the text inputs.",
+      "required": [
+        "textAreaInput"
+      ],
+      "properties": {
+        "textInput1": {
+          "type": "string",
+          "name": "General Text Input with Min and Max Length Constraints",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "placeholder": "This is placeholder text",
+          "minLength": 3,
+          "maxLength": 9,
+          "buttonKey": {
+            "type": "button",
+            "name": "Certificates...",
+            "targetPaths": [
+              "textInputs",
+              "textInputs.textInput1",
+              "textInputs.hiddenTextInput",
+              "textInputs.readOnlyTextInputWithDefault",
+              "checkboxes",
+              "checkboxes.checkbox",
+              "checkboxesWithChildren.checkboxWithChildren1.textInput1",
+              "checkboxesWithChildren.checkboxWithChildrenWithDefault",
+              "checkboxesWithChildren.checkboxWithChildrenWithDefault.textInput1",
+              "checkboxesWithChildren.readOnlyCheckboxWithChildren",
+              "checkboxesWithChildren.readOnlyCheckboxWithChildren.textInput1",
+              "enums.dropdowns.dropdownWithDefault",
+              "enums.radioButtons.radioButtonsWithDefault",
+              "dropdownsWithChildren",
+              "dropdownsWithChildren.dropdownWithChildren1",
+              "dropdownsWithChildren.dropdownWithChildren1.option1",
+              "dropdownsWithChildren.dropdownWithChildren1WithDefault",
+              "dropdownsWithChildren.dropdownWithChildren1WithDefault.option1",
+              "dropdownsWithChildren.dropdownWithChildren1WithDefault.option1.child1",
+              "dropdownsWithChildren.dropdownWithChildren1WithDefault.option2",
+              "securedTextInput",
+              "securedTextInput.securedTextInput",
+              "securedTextInput.readOnlySecuredTextInput",
+              "path.does.not.exist",
+              ""
+            ]
+          }
+        },
+        "textInputWithDefault": {
+          "type": "string",
+          "name": "Text Input With Default",
+          "default": "Default Text",
+          "isSecured": false
+        },
+        "readOnlyTextInputWithDefault": {
+          "type": "string",
+          "name": "Read Only Text Input",
+          "default": "Default Text",
+          "isSecured": false,
+          "isReadOnly": true
+        },
+        "urlTextInput": {
+          "type": "string",
+          "name": "Text Input With URI Format",
+          "format": "uri"
+        },
+        "emailTextInput": {
+          "type": "string",
+          "name": "Text Input With Email Format",
+          "format": "email"
+        },
+        "emailListTextInput": {
+          "type": "string",
+          "name": "Text Input With Email List Format",
+          "format": "email",
+          "listDelimiter": ":"
+        },
+        "textAreaInput": {
+          "type": "string",
+          "format": "email",
+          "placeholder": "General Large Text Area",
+          "name": "General Text Area Input",
+          "display": "textarea:rows=3,cols=200"
+        },
+        "hiddenTextInput": {
+          "type": "string",
+          "isHidden": true,
+          "name": "Hidden Text Input",
+          "default": "Hidden Text"
+        }
+      }
+    },
+    "securedTextInput": {
+      "type": "object",
+      "name": "Secured Text Inputs",
+      "description": "This will mask the text in the form, and will be used as a flag to the backend to indicate that this is sensitive data that needs to be stored securely. When the form is being edited, the secured value is never returned and there will be a password placeholder within the text input. If a field is marked as secured, but is not required, there will be a \"unset\" link next to the text input. This will allow the user to unset the value.",
+      "required": [
+        "securedTextInput"
+      ],
+      "properties": {
+        "securedTextInput": {
+          "type": "string",
+          "name": "Required Secured Text Input",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "isSecured": true
+        },
+        "securedTextInputOptional": {
+          "type": "string",
+          "name": "Optional Secured Text Input",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "isSecured": true
+        },
+        "readOnlySecuredTextInput": {
+          "type": "string",
+          "name": "Read Only Secured Text Input",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "isSecured": true,
+          "isReadOnly": true
+        },
+        "hiddenSecuredTextInput": {
+          "type": "string",
+          "name": "Hidden Secured Text Input",
+          "isSecured": true,
+          "isHidden": true
+        }
+      }
+    },
+    "integerInputs": {
+      "type": "object",
+      "name": "Integer Inputs",
+      "description": "Integer inputs support integers.",
+      "required": [
+        "defaultIntegerInput"
+      ],
+      "properties": {
+        "integerInput": {
+          "type": "integer",
+          "name": "Integer Input",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label."
+        },
+        "defaultIntegerInput": {
+          "type": "integer",
+          "name": "Integer Input",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "default": 100
+        },
+        "readonlyIntegerInput": {
+          "type": "integer",
+          "name": "Read Only Integer Input",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "default": 100,
+          "isReadOnly": true
+        },
+        "hiddenIntger": {
+          "type": "integer",
+          "name": "Hidden Integer Input",
+          "isHidden": true
+        }
+      }
+    },
+    "readOnlyObject": {
+      "type": "object",
+      "name": "Read-only Section",
+      "description": "This section has a read-only property that marks all of its children objects as read-only.",
+      "isReadOnly": true,
+      "properties": {
+        "string1": {
+          "type": "string",
+          "name": "Text Input 1"
+        },
+        "string2": {
+          "type": "string",
+          "name": "Text Input 2"
+        }
+      }
+    },
+    "hiddenTab": {
+      "type": "object",
+      "name": "Checkboxes",
+      "isHidden": true,
+      "description": "This section displays checkbox functionality of the JSF. Checkboxes can never be required.",
+      "properties": {
+        "child1": {
+          "type": "boolean",
+          "name": "Checkbox Input"
+        },
+        "child2": {
+          "type": "string",
+          "name": "Text Input"
+        }
+      }
+    },
+    "tabs": {
+      "name": "Tabs with AllOf",
+      "description": "This section and tabstrip are displayed using the allOf property. This description and label are defined in the object containing the allOf.",
+      "display": "tabs",
+      "allOf": [
+        {
+          "type": "object",
+          "key": "textInputs",
+          "name": "Text Inputs",
+          "description": "This section displays the functionality of the text inputs.",
+          "required": [
+            "textInput1"
+          ],
+          "properties": {
+            "textInput1": {
+              "type": "string",
+              "name": "General Text Input",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "placeholder": "This is placeholder text",
+              "buttonKey": {
+                "type": "button",
+                "name": "Certificates..."
+              }
+            }
+          }
+        },
+        {
+          "type": "object",
+          "name": "Dropdowns with Children II",
+          "key": "dropdownsChildrenII",
+          "description": "This control allows the user to select an option from the dropdown and have additional related form fields appear beneath the dropdown.",
+          "properties": {
+            "moreDropdowns": {
+              "name": "Another Dropdown with Children",
+              "display": "dropdown",
+              "oneOf": [
+                {
+                  "type": "object",
+                  "name": "Option 1",
+                  "key": "dd1",
+                  "properties": {
+                    "child1": {
+                      "type": "string",
+                      "name": "Child 1 of Option 1"
+                    },
+                    "child2": {
+                      "type": "string",
+                      "name": "Child 2 of Option 1"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "name": "Option 2",
+                  "key": "dd2",
+                  "required": [
+                    "ch1"
+                  ],
+                  "properties": {
+                    "ch1": {
+                      "type": "string",
+                      "name": "Child 1 of Option 2"
+                    },
+                    "ch2": {
+                      "type": "string",
+                      "name": "Child 2 of Option 2"
+                    }
+                  }
+                }
+              ]
+            },
+            "moreDropdownsDefault": {
+              "name": "Another Dropdown with Children with Default",
+              "display": "dropdown",
+              "default": "op1",
+              "oneOf": [
+                {
+                  "type": "object",
+                  "name": "Option 1",
+                  "key": "op1",
+                  "properties": {
+                    "ch1": {
+                      "type": "string",
+                      "name": "Child 1 of Option 1"
+                    },
+                    "ch2": {
+                      "type": "string",
+                      "name": "Child 2 of Option 1"
+                    }
+                  }
+                },
+                {
+                  "type": "object",
+                  "name": "Option 2",
+                  "key": "op2",
+                  "required": [
+                    "ch2"
+                  ],
+                  "properties": {
+                    "ch1": {
+                      "type": "string",
+                      "name": "Child 1 of Option 2"
+                    },
+                    "ch2": {
+                      "type": "string",
+                      "name": "Child 2 of Option 2"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        },
+        {
+          "type": "object",
+          "name": "Integer Inputs",
+          "key": "integerInputs",
+          "description": "Integer inputs support integers.",
+          "isHidden": true,
+          "required": [
+            "defaultIntegerInput"
+          ],
+          "properties": {
+            "integerInput": {
+              "type": "integer",
+              "name": "Integer Input",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label."
+            },
+            "defaultIntegerInput": {
+              "type": "integer",
+              "name": "Integer Input",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "default": 100
+            },
+            "readonlyIntegerInput": {
+              "type": "integer",
+              "name": "Integer Input",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "default": 100,
+              "isReadOnly": true
+            }
+          }
+        }
+      ]
+    }
+  }
+}

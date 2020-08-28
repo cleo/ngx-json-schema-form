@@ -1,0 +1,15 @@
+<jsf-tabstrip>
+  <jsf-tab
+    *ngFor="let item of items; let i = index"
+    [selected]="i === 0"
+    [dataItem]="item">
+    <jsf-form-content
+      [formGroup]="getFormGroup(item)"
+      [formItems]="item.items"
+      [config]="config"
+      [labelLengthClass]="getLabelLengthClass(item)"
+      (buttonEvent)="onButtonEvent($event)"
+      [isEdit]="isEdit">
+    </jsf-form-content>
+  </jsf-tab>
+</jsf-tabstrip>

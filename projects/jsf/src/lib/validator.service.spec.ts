@@ -1,10 +1,10 @@
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
-import { StringDataItem, StringValidationType } from './models/string-data-item';
+import { StringDataItem, StringFormat, StringLengthOptions } from './models/string-data-item';
 import { ValidatorService } from './validator.service';
 import Spy = jasmine.Spy;
 
-describe('SchemaFormValidatorService', () => {
+describe('ValidatorService', () => {
   const key = 'key';
   const label = 'label';
   const tooltip = 'tooltip';
@@ -16,7 +16,7 @@ describe('SchemaFormValidatorService', () => {
   beforeEach(() => {
     service = new ValidatorService();
     item = new FormDataItem(key, label, tooltip, '', false,
-      ['path'], FormDataItemType.Boolean, undefined);
+      ['path'], FormDataItemType.Boolean, undefined, false, false);
     control = new FormControl('');
     validatorFn = null;
   });
@@ -27,15 +27,15 @@ describe('SchemaFormValidatorService', () => {
       expect(service.getValidators(item)).toContain(Validators.required);
     });
 
-    describe('number validators', () => {
+    describe('integer validators', () => {
       let getIntValidatorSpy: Spy;
 
       beforeEach(() => {
         getIntValidatorSpy = spyOn<any>(service, 'getIntValidator');
-        item.type = FormDataItemType.Number;
+        item.type = FormDataItemType.Integer;
       });
 
-      it('adds all number validators', () => {
+      it('adds all integer validators', () => {
         const validators = service.getValidators(item);
         expect(getIntValidatorSpy).toHaveBeenCalled();
         expect(validators.length).toBe(3);
@@ -64,52 +64,97 @@ describe('SchemaFormValidatorService', () => {
       beforeEach(() => {
         item.type = FormDataItemType.String;
         stringItem = item as StringDataItem;
-        stringItem.validationType = StringValidationType.None;
-        stringItem.listOptions = { isList: false, delimiter: ''};
-        stringItem.securedItemData = { isSecured: false, wasRequired: false };
+        stringItem.validationSettings = { format: StringFormat.None, length: {} as StringLengthOptions, listDelimiter: '' };
+        validatorFn = Validators.compose(service.getValidators(stringItem));
       });
 
-      describe('URL Validators', () => {
-        let getUrlListValidatorSpy: Spy;
+      describe('length validation', () => {
+        const min = 5;
+        const max = 10;
 
         beforeEach(() => {
-          getUrlListValidatorSpy = spyOn<any>(service, 'getUrlListValidator');
-          stringItem.validationType = StringValidationType.Url;
+          stringItem.validationSettings.length = { minLength: min, maxLength: max};
+          validatorFn = Validators.compose(service.getValidators(stringItem));
         });
 
-        describe('when validating a single url', () => {
+        it('does not flag an empty value', () => {
+          control.setValue('');
+          expect(validatorFn(control)).toBeNull('Should not flag a value of \'\'');
+
+          control.setValue(null);
+          expect(validatorFn(control)).toBeNull('Should not flag a value of null');
+
+          control.setValue(undefined);
+          expect(validatorFn(control)).toBeNull('Should not flag a value of undefined');
+        });
+
+        it('should throw an error if string length is less than the minimum length', () => {
+          control.setValue('123');
+          const validation = validatorFn(control);
+          expect(validation.minlength).toBeDefined('The minimum length error should exist');
+          expect(validation.minlength.requiredLength).toEqual(min, 'The required length should be the minimum length');
+          expect(validation.maxlength).toBeUndefined('The maximum length error should not exist');
+        });
+
+        it('should not throw an error if string length is equal to the minimum length', () => {
+          control.setValue('12345');
+          expect(validatorFn(control)).toBeNull();
+        });
+
+        it('should throw an error if string length is more than the maximum length', () => {
+          control.setValue('12345678901');
+          const validation = validatorFn(control);
+          expect(validation.minlength).toBeUndefined('The minimum length error should not exist');
+          expect(validation.maxlength).toBeDefined('The maximum length error should exist');
+          expect(validation.maxlength.requiredLength).toEqual(max, 'The required length should be the maximum length');
+        });
+
+        it('should not throw an error if string length is equal to the maximum length', () => {
+          control.setValue('1234567890');
+          expect(validatorFn(control)).toBeNull();
+        });
+      });
+
+      describe('URI Validators', () => {
+        let getUriListValidatorSpy: Spy;
+
+        beforeEach(() => {
+          getUriListValidatorSpy = spyOn<any>(service, 'getUriListValidator');
+          stringItem.validationSettings.format = StringFormat.Uri;
+        });
+
+        describe('when validating a single uri', () => {
           beforeEach(() => {
             validatorFn = Validators.compose(service.getValidators(stringItem));
           });
 
-          it('returns the URL pattern validator if it is not a url list', () => {
+          it('returns the URI pattern validator if it is not a uri list', () => {
             const validators = service.getValidators(stringItem);
             expect(validators.length).toBeDefined();
-            expect(getUrlListValidatorSpy).not.toHaveBeenCalled();
+            expect(getUriListValidatorSpy).not.toHaveBeenCalled();
           });
 
           it('returns valid if there is no value', () => {
             expect(validatorFn(control)).toBeNull();
           });
 
-          it('validates for a single url', () => {
+          it('validates for a single uri', () => {
             control.setValue('https://test.Okta.com/api');
             expect(validatorFn(control)).toBeNull();
           });
         });
 
-        describe('for a url list', () => {
+        describe('for a uri list', () => {
           beforeEach(() => {
-            getUrlListValidatorSpy.and.callThrough();
-            stringItem.listOptions.isList = true;
-            stringItem.listOptions.delimiter = ';';
+            getUriListValidatorSpy.and.callThrough();
+            stringItem.validationSettings.listDelimiter = ';';
             validatorFn = Validators.compose(service.getValidators(stringItem));
           });
 
           it('returns the email list validator if it is a email list', () => {
             const validators = service.getValidators(stringItem);
             expect(validators.length).toBeDefined();
-            expect(getUrlListValidatorSpy).toHaveBeenCalled();
+            expect(getUriListValidatorSpy).toHaveBeenCalled();
           });
 
           it('returns valid if there is no value', () => {
@@ -119,27 +164,27 @@ describe('SchemaFormValidatorService', () => {
           });
 
           describe('when validating the list', () => {
-            it('returns valid with a single url', () => {
+            it('returns valid with a single uri', () => {
               control.setValue('https://test.Okta.com/api');
               expect(validatorFn(control)).toBeNull();
             });
 
-            it('returns valid with a correctly delimited url list', () => {
+            it('returns valid with a correctly delimited uri list', () => {
               control.setValue('test1.com;https://test.Okta.com/api;test3.com');
               expect(validatorFn(control)).toBeNull();
             });
 
             it('returns invalid with trailing or leading whitespace', () => {
-              const u1 = ' test.url1 ';
-              const u2 = ' test.url2 ';
+              const u1 = ' test.uri1 ';
+              const u2 = ' test.uri2 ';
               control.setValue(`${u1};${u2}`);
-              expect(validatorFn(control).invalidUrls).toEqual([u1, u2]);
+              expect(validatorFn(control).invalidUris).toEqual([u1, u2]);
             });
 
-            it('returns invalid with 1 or more invalid urls', () => {
-              const invalidUrl = 'test';
-              control.setValue(`test.url;${invalidUrl}`);
-              expect(validatorFn(control).invalidUrls).toEqual([invalidUrl]);
+            it('returns invalid with 1 or more invalid uris', () => {
+              const invalidUri = 'test';
+              control.setValue(`test.uri;${invalidUri}`);
+              expect(validatorFn(control).invalidUris).toEqual([invalidUri]);
             });
           });
 
@@ -151,7 +196,7 @@ describe('SchemaFormValidatorService', () => {
 
         beforeEach(() => {
           getEmailListValidatorSpy = spyOn<any>(service, 'getEmailListValidator');
-          stringItem.validationType = StringValidationType.Email;
+          stringItem.validationSettings.format = StringFormat.Email;
         });
 
         describe('when validating a single email', () => {
@@ -181,8 +226,7 @@ describe('SchemaFormValidatorService', () => {
         describe('for an email list', () => {
           beforeEach(() => {
             getEmailListValidatorSpy.and.callThrough();
-            stringItem.listOptions.isList = true;
-            stringItem.listOptions.delimiter = ':';
+            stringItem.validationSettings.listDelimiter = ':';
             validatorFn = Validators.compose(service.getValidators(stringItem));
           });
 

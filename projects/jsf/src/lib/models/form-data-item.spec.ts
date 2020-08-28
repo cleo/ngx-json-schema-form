@@ -10,11 +10,13 @@ describe('SchemaDataItem', () =>  {
   const pathParts = ['path1', 'path2'];
   const expectedPath = 'path1.path2';
   const type = FormDataItemType.String;
+  const isReadOnly = false;
+  const isHidden = true;
 
   let dataItem: FormDataItem;
 
   beforeEach(() => {
-    dataItem = new FormDataItem(key, label, tooltip, helpText, required, pathParts, type, value);
+    dataItem = new FormDataItem(key, label, tooltip, helpText, required, pathParts, type, value, isReadOnly, isHidden);
   });
 
   it('should set the value', () => {
@@ -22,7 +24,7 @@ describe('SchemaDataItem', () =>  {
   });
 
   it('should set the value to an empty string', () => {
-    const result = new FormDataItem(key, label, tooltip, helpText, required, pathParts, type, undefined);
+    const result = new FormDataItem(key, label, tooltip, helpText, required, pathParts, type, undefined, isReadOnly, isHidden);
     expect(result.value).toEqual('');
   });
 
@@ -39,7 +41,7 @@ describe('SchemaDataItem', () =>  {
   });
 
   it('should set the tooltip to an empty string if it is undefined', () => {
-    const result = new FormDataItem(key, label, undefined, helpText, required, pathParts, type, value);
+    const result = new FormDataItem(key, label, undefined, helpText, required, pathParts, type, value, isReadOnly, isHidden);
     expect(result.tooltip).toEqual('');
   });
 
@@ -48,7 +50,7 @@ describe('SchemaDataItem', () =>  {
   });
 
   it('should set the helpText to an empty string if it is undefined', () => {
-    const result = new FormDataItem(key, label, tooltip, undefined, required, pathParts, type, value);
+    const result = new FormDataItem(key, label, tooltip, undefined, required, pathParts, type, value, isReadOnly, isHidden);
     expect(result.helpText).toEqual('');
   });
 
@@ -66,5 +68,13 @@ describe('SchemaDataItem', () =>  {
 
   it('should set the path', () => {
     expect(dataItem.path).toEqual(expectedPath);
+  });
+
+  it('should set if it is read only', () => {
+    expect(dataItem.disabledState.isReadOnly).toEqual(isReadOnly);
+  });
+
+  it('should set if it is hidden', () => {
+    expect(dataItem.isHidden).toEqual(isHidden);
   });
 });

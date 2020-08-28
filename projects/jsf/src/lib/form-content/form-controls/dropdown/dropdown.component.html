@@ -1,0 +1,29 @@
+<div class="form-item-with-label">
+  <jsf-label [formItem]="formItem" [labelLengthClass]="labelLengthClass"></jsf-label>
+  <div class="form-item" [formGroup]="formGroup">
+    <div class="control-with-error">
+      <select
+        class="form-control"
+        [class.default-selected]="isDefaultSelected()"
+        [title]="formItem.tooltip"
+        [formControlName]="formItem.key"
+        [id]="formItem.path"
+        (change)="onChange()">
+        <option
+          *ngIf="showDefault()"
+          class="default-option"
+          [id]="getDefaultId()"
+          [selected]="isDefaultSelected()"
+          [value]="''">Select an option</option>
+        <option *ngFor="let item of formItemAsEnumType.enumOptions"
+                [id]="item.path"
+                [value]="item.key">{{item.text}}</option>
+      </select>
+      <div class="error-message" *ngIf="showError">{{getErrorMessage()}}</div>
+    </div>
+    <img *ngIf="formItem.helpText"
+         class="help"
+         [title]="formItem.helpText"
+         [src]="'assets/jsf-images/info.svg'">
+  </div>
+</div>

@@ -14,6 +14,11 @@
           "options": {
             "tsConfig": "projects/jsf/tsconfig.lib.json",
             "project": "projects/jsf/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/jsf/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {
@@ -57,7 +62,7 @@
             "main": "projects/jsf-launcher/src/main.ts",
             "polyfills": "projects/jsf-launcher/src/polyfills.ts",
             "tsConfig": "projects/jsf-launcher/tsconfig.app.json",
-            "aot": false,
+            "aot": true,
             "assets": [
               "projects/jsf-launcher/src/favicon.ico",
               "projects/jsf-launcher/src/assets"
@@ -81,7 +86,6 @@
               "sourceMap": false,
               "extractCss": true,
               "namedChunks": false,
-              "aot": true,
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,
@@ -171,6 +175,11 @@
           "options": {
             "tsConfig": "projects/jsf-validation/tsconfig.lib.json",
             "project": "projects/jsf-validation/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/jsf-validation/tsconfig.lib.prod.json"
+            }
           }
         },
         "test": {

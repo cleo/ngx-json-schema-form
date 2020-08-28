@@ -1,0 +1,57 @@
+<div #contentDiv class="form-content"
+     *ngFor="let item of getNonTabbedItems(); let i = index"
+     [class.section]="isSection(item) && item.label"
+     [class.section-divider]="shouldHaveSectionDivider(i)"
+     [class.hidden]="isHidden(item)">
+
+  <jsf-form-control
+    *ngIf="!isParent(item) && !isHidden(item)"
+    [formItem]="item"
+    [formGroup]="formGroup"
+    [isEdit]="isEdit"
+    [config]="config"
+    [labelLengthClass]="labelLengthClass"
+    (buttonEvent)="onButtonEvent($event)"></jsf-form-control>
+
+  <jsf-checkbox-with-children
+    *ngIf="isConditionalObject(item) && !isHidden(item)"
+    [formItem]="getConditionalParentFormItem(item)"
+    [formGroup]="getFormGroup(item)"
+    [isEdit]="isEdit"
+    [config]="config"
+    (buttonEvent)="onButtonEvent($event)"></jsf-checkbox-with-children>
+
+  <jsf-section
+    *ngIf="isSection(item) && !isHidden(item)"
+    [formItem]="getParentFormItem(item)"
+    [formGroup]="getFormGroup(item)"
+    [isEdit]="isEdit"
+    [config]="config"
+    (buttonEvent)="onButtonEvent($event)"></jsf-section>
+
+<!--
+  The "hidden" class is a temporary solution for hidden oneOfs. ngIf* cannot be used.
+  Since the child FormGroups are initially ALL added to the oneOf parent FormGroup, and the logic for removing the non-selected child FormGroups happens within the component itself,
+  when the oneOf component is *ngIfed, that logic is never hit.
+  Therefore, the returned data for a hidden oneOf includes ALL options, rather than one. This fails 1.0.0 backend validation.
+  TODO: address this, if necessary, in S-19293 https://www4.v1host.com/CleoCommunications/story.mvc/Summary?oidToken=Story%3A225149
+-->
+  <jsf-one-of
+    *ngIf="isOneOf(item)"
+    [class.hidden]="isHidden(item)"
+    [item]="item"
+    [formGroup]="getFormGroup(item)"
+    [isEdit]="isEdit"
+    [config]="config"
+    [labelLengthClass]="labelLengthClass"
+    (buttonEvent)="onButtonEvent($event)"></jsf-one-of>
+</div>
+
+<jsf-tabs
+  *ngIf="hasTabbedItems()"
+  [items]="getTabbedItems()"
+  [formGroup]="formGroup"
+  [config]="config"
+  [isEdit]="isEdit"
+  (buttonEvent)="onButtonEvent($event)"></jsf-tabs>
+

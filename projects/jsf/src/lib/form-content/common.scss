@@ -1,0 +1,62 @@
+.header {
+  font-size: 18px;
+}
+
+.arrows {
+  width:20px;
+  display: inline-block;
+}
+
+.arrow-up, .arrow-down {
+  height: 7px;
+  margin-right: 5px;
+  margin-bottom: 5px;
+  cursor: pointer;
+}
+
+label:not(.header) {
+  vertical-align: top;
+  font-weight: 500;
+  padding-right: 5px;
+}
+
+.item-label {
+  display: inline-block;
+  min-width: 100px;
+  vertical-align: middle;
+  padding-right: 20px;
+}
+
+.description {
+  margin: -9px 0 10px 20px;
+  font-size: 15px;
+}
+
+input[type="checkbox"] {
+  margin-right: 15px;
+}
+
+.help {
+  width: 17px;
+  padding-bottom: 3px;
+  margin-left: 10px;
+}
+
+.invisible {
+  visibility: hidden;
+}
+
+select, input, textarea {
+  &.ng-touched.ng-invalid, &.ng-dirty.ng-invalid {
+    border-color: #f12932;
+  }
+}
+
+.form-control {
+  display: inline-block;
+}
+
+.hidden {
+  display: none;
+}
+

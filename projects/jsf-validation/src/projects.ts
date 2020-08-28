@@ -1,5 +1,5 @@
 /*
- * Public API Surface of ngx-json-schema-form-validation
+ * Public API Surface of jsf-validation
  */
 
 export * from './lib/required-schema-value-validation.service';

@@ -1,16 +1,21 @@
 <jsf-component
-              [formDataItems]="formDataItems"
-              [config]="config"
-             (disableSubmit)="updateSubmitButtonStatus($event)"
-             (formHeightChange)="emitTotalHeight($event)">
-</jsf-component>
+  [schemaData]="schemaData"
+  [config]="config"
+  (disableSubmit)="updateSubmitButtonStatus($event)"
+  (formHeightChange)="emitTotalHeight($event)"
+  (buttonEvent)="buttonEvent($event)"></jsf-component>
+
 <div *ngIf="showValidationMessage"
      class="validation"
      [ngClass]="isValid ? 'valid' : 'not-valid'">
     <p *ngIf="isValid">Validation Successful!</p>
     <p *ngIf="!isValid">Validation NOT Successful!</p>
 </div>
+
 <div class="submit-row">
+  <button class="btn btn-secondary"
+          (click)="onLogForm()"
+          title="This will log the form.">Log Form</button>
   <button class="btn btn-secondary"
           (click)="onCancel()"
           title="This will reload the form.">Cancel</button>

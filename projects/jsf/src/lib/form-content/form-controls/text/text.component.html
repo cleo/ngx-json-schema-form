@@ -1,0 +1,29 @@
+<div class="form-item-with-label">
+  <jsf-label [formItem]="formItem" [labelLengthClass]="labelLengthClass"></jsf-label>
+  <div class="form-item" [formGroup]="formGroup">
+    <div class="control-with-error">
+      <input
+        class="form-control"
+        [placeholder]="getStringDataItem().placeholder"
+        [formControlName]="formItem.key"
+        [id]="formItem.path"
+        [type]="getInputType()"
+        (blur)="onStringBlur()"
+        (focus)="onFocus()">
+      <div class="character-counter" *ngIf="showCounter">
+        <span class="max" [class.error]="hasMaxLengthError()" *ngIf="hasMaxLength()">{{getMaxCharacterCountInfo()}}</span>
+        <span class="min" [class.error]="hasMinLengthError()" *ngIf="hasMinLength()">{{getMinCharacterCountInfo()}}</span>
+      </div>
+      <div class="error-message" *ngIf="showError">{{getErrorMessage()}}</div>
+    </div>
+    <div class="event-btns" *ngFor="let button of getStringDataItem().buttons">
+      <jsf-event-button
+        [buttonData]="button"
+        (buttonEvent)="onButtonEvent($event)"></jsf-event-button>
+    </div>
+    <img *ngIf="formItem.helpText"
+         class="help"
+         [title]="formItem.helpText"
+         [src]="'assets/jsf-images/info.svg'">
+  </div>
+</div>

@@ -1,0 +1,5 @@
+@import '../form-control.component';
+
+.form-item:not(.default-col) .control-with-error {
+  width: auto;
+}

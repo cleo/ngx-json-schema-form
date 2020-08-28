@@ -1,3 +1,8 @@
-  <form #schemaForm class="well" [formGroup]="form" (change)="onFormElementChange()">
-    <jsf-content [formItems]="formItems" [form]="form" [config]="config"></jsf-content>
+  <form #formRoot class="well" [formGroup]="formGroup" (change)="onFormElementChange()">
+    <jsf-form-content
+      [formItems]="formDataItems"
+      [formGroup]="formGroup"
+      [config]="config"
+      [isEdit]="isEdit"
+      (buttonEvent)="onButtonEvent($event)"></jsf-form-content>
   </form>

@@ -1,0 +1,16 @@
+  <jsf-drop-down
+    [formItem]="getDropdownDataItem()"
+    [formGroup]="formGroup"
+    [config]="config"
+    (selectedKey)="onDropdownChange($event)"
+    [labelLengthClass]="labelLengthClass">
+  </jsf-drop-down>
+  <div class="selected-schema-content" *ngIf="selectedKey">
+    <jsf-form-content
+      [formItems]="selectedChildDataItem.items"
+      [formGroup]="selectedChildFormGroup"
+      [config]="config"
+      [isEdit]="isEdit"
+      [labelLengthClass]="labelLengthClass"
+      (buttonEvent)="onButtonEvent($event)"></jsf-form-content>
+  </div>

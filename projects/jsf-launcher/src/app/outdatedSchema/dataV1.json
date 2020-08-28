@@ -1,0 +1,53 @@
+{
+  "checkboxes": {
+    "checkbox": false,
+    "defaultCheckbox": true
+  },
+  "checkboxesWithChildren": {
+    "checkboxWithChildren1": {
+      "value": false
+    },
+    "checkboxWithChildren2": {
+      "textInput1": "",
+      "textInput2": "",
+      "value": true
+    }
+  },
+  "enums": {
+    "dropdowns": {
+      "dropdown1": "",
+      "dropdownWithDefault": "option2"
+    },
+    "radioButtons": {
+      "radioButton1": "option1",
+      "radioButtonsWithDefault": "defaultOption2"
+    }
+  },
+  "dropdownsWithChildren": {
+    "dropdownWithChildren1": {
+      "option2": {
+        "child1": "",
+        "child2": "asdf"
+      }
+    },
+    "dropdownWithChildren1WithDefault": {
+      "option2": {
+        "child1": "",
+        "child2": "asdf"
+      }
+    }
+  },
+  "textInputs": {
+    "textInput1": "asdf",
+    "textInputWithDefault": "Default Text",
+    "urlTextInput": "",
+    "emailTextInput": "",
+    "emailListTextInput": ""
+  },
+  "securedTextInput": {
+  },
+  "numberInputs": {
+    "numberInput": "",
+    "defaultNumberInput": 100
+  }
+}

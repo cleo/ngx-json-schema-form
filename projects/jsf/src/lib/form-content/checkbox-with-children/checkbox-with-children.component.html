@@ -1,0 +1,17 @@
+<jsf-check-box
+  [formItem]="parentFormItem"
+  [formGroup]="formGroup"
+  [config]="config"
+  (toggle)="onToggle($event)">
+</jsf-check-box>
+
+<div class="item-group">
+  <jsf-form-content
+    [formItems]="visibleChildFormItems"
+    [formGroup]="formGroup"
+    [isEdit]="isEdit"
+    [config]="config"
+    [labelLengthClass]="labelLengthClass"
+    (buttonEvent)="onButtonEvent($event)">
+  </jsf-form-content>
+</div>

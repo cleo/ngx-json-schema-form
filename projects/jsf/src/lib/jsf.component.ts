@@ -5,12 +5,16 @@ import { NEVER } from 'rxjs';
 import { switchMap, take } from 'rxjs/internal/operators';
 import { takeUntil, tap } from 'rxjs/operators';
 
-import { ComponentLifeCycle, getInputValue$ } from './ComponentLifeCycle';
+import { ComponentLifeCycle, getInputValue$ } from './component-life-cycle';
+import { FormContentComponent } from './form-content/form-content.component';
+import { FormDataItemService } from './form-data-item.service';
+import { FormService } from './form.service';
 import { JSFConfig } from './jsf-config';
-import { JSFService } from './jsf.service';
+import { JSFEventButton } from './jsf-event-button';
+import { JSFEventButtonTarget } from './jsf-event-button-target';
+import { JSFSchemaData } from './jsf-schema-data';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
 import { ParentDataItem } from './models/parent-data-item';
-import { SchemaFormContentComponent } from './schema-form-content/jsf-content.component';
 
 @Component({
   selector: 'jsf-component',
@@ -19,37 +23,39 @@ import { SchemaFormContentComponent } from './schema-form-content/jsf-content.co
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, OnInit {
-  @ViewChild(SchemaFormContentComponent, { static: true }) content: SchemaFormContentComponent;
-  @ViewChild('schemaForm', { static: true }) formElement: ElementRef<HTMLFormElement>;
+  @ViewChild(FormContentComponent, { static: true }) content: FormContentComponent;
+  @ViewChild('formRoot', { static: true }) formElement: ElementRef<HTMLFormElement>;
   @Input() config: JSFConfig;
-  @Input() formDataItems;
+  @Input() schemaData;
   @Output() disableSubmit: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() formHeightChange: EventEmitter<number> = new EventEmitter();
+  @Output() buttonEvent: EventEmitter<JSFEventButton> = new EventEmitter();
 
-  formItems: FormDataItem[] = [];
-  form: FormGroup = new FormGroup({});
+  formDataItems: FormDataItem[] = [];
+  formGroup: FormGroup = new FormGroup({});
+  isEdit = false;
 
-  constructor(private sfs: JSFService) {
+  constructor(private formService: FormService, private dataItemService: FormDataItemService) {
     super();
   }
 
   ngOnInit() {
     super.ngOnInit();
 
-    getInputValue$(this, 'formDataItems').pipe(
-      switchMap((items: FormDataItem[]) => {
-        if (!items) {
+    getInputValue$(this, 'schemaData').pipe(
+      switchMap((data: JSFSchemaData) => {
+        if (!data || !data.schema) {
           return NEVER;
         }
+        this.isEdit = !!data.values && Object.keys(data.values).length > 0;
+        this.formDataItems = this.dataItemService.getFormDataItems(data, this.isEdit);
+        this.formGroup = this.formService.getForm(new FormGroup({}), this.formDataItems);
 
-        this.formItems = items;
-        this.form = this.sfs.getForm(new FormGroup({}), this.formItems);
-
-        if (this.config.isEdit && this.form.valid) {
+        if (this.isEdit && this.formGroup.valid) {
           this.disableSubmit.next(false);
         }
 
-        return this.form.statusChanges.pipe(
+        return this.formGroup.statusChanges.pipe(
           tap(status => {
             if (status === 'INVALID' || status === 'DISABLED') {
               this.disableSubmit.next(true);
@@ -99,43 +105,35 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
       + ERROR_BUFFER_HEIGHT;
   }
 
-  enableDisableUnchangedSecuredStringControls(abstractControl: FormGroup, items: FormDataItem[], shouldDisable: boolean): void {
-    items.forEach(item => {
-      const formControl = abstractControl.controls[item.key];
-      if (!!formControl) { // formControl may not always be present due to xOfs and conditional controls
-        switch (item.type) {
-          case FormDataItemType.Object:
-          case FormDataItemType.xOf:
-            if (item.disabledOnSubmit) {
-              this.toggleEnableDisable(formControl, shouldDisable);
-            } else {
-              const parentItem = item as ParentDataItem;
-              this.enableDisableUnchangedSecuredStringControls(formControl as FormGroup, parentItem.items, shouldDisable);
-            }
-            break;
-          case FormDataItemType.Enum:
-          case FormDataItemType.String:
-            if (item.disabledOnSubmit) {
-              this.toggleEnableDisable(formControl, shouldDisable);
-            }
-            break;
-        }
-      }
-    });
-  }
-
-  toggleEnableDisable(abstractControl: AbstractControl, shouldDisable: boolean): void {
-    if (shouldDisable) {
-      abstractControl.disable();
-      } else {
-      abstractControl.enable();
-    }
-  }
-
   getFormValues(): any {
-    this.enableDisableUnchangedSecuredStringControls(this.form, this.formItems, true);
-    const result = this.form.value;
-    this.enableDisableUnchangedSecuredStringControls(this.form, this.formItems, false);
-    return result;
+    return this.formService.getFormValues(this.formGroup, this.formDataItems);
+  }
+
+  /**
+   * This method takes in information from a button event, finds all of the form values
+   * from the provided target paths, and emits an event to the parent project of the JSF.
+   * The data that is emitted will contain a path and the target forms values.
+   *
+   * These form values will possibly be mutated by the parent project and
+   * can act as scaffolding for when the data is passed back into the project.
+   *
+   * Note: if a targetPath cannot be found, it will not be returned in emitted event
+   *
+   * @param {{key: string; targetPaths: string[]}} event - an event that indicates a button
+   *                    has been clicked. This contains an array of multiple target paths.
+   */
+  onButtonEvent(event: { key: string; targetPaths: string[] }): void {
+    const targets: JSFEventButtonTarget[] = event.targetPaths.map(path => {
+      const targetPath = path.split('.');
+      const control = this.formService.findAbstractControl(targetPath, this.formGroup);
+      const dataItem = this.dataItemService.findFormDataItem(targetPath, this.formDataItems);
+
+      if (dataItem && control) {
+        const items = dataItem instanceof ParentDataItem ? (dataItem as ParentDataItem).items : [dataItem];
+        const result = this.formService.getFormValues(control, items);
+        return { path: path, data: result };
+      }
+    }).filter(value => !!value);
+    this.buttonEvent.next({ key: event.key, targets: targets });
   }
 }

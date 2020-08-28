@@ -1,5 +1,4 @@
-export class JSFConfig {
-  constructor(public isEdit: boolean,
-              public collapsibleSections: boolean,
-              public sectionDivider: boolean) {}
+export interface JSFConfig {
+  enableCollapsibleSections: boolean;
+  showSectionDivider: boolean;
 }

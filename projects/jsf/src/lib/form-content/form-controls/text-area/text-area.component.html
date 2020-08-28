@@ -1,0 +1,20 @@
+<div class="form-item-with-label">
+  <jsf-label [formItem]="formItem" [labelLengthClass]="labelLengthClass"></jsf-label>
+  <div class="form-item" [class.default-col]="isDefaultColsWidth" [formGroup]="formGroup">
+    <div class="control-with-error">
+      <textarea
+        class="form-control"
+        [placeholder]="stringDataItem.placeholder"
+        [formControlName]="formItem.key"
+        [id]="formItem.path"
+        [rows]="rows"
+        [cols]="cols">
+      </textarea>
+      <img *ngIf="formItem.helpText"
+           class="help"
+           [title]="formItem.helpText"
+           [src]="'assets/jsf-images/info.svg'">
+      <div class="error-message" *ngIf="showError">{{getErrorMessage()}}</div>
+    </div>
+  </div>
+</div>
