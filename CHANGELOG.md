@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
-## [2.0.0] (Unreleased)
+## [2.0.0] (2020-08-28)
 ### Breaking Changes
 - Validation Keyword Update
 - Usability Refactor
@@ -21,6 +21,7 @@ All notable changes to this project will be documented in this file. The changes
 
 ### Bug Fixes
 - Updating old property name in launcher the lint missed
+- Updating publishing scripts to handle excluding Ivy
 
 ### Documentation
 - Changelog Formatting
