@@ -8,7 +8,7 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { ComponentLifeCycle, getInputValue$ } from './component-life-cycle';
 import { FormContentComponent } from './form-content/form-content.component';
 import { FormDataItemService } from './form-data-item.service';
-import {FormService, getLongestFieldLabelClass} from './form.service';
+import { FormService, getLongestFieldLabelClass } from './form.service';
 import { JSFConfig } from './jsf-config';
 import { JSFEventButton } from './jsf-event-button';
 import { JSFEventButtonTarget } from './jsf-event-button-target';
