@@ -1,6 +1,13 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [2.0.1] (unreleased)
+### Bug Fixes
+- Removing old test JSON Schema.
+- Fixing bug where the configurable enableCollapsibleSections was the inverse of what we wanted to display.
+- Fixing bug where items at the root level that were not in a section did not have the same label length.
+- Removed extra horizontal lines from the top and bottom of the form and simplified some styling.- 
+
 ## [2.0.0] (2020-08-28)
 ### Breaking Changes
 - Validation Keyword Update
