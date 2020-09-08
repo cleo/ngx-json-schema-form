@@ -1,10 +1,10 @@
 <div *ngIf="formItem.label" class="item-label">
   <div class="arrows">
-    <img *ngIf="!config.enableCollapsibleSections && !isContentShown"
+    <img *ngIf="config.enableCollapsibleSections && !isContentShown"
          (click)="toggleContentShown()"
          class="arrow-up"
          [src]="'assets/jsf-images/arrow-up.svg'">
-    <img *ngIf="!config.enableCollapsibleSections && isContentShown"
+    <img *ngIf="config.enableCollapsibleSections && isContentShown"
          (click)="toggleContentShown()"
          class="arrow-down"
          [src]="'assets/jsf-images/arrow-down.svg'">

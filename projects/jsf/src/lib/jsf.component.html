@@ -1,8 +1,9 @@
-  <form #formRoot class="well" [formGroup]="formGroup" (change)="onFormElementChange()">
+  <form #formRoot [formGroup]="formGroup" (change)="onFormElementChange()">
     <jsf-form-content
       [formItems]="formDataItems"
       [formGroup]="formGroup"
       [config]="config"
+      [labelLengthClass]="sectionLabelLengthClass"
       [isEdit]="isEdit"
       (buttonEvent)="onButtonEvent($event)"></jsf-form-content>
   </form>
