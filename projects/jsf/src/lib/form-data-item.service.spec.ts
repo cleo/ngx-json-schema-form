@@ -1,7 +1,7 @@
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormDataItemService } from './form-data-item.service';
 import { JSFSchemaData } from './jsf-schema-data';
-import { CONDITIONAL_PARENT_VALUE_KEY, ConditionalParentDataItem } from './models/conditional-parent-data-item';
+import { ConditionalParentDataItem, CONDITIONAL_PARENT_VALUE_KEY } from './models/conditional-parent-data-item';
 import { EnumDataItem, OptionDisplayType } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
 import { ParentDataItem } from './models/parent-data-item';
