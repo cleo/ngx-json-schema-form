@@ -8,7 +8,7 @@ import { takeUntil, tap } from 'rxjs/operators';
 import { ComponentLifeCycle, getInputValue$ } from './component-life-cycle';
 import { FormContentComponent } from './form-content/form-content.component';
 import { FormDataItemService } from './form-data-item.service';
-import { FormService } from './form.service';
+import { FormService, getLongestFieldLabelClass } from './form.service';
 import { JSFConfig } from './jsf-config';
 import { JSFEventButton } from './jsf-event-button';
 import { JSFEventButtonTarget } from './jsf-event-button-target';
@@ -34,6 +34,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
   formDataItems: FormDataItem[] = [];
   formGroup: FormGroup = new FormGroup({});
   isEdit = false;
+  sectionLabelLengthClass: string;
 
   constructor(private formService: FormService, private dataItemService: FormDataItemService) {
     super();
@@ -50,6 +51,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
         this.isEdit = !!data.values && Object.keys(data.values).length > 0;
         this.formDataItems = this.dataItemService.getFormDataItems(data, this.isEdit);
         this.formGroup = this.formService.getForm(new FormGroup({}), this.formDataItems);
+        this.sectionLabelLengthClass = getLongestFieldLabelClass(this.formDataItems);
 
         if (this.isEdit && this.formGroup.valid) {
           this.disableSubmit.next(false);
