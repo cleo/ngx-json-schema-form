@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
-## [2.0.1] (unreleased)
+## [2.0.1] (2020-09-08)
 ### Bug Fixes
 - Removing old test JSON Schema.
 - Fixing bug where the configurable enableCollapsibleSections was the inverse of what we wanted to display.
