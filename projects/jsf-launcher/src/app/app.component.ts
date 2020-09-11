@@ -1,9 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { RequiredSchemaValueValidationService } from '../../../jsf-validation/src/lib/required-schema-value-validation.service';
 import { JSFConfig } from '../../../jsf/src/lib/jsf-config';
+import { JSFJsonSchema } from '../../../jsf/src/lib/jsf-json-schema';
 import { JSFSchemaData } from '../../../jsf/src/lib/jsf-schema-data';
-import { JSFComponent } from '../../../jsf/src/lib/jsf.component';
 
+import { JSFComponent } from '../../../jsf/src/lib/jsf.component';
 import dataV2 from './dataV2.json';
 import dataV1 from './outdatedSchema/dataV1.json';
 import schemaV1 from './outdatedSchema/schemaV1.json';
@@ -21,7 +22,7 @@ export class AppComponent implements OnInit {
   showValidationMessage = false;
   isValid = false;
   schemaData: JSFSchemaData;
-  schema: any = {};
+  schema: JSFJsonSchema;
   data: any = {};
 
   version: JSFVersion = JSFVersion.V2;

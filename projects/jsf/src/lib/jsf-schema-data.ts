@@ -1,5 +1,5 @@
-import { JSONSchema } from './form-data-item.service';
+import { JSFJsonSchema } from './jsf-json-schema';
 
 export class JSFSchemaData {
-  constructor(public schema: JSONSchema, public values: object) {}
+  constructor(public schema: JSFJsonSchema, public values: object) {}
 }

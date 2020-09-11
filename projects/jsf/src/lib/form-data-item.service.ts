@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
 import { ButtonDataItem } from './models/button-data-item';
 
+import { JSFJsonSchema } from './jsf-json-schema';
 import { JSFSchemaData } from './jsf-schema-data';
 import { ConditionalParentDataItem } from './models/conditional-parent-data-item';
 import { EnumDataItem, OptionDisplayType } from './models/enum-data-item';
@@ -24,13 +24,13 @@ export class FormDataItemService {
     return this.getItemsFromSubschema(latestSchema, schemaData.values, [], false, false);
   }
 
-  private getItemsFromSubschema(schema: JSONSchema, values: object, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): FormDataItem[] {
+  private getItemsFromSubschema(schema: JSFJsonSchema, values: object, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): FormDataItem[] {
     return Object.keys(schema.properties).map(key => {
       return this.getItemFromSchema(schema, values, key, pathParts.slice(), isParentReadOnly, isParentHidden);
     });
   }
 
-  private getItemFromSchema(schema: JSONSchema, values: any, key: string, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): FormDataItem {
+  private getItemFromSchema(schema: JSFJsonSchema, values: any, key: string, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): FormDataItem {
     pathParts.push(key);
     const schemaProperty = schema.properties[key];
     const name = schemaProperty.name;
@@ -111,13 +111,13 @@ export class FormDataItemService {
     }
   }
 
-  private getRequired(schema: JSONSchema, key: string): boolean {
+  private getRequired(schema: JSFJsonSchema, key: string): boolean {
     const alwaysRequired = Boolean(schema.required) && schema.required.indexOf(key) !== -1;
     const conditionallyRequired = Boolean(schema.conditionallyRequired) && schema.conditionallyRequired.indexOf(key) !== -1;
     return alwaysRequired || conditionallyRequired;
   }
 
-  private getXOfChildren(schema: JSONSchema, values: any, key: string, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): ParentDataItem[] {
+  private getXOfChildren(schema: JSFJsonSchema, values: any, key: string, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): ParentDataItem[] {
     const objects =
       schema[XOfType.OneOf] ||
       schema[XOfType.AllOf] ||
@@ -158,10 +158,10 @@ export class FormDataItemService {
    * Used for objects and xOfs, though tabs display is not yet supported for oneOf or anyOf.
    *
    * @remarks
-   * Display: tabs displays all child objects as tabs, unless further specified with a "tabs" array.
-   * A "tabs" array without an accompanying "display: tabs" is ignored. Default display is as sections.
+   * Display: tabs displays all child objects as tabs, unless further specified with a 'tabs' array.
+   * A 'tabs' array without an accompanying 'display: tabs' is ignored. Default display is as sections.
    */
-  private getSectionDisplayFromParentSchema(schema: JSONSchema, key: string): OptionDisplayType {
+  private getSectionDisplayFromParentSchema(schema: JSFJsonSchema, key: string): OptionDisplayType {
     return !schema.display || schema.display !== OptionDisplayType.TABS || (schema.tabs && !schema.tabs.includes(key))
       ? OptionDisplayType.SECTIONS
       : OptionDisplayType.TABS;
@@ -204,21 +204,6 @@ enum SchemaTypes {
   Integer = 'integer',
   Object = 'object',
   String = 'string'
-}
-
-export interface JSONSchema {
-  type: string;
-  name?: string;
-  display?: string;
-  tabs?: string[];
-  description?: string;
-  properties: any;
-  required?: string[];
-  conditionallyRequired?: string[];
-  isConditional?: boolean;
-  key?: string;
-  helpText?: string;
-  tooltip?: string;
 }
 
 export interface JSONSchemaProperty {
