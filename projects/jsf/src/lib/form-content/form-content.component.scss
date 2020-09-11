@@ -1,8 +1,7 @@
 div:not(:last-child) {
   margin-bottom: 10px;
 }
-  .section {
-  padding-left: 10px;
+.section {
   &:not(:first-child) {
     margin-top: 10px;
   }
