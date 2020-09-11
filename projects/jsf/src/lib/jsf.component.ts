@@ -2,8 +2,7 @@ import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmi
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 import { NEVER } from 'rxjs';
-import { switchMap, take } from 'rxjs/internal/operators';
-import { takeUntil, tap } from 'rxjs/operators';
+import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
 
 import { ComponentLifeCycle, getInputValue$ } from './component-life-cycle';
 import { FormContentComponent } from './form-content/form-content.component';
