@@ -20,7 +20,7 @@
        [title]="formItem.helpText"
        [src]="'assets/jsf-images/info.svg'">
 </div>
-<div [ngClass]="{ 'collapsible-sections-padding': config.enableCollapsibleSections }" class="description">{{formItem.description}}</div>
+<div [class.collapsible-sections-padding]="config.enableCollapsibleSections" class="description">{{formItem.description}}</div>
 <div [class.item-group]="formItem.label || formItem.description" [class.hidden]="!isContentShown">
   <jsf-form-content
     [formItems]="formItem.items"
