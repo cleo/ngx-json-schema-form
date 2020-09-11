@@ -28,8 +28,12 @@ label:not(.header) {
 }
 
 .description {
-  margin: -9px 0 10px 20px;
+  margin: -9px 0 10px 0px;
   font-size: 15px;
+}
+
+.collapsible-sections-padding {
+  margin-left: 20px;
 }
 
 input[type="checkbox"] {

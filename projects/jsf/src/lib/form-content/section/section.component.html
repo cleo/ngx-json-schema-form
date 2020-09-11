@@ -1,10 +1,10 @@
 <div *ngIf="formItem.label" class="item-label">
-  <div class="arrows">
-    <img *ngIf="config.enableCollapsibleSections && !isContentShown"
+  <div class="arrows" *ngIf="config.enableCollapsibleSections">
+    <img *ngIf="!isContentShown"
          (click)="toggleContentShown()"
          class="arrow-up"
          [src]="'assets/jsf-images/arrow-up.svg'">
-    <img *ngIf="config.enableCollapsibleSections && isContentShown"
+    <img *ngIf="isContentShown"
          (click)="toggleContentShown()"
          class="arrow-down"
          [src]="'assets/jsf-images/arrow-down.svg'">
@@ -20,7 +20,7 @@
        [title]="formItem.helpText"
        [src]="'assets/jsf-images/info.svg'">
 </div>
-<div class="description">{{formItem.description}}</div>
+<div [ngClass]="{ 'collapsible-sections-padding': config.enableCollapsibleSections }" class="description">{{formItem.description}}</div>
 <div [class.item-group]="formItem.label || formItem.description" [class.hidden]="!isContentShown">
   <jsf-form-content
     [formItems]="formItem.items"
