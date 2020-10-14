@@ -47,8 +47,8 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
         if (!data || !data.schema) {
           return NEVER;
         }
-        this.isEdit = !!data.values && Object.keys(data.values).length > 0;
-        this.formDataItems = this.dataItemService.getFormDataItems(data, this.isEdit);
+        this.isEdit = this.dataItemService.isFormInEditMode(data);
+        this.formDataItems = this.dataItemService.getFormDataItems(data);
         this.formGroup = this.formService.getForm(new FormGroup({}), this.formDataItems);
         this.sectionLabelLengthClass = getLongestFieldLabelClass(this.formDataItems);
 

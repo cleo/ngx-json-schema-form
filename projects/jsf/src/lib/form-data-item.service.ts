@@ -18,8 +18,12 @@ export class FormDataItemService {
 
   constructor(private schemaTranslationService: SchemaTranslationService) {}
 
-  getFormDataItems(schemaData: JSFSchemaData, isEdit: boolean): FormDataItem[] {
-    this.isEdit = isEdit;
+  public isFormInEditMode(schemaData: JSFSchemaData): boolean {
+    return !!schemaData.values && Object.keys(schemaData.values).length > 0;
+  }
+
+  public getFormDataItems(schemaData: JSFSchemaData): FormDataItem[] {
+    this.isEdit = this.isFormInEditMode(schemaData);
     const latestSchema = this.schemaTranslationService.translateToLatest(schemaData.schema);
     return this.getItemsFromSubschema(latestSchema, schemaData.values, [], false, false);
   }
@@ -76,7 +80,7 @@ export class FormDataItemService {
     }
   }
 
-  getButtonDataItems(schemaProperty: JSONSchemaProperty, pathParts: string[]): ButtonDataItem[] {
+  private getButtonDataItems(schemaProperty: JSONSchemaProperty, pathParts: string[]): ButtonDataItem[] {
     const buttons: ButtonDataItem[] = [];
     Object.keys(schemaProperty).forEach(key => {
       const property = schemaProperty[key];
@@ -90,7 +94,7 @@ export class FormDataItemService {
     return buttons;
   }
 
-  getFormDataItemType(schemaProperty: JSONSchemaProperty): FormDataItemType {
+  private getFormDataItemType(schemaProperty: JSONSchemaProperty): FormDataItemType {
     if (schemaProperty.enum) {
       return FormDataItemType.Enum;
     }
