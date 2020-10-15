@@ -1,8 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [2.0.3] (2020-10-15)
+### Enhancement
+- Exporting the FormDataItemService to be used in external projects.
+
 ## [2.0.2] (2020-09-11)
-### Bug Fixes
+### Enhancement
 - Exporting the JSFJsonSchema interface to allow for strongly typed objects
 - Removing extra padding to give the parent project more styling control 
 
