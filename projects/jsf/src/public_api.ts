@@ -9,3 +9,5 @@ export * from './lib/jsf-event-button';
 export * from './lib/jsf-event-button-target';
 export * from './lib/jsf-schema-data';
 export * from './lib/jsf-json-schema';
+export * from './lib/form-data-item.service';
+export * from './lib/models/form-data-item';
