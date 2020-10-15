@@ -48,7 +48,7 @@ describe('FormDataItemService', () => {
     });
 
     it('should set the basic properties', () => {
-      const result: FormDataItem = service.getFormDataItems(schemaData, false)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.label).toEqual(name);
       expect(result.tooltip).toEqual(tooltip);
       expect(result.helpText).toEqual(helpText);
@@ -61,7 +61,7 @@ describe('FormDataItemService', () => {
 
     it('should set the value to false if there are no values', () => {
       schemaData.values = {};
-      const result: FormDataItem = service.getFormDataItems(schemaData, false)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.value).toEqual(false);
     });
 
@@ -69,7 +69,7 @@ describe('FormDataItemService', () => {
       schemaData.values = {
         booleanKey: false
       };
-      const result: FormDataItem = service.getFormDataItems(schemaData, true)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.value).toEqual(false);
     });
 
@@ -77,7 +77,7 @@ describe('FormDataItemService', () => {
       schemaData.values = {
         booleanKey: true
       };
-      const result: FormDataItem = service.getFormDataItems(schemaData, true)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.value).toEqual(true);
     });
   });
@@ -97,7 +97,7 @@ describe('FormDataItemService', () => {
     });
 
     it('should set the basic properties', () => {
-      const result: FormDataItem = service.getFormDataItems(schemaData, false)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.label).toEqual(name);
       expect(result.tooltip).toEqual(tooltip);
       expect(result.helpText).toEqual(helpText);
@@ -113,7 +113,7 @@ describe('FormDataItemService', () => {
       schemaData.values = {
         integerKey: 3
       };
-      const result: FormDataItem = service.getFormDataItems(schemaData, true)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.value).toEqual(3);
     });
   });
@@ -134,7 +134,7 @@ describe('FormDataItemService', () => {
     });
 
     it('should set the basic properties', () => {
-      const result = service.getFormDataItems(schemaData, false)[0] as StringDataItem;
+      const result = service.getFormDataItems(schemaData)[0] as StringDataItem;
       expect(result.label).toEqual(name);
       expect(result.tooltip).toEqual(tooltip);
       expect(result.helpText).toEqual(helpText);
@@ -146,7 +146,7 @@ describe('FormDataItemService', () => {
     });
 
     it('should set the value to an empty string if there are no values', () => {
-      const result: FormDataItem = service.getFormDataItems(schemaData, false)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.value).toEqual('');
     });
 
@@ -155,12 +155,12 @@ describe('FormDataItemService', () => {
       schemaData.values = {
         stringKey: stringValue
       };
-      const result: FormDataItem = service.getFormDataItems(schemaData, true)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.value).toEqual(stringValue);
     });
 
     it('should set the type to String', () => {
-      const result: FormDataItem = service.getFormDataItems(schemaData, false)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.type).toEqual(FormDataItemType.String);
     });
 
@@ -174,7 +174,7 @@ describe('FormDataItemService', () => {
           name: buttonName,
           targetPaths: ['key1.key2', 'key1.key3']
         };
-        const result = service.getFormDataItems(schemaData, false)[0] as StringDataItem;
+        const result = service.getFormDataItems(schemaData)[0] as StringDataItem;
         expect(result.buttons.length).toEqual(1);
         expect(result.buttons[0].key).toEqual(buttonKey);
         expect(result.buttons[0].name).toEqual(buttonName);
@@ -186,7 +186,7 @@ describe('FormDataItemService', () => {
         schemaData.schema.properties.stringKey[buttonKey] = {
           type: 'button'
         };
-        const result = service.getFormDataItems(schemaData, false)[0] as StringDataItem;
+        const result = service.getFormDataItems(schemaData)[0] as StringDataItem;
         expect(result.buttons[0].name).toEqual('');
         expect(result.buttons[0].targetPaths).toEqual([]);
       });
@@ -196,7 +196,7 @@ describe('FormDataItemService', () => {
           type: 'button',
           targetPaths: ['key1.key2', 100]
         };
-        const result = service.getFormDataItems(schemaData, false)[0] as StringDataItem;
+        const result = service.getFormDataItems(schemaData)[0] as StringDataItem;
         expect(result.buttons.length).toEqual(1);
         expect(result.buttons[0].targetPaths).toEqual([]);
       });
@@ -226,7 +226,7 @@ describe('FormDataItemService', () => {
     });
 
     it('should set the basic properties', () => {
-      const resultParent = service.getFormDataItems(schemaData, false)[0] as ParentDataItem;
+      const resultParent = service.getFormDataItems(schemaData)[0] as ParentDataItem;
       const result = resultParent.items[0] as SecuredStringDataItem;
       expect(result.label).toEqual(name);
       expect(result.tooltip).toEqual(tooltip);
@@ -271,23 +271,23 @@ describe('FormDataItemService', () => {
     });
 
     it('should set the name', () => {
-      const result: FormDataItem = service.getFormDataItems(schemaData, false)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.label).toEqual(name);
     });
 
     it('should set the tooltip if it exists', () => {
-      const result: FormDataItem = service.getFormDataItems(schemaData, false)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.tooltip).toEqual(tooltip);
     });
 
     it('should set the tooltip to an empty string if tooltip does not exist', () => {
       schemaData.schema.properties.enumKey.tooltip = undefined;
-      const result: FormDataItem = service.getFormDataItems(schemaData, false)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.tooltip).toEqual('');
     });
 
     it('should set the value to the first option if there are no values', () => {
-      const result: FormDataItem = service.getFormDataItems(schemaData, false)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.value).toEqual(option1);
     });
 
@@ -295,33 +295,33 @@ describe('FormDataItemService', () => {
       schemaData.values = {
         enumKey: option2
       };
-      const result: FormDataItem = service.getFormDataItems(schemaData, true)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.value).toEqual(option2);
     });
 
     it('should set the path', () => {
-      const result: FormDataItem = service.getFormDataItems(schemaData, false)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.path).toEqual('enumKey');
     });
 
     it('should set the type to Boolean', () => {
-      const result: FormDataItem = service.getFormDataItems(schemaData, false)[0];
+      const result: FormDataItem = service.getFormDataItems(schemaData)[0];
       expect(result.type).toEqual(FormDataItemType.Enum);
     });
 
     it('should set the display as radio buttons', () => {
-      const result: EnumDataItem = (service.getFormDataItems(schemaData, false)[0] as EnumDataItem);
+      const result: EnumDataItem = (service.getFormDataItems(schemaData)[0] as EnumDataItem);
       expect(result.display).toEqual(OptionDisplayType.RADIO_BUTTONS);
     });
 
     it('should set the display as dropdowns', () => {
       schemaData.schema.properties.enumKey.display = 'dropdown';
-      const result: EnumDataItem = (service.getFormDataItems(schemaData, false)[0] as EnumDataItem);
+      const result: EnumDataItem = (service.getFormDataItems(schemaData)[0] as EnumDataItem);
       expect(result.display).toEqual(OptionDisplayType.DROPDOWN);
     });
 
     it('should set the enum options', () => {
-      const result: EnumDataItem = (service.getFormDataItems(schemaData, false)[0] as EnumDataItem);
+      const result: EnumDataItem = (service.getFormDataItems(schemaData)[0] as EnumDataItem);
       expect(result.enumOptions[0].text).toEqual(name1);
       expect(result.enumOptions[1].text).toEqual(name2);
       expect(result.enumOptions[2].text).toEqual(name3);
@@ -366,7 +366,7 @@ describe('FormDataItemService', () => {
     });
 
     it('should set the basic properties', () => {
-      const result = service.getFormDataItems(schemaData, false)[0] as ParentDataItem;
+      const result = service.getFormDataItems(schemaData)[0] as ParentDataItem;
       expect(result.label).toEqual(name);
       expect(result.description).toEqual(description);
       expect(result.tooltip).toEqual(tooltip);
@@ -377,14 +377,14 @@ describe('FormDataItemService', () => {
     });
 
     it('should set child items to readOnly', () => {
-      const result = service.getFormDataItems(schemaData, false)[0] as ParentDataItem;
+      const result = service.getFormDataItems(schemaData)[0] as ParentDataItem;
       expect(result.items[0].disabledState.isReadOnly).toEqual(true);
       expect(result.items[1].disabledState.isReadOnly).toEqual(true);
       expect(result.items[2].disabledState.isReadOnly).toEqual(true);
     });
 
     it('should set child items as hidden', () => {
-      const result = service.getFormDataItems(schemaData, false)[0] as ParentDataItem;
+      const result = service.getFormDataItems(schemaData)[0] as ParentDataItem;
       expect(result.items[0].isHidden).toEqual(true);
       expect(result.items[1].isHidden).toEqual(true);
       expect(result.items[2].isHidden).toEqual(true);
@@ -392,12 +392,12 @@ describe('FormDataItemService', () => {
 
     it('should set the description to an empty string if the description does not exist', () => {
       schemaData.schema.properties.objectKey.description = undefined;
-      const result: ParentDataItem = service.getFormDataItems(schemaData, false)[0] as ParentDataItem;
+      const result: ParentDataItem = service.getFormDataItems(schemaData)[0] as ParentDataItem;
       expect(result.description).toEqual('');
     });
 
     it('should set required keys', () => {
-      const resultParent = service.getFormDataItems(schemaData, false)[0] as ParentDataItem;
+      const resultParent = service.getFormDataItems(schemaData)[0] as ParentDataItem;
       const result = resultParent.items;
       expect(result[0].required).toEqual(true);
       expect(result[1].required).toEqual(true);
@@ -428,7 +428,7 @@ describe('FormDataItemService', () => {
       });
 
       it('should set the display of each child object as section display when there is no display defined', () => {
-        const resultItems = (service.getFormDataItems(schemaData, false)[0] as ParentDataItem).items;
+        const resultItems = (service.getFormDataItems(schemaData)[0] as ParentDataItem).items;
         expect((resultItems[0] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
         expect((resultItems[1] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
         expect((resultItems[2] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
@@ -436,7 +436,7 @@ describe('FormDataItemService', () => {
 
       it('should set the display of each child object as section display when the display is defined as sections', () => {
         schemaData.schema.properties.objectKey.display = OptionDisplayType.SECTIONS;
-        const resultItems = (service.getFormDataItems(schemaData, false)[0] as ParentDataItem).items;
+        const resultItems = (service.getFormDataItems(schemaData)[0] as ParentDataItem).items;
         expect((resultItems[0] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
         expect((resultItems[1] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
         expect((resultItems[2] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
@@ -444,7 +444,7 @@ describe('FormDataItemService', () => {
 
       it('should set the display of each child object as a tab display if the parent object is set as display of tabs with no tabs array', () => {
         schema.properties.objectKey.display = OptionDisplayType.TABS;
-        const resultItems = (service.getFormDataItems(schemaData, false)[0] as ParentDataItem).items;
+        const resultItems = (service.getFormDataItems(schemaData)[0] as ParentDataItem).items;
         expect((resultItems[0] as ParentDataItem).display).toBe(OptionDisplayType.TABS);
         expect((resultItems[1] as ParentDataItem).display).toBe(OptionDisplayType.TABS);
         expect((resultItems[2] as ParentDataItem).display).toBe(OptionDisplayType.TABS);
@@ -457,7 +457,7 @@ describe('FormDataItemService', () => {
 
         it('should ignore the tabs array if the display is set as display of sections', () => {
           schema.properties.objectKey.display = OptionDisplayType.SECTIONS;
-          const resultItems = (service.getFormDataItems(schemaData, false)[0] as ParentDataItem).items;
+          const resultItems = (service.getFormDataItems(schemaData)[0] as ParentDataItem).items;
           expect((resultItems[0] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
           expect((resultItems[1] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
           expect((resultItems[2] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
@@ -469,7 +469,7 @@ describe('FormDataItemService', () => {
           });
 
           it('should set the display of each child object listed in the tabs array as a tab display if the parent object is set as display of tabs', () => {
-            const resultItems = (service.getFormDataItems(schemaData, false)[0] as ParentDataItem).items;
+            const resultItems = (service.getFormDataItems(schemaData)[0] as ParentDataItem).items;
             expect((resultItems[0] as ParentDataItem).display).toBe(OptionDisplayType.TABS);
             expect((resultItems[1] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
             expect((resultItems[2] as ParentDataItem).display).toBe(OptionDisplayType.TABS);
@@ -477,7 +477,7 @@ describe('FormDataItemService', () => {
 
           it('should ignore the tabs array if the display is not set', () => {
             delete schema.properties.objectKey.display;
-            const resultItems = (service.getFormDataItems(schemaData, false)[0] as ParentDataItem).items;
+            const resultItems = (service.getFormDataItems(schemaData)[0] as ParentDataItem).items;
             expect((resultItems[0] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
             expect((resultItems[1] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
             expect((resultItems[2] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
@@ -485,7 +485,7 @@ describe('FormDataItemService', () => {
 
           it('should set all child objects to a display of section if the tabs array is empty ', () => {
             schema.properties.objectKey.tabs = [];
-            const resultItems = (service.getFormDataItems(schemaData, false)[0] as ParentDataItem).items;
+            const resultItems = (service.getFormDataItems(schemaData)[0] as ParentDataItem).items;
             expect((resultItems[0] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
             expect((resultItems[1] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
             expect((resultItems[2] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
@@ -493,7 +493,7 @@ describe('FormDataItemService', () => {
 
           it('should set only those child objects that are present to a display of tab', () => {
             schema.properties.objectKey.tabs = ['fhekwl', 'hfcuwdhBK', 'objectKey2'];
-            const resultItems = (service.getFormDataItems(schemaData, false)[0] as ParentDataItem).items;
+            const resultItems = (service.getFormDataItems(schemaData)[0] as ParentDataItem).items;
             expect((resultItems[0] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
             expect((resultItems[1] as ParentDataItem).display).toBe(OptionDisplayType.TABS);
             expect((resultItems[2] as ParentDataItem).display).toBe(OptionDisplayType.SECTIONS);
@@ -540,12 +540,12 @@ describe('FormDataItemService', () => {
     });
 
     it('should create a conditional parent item', () => {
-      const resultParent = service.getFormDataItems(schemaData, false)[0];
+      const resultParent = service.getFormDataItems(schemaData)[0];
       expect (resultParent instanceof ConditionalParentDataItem).toBeTruthy();
     });
 
     it('should set the basic properties', () => {
-      const result = service.getFormDataItems(schemaData, false)[0] as ConditionalParentDataItem;
+      const result = service.getFormDataItems(schemaData)[0] as ConditionalParentDataItem;
       expect(result.label).toEqual(name);
       expect(result.tooltip).toEqual(tooltip);
       expect(result.helpText).toEqual(helpText);
@@ -557,14 +557,14 @@ describe('FormDataItemService', () => {
     });
 
     it('should set child items to readOnly', () => {
-      const result = service.getFormDataItems(schemaData, false)[0] as ConditionalParentDataItem;
+      const result = service.getFormDataItems(schemaData)[0] as ConditionalParentDataItem;
       expect(result.items[0].disabledState.isReadOnly).toEqual(true);
       expect(result.items[1].disabledState.isReadOnly).toEqual(true);
       expect(result.items[2].disabledState.isReadOnly).toEqual(true);
     });
 
     it('should set child items as hidden', () => {
-      const result = service.getFormDataItems(schemaData, false)[0] as ParentDataItem;
+      const result = service.getFormDataItems(schemaData)[0] as ParentDataItem;
       expect(result.items[0].isHidden).toEqual(true);
       expect(result.items[1].isHidden).toEqual(true);
       expect(result.items[2].isHidden).toEqual(true);
@@ -572,14 +572,14 @@ describe('FormDataItemService', () => {
 
     describe('when creating an integration', () => {
       it('should set the conditional parent as unchecked when there is no default', () => {
-        const resultParent = service.getFormDataItems(schemaData, false)[0] as ConditionalParentDataItem;
+        const resultParent = service.getFormDataItems(schemaData)[0] as ConditionalParentDataItem;
         const booleanItem = resultParent.items.find(item => item.key === CONDITIONAL_PARENT_VALUE_KEY);
         expect(booleanItem.value).toBe(false);
       });
 
       it('should set the parent according to the default', () => {
         schema.properties.conditionalParentObject.default = true;
-        const resultParent = service.getFormDataItems(schemaData, false)[0] as ConditionalParentDataItem;
+        const resultParent = service.getFormDataItems(schemaData)[0] as ConditionalParentDataItem;
         const booleanItem = resultParent.items.find(item => item.key === CONDITIONAL_PARENT_VALUE_KEY);
         expect(booleanItem.value).toBe(true);
       });
@@ -593,7 +593,7 @@ describe('FormDataItemService', () => {
           }
         };
 
-        const resultParent = service.getFormDataItems(schemaData, true)[0] as ConditionalParentDataItem;
+        const resultParent = service.getFormDataItems(schemaData)[0] as ConditionalParentDataItem;
         const booleanItem = resultParent.items.find(item => item.key === CONDITIONAL_PARENT_VALUE_KEY);
         expect(booleanItem.value).toBe(true);
       });
@@ -601,14 +601,14 @@ describe('FormDataItemService', () => {
       it('should set the parent value to the default when the user value does not exist', () => {
         schema.properties.conditionalParentObject.default = true;
         schemaData.values = {};
-        const resultParent = service.getFormDataItems(schemaData, true)[0] as ConditionalParentDataItem;
+        const resultParent = service.getFormDataItems(schemaData)[0] as ConditionalParentDataItem;
         const booleanItem = resultParent.items.find(item => item.key === CONDITIONAL_PARENT_VALUE_KEY);
         expect(booleanItem.value).toBe(true);
       });
 
       it('should set the parent value to false when there is no user value or default', () => {
         schemaData.values = {};
-        const resultParent = service.getFormDataItems(schemaData, true)[0] as ConditionalParentDataItem;
+        const resultParent = service.getFormDataItems(schemaData)[0] as ConditionalParentDataItem;
         const booleanItem = resultParent.items.find(item => item.key === CONDITIONAL_PARENT_VALUE_KEY);
         expect(booleanItem.value).toBe(false);
       });
@@ -689,7 +689,7 @@ describe('FormDataItemService', () => {
     });
 
     it('should set the basic properties', () => {
-      const result = service.getFormDataItems(schemaData, false)[0] as XOfDataItem;
+      const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
       expect(result.label).toEqual(parentName);
       expect(result.tooltip).toEqual('');
       expect(result.helpText).toEqual('');
@@ -702,7 +702,7 @@ describe('FormDataItemService', () => {
     });
 
     it('should have an additional xOfEnum if the display is not tabs', () => {
-      const result = service.getFormDataItems(schemaData, false)[0] as XOfDataItem;
+      const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
       const oneOfParentItem = result.items[1] as ParentDataItem;
       const oneOfItem = oneOfParentItem.items[0] as XOfDataItem;
       expect(oneOfItem.items.length).toEqual(2);
@@ -729,7 +729,7 @@ describe('FormDataItemService', () => {
         tabsWithAllOf: { ...tabsWithAllOfValue }
       };
 
-      const result = service.getFormDataItems(schemaData, true)[0] as XOfDataItem;
+      const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
       const resultChildren = result.items as ParentDataItem[];
       const oneOfDropdown = resultChildren[1].items[0] as XOfDataItem;
 
@@ -751,19 +751,19 @@ describe('FormDataItemService', () => {
           // display for objects in the schema refers to the display of the object's children.
           // behind the scenes, the display in each data item refers to the display of itself.
           // this is why, even though the display in the schema is defined as tabs, here we expect it to be sections.
-          const result = service.getFormDataItems(schemaData, false)[0] as XOfDataItem;
+          const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
           expect(result.display).toEqual(OptionDisplayType.SECTIONS);
         });
 
         it('should set the display of the allOf children as tabs', () => {
-          const result = service.getFormDataItems(schemaData, false)[0] as XOfDataItem;
+          const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
           const allOfChildren = result.items as ParentDataItem[];
           expect(allOfChildren[0].display).toEqual(OptionDisplayType.TABS);
           expect(allOfChildren[1].display).toEqual(OptionDisplayType.TABS);
         });
 
         it('should set the oneOf display to the display that was defined in the schema', () => {
-          const result = service.getFormDataItems(schemaData, false)[0] as XOfDataItem;
+          const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
           const oneOfItem = ((result.items[1] as ParentDataItem).items[0]) as XOfDataItem;
           expect(oneOfItem.display).toEqual(OptionDisplayType.DROPDOWN);
         });
@@ -775,19 +775,19 @@ describe('FormDataItemService', () => {
         });
 
         it('should set the allOf parent to a display of sections', () => {
-          const result = service.getFormDataItems(schemaData, false)[0] as XOfDataItem;
+          const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
           expect(result.display).toEqual(OptionDisplayType.SECTIONS);
         });
 
         it('should set the display of the allOf children as sections', () => {
-          const result = service.getFormDataItems(schemaData, false)[0] as XOfDataItem;
+          const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
           const allOfChildren = result.items as ParentDataItem[];
           expect(allOfChildren[0].display).toEqual(OptionDisplayType.SECTIONS);
           expect(allOfChildren[1].display).toEqual(OptionDisplayType.SECTIONS);
         });
 
         it('should set the oneOf display to the display that was defined in the schema', () => {
-          const result = service.getFormDataItems(schemaData, false)[0] as XOfDataItem;
+          const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
           const oneOfItem = ((result.items[1] as ParentDataItem).items[0]) as XOfDataItem;
           expect(oneOfItem.display).toEqual(OptionDisplayType.DROPDOWN);
         });
@@ -799,19 +799,19 @@ describe('FormDataItemService', () => {
         });
 
         it('should set the allOf parent to a display of tabs', () => {
-          const result = service.getFormDataItems(schemaData, false)[0] as XOfDataItem;
+          const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
           expect(result.display).toEqual(OptionDisplayType.TABS);
         });
 
         it('should set the display of the allOf children as tabs', () => {
-          const result = service.getFormDataItems(schemaData, false)[0] as XOfDataItem;
+          const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
           const allOfChildren = result.items as ParentDataItem[];
           expect(allOfChildren[0].display).toEqual(OptionDisplayType.TABS);
           expect(allOfChildren[1].display).toEqual(OptionDisplayType.TABS);
         });
 
         it('should set the oneOf display to the display that was defined in the schema', () => {
-          const result = service.getFormDataItems(schemaData, false)[0] as XOfDataItem;
+          const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
           const oneOfItem = ((result.items[1] as ParentDataItem).items[0]) as XOfDataItem;
           expect(oneOfItem.display).toEqual(OptionDisplayType.DROPDOWN);
         });
@@ -824,19 +824,19 @@ describe('FormDataItemService', () => {
         });
 
         it('should set the allOf parent to a display of tabs', () => {
-          const result = service.getFormDataItems(schemaData, false)[0] as XOfDataItem;
+          const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
           expect(result.display).toEqual(OptionDisplayType.TABS);
         });
 
         it('should set the display of the allOf children as sections', () => {
-          const result = service.getFormDataItems(schemaData, false)[0] as XOfDataItem;
+          const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
           const allOfChildren = result.items as ParentDataItem[];
           expect(allOfChildren[0].display).toEqual(OptionDisplayType.SECTIONS);
           expect(allOfChildren[1].display).toEqual(OptionDisplayType.SECTIONS);
         });
 
         it('should set the oneOf display to the display that was defined in the schema', () => {
-          const result = service.getFormDataItems(schemaData, false)[0] as XOfDataItem;
+          const result = service.getFormDataItems(schemaData)[0] as XOfDataItem;
           const oneOfItem = ((result.items[1] as ParentDataItem).items[0]) as XOfDataItem;
           expect(oneOfItem.display).toEqual(OptionDisplayType.DROPDOWN);
         });
