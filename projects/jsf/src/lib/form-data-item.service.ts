@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { ButtonDataItem } from './models/button-data-item';
 
 import { JSFJsonSchema } from './jsf-json-schema';
 import { JSFSchemaData } from './jsf-schema-data';
+import { ButtonDataItem } from './models/button-data-item';
 import { ConditionalParentDataItem } from './models/conditional-parent-data-item';
 import { EnumDataItem, OptionDisplayType } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
+import { IntegerDataItem } from './models/integer-data-item';
 import { ParentDataItem } from './models/parent-data-item';
 import { SecuredStringDataItem } from './models/secured-string-data-item';
 import { StringDataItem, StringFormat } from './models/string-data-item';
@@ -66,7 +67,20 @@ export class FormDataItemService {
         return new ConditionalParentDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, childItems);
       case FormDataItemType.SecuredString:
         return new SecuredStringDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, this.isEdit, schemaProperty.placeholder);
-      default: // String or Integer
+      case FormDataItemType.Integer:
+        const intButtons = this.getButtonDataItems(schemaProperty, pathParts);
+        const integerOptions: SchemaIntegerOptions = {
+          display: schemaProperty.display,
+          placeholder: schemaProperty.placeholder ? schemaProperty.placeholder : '',
+          minLength: schemaProperty.minLength,
+          maxLength: schemaProperty.maxLength,
+          minimum: schemaProperty.minimum,
+          maximum: schemaProperty.maximum,
+          exclusiveMinimum: schemaProperty.exclusiveMinimum,
+          exclusiveMaximum: schemaProperty.exclusiveMaximum
+        };
+        return new IntegerDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, intButtons, integerOptions);
+      default: // String
         const buttons = this.getButtonDataItems(schemaProperty, pathParts);
         const stringOptions: SchemaStringOptions = {
           display: schemaProperty.display,
@@ -225,6 +239,21 @@ export interface JSONSchemaProperty {
   helpText?: string;
   tooltip?: string;
   default?: any;
+  minimum?: number;
+  maximum?: number;
+  exclusiveMinimum?: number;
+  exclusiveMaximum?: number;
+}
+
+export interface SchemaIntegerOptions {
+  display: string;
+  placeholder: string;
+  minLength: number;
+  maxLength: number;
+  maximum: number;
+  minimum: number;
+  exclusiveMaximum: number;
+  exclusiveMinimum: number;
 }
 
 export interface SchemaStringOptions {
