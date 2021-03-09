@@ -159,7 +159,7 @@ describe('ValidatorService', () => {
       beforeEach(() => {
         item.type = FormDataItemType.String;
         stringItem = item as StringDataItem;
-        stringItem.validationSettings = { format: StringFormat.None, length: {} as StringLengthOptions, listDelimiter: '' };
+        stringItem.validationSettings = { format: StringFormat.None, length: {} as StringLengthOptions, listDelimiter: '', pattern: null };
         validatorFn = Validators.compose(service.getValidators(stringItem));
       });
 
@@ -361,6 +361,34 @@ describe('ValidatorService', () => {
               expect(validatorFn(control).invalidEmails).toEqual([invalidEmail]);
             });
           });
+        });
+      });
+      describe('pattern', () => {
+        const phoneNumberRegex = '^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$';
+        beforeEach(() => {
+          stringItem.validationSettings.pattern = phoneNumberRegex;
+          validatorFn = Validators.compose(service.getValidators(stringItem));
+        });
+
+        it('returns valid if there is no value', () => {
+          control.setValue(null);
+
+          expect(validatorFn(control)).toBeNull();
+        });
+
+        it('returns valid with a value matching the regex pattern', () => {
+          control.setValue('(123)456-7890');
+
+          expect(validatorFn(control)).toBeNull();
+        });
+
+        it('returns invalid with a value not matching the regex pattern', () => {
+          control.setValue('abc');
+
+          const validation = validatorFn(control);
+
+          expect(validation.pattern).toBeDefined('The pattern error should exist');
+          expect(validation.pattern.requiredPattern).toEqual(phoneNumberRegex, 'The pattern value should be the regex');
         });
       });
     });

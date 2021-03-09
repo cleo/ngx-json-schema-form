@@ -39,6 +39,8 @@ export class FormControlBase extends ContentBaseComponent implements OnInit {
       ${errors.invalidEmails.join(', ')}`;
     } else if (hasRequiredPattern && errors.pattern.requiredPattern.toString() === URI_REGEX.toString()) {
       return 'Please enter a valid url.';
+    } else if (hasRequiredPattern) {
+      return `Please enter a valid value. Valid pattern: ${errors.pattern.requiredPattern}.`;
     } else if (errors.invalidUris) {
       return `Please enter a list of valid urls separated by \"${(this.formItem as StringDataItem).validationSettings.listDelimiter}\"
       Invalid urls:

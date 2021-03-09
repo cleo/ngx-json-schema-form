@@ -560,6 +560,12 @@
           "format": "email",
           "listDelimiter": ":"
         },
+        "patternTextInput": {
+          "placeholder": "(###)###-####",
+          "type": "string",
+          "name": "Text Input With Phone Number Regex",
+          "pattern": "^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$"
+        },
         "textAreaInput": {
           "type": "string",
           "format": "email",

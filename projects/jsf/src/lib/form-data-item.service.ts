@@ -88,7 +88,8 @@ export class FormDataItemService {
           format: schemaProperty.format,
           listDelimiter: schemaProperty.listDelimiter,
           minLength: schemaProperty.minLength,
-          maxLength: schemaProperty.maxLength
+          maxLength: schemaProperty.maxLength,
+          pattern: schemaProperty.pattern
         };
         return new StringDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, buttons, stringOptions);
     }
@@ -243,6 +244,7 @@ export interface JSONSchemaProperty {
   maximum?: number;
   exclusiveMinimum?: number;
   exclusiveMaximum?: number;
+  pattern?: string;
 }
 
 export interface SchemaIntegerOptions {
@@ -263,4 +265,5 @@ export interface SchemaStringOptions {
   listDelimiter: string;
   minLength: number;
   maxLength: number;
+  pattern: string;
 }

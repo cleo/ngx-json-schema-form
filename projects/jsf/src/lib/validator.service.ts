@@ -58,6 +58,10 @@ export class ValidatorService {
       validators.push(Validators.minLength(options.length.minLength));
     }
 
+    if (options.pattern) {
+      validators.push(Validators.pattern(options.pattern));
+    }
+
     return validators;
   }
 
