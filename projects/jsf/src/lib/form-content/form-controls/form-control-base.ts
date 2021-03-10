@@ -40,7 +40,7 @@ export class FormControlBase extends ContentBaseComponent implements OnInit {
     } else if (hasRequiredPattern && errors.pattern.requiredPattern.toString() === URI_REGEX.toString()) {
       return 'Please enter a valid url.';
     } else if (hasRequiredPattern) {
-      return `Please enter a valid value. Valid pattern: ${errors.pattern.requiredPattern}.`;
+      return `Please enter a valid value.`;
     } else if (errors.invalidUris) {
       return `Please enter a list of valid urls separated by \"${(this.formItem as StringDataItem).validationSettings.listDelimiter}\"
       Invalid urls:
