@@ -18,8 +18,8 @@ export class SchemaValidationService {
     const ajv = new Ajv({allErrors: true});
     const valid = ajv.validate(schema, values);
     if (!valid) {
-      const errors = ajv.errors.map(error => SchemaValidationService.toJsfError(ajv, error));
-      return errors.filter(error => !error.errorSchema[SchemaValidationService.isHidden])
+      return ajv.errors.map(error => SchemaValidationService.toJsfError(ajv, error))
+        .filter(error => !error.errorSchema[SchemaValidationService.isHidden])
         .filter(error => !error.errorSchema[SchemaValidationService.isReadOnly]);
     }
     return null;
