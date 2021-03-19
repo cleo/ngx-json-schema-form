@@ -560,6 +560,12 @@
           "format": "email",
           "listDelimiter": ":"
         },
+        "patternTextInput": {
+          "placeholder": "(###)###-####",
+          "type": "string",
+          "name": "Text Input With Phone Number Regex",
+          "pattern": "^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$"
+        },
         "textAreaInput": {
           "type": "string",
           "format": "email",
@@ -646,6 +652,14 @@
           "type": "integer",
           "name": "Hidden Integer Input",
           "isHidden": true
+        },
+        "integerRange": {
+          "type": "integer",
+          "name": "Ranged Integer Input (5-99)",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "minimum": 5,
+          "exclusiveMaximum": 100
         }
       }
     },

@@ -15,6 +15,17 @@ export class TextComponent extends FormControlBase {
     this.showCounter = true;
   }
 
+  getClass(): string {
+    switch (this.formItem.type) {
+      case FormDataItemType.String:
+        return 'control-with-error string-control';
+      case FormDataItemType.Integer:
+        return 'control-with-error integer-control';
+      default:
+        return 'control-with-error';
+    }
+  }
+
   getInputType(): StringFormat {
     return this.formItem.type === FormDataItemType.Integer || !!this.getStringDataItem().validationSettings.listDelimiter
       ? StringFormat.None

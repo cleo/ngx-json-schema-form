@@ -1,7 +1,7 @@
 <div class="form-item-with-label">
   <jsf-label [formItem]="formItem" [labelLengthClass]="labelLengthClass"></jsf-label>
   <div class="form-item" [formGroup]="formGroup">
-    <div class="control-with-error">
+    <div [class]="getClass()">
       <input
         class="form-control"
         [placeholder]="getStringDataItem().placeholder"

@@ -1,5 +1,6 @@
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
+import { IntegerDataItem, IntegerRangeOptions } from './models/integer-data-item';
 import { StringDataItem, StringFormat, StringLengthOptions } from './models/string-data-item';
 import { ValidatorService } from './validator.service';
 import Spy = jasmine.Spy;
@@ -29,10 +30,14 @@ describe('ValidatorService', () => {
 
     describe('integer validators', () => {
       let getIntValidatorSpy: Spy;
+      let intItem: IntegerDataItem;
 
       beforeEach(() => {
         getIntValidatorSpy = spyOn<any>(service, 'getIntValidator');
         item.type = FormDataItemType.Integer;
+        intItem = item as IntegerDataItem;
+        intItem.validationSettings = { range: {} as IntegerRangeOptions};
+        validatorFn = Validators.compose(service.getValidators(intItem));
       });
 
       it('adds all integer validators', () => {
@@ -55,6 +60,96 @@ describe('ValidatorService', () => {
           control.setValue('asdf');
           expect(validatorFn(control)).not.toBeNull();
         });
+
+        describe('range validation', () => {
+          it('should throw an error if integer value is more than the maximum value', () => {
+            const max = 5;
+            intItem.validationSettings.range = {maximum: max, exclusiveMaximum: null, exclusiveMinimum: null, minimum: null};
+            validatorFn = Validators.compose(service.getValidators(intItem));
+            control.setValue('6');
+
+            const validation = validatorFn(control);
+            expect(validation.min).toBeUndefined('The minimum value error should not exist');
+            expect(validation.max).toBeDefined('The maximum value error should exist');
+            expect(validation.max.max).toEqual(max, `The maximum value should be ${max}`);
+          });
+
+          it('should not throw an error if integer value is exactly the maximum value', () => {
+            const max = 5;
+            intItem.validationSettings.range = {maximum: max, exclusiveMaximum: null, exclusiveMinimum: null, minimum: null};
+            validatorFn = Validators.compose(service.getValidators(intItem));
+            control.setValue('5');
+
+            const validation = validatorFn(control);
+            expect(validation).toBeNull('The maximum value should not flag the value');
+          });
+
+          it('should throw an error if integer value is equal to the exclusiveMaximum value', () => {
+            const max = 5;
+            intItem.validationSettings.range = {maximum: null, exclusiveMaximum: max, exclusiveMinimum: null, minimum: null};
+            validatorFn = Validators.compose(service.getValidators(intItem));
+            control.setValue('5');
+
+            const validation = validatorFn(control);
+            expect(validation.min).toBeUndefined('The minimum value error should not exist');
+            expect(validation.max).toBeDefined('The maximum value error should exist');
+            expect(validation.max.max).toEqual(max - 1, `The maximum value should be ${max - 1}`);
+          });
+
+          it('should not throw an error if integer value is lower than the exclusiveMaximum value', () => {
+            const max = 5;
+            intItem.validationSettings.range = {maximum: max, exclusiveMaximum: null, exclusiveMinimum: null, minimum: null};
+            validatorFn = Validators.compose(service.getValidators(intItem));
+            control.setValue('4');
+
+            const validation = validatorFn(control);
+            expect(validation).toBeNull('The maximum value should not flag the value');
+          });
+
+          it('should throw an error if integer value is less than the minimum value', () => {
+            const min = 5;
+            intItem.validationSettings.range = {maximum: null, exclusiveMaximum: null, exclusiveMinimum: null, minimum: min};
+            validatorFn = Validators.compose(service.getValidators(intItem));
+            control.setValue('4');
+
+            const validation = validatorFn(control);
+            expect(validation.max).toBeUndefined('The maximum value error should not exist');
+            expect(validation.min).toBeDefined('The minimum value error should exist');
+            expect(validation.min.min).toEqual(min, 'The minimum value should be the value');
+          });
+
+          it('should not throw an error if integer value is exactly the minimum value', () => {
+            const min = 5;
+            intItem.validationSettings.range = {maximum: null, exclusiveMaximum: null, exclusiveMinimum: null, minimum: min};
+            validatorFn = Validators.compose(service.getValidators(intItem));
+            control.setValue('5');
+
+            const validation = validatorFn(control);
+            expect(validation).toBeNull(`The minimum value should not flag ${min}`);
+          });
+
+          it('should throw an error if integer value is equal to the exclusiveMinimum value', () => {
+            const min = 5;
+            intItem.validationSettings.range = {maximum: null, exclusiveMaximum: null, exclusiveMinimum: min, minimum: null};
+            validatorFn = Validators.compose(service.getValidators(intItem));
+            control.setValue('5');
+
+            const validation = validatorFn(control);
+            expect(validation.max).toBeUndefined('The minimum value error should not exist');
+            expect(validation.min).toBeDefined('The minimum value error should exist');
+            expect(validation.min.min).toEqual(min + 1, `The minimum value should be ${min + 1}`);
+          });
+
+          it('should not throw an error if integer value is higher than the exclusiveMinimum value', () => {
+            const min = 5;
+            intItem.validationSettings.range = {maximum: null, exclusiveMaximum: null, exclusiveMinimum: null, minimum: min};
+            validatorFn = Validators.compose(service.getValidators(intItem));
+            control.setValue('6');
+
+            const validation = validatorFn(control);
+            expect(validation).toBeNull('The minimum value should not flag the value');
+          });
+        });
       });
     });
 
@@ -64,7 +159,7 @@ describe('ValidatorService', () => {
       beforeEach(() => {
         item.type = FormDataItemType.String;
         stringItem = item as StringDataItem;
-        stringItem.validationSettings = { format: StringFormat.None, length: {} as StringLengthOptions, listDelimiter: '' };
+        stringItem.validationSettings = { format: StringFormat.None, length: {} as StringLengthOptions, listDelimiter: '', pattern: null };
         validatorFn = Validators.compose(service.getValidators(stringItem));
       });
 
@@ -266,6 +361,34 @@ describe('ValidatorService', () => {
               expect(validatorFn(control).invalidEmails).toEqual([invalidEmail]);
             });
           });
+        });
+      });
+      describe('pattern', () => {
+        const phoneNumberRegex = '^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$';
+        beforeEach(() => {
+          stringItem.validationSettings.pattern = phoneNumberRegex;
+          validatorFn = Validators.compose(service.getValidators(stringItem));
+        });
+
+        it('returns valid if there is no value', () => {
+          control.setValue(null);
+
+          expect(validatorFn(control)).toBeNull();
+        });
+
+        it('returns valid with a value matching the regex pattern', () => {
+          control.setValue('(123)456-7890');
+
+          expect(validatorFn(control)).toBeNull();
+        });
+
+        it('returns invalid with a value not matching the regex pattern', () => {
+          control.setValue('abc');
+
+          const validation = validatorFn(control);
+
+          expect(validation.pattern).toBeDefined('The pattern error should exist');
+          expect(validation.pattern.requiredPattern).toEqual(phoneNumberRegex, 'The pattern value should be the regex');
         });
       });
     });

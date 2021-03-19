@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
 
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
+import { IntegerDataItem } from './models/integer-data-item';
 import { StringDataItem, StringFormat } from './models/string-data-item';
 
 // http://stackoverflow.com/a/46181/1447823 chromium's regex for testing for email
@@ -11,8 +12,8 @@ export const URI_REGEX = /^((http[s]?|ftp):\/\/)?\/?([^\/\.]+\.)*?([^\/\.]+\.[^:
 
 @Injectable()
 export class ValidatorService {
-  readonly MAX_NUMBER = 2147483647;
-  readonly MIN_NUMBER = 1;
+  public static readonly MAX_NUMBER = 2147483647;
+  public static readonly MIN_NUMBER = 1;
 
   getValidators(item: FormDataItem): ValidatorFn[] {
     let validators = [];
@@ -22,7 +23,7 @@ export class ValidatorService {
     }
 
     if (item.type === FormDataItemType.Integer) {
-      validators.push(this.getIntValidator(), Validators.min(this.MIN_NUMBER), Validators.max(this.MAX_NUMBER));
+      validators = validators.concat(this.getIntegerValidators(item as IntegerDataItem));
     } else if (item.type === FormDataItemType.String) {
       validators = validators.concat(this.getStringValidators(item as StringDataItem));
     }
@@ -55,6 +56,37 @@ export class ValidatorService {
 
     if (options.length.minLength) {
       validators.push(Validators.minLength(options.length.minLength));
+    }
+
+    if (options.pattern) {
+      validators.push(Validators.pattern(options.pattern));
+    }
+
+    return validators;
+  }
+
+  private getIntegerValidators(item: IntegerDataItem): ValidatorFn[] {
+    const validators = [];
+    const options = item.validationSettings;
+
+    validators.push(this.getIntValidator());
+    validators.push(Validators.min(ValidatorService.MIN_NUMBER)); // may be overwritten below
+    validators.push(Validators.max(ValidatorService.MAX_NUMBER)); // may be overwritten below
+
+    if (options.range?.minimum) {
+      validators.push(Validators.min(options.range.minimum));
+    }
+
+    if (options.range?.maximum) {
+      validators.push(Validators.max(options.range.maximum));
+    }
+
+    if (options.range?.exclusiveMinimum) {
+      validators.push(Validators.min(options.range.exclusiveMinimum + 1));
+    }
+
+    if (options.range?.exclusiveMaximum) {
+      validators.push(Validators.max(options.range.exclusiveMaximum - 1));
     }
 
     return validators;
