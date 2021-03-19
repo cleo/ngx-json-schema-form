@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
-## [2.0.4] (2021-03-19)
+## [2.1.0] (2021-03-19)
 ### Enhancement
 - Add Integer support for exclusiveMaximum, exclusiveMinimum, maximum, and minimum keywords.
 - Add String support for pattern keyword.
