@@ -23,6 +23,20 @@ describe('SchemaValidationService', () => {
           name: 'Text Input',
           minLength: 5,
           maxLength: 10
+        },
+        hiddenInput: {
+          type: 'string',
+          name: 'Hidden field should not be validated',
+          isHidden: true,
+          maxLength: 3,
+          default: 'too long'
+        },
+        readonlyInput: {
+          type: 'string',
+          name: 'Readonly field should not be validated',
+          isReadOnly: true,
+          maxLength: 3,
+          default: 'too long'
         }
       }
     };
