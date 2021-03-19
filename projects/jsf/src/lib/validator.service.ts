@@ -73,14 +73,6 @@ export class ValidatorService {
     validators.push(Validators.min(ValidatorService.MIN_NUMBER)); // may be overwritten below
     validators.push(Validators.max(ValidatorService.MAX_NUMBER)); // may be overwritten below
 
-    if (options.length?.maxLength) {
-      validators.push(Validators.maxLength(options.length.maxLength));
-    }
-
-    if (options.length?.minLength) {
-      validators.push(Validators.minLength(options.length.minLength));
-    }
-
     if (options.range?.minimum) {
       validators.push(Validators.min(options.range.minimum));
     }

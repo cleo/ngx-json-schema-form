@@ -1,6 +1,6 @@
 import { FormControl, ValidatorFn, Validators } from '@angular/forms';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
-import { IntegerDataItem, IntegerLengthOptions, IntegerRangeOptions } from './models/integer-data-item';
+import { IntegerDataItem, IntegerRangeOptions } from './models/integer-data-item';
 import { StringDataItem, StringFormat, StringLengthOptions } from './models/string-data-item';
 import { ValidatorService } from './validator.service';
 import Spy = jasmine.Spy;
@@ -36,7 +36,7 @@ describe('ValidatorService', () => {
         getIntValidatorSpy = spyOn<any>(service, 'getIntValidator');
         item.type = FormDataItemType.Integer;
         intItem = item as IntegerDataItem;
-        intItem.validationSettings = { length: {} as IntegerLengthOptions, range: {} as IntegerRangeOptions};
+        intItem.validationSettings = { range: {} as IntegerRangeOptions};
         validatorFn = Validators.compose(service.getValidators(intItem));
       });
 

@@ -26,23 +26,6 @@ describe('IntegerDataItem', () => {
     expect(result.placeholder).toEqual(placeholder);
   });
 
-  it('should set the maximum and minimum lengths', () => {
-    const min = 5;
-    const max = 10;
-    schemaIntegerOptions.minLength = min;
-    schemaIntegerOptions.maxLength = max;
-    const result = new IntegerDataItem(key, label, tooltip, helpText, true, pathParts, type, value, isReadOnly, isHidden, [], schemaIntegerOptions);
-
-    expect(result.validationSettings.length.minLength).toEqual(min);
-    expect(result.validationSettings.length.maxLength).toEqual(max);
-  });
-
-  it('should not set the min and max lengths if they are not present', () => {
-    const result = new IntegerDataItem(key, label, tooltip, helpText, true, pathParts, type, value, isReadOnly, isHidden, [], schemaIntegerOptions);
-    expect(result.validationSettings.length.minLength).toBeUndefined();
-    expect(result.validationSettings.length.maxLength).toBeUndefined();
-  });
-
   it('should set the maximum and minimum values', () => {
     const min = -5;
     const max = 10;

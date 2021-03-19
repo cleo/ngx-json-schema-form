@@ -72,8 +72,6 @@ export class FormDataItemService {
         const integerOptions: SchemaIntegerOptions = {
           display: schemaProperty.display,
           placeholder: schemaProperty.placeholder ? schemaProperty.placeholder : '',
-          minLength: schemaProperty.minLength,
-          maxLength: schemaProperty.maxLength,
           minimum: schemaProperty.minimum,
           maximum: schemaProperty.maximum,
           exclusiveMinimum: schemaProperty.exclusiveMinimum,
@@ -250,8 +248,6 @@ export interface JSONSchemaProperty {
 export interface SchemaIntegerOptions {
   display: string;
   placeholder: string;
-  minLength: number;
-  maxLength: number;
   maximum: number;
   minimum: number;
   exclusiveMaximum: number;

@@ -24,16 +24,10 @@ export class IntegerDataItem extends FormDataItem {
     this.placeholder = schemaOptions.placeholder;
     this.display = schemaOptions.display;
     this.validationSettings = {
-      length: { minLength: schemaOptions.minLength, maxLength: schemaOptions.maxLength },
       range: { minimum: schemaOptions.minimum, exclusiveMinimum: schemaOptions.exclusiveMinimum,
                maximum: schemaOptions.maximum, exclusiveMaximum: schemaOptions.exclusiveMaximum }
     };
   }
-}
-
-export interface IntegerLengthOptions {
-  minLength: number;
-  maxLength: number;
 }
 
 export interface IntegerRangeOptions {
@@ -44,6 +38,5 @@ export interface IntegerRangeOptions {
 }
 
 export interface IntegerValidationSettings {
-  length: IntegerLengthOptions;
   range: IntegerRangeOptions;
 }
