@@ -2,6 +2,10 @@ import Ajv, { ErrorObject } from 'ajv';
 import { isNil } from 'lodash-es';
 import { JSFJsonSchema } from '../../../jsf/src/lib/jsf-json-schema';
 
+/**
+ * Schema validation using Another JSON Validator (AJV)
+ * This does not handle field with the allOf, anyOf, oneOf keywords
+ */
 export class SchemaValidationService {
   private static properties = 'properties';
   private static missingProperty = 'missingProperty';
