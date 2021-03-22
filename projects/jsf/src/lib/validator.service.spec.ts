@@ -119,20 +119,20 @@ describe('ValidatorService', () => {
           });
 
           it('should not throw an error if integer value is exactly the minimum value', () => {
-            const min = 5;
+            const min = 0;
             intItem.validationSettings.range = {maximum: null, exclusiveMaximum: null, exclusiveMinimum: null, minimum: min};
             validatorFn = Validators.compose(service.getValidators(intItem));
-            control.setValue('5');
+            control.setValue('0');
 
             const validation = validatorFn(control);
             expect(validation).toBeNull(`The minimum value should not flag ${min}`);
           });
 
           it('should throw an error if integer value is equal to the exclusiveMinimum value', () => {
-            const min = 5;
+            const min = 0;
             intItem.validationSettings.range = {maximum: null, exclusiveMaximum: null, exclusiveMinimum: min, minimum: null};
             validatorFn = Validators.compose(service.getValidators(intItem));
-            control.setValue('5');
+            control.setValue('-1');
 
             const validation = validatorFn(control);
             expect(validation.max).toBeUndefined('The minimum value error should not exist');
