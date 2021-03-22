@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
 
+import { isNil } from 'lodash';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
 import { IntegerDataItem } from './models/integer-data-item';
 import { StringDataItem, StringFormat } from './models/string-data-item';
@@ -70,24 +71,28 @@ export class ValidatorService {
     const options = item.validationSettings;
 
     validators.push(this.getIntValidator());
-    validators.push(Validators.min(ValidatorService.MIN_NUMBER)); // may be overwritten below
-    validators.push(Validators.max(ValidatorService.MAX_NUMBER)); // may be overwritten below
 
-    if (options.range?.minimum) {
-      validators.push(Validators.min(options.range.minimum));
+    let minimum = ValidatorService.MIN_NUMBER;
+    let maximum = ValidatorService.MAX_NUMBER;
+
+    if (!isNil(options.range?.minimum)) {
+      minimum = options.range.minimum;
     }
 
-    if (options.range?.maximum) {
-      validators.push(Validators.max(options.range.maximum));
+    if (!isNil(options.range?.maximum)) {
+      maximum = options.range.maximum;
     }
 
-    if (options.range?.exclusiveMinimum) {
-      validators.push(Validators.min(options.range.exclusiveMinimum + 1));
+    if (!isNil(options.range?.exclusiveMinimum)) {
+      minimum = options.range.exclusiveMinimum + 1;
     }
 
-    if (options.range?.exclusiveMaximum) {
-      validators.push(Validators.max(options.range.exclusiveMaximum - 1));
+    if (!isNil(options.range?.exclusiveMaximum)) {
+      maximum = options.range.exclusiveMaximum - 1;
     }
+
+    validators.push(Validators.min(minimum));
+    validators.push(Validators.max(maximum));
 
     return validators;
   }

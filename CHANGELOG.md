@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [2.1.1] (2021-03-22)
+### Bug Fixes
+- Fixing bug where exclusiveMinimum and minimum would not allow a value of zero. 
+
 ## [2.1.0] (2021-03-19)
 ### Enhancement
 - Add Integer support for exclusiveMaximum, exclusiveMinimum, maximum, and minimum keywords.
