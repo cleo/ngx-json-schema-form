@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [2.1.2] (2021-03-23)
+### Bug Fixes
+- Fixing bug where SchemaValidationService was not exported.
+
 ## [2.1.1] (2021-03-22)
 ### Bug Fixes
 - Fixing bug where exclusiveMinimum and minimum would not allow a value of zero. 
