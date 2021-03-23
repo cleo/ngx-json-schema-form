@@ -1,6 +1,6 @@
+import { JSFJsonSchema } from '@cleo/ngx-json-schema-form/lib/jsf-json-schema';
 import Ajv, { ErrorObject } from 'ajv';
 import { isNil } from 'lodash-es';
-import { JSFJsonSchema } from '../../../jsf/src/lib/jsf-json-schema';
 
 /**
  * Schema validation using Another JSON Validator (AJV)
