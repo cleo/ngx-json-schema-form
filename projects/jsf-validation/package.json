@@ -5,5 +5,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/cleo/ngx-json-schema-form"
+  },
+  "dependencies": {
+    "@cleo/ngx-json-schema-form": "2.1.2"
   }
 }
