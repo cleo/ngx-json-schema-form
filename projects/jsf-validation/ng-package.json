@@ -3,5 +3,8 @@
   "dest": "../../dist/jsf-validation",
   "lib": {
     "entryFile": "src/projects.ts"
-  }
+  },
+  "whitelistedNonPeerDependencies": [
+    "@cleo/ngx-json-schema-form"
+  ]
 }
