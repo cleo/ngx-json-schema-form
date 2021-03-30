@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
 
-import { isNil } from 'lodash';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
 import { IntegerDataItem } from './models/integer-data-item';
 import { StringDataItem, StringFormat } from './models/string-data-item';
@@ -75,19 +74,19 @@ export class ValidatorService {
     let minimum = ValidatorService.MIN_NUMBER;
     let maximum = ValidatorService.MAX_NUMBER;
 
-    if (!isNil(options.range?.minimum)) {
+    if (!this.isNil(options.range?.minimum)) {
       minimum = options.range.minimum;
     }
 
-    if (!isNil(options.range?.maximum)) {
+    if (!this.isNil(options.range?.maximum)) {
       maximum = options.range.maximum;
     }
 
-    if (!isNil(options.range?.exclusiveMinimum)) {
+    if (!this.isNil(options.range?.exclusiveMinimum)) {
       minimum = options.range.exclusiveMinimum + 1;
     }
 
-    if (!isNil(options.range?.exclusiveMaximum)) {
+    if (!this.isNil(options.range?.exclusiveMaximum)) {
       maximum = options.range.exclusiveMaximum - 1;
     }
 
@@ -132,5 +131,10 @@ export class ValidatorService {
   private getInvalidEmails(control: AbstractControl, delimiter: string): string[] {
     const emails = control.value.split(delimiter);
     return emails.filter(email => !EMAIL_REGEX.test(email));
+  }
+
+  // Would be better to use lodash instead, but including here for compatibility with other projects (lodash vs lodash-es)
+  private isNil(value: any): boolean {
+    return value === null || value === undefined;
   }
 }
