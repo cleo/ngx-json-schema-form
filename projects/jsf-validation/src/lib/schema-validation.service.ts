@@ -1,6 +1,5 @@
 import { JSFJsonSchema } from '@cleo/ngx-json-schema-form/lib/jsf-json-schema';
 import Ajv, { ErrorObject } from 'ajv';
-import { isNil } from 'lodash-es';
 
 /**
  * Schema validation using Another JSON Validator (AJV)
@@ -55,7 +54,7 @@ export class SchemaValidationService {
    */
   public static prettyPrintErrors(errors: JSFErrorObject[]): string {
     let errorMsg = '';
-    if (isNil(errors)) {
+    if (errors === undefined || errors === null) {
       return errorMsg;
     }
 
