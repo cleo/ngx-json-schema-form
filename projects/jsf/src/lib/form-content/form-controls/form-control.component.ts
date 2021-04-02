@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { JSFConfig } from '../../jsf-config';
@@ -18,6 +18,7 @@ export class FormControlComponent extends ContentBaseComponent {
   @Input() config: JSFConfig;
   @Input() isEdit: boolean;
   @Input() labelLengthClass: string;
+  @Input() testTemplate: TemplateRef<any>;
 
   isStringInput(): boolean {
     return this.formItem.type === FormDataItemType.String ||

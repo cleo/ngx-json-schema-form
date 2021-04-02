@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { getLongestFieldLabelClass } from '../../form.service';
 import { ParentDataItem } from '../../models/parent-data-item';
 import { ContentBaseComponent } from '../content-base.component';
@@ -11,6 +11,8 @@ import { ContentBaseComponent } from '../content-base.component';
 })
 export class SectionComponent extends ContentBaseComponent  implements OnInit {
   @Input() formItem: ParentDataItem;
+  @Input() testTemplate: TemplateRef<any>;
+
   isContentShown = true;
   sectionLabelLengthClass: string;
 

@@ -1,4 +1,4 @@
-import { Directive, Input, OnInit } from '@angular/core';
+import { Directive, Input, OnInit, TemplateRef } from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 import { FormDataItem } from '../../models/form-data-item';
@@ -10,6 +10,7 @@ import { ContentBaseComponent } from '../content-base.component';
 export class FormControlBase extends ContentBaseComponent implements OnInit {
   @Input() formItem: FormDataItem;
   @Input() labelLengthClass: string;
+  @Input() testTemplate: TemplateRef<any>;
 
   get formControl(): FormControl {
     return (this.formGroup.controls[this.formItem.key]) as FormControl;

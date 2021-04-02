@@ -3,6 +3,7 @@
   [config]="config"
   (disableSubmit)="updateSubmitButtonStatus($event)"
   (formHeightChange)="emitTotalHeight($event)"
+  [testTemplate]="labelTemplate1"
   (buttonEvent)="buttonEvent($event)"></jsf-component>
 
 <div *ngIf="showValidationMessage"
@@ -25,3 +26,10 @@
           title="This will validate the form.">Submit</button>
 </div>
 
+<ng-template #labelTemplate1>
+  <label>Some first value goes here</label>
+</ng-template>
+
+<ng-template #labelTemplate2>
+  <label>Some second value goes here</label>
+</ng-template>

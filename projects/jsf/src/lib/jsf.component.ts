@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, TemplateRef, ViewChild } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
 
 import { NEVER } from 'rxjs';
@@ -26,6 +26,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
   @ViewChild('formRoot', { static: true }) formElement: ElementRef<HTMLFormElement>;
   @Input() config: JSFConfig;
   @Input() schemaData;
+  @Input() testTemplate: TemplateRef<any>;
   @Output() disableSubmit: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() formHeightChange: EventEmitter<number> = new EventEmitter();
   @Output() buttonEvent: EventEmitter<JSFEventButton> = new EventEmitter();

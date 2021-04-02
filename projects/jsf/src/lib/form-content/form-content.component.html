@@ -11,6 +11,7 @@
     [isEdit]="isEdit"
     [config]="config"
     [labelLengthClass]="labelLengthClass"
+    [testTemplate]="testTemplate"
     (buttonEvent)="onButtonEvent($event)"></jsf-form-control>
 
   <jsf-checkbox-with-children
@@ -19,6 +20,7 @@
     [formGroup]="getFormGroup(item)"
     [isEdit]="isEdit"
     [config]="config"
+    [testTemplate]="testTemplate"
     (buttonEvent)="onButtonEvent($event)"></jsf-checkbox-with-children>
 
   <jsf-section
@@ -27,6 +29,7 @@
     [formGroup]="getFormGroup(item)"
     [isEdit]="isEdit"
     [config]="config"
+    [testTemplate]="testTemplate"
     (buttonEvent)="onButtonEvent($event)"></jsf-section>
 
 <!--
@@ -44,6 +47,7 @@
     [isEdit]="isEdit"
     [config]="config"
     [labelLengthClass]="labelLengthClass"
+    [testTemplate]="testTemplate"
     (buttonEvent)="onButtonEvent($event)"></jsf-one-of>
 </div>
 
@@ -53,5 +57,5 @@
   [formGroup]="formGroup"
   [config]="config"
   [isEdit]="isEdit"
+  [testTemplate]="testTemplate"
   (buttonEvent)="onButtonEvent($event)"></jsf-tabs>
-

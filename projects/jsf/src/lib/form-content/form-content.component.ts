@@ -1,4 +1,4 @@
-import { Component, Input, QueryList, ViewChildren } from '@angular/core';
+import { Component, Input, QueryList, TemplateRef, ViewChildren } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { ConditionalParentDataItem } from '../models/conditional-parent-data-item';
@@ -16,6 +16,7 @@ import { ContentBaseComponent } from './content-base.component';
 export class FormContentComponent extends ContentBaseComponent {
   @ViewChildren('contentDiv') divs: QueryList<any>;
   @Input() formItems: FormDataItem[] = [];
+  @Input() testTemplate: TemplateRef<any>;
   @Input() labelLengthClass: string;
 
   // non-tabbed items cannot be calculated only upon initialization, as the inputted items will change with oneOf dropdown selections.

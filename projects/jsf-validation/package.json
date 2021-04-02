@@ -1,5 +1,5 @@
 {
-  "name": "@cleo/ngx-json-schema-form-validation",
+  "name": "@test/ngx-json-schema-form-validation",
   "version": "2.1.3",
   "peerDependencies": {},
   "repository": {

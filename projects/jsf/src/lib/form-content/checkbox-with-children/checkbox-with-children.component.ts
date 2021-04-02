@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 import { FormService, getLongestFieldLabelClass } from '../../form.service';
@@ -14,6 +14,7 @@ import { ContentBaseComponent } from '../content-base.component';
 })
 export class CheckboxWithChildrenComponent extends ContentBaseComponent  implements OnInit {
   @Input() formItem: ConditionalParentDataItem;
+  @Input() testTemplate: TemplateRef<any>;
 
   parentFormItem: FormDataItem;
   childFormItems: FormDataItem[] = [];

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { getLongestFieldLabelClass } from '../../form.service';
 import { FormDataItem } from '../../models/form-data-item';
@@ -12,6 +12,7 @@ import { ContentBaseComponent } from '../content-base.component';
 })
 export class TabsComponent extends ContentBaseComponent {
   @Input() items: ParentDataItem[];
+  @Input() testTemplate: TemplateRef<any>;
 
   getFormGroup(item: FormDataItem): FormGroup {
     return this.formGroup.controls[item.key] as FormGroup;

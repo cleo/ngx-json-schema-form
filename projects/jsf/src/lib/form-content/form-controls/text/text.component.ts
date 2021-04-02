@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, TemplateRef } from '@angular/core';
 import { FormDataItemType } from '../../../models/form-data-item';
 import { StringDataItem, StringFormat, StringLengthOptions } from '../../../models/string-data-item';
 import { FormControlBase } from '../form-control-base';
@@ -9,6 +9,8 @@ import { FormControlBase } from '../form-control-base';
   styleUrls: ['text.component.scss']
 })
 export class TextComponent extends FormControlBase {
+  @Input() testTemplate: TemplateRef<any>;
+
   showCounter = false;
 
   onFocus(): void {
