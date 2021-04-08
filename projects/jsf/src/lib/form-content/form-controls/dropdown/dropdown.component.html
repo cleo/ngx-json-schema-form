@@ -4,17 +4,10 @@
     <div class="control-with-error">
       <select
         class="form-control"
-        [class.default-selected]="isDefaultSelected()"
         [title]="formItem.tooltip"
         [formControlName]="formItem.key"
         [id]="formItem.path"
         (change)="onChange()">
-        <option
-          *ngIf="showDefault()"
-          class="default-option"
-          [id]="getDefaultId()"
-          [selected]="isDefaultSelected()"
-          [value]="''">Select an option</option>
         <option *ngFor="let item of formItemAsEnumType.enumOptions"
                 [id]="item.path"
                 [value]="item.key">{{item.text}}</option>

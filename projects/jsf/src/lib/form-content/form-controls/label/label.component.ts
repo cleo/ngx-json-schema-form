@@ -31,4 +31,8 @@ export class LabelComponent implements OnInit {
 
     return classes.join(' ');
   }
+
+  isRequired(): boolean {
+    return this.formItem.required || this.formItem.type === FormDataItemType.Enum;
+  }
 }

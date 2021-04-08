@@ -66,7 +66,23 @@ export class RequiredSchemaValueValidationService {
       return false;
     }
 
-    return requiredKeys.every(requiredKey => !!flattenedValueKeys.find(path => path === requiredKey || path.includes(requiredKey)));
+    const hasRequiredKeys = requiredKeys.every(requiredKey => !!flattenedValueKeys.find(path => path === requiredKey || path.includes(requiredKey)));
+    if (!hasRequiredKeys) {
+      return false;
+    }
+
+    const doesNotHaveCorrectEnumValue = requiredKeys.some(requiredKey => {
+      const enumSchemaKeys = flattenedSchemaKeys.filter(path => SchemaHelperService.formatKeyPath(path).includes(`${requiredKey}.${SchemaHelperService.ENUM_KEY}[`));
+      if (!enumSchemaKeys.length) {
+        return false;
+      }
+
+      const value = flattenedValues[requiredKey];
+      const validValues = enumSchemaKeys.map(key => flattenedSchema[key]);
+      return !validValues.includes(value);
+    });
+
+    return !doesNotHaveCorrectEnumValue;
   }
 
   /**

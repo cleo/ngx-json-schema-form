@@ -67,6 +67,14 @@ describe('RequiredSchemaValueValidationService', () => {
         textInput: {
           type: 'string',
           name: 'Text Input'
+        },
+        enumInput: {
+          name: 'Enum Input',
+          display: 'dropdown',
+          enum: [
+            'option1',
+            'option2'
+          ]
         }
       }
     };
@@ -78,6 +86,7 @@ describe('RequiredSchemaValueValidationService', () => {
       const result = RequiredSchemaValueValidationService.getRequiredKeysFromSchemaOnly(flattenedSchema);
       expect(result[0]).toEqual('checkbox');
       expect(result[1]).toEqual('numberInput');
+      expect(result[2]).toEqual('enumInput');
     });
 
     it('should return an array of required paths when nested beneath a parent object', () => {
@@ -87,9 +96,10 @@ describe('RequiredSchemaValueValidationService', () => {
 
       const flattenedSchema = SchemaHelperService.getFlattenedObject(schema);
       const result = RequiredSchemaValueValidationService.getRequiredKeysFromSchemaOnly(flattenedSchema);
-      expect(result.length).toEqual(2);
+      expect(result.length).toEqual(3);
       expect(result[0]).toEqual('object.checkbox');
       expect(result[1]).toEqual('object.numberInput');
+      expect(result[2]).toEqual('object.enumInput');
     });
 
     it('should return an array of required paths when a required field is deeply nested', () => {
@@ -154,7 +164,13 @@ describe('RequiredSchemaValueValidationService', () => {
 
     it('should return true if there are no required fields', () => {
       delete basicSchema.required;
+      delete basicSchema.properties.enumInput;
       expect(RequiredSchemaValueValidationService.valuesHaveRequiredKeys(basicSchema, values, false)).toBe(true);
+    });
+
+    it('should return false if there are enum fields', () => {
+      delete basicSchema.required;
+      expect(RequiredSchemaValueValidationService.valuesHaveRequiredKeys(basicSchema, values, false)).toBe(false);
     });
 
     it('should return false if one or more required fields are not present', () => {
@@ -616,7 +632,8 @@ describe('RequiredSchemaValueValidationService', () => {
           value: true,
           checkbox: true,
           numberInput: 1234,
-          textInput: 'bdhewbhiq'
+          textInput: 'bdhewbhiq',
+          enumInput: 'option1'
         };
       });
 
@@ -626,6 +643,11 @@ describe('RequiredSchemaValueValidationService', () => {
 
       it('should return false if the control is true and one or more of its required fields are not present', () => {
         delete values.numberInput;
+        expect(RequiredSchemaValueValidationService.valuesHaveRequiredKeys(basicSchema, values, false)).toBe(false);
+      });
+
+      it('should return false if the control is true and one or more of its enum fields are not present', () => {
+        delete values.enumInput;
         expect(RequiredSchemaValueValidationService.valuesHaveRequiredKeys(basicSchema, values, false)).toBe(false);
       });
 
