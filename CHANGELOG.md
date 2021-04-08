@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [3.0.0] (2021-04-12)
+### Bug Fixes
+- Enum values are always required. Radio buttons and Dropdowns are different ways to display the same data: an option must always be selected. Due to this, the 'Select an option' option from dropdown display on enums has been deprecated.
+### Enhancement
+- Disable browser autofill of values
+
 ## [2.1.3] (2021-03-31)
 ### Bug Fixes
 - Remove dependency on lodash-es.
