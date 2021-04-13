@@ -9,7 +9,8 @@
         [id]="formItem.path"
         [type]="getInputType()"
         (blur)="onStringBlur()"
-        (focus)="onFocus()">
+        (focus)="onFocus()"
+        autocomplete="new-password">
       <div class="character-counter" *ngIf="showCounter">
         <span class="max" [class.error]="hasMaxLengthError()" *ngIf="hasMaxLength()">{{getMaxCharacterCountInfo()}}</span>
         <span class="min" [class.error]="hasMinLengthError()" *ngIf="hasMinLength()">{{getMinCharacterCountInfo()}}</span>

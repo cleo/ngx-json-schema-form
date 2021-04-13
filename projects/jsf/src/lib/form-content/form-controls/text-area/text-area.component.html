@@ -8,7 +8,8 @@
         [formControlName]="formItem.key"
         [id]="formItem.path"
         [rows]="rows"
-        [cols]="cols">
+        [cols]="cols"
+        autocomplete="new-password">
       </textarea>
       <img *ngIf="formItem.helpText"
            class="help"

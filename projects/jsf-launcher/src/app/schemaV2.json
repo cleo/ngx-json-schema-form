@@ -160,12 +160,47 @@
         "dropdowns": {
           "type": "object",
           "name": "Dropdowns",
-          "required": ["dropdown1"],
-          "description": "Dropdowns can be required or not required. If no values are passed in, the form will display \"Select an option...\" by default. If the dropdown is required, then the default option will be hidden once the user has selected a value. If the dropdown is not required, the default option will always be present.",
+          "description": "A value must be selected from a dropdown. A default enum value may be specified",
           "properties": {
             "dropdown1": {
               "display": "dropdown",
-              "name": "Dropdown",
+              "name": "Dropdown with empty string option",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "enum": [
+                "",
+                "option1",
+                "option2",
+                "option3"
+              ],
+              "enumNames": [
+                "None",
+                "Option 1",
+                "Option 2",
+                "Option 3"
+              ]
+            },
+            "dropdown2": {
+              "display": "dropdown",
+              "name": "Dropdown with null option",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "enum": [
+                null,
+                "option1",
+                "option2",
+                "option3"
+              ],
+              "enumNames": [
+                "None",
+                "Option 1",
+                "Option 2",
+                "Option 3"
+              ]
+            },
+            "dropdown3": {
+              "display": "dropdown",
+              "name": "Dropdown without empty string option",
               "helpText": "This help text will display when you hover over the information icon",
               "tooltip": "This tooltip will display when you hover over the label.",
               "enum": [
@@ -248,12 +283,12 @@
                 "option1",
                 "option2",
                 "option3"
-                ],
+              ],
               "enumNames": [
                 "Option 1",
                 "Option 2",
                 "Option 3"
-               ]
+              ]
             },
             "radioButtonsWithDefault": {
               "display": "radio-buttons",
@@ -301,7 +336,7 @@
                 "defaultOption1",
                 "defaultOption2",
                 "defaultOption3"
-                ],
+              ],
               "enumNames": [
                 "Option 1",
                 "Option 2",

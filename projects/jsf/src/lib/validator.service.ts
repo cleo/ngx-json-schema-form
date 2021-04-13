@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
+import { EnumDataItem } from './models/enum-data-item';
 
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
 import { IntegerDataItem } from './models/integer-data-item';
@@ -18,8 +19,13 @@ export class ValidatorService {
   getValidators(item: FormDataItem): ValidatorFn[] {
     let validators = [];
 
-    if (item.required) {
+    if (item.required && item.type !== FormDataItemType.Enum) {
       validators.push(Validators.required);
+    }
+
+    // A value must always be selected from Enum
+    if (item.type === FormDataItemType.Enum) {
+      validators.push(this.getEnumValidator(item as EnumDataItem));
     }
 
     if (item.type === FormDataItemType.Integer) {
@@ -131,6 +137,13 @@ export class ValidatorService {
   private getInvalidEmails(control: AbstractControl, delimiter: string): string[] {
     const emails = control.value.split(delimiter);
     return emails.filter(email => !EMAIL_REGEX.test(email));
+  }
+
+  private getEnumValidator(formItem: EnumDataItem): ValidatorFn {
+    return (control: AbstractControl) => {
+      const value = control.value === 'null' ? null : control.value;
+      return formItem.enumOptions.map(x => x.key).includes(value) ? null : { required: formItem.label };
+    };
   }
 
   // Would be better to use lodash instead, but including here for compatibility with other projects (lodash vs lodash-es)

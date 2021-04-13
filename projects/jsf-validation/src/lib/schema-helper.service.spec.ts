@@ -44,6 +44,42 @@ describe('SchemaHelperService', () => {
     });
   });
 
+  it('should flatten an enum object and add required flag', () => {
+      const schema = {
+        enumInput: {
+          name: 'Enum Input',
+          display: 'dropdown',
+          enum: [
+            'option1',
+            'option2'
+          ]
+        }
+      };
+
+      const result = SchemaHelperService.getFlattenedObject(schema);
+      expect(result['required[0]']).toEqual('enumInput');
+    });
+
+  it('should flatten the keys of child enum values and add required flag', () => {
+      const schema = {
+        key: {
+          properties: {
+            enumInput: {
+              name: 'Enum Input',
+              display: 'dropdown',
+              enum: [
+                'option1',
+                'option2'
+              ]
+            }
+          }
+        }
+      };
+
+      const result = SchemaHelperService.getFlattenedObject(schema);
+      expect(result['key.required[0]']).toEqual('enumInput');
+    });
+
   describe('formatKeyPath()', () => {
     it('should remove the keyword "properties" from the key path', () => {
       const keyPath = 'key1.key2.properties.key4.key5';
