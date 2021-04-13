@@ -83,7 +83,7 @@ export class SchemaHelperService {
    * Sets the required attribute in the flattened schema (i.e. required[0] = 'value)
    */
   private static setArrayValue(obj: any, unformattedPath: string, key: string, value: any): void {
-    const existingKeys = SchemaHelperService.getExistingKeys(obj, unformattedPath, SchemaHelperService.REQUIRED_KEY);
+    const existingKeys = SchemaHelperService.getExistingKeys(obj, unformattedPath, key);
     const path = SchemaHelperService.getParentPathWithoutProperties(unformattedPath);
     let index = 0;
     if (existingKeys) {

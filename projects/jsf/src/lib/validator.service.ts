@@ -141,7 +141,8 @@ export class ValidatorService {
 
   private getEnumValidator(formItem: EnumDataItem): ValidatorFn {
     return (control: AbstractControl) => {
-      return formItem.enumOptions.map(x => x.key).includes(control.value) ? null : { required: formItem.label };
+      const value = control.value === 'null' ? null : control.value;
+      return formItem.enumOptions.map(x => x.key).includes(value) ? null : { required: formItem.label };
     };
   }
 

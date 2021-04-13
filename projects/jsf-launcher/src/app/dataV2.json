@@ -22,6 +22,8 @@
   "enums": {
     "dropdowns": {
       "dropdown1": "option1",
+      "dropdown2": "option1",
+      "dropdown3": "option1",
       "dropdownWithDefault": "option2",
       "hiddenDropdownWithDefault": "option2"
     },

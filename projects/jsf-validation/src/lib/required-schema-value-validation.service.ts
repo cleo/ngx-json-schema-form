@@ -77,7 +77,7 @@ export class RequiredSchemaValueValidationService {
         return false;
       }
 
-      const value = flattenedValues[requiredKey];
+      const value = flattenedValues[requiredKey] === 'null' ? null : flattenedValues[requiredKey];
       const validValues = enumSchemaKeys.map(key => flattenedSchema[key]);
       return !validValues.includes(value);
     });

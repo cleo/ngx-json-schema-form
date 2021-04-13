@@ -164,7 +164,7 @@
           "properties": {
             "dropdown1": {
               "display": "dropdown",
-              "name": "Dropdown",
+              "name": "Dropdown with empty string option",
               "helpText": "This help text will display when you hover over the information icon",
               "tooltip": "This tooltip will display when you hover over the label.",
               "enum": [
@@ -181,6 +181,24 @@
               ]
             },
             "dropdown2": {
+              "display": "dropdown",
+              "name": "Dropdown with null option",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "enum": [
+                null,
+                "option1",
+                "option2",
+                "option3"
+              ],
+              "enumNames": [
+                "None",
+                "Option 1",
+                "Option 2",
+                "Option 3"
+              ]
+            },
+            "dropdown3": {
               "display": "dropdown",
               "name": "Dropdown without empty string option",
               "helpText": "This help text will display when you hover over the information icon",
