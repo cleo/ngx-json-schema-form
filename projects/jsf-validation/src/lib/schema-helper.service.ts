@@ -45,13 +45,9 @@ export class SchemaHelperService {
           // Enums are always required
           if (cur[p][SchemaHelperService.ENUM_KEY] && !SchemaHelperService.hasKey(flattenedObject, childProp, cur, p, SchemaHelperService.READONLY_KEY)) {
             const existingRequiredKeys = SchemaHelperService.getExistingKeys(flattenedObject,  prop, SchemaHelperService.REQUIRED_KEY);
-            if (!existingRequiredKeys.length) {
+            if (!existingRequiredKeys.length || existingRequiredKeys.every(key => flattenedObject[key] !== p)) {
               SchemaHelperService.setArrayValue(flattenedObject, prop, SchemaHelperService.REQUIRED_KEY, p);
-            } else {
-              if (existingRequiredKeys.every(key => flattenedObject[key] !== p)) {
-                SchemaHelperService.setArrayValue(flattenedObject, prop, SchemaHelperService.REQUIRED_KEY, p);
-              }
-            }
+            } 
           }
         }
         if (isEmpty && prop) {
