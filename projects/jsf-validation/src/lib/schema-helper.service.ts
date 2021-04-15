@@ -47,7 +47,7 @@ export class SchemaHelperService {
             const existingRequiredKeys = SchemaHelperService.getExistingKeys(flattenedObject,  prop, SchemaHelperService.REQUIRED_KEY);
             if (!existingRequiredKeys.length || existingRequiredKeys.every(key => flattenedObject[key] !== p)) {
               SchemaHelperService.setArrayValue(flattenedObject, prop, SchemaHelperService.REQUIRED_KEY, p);
-            } 
+            }
           }
         }
         if (isEmpty && prop) {

@@ -1,4 +1,3 @@
-import { JSFJsonSchema } from '@cleo/ngx-json-schema-form/lib/jsf-json-schema';
 import Ajv, { ErrorObject } from 'ajv';
 
 /**
@@ -17,7 +16,7 @@ export class SchemaValidationService {
    * @param schema: schema to validate against
    * @param values: values to validate
    */
-  public static validate(schema: JSFJsonSchema, values: any): JSFErrorObject[] {
+  public static validate(schema: any, values: any): JSFErrorObject[] {
     const ajv = new Ajv({allErrors: true});
     const valid = ajv.validate(schema, values);
     if (!valid) {
