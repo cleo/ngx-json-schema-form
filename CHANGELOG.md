@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [3.0.1] (2021-04-16)
+### Bug Fixes
+- Removed @cleo/ngx-json-schema-form-validation package's dependecy on @cleo/ngx-json-schema-form
+
 ## [3.0.0] (2021-04-12)
 ### Bug Fixes
 - Enum values are always required. Radio buttons and Dropdowns are different ways to display the same data: an option must always be selected. Due to this, the 'Select an option' option from dropdown display on enums has been deprecated.
