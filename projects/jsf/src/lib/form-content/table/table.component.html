@@ -1,0 +1,45 @@
+<div class="modal-header">
+  <div class="modal-title">
+    <span>{{modalTitle}}</span>
+  </div>
+</div>
+
+<div class="modal-body">
+  <div class="jsf-table-header">
+    <button *ngIf="showDelete"
+            class="btn btn-primary jsf-table-delete-button"
+            type="button"
+            (click)="onDelete()">
+      <img [src]="'assets/jsf-images/trash.svg'">
+    </button>
+
+  </div>
+  <ag-grid-angular
+    class="jsf-table"
+    [rowData]="rowData$ | async"
+    [columnDefs]="colDefs"
+    [defaultColDef]="defaultColDef"
+    [modules]="modules"
+    [frameworkComponents]="frameworkComponents"
+    (gridReady)="onGridReady($event)"
+    (firstDataRendered)="onRender($event)"
+    [rowHeight]="45"
+    [rowSelection]="'multiple'"
+    [suppressRowClickSelection]="true"
+    [suppressNoRowsOverlay]="true"
+    (rowSelected)="onRowSelected()"
+    [pinnedTopRowData]="pinnedTopRowData$ | async"
+    (cellValueChanged)="onCellValueChanged($event)">
+  </ag-grid-angular>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-primary"
+          type="button">
+    OK
+  </button>
+
+  <button class="btn btn-secondary"
+          type="button">
+    Cancel
+  </button>
+</div>

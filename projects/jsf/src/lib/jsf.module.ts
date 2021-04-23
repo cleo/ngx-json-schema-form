@@ -1,3 +1,4 @@
+import { AgGridModule } from '@ag-grid-community/angular';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +17,11 @@ import { TextComponent } from './form-content/form-controls/text/text.component'
 import { OneOfDropdownComponent } from './form-content/one-of/one-of-dropdown/one-of-dropdown.component';
 import { OneOfComponent } from './form-content/one-of/one-of.component';
 import { SectionComponent } from './form-content/section/section.component';
+import { CellRendererComponent } from './form-content/table/cells/cell-renderer.component';
+import { CheckboxCellComponent } from './form-content/table/cells/checkbox-cell.component';
+import { DropdownCellComponent } from './form-content/table/cells/dropdown-cell.component';
+import { TextCellComponent } from './form-content/table/cells/text-cell.component';
+import { TableComponent } from './form-content/table/table.component';
 import { TabComponent } from './form-content/tabs/tab/tab.component';
 import { TabsComponent } from './form-content/tabs/tabs.component';
 import { TabstripComponent } from './form-content/tabs/tabstrip/tabstrip.component';
@@ -43,7 +49,12 @@ const components = [
   RadioButtonComponent,
   TextComponent,
   SecuredTextComponent,
-  TextAreaComponent
+  TextAreaComponent,
+  TableComponent,
+  CheckboxCellComponent,
+  DropdownCellComponent,
+  TextCellComponent,
+  CellRendererComponent
 ];
 
 const services = [
@@ -60,7 +71,8 @@ const services = [
   imports: [
     CommonModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AgGridModule.withComponents([])
   ],
   exports: [
     JSFComponent

@@ -98,4 +98,8 @@ export class FormContentComponent extends ContentBaseComponent {
   isHidden(item: FormDataItem): boolean {
     return item.isHidden;
   }
+
+  isArray(item: FormDataItem): boolean {
+    return item.type === FormDataItemType.Array;
+  }
 }
