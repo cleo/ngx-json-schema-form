@@ -2,7 +2,8 @@ import Ajv, { ErrorObject } from 'ajv';
 
 /**
  * Schema validation using Another JSON Validator (AJV)
- * This does not handle fields with the allOf, anyOf, oneOf keywords
+ * This does not handle fields with the allOf, anyOf, oneOf keywords.
+ * A valid default value must be specified for hidden and read-only properties.
  */
 export class SchemaValidationService {
   private static properties = 'properties';
@@ -20,9 +21,7 @@ export class SchemaValidationService {
     const ajv = new Ajv({allErrors: true});
     const valid = ajv.validate(schema, values);
     if (!valid) {
-      return ajv.errors.map(error => SchemaValidationService.toJsfError(ajv, error))
-        .filter(error => !error.errorSchema[SchemaValidationService.isHidden])
-        .filter(error => !error.errorSchema[SchemaValidationService.isReadOnly]);
+      return ajv.errors.map(error => SchemaValidationService.toJsfError(ajv, error));
     }
     return null;
   }
@@ -30,16 +29,6 @@ export class SchemaValidationService {
   private static toJsfError(ajv: Ajv.Ajv, error: ErrorObject): JSFErrorObject {
     const schemaPath = error.schemaPath.substring(0, error.schemaPath.lastIndexOf(`/${error.keyword}`));
     const schemaObj = ajv.getSchema(schemaPath);
-
-    // Set inherited properties
-    if (schemaObj.schema[SchemaValidationService.properties]) {
-      if (schemaObj.schema[SchemaValidationService.isHidden]) {
-        schemaObj.schema[SchemaValidationService.properties][SchemaValidationService.isHidden] = true;
-      }
-      if (schemaObj.schema[SchemaValidationService.isReadOnly]) {
-        schemaObj.schema[SchemaValidationService.properties][SchemaValidationService.isReadOnly] = true;
-      }
-    }
 
     return {
       errorObject: error,
