@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [3.0.2] (2021-04-23)
+### Bug Fixes
+- SchemaValidationService will validate hidden and read-only fields
+
 ## [3.0.1] (2021-04-16)
 ### Bug Fixes
 - Removed @cleo/ngx-json-schema-form-validation package's dependecy on @cleo/ngx-json-schema-form
