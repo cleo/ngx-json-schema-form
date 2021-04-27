@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { map, takeUntil } from 'rxjs/operators';
 import { getInputValue$ } from '../../../component-life-cycle';
 import { EnumDataItem, EnumOption } from '../../../models/enum-data-item';

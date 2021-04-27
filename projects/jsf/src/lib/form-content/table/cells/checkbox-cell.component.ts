@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, Input, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CellRendererComponent } from './cell-renderer.component';
 
 @Component({

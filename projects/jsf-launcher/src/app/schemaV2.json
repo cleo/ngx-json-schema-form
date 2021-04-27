@@ -23,7 +23,8 @@
               },
               "model": {
                 "type": "string",
-                "name": "Model"
+                "name": "Model",
+                "default": "Corolla"
               },
               "transmission": {
                 "name": "Transmission",
