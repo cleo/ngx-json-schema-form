@@ -13,5 +13,5 @@ export interface JSFJsonSchema {
   key?: string;
   helpText?: string;
   tooltip?: string;
-  items?: any[];
+  items?: any;
 }

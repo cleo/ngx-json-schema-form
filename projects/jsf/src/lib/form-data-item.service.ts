@@ -31,18 +31,19 @@ export class FormDataItemService {
   }
 
   private getItemsFromSubschema(schema: JSFJsonSchema, values: object, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): FormDataItem[] {
-    return Object.keys(schema.properties ?? schema.items).map(key => {
+    return Object.keys(schema.properties ?? schema.items.properties).map(key => {
       return this.getItemFromSchema(schema, values, key, pathParts.slice(), isParentReadOnly, isParentHidden);
     });
   }
 
   private getItemFromSchema(schema: JSFJsonSchema, values: any, key: string, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): FormDataItem {
     pathParts.push(key);
-    const schemaProperty = schema.properties ? schema.properties[key] : schema.items[key];
+    const schemaProperty = schema.properties ? schema.properties[key] : schema.items.properties[key];
     const name = schemaProperty.name;
     const tooltip = schemaProperty.tooltip;
     const helpText = schemaProperty.helpText;
-    const required = this.getRequired(schema, key);
+    // Required fields for arrays are stored in items.properties
+    const required = this.getRequired(schema.properties ? schema : schema.items, key);
     const isReadOnly = Boolean(schemaProperty.isReadOnly) || isParentReadOnly;
     const type = this.getFormDataItemType(schemaProperty);
     const isHidden = Boolean(schemaProperty.isHidden) || isParentHidden;

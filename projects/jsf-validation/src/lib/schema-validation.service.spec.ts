@@ -6,7 +6,7 @@ describe('SchemaValidationService', () => {
   beforeEach(() => {
     basicSchema = {
       type: 'object',
-      required: ['checkboxInput', 'numberInput'],
+      required: ['checkboxInput', 'numberInput', 'arrayInput'],
       properties: {
         checkboxInput: {
           type: 'boolean',
@@ -24,19 +24,24 @@ describe('SchemaValidationService', () => {
           minLength: 5,
           maxLength: 10
         },
-        hiddenInput: {
-          type: 'string',
-          name: 'Hidden field should not be validated',
-          isHidden: true,
-          maxLength: 3,
-          default: 'too long'
-        },
-        readonlyInput: {
-          type: 'string',
-          name: 'Readonly field should not be validated',
-          isReadOnly: true,
-          maxLength: 3,
-          default: 'too long'
+        arrayInput: {
+          type: 'array',
+          name: 'Array field',
+          items: {
+            properties: {
+              textItem: {
+                type: 'string',
+                name: 'Text Item',
+                minLength: 5,
+                maxLength: 10
+              },
+              requiredItem: {
+                type: 'string',
+                name: 'Required Item'
+              }
+            },
+            required: ['requiredItem']
+          }
         }
       }
     };
@@ -47,15 +52,29 @@ describe('SchemaValidationService', () => {
       const result = SchemaValidationService.validate(basicSchema, { textInput: 'abcde' });
       expect(result[0].errorObject.message).toContain('checkboxInput');
       expect(result[1].errorObject.message).toContain('numberInput');
+      expect(result[2].errorObject.message).toContain('arrayInput');
     });
 
-    it('should return an array of errors when missing one properties', () => {
-      const result = SchemaValidationService.validate(basicSchema, { textInput: 'abcde', checkboxInput: true});
+    it('should return an array of errors when missing one property', () => {
+      const result = SchemaValidationService.validate(basicSchema,
+  {
+          textInput: 'abcde',
+          checkboxInput: true,
+          arrayInput: [{textItem: 'abcde', requiredItem: 'abcde'}]
+        }
+      );
       expect(result[0].errorObject.message).toContain('numberInput');
     });
 
     it('should return an null when values are valid', () => {
-      const result = SchemaValidationService.validate(basicSchema, { textInput: 'abcde', numberInput: 0, checkboxInput: true});
+      const result = SchemaValidationService.validate(basicSchema,
+  {
+          textInput: 'abcde',
+          numberInput: 0,
+          checkboxInput: true,
+          arrayInput: [{textItem: 'abcde', requiredItem: 'abcde'}]
+        }
+      );
       expect(result).toBeNull();
     });
 
@@ -63,6 +82,19 @@ describe('SchemaValidationService', () => {
       const result = SchemaValidationService.validate(basicSchema, { textInput: 'abc', numberInput: 13, checkboxInput: false });
       expect(result[0].errorObject.message).toContain('should be <= 12');
       expect(result[1].errorObject.message).toContain('should NOT be shorter than 5 characters');
+      expect(result[2].errorObject.message).toContain("should have required property 'arrayInput'");
+    });
+
+    it('should return an error when array value is invalid', () => {
+      const result = SchemaValidationService.validate(basicSchema,
+        {
+          textInput: 'abcde',
+          numberInput: 0,
+          checkboxInput: true,
+          arrayInput: [{textItem: 'abc', requiredItem: 'abcde'}]
+        }
+      );
+      expect(result[0].errorObject.message).toContain('should NOT be shorter than 5 characters');
     });
   });
 
@@ -71,22 +103,50 @@ describe('SchemaValidationService', () => {
       const result = SchemaValidationService.prettyPrintErrors(SchemaValidationService.validate(basicSchema, { textInput: 'abcde' }));
       expect(result).toContain('Checkbox Input is required.');
       expect(result).toContain('Number Input is required.');
+      expect(result).toContain('Array field is required.');
     });
 
-    it('should format an array of errors when missing one properties', () => {
+    it('should format an array of errors when missing properties', () => {
       const result = SchemaValidationService.prettyPrintErrors(SchemaValidationService.validate(basicSchema, { textInput: 'abcde', checkboxInput: true}));
       expect(result).toContain('Number Input is required.');
+      expect(result).toContain('Array field is required.');
     });
 
     it('should not format errors when values are valid', () => {
-      const result = SchemaValidationService.prettyPrintErrors(SchemaValidationService.validate(basicSchema, { textInput: 'abcde', numberInput: 0, checkboxInput: true}));
+      const result = SchemaValidationService.prettyPrintErrors(SchemaValidationService.validate(basicSchema,
+        {
+          textInput: 'abcde',
+          numberInput: 0,
+          checkboxInput: true,
+          arrayInput: [{textItem: 'abcde', requiredItem: 'abcde'}]
+        }
+      ));
       expect(result).toEqual('');
     });
 
     it('should format an array of errors when invalid properties', () => {
-      const result = SchemaValidationService.prettyPrintErrors(SchemaValidationService.validate(basicSchema, { textInput: 'abc', numberInput: 13, checkboxInput: false }));
+      const result = SchemaValidationService.prettyPrintErrors(SchemaValidationService.validate(basicSchema,
+  {
+          textInput: 'abc',
+          numberInput: 13,
+          checkboxInput: false
+        }
+      ));
       expect(result).toContain('Text Input should NOT be shorter than 5 characters.');
       expect(result).toContain('Number Input should be <= 12.');
+      expect(result).toContain('Array field is required.');
+    });
+
+    it('should format an array of errors when invalid array item', () => {
+      const result = SchemaValidationService.prettyPrintErrors(SchemaValidationService.validate(basicSchema,
+  {
+          textInput: 'abcde',
+          numberInput: 10,
+          checkboxInput: false,
+          arrayInput: [{textItem: 'abcde'}]
+        }
+      ));
+      expect(result).toContain('Required Item is required.');
     });
   });
 });
