@@ -9,11 +9,12 @@
       "name": "Array Inputs",
       "description": "Array inputs",
       "properties": {
-        "arrayInput`": {
+        "arrayInput": {
           "type": "array",
           "name": "Array Input",
           "helpText": "This help text will display when you hover over the information icon",
           "tooltip": "This tooltip will display when you hover over the label.",
+          "required": ["make","price"],
           "items": {
             "make": {
               "type": "string",
@@ -22,20 +23,6 @@
             "model": {
               "type": "string",
               "name": "Model"
-            },
-            "price": {
-              "type": "integer",
-              "name": "Price",
-              "helpText": "This help text will display when you hover over the information icon",
-              "tooltip": "This tooltip will display when you hover over the label.",
-              "minimum": 5000,
-              "maximum": 40000
-            },
-            "available": {
-              "type": "boolean",
-              "name": "Available",
-              "helpText": "This help text will display when you hover over the information icon",
-              "tooltip": "This tooltip will display when you hover over the label."
             },
             "transmission": {
               "name": "Transmission",
@@ -49,6 +36,20 @@
                 "Manual",
                 "Automatic"
               ]
+            },
+            "available": {
+              "type": "boolean",
+              "name": "Available",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label."
+            },
+            "price": {
+              "type": "integer",
+              "name": "Price",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "minimum": 5000,
+              "maximum": 40000
             }
           }
         }

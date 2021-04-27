@@ -1,35 +1,30 @@
 
 // Grayscale
 $White: #fff;
-$Armadillo: #504740;
-$TempBlue: blue;
-$BlackSqueeze: #ededeb;
-$ForgetMeNot: #fef4e5;
-$SpringWood: #faf7f5;
-$Pinecone: #665d57;
-$Narvik: #f9f9f6;
+$OffWhite: #f5f5f5;
+$Black: #000;
+$OffBlack: #999;
 
-$table-row-hover: $SpringWood;
-$table-row-selected: $ForgetMeNot;
-$table-border-color: $BlackSqueeze;
 
-$navbar-inverse-bg: $Pinecone;
+$table-row-hover: $OffWhite;
+$table-row-selected: $OffWhite;
+
+$navbar-inverse-bg: $OffWhite;
 $modal-title-padding: 12px 10px 15px 20px;
 $modal-header-height: 52px;
 $modal-title-bg: $navbar-inverse-bg;
-$modal-title-color: $White;
-$modal-footer-bg: $Narvik;
+$modal-title-color: $Black;
+$modal-footer-bg: $OffWhite;
 $modal-footer-height: 64px;
 $modal-footer-padding: 14px 10px 16px 10px;
-$modal-footer-border: 1px solid $BlackSqueeze;
 
-.modal-header {
+.jsf-modal-header {
   background-color: $modal-title-bg;
   height: $modal-header-height;
   border-bottom: none;
 }
 
-.modal-title {
+.jsf-modal-title {
   color: $modal-title-color;
 
   .sprite {
@@ -47,14 +42,14 @@ $modal-footer-border: 1px solid $BlackSqueeze;
   }
 }
 
-.modal-body {
+.jsf-modal-body {
   width: 100%;
   height: 400px;
   display: flex;
   flex-direction: column;
 }
 
-.modal-footer {
+.jsf-modal-footer {
   height: $modal-footer-height;
   padding: $modal-footer-padding;
   background-color: $modal-footer-bg;
@@ -86,10 +81,6 @@ $modal-footer-border: 1px solid $BlackSqueeze;
   float: right;
 }
 
-.jsf-table-add-button {
-  margin: 5px;
-}
-
 :host {
   ::ng-deep {
     @import '~@ag-grid-community/all-modules/dist/styles/ag-grid';
@@ -102,18 +93,10 @@ $modal-footer-border: 1px solid $BlackSqueeze;
       outline: none;
     }
 
-    input {
-      outline: none;
-      border: none;
-    }
-
-    .error {
-      border: 2px solid red !important;
-    }
-
     .ag-tooltip {
-      background-color: $Armadillo;
-      color: white;
+      background-color: $White;
+      border: 1px solid $OffBlack;
+      color: $Black;
       padding: 5px;
     }
 
@@ -153,16 +136,8 @@ $modal-footer-border: 1px solid $BlackSqueeze;
         position: absolute;
 
         &-label {
-          -o-text-overflow: ellipsis;
-          text-overflow: ellipsis;
           overflow: hidden;
           font-weight: bold;
-        }
-
-        &-resize {
-          height: 100%;
-          width: 4px;
-          cursor: col-resize;
         }
       }
     }
@@ -183,6 +158,18 @@ $modal-footer-border: 1px solid $BlackSqueeze;
           position: relative;
           white-space: nowrap;
         }
+
+        input {
+          border: 1px solid $OffBlack;
+        }
+
+        .jsf-required-cell-asterisk {
+          display: inline-block !important;
+        }
+
+        .jsf-error-cell-required {
+          display: none;
+        }
       }
     }
 
@@ -190,9 +177,9 @@ $modal-footer-border: 1px solid $BlackSqueeze;
       margin-left: 10px;
     }
 
-    .ag-cell-inline-editing .ag-cell-editor input[type=text] {
+    .ag-cell-inline-editing input[type=text] {
       height: initial;
-      border: 1px solid $TempBlue;
+      border: 1px solid $Black;
       background-color: $White;
       vertical-align: middle;
       align-self: center;
@@ -200,14 +187,12 @@ $modal-footer-border: 1px solid $BlackSqueeze;
 
     .ag-cell {
       white-space: nowrap;
-      -o-text-overflow: ellipsis;
-      text-overflow: ellipsis;
       overflow: hidden;
       position: absolute;
       display: inline-flex;
       justify-content: left;
       align-items: center;
-      padding: 5px;
+      margin: 0 5px 0 5px;
 
       &-focus {
         border: 1px solid transparent;
@@ -215,6 +200,10 @@ $modal-footer-border: 1px solid $BlackSqueeze;
 
       &-no-focus {
         border: 1px solid transparent;
+      }
+
+      .jsf-required-cell-asterisk {
+        display: none;
       }
     }
 
@@ -227,7 +216,7 @@ $modal-footer-border: 1px solid $BlackSqueeze;
     }
 
     .ag-row {
-      border-bottom: 1px solid $table-border-color;
+      border-bottom: 1px solid $OffBlack;
       font-size: 15px;
       margin: 5px;
 
@@ -244,13 +233,16 @@ $modal-footer-border: 1px solid $BlackSqueeze;
     }
 
     .ag-floating-top .ag-row {
-      background-color: $Pinecone;
+      background-color: $OffWhite;
+    }
+
+    .ag-pinned-left-floating-top .ag-row {
+      background-color: $White;
     }
 
     .ag-input-field-input {
       min-width: 17px;
     }
-
   }
 }
 

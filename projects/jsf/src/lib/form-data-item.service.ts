@@ -31,14 +31,14 @@ export class FormDataItemService {
   }
 
   private getItemsFromSubschema(schema: JSFJsonSchema, values: object, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): FormDataItem[] {
-    return Object.keys(schema.properties ?? schema).map(key => {
+    return Object.keys(schema.properties ?? schema.items).map(key => {
       return this.getItemFromSchema(schema, values, key, pathParts.slice(), isParentReadOnly, isParentHidden);
     });
   }
 
   private getItemFromSchema(schema: JSFJsonSchema, values: any, key: string, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): FormDataItem {
     pathParts.push(key);
-    const schemaProperty = schema.properties ? schema.properties[key] : schema[key];
+    const schemaProperty = schema.properties ? schema.properties[key] : schema.items[key];
     const name = schemaProperty.name;
     const tooltip = schemaProperty.tooltip;
     const helpText = schemaProperty.helpText;
@@ -67,7 +67,7 @@ export class FormDataItemService {
         }
         return new ConditionalParentDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, childItems);
       case FormDataItemType.Array:
-        const arrayItems = this.getItemsFromSubschema(schemaProperty.items, fieldValue, pathParts, isReadOnly, isHidden);
+        const arrayItems = this.getItemsFromSubschema(schemaProperty, fieldValue, pathParts, isReadOnly, isHidden);
         return new ArrayDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, arrayItems);
       case FormDataItemType.SecuredString:
         return new SecuredStringDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, this.isEdit, schemaProperty.placeholder);

@@ -1,18 +1,27 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { CellRendererComponent } from './cell-renderer.component';
 
 @Component({
   selector: 'jsf-text-cell',
   template: `
     <input
+      class="jsf-text-cell-input"
       type="text"
+      #input
       [title]="params.value"
       [value]="params.value"
       [disabled]="params.item.disabledState.isReadOnly"
+      [(ngModel)]="params.value"
     />
-    `,
-  styleUrls: ['../table.component.scss']
+    `
 })
-export class TextCellComponent extends CellRendererComponent {
+export class TextCellComponent extends CellRendererComponent implements AfterViewInit {
   @Input() params: any;
+  @ViewChild('input', {read: ViewContainerRef}) public input;
+
+  ngAfterViewInit() {
+    window.setTimeout(() => {
+      this.input.element.nativeElement.focus();
+    });
+  }
 }

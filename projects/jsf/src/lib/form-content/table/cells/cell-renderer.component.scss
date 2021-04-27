@@ -1,0 +1,72 @@
+
+
+:host {
+  ::ng-deep {
+    input {
+      outline: none;
+      border: none;
+      line-height: 25px;
+    }
+
+    select {
+      height: 27px;
+      padding: 1px 2px 1px 2px;
+    }
+
+    .cell-error {
+      color: red;
+    }
+
+    .jsf-text-cell-input {
+      padding-right: 10px;
+      text-overflow: ellipsis;
+    }
+
+    .jsf-error-cell {
+      position: absolute;
+      right: 10px;
+      top: 20%;
+    }
+
+    .jsf-error-cell-required {
+      position: absolute;
+      right: 10px;
+      top: 20%;
+    }
+
+    .jsf-required-cell-asterisk {
+      color: red;
+      position: absolute;
+      right: 10px;
+      top: 20%;
+    }
+
+    .jsf-table-add-button {
+      margin: 5px;
+    }
+
+    .jsf-cell-renderer {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .jsf-cell-input {
+      position: relative;
+    }
+
+    .jsf-dropdown-cell {
+      ~.jsf-required-cell-asterisk {
+        right: 20px;
+      }
+      ~.jsf-error-cell-required {
+        right: 20px;
+      }
+      ~.jsf-error-cell {
+        right: 20px;
+      }
+    }
+  }
+}
+
+
+

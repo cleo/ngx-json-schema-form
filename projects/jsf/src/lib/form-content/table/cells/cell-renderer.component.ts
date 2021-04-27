@@ -1,40 +1,23 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
 import { FormDataItemType } from '../../../models/form-data-item';
 import { ValidatorService } from '../../../validator.service';
 import { ContentBaseComponent } from '../../content-base.component';
 import { FormControlBase } from '../../form-controls/form-control-base';
+import { CheckboxCellComponent } from './checkbox-cell.component';
+import { DropdownCellComponent } from './dropdown-cell.component';
+import { TextCellComponent } from './text-cell.component';
 
 @Component({
   selector: 'jsf-renderer',
-  template: `
-    <div [class.error]="errorMessage">
-      <jsf-checkbox-cell
-        *ngIf="isCheckboxType()"
-        [params]="params">
-      </jsf-checkbox-cell>
-      <jsf-dropdown-cell
-        *ngIf="isDropdownType()"
-        [params]="params">
-      </jsf-dropdown-cell>
-      <jsf-text-cell
-        *ngIf="isTextType()"
-        [params]="params">
-      </jsf-text-cell>
-      <img *ngIf="errorMessage"
-           [title]="errorMessage"
-           [src]="'assets/jsf-images/exclamation.svg'"
-           alt="errorMessage">
-      <button *ngIf="showAddButton()"
-              class="btn btn-primary jsf-table-add-button"
-              (click)="onAdd()">
-        Add
-      </button>
-    </div>
-    `,
-  styleUrls: ['../table.component.scss']
+  templateUrl: 'cell-renderer.component.html',
+  styleUrls: ['cell-renderer.component.scss']
 })
 export class CellRendererComponent extends ContentBaseComponent {
+  @ViewChild('jsfTextCell') jsfTextCell: TextCellComponent;
+  @ViewChild('jsfDropdownCell') jsfDropdownCell: DropdownCellComponent;
+  @ViewChild('jsfCheckboxCell') jsfCheckboxCell: CheckboxCellComponent;
+
   public params: any;
   public errorMessage: string;
 
@@ -48,15 +31,29 @@ export class CellRendererComponent extends ContentBaseComponent {
     this.errorMessage = this.getErrorMessage;
   }
 
+  public getValue() {
+    if (this.isCheckboxType()) {
+      return this.jsfCheckboxCell.params.value;
+    }
+    if (this.isDropdownType()) {
+      return this.jsfDropdownCell.params.value;
+    }
+    return this.jsfTextCell.params.value;
+  }
+
   showAddButton(): boolean {
     return this.params.node.rowPinned &&
-      this.params.api.columnController.getAllDisplayedColumns().indexOf(this.params.column) === this.params.api.columnController.getAllDisplayedColumns().length - 3;
+      this.params.api.columnController.getAllDisplayedColumns().indexOf(this.params.column) === this.params.api.columnController.getAllDisplayedColumns().length - 1;
   }
 
   onAdd(): void {
     if (this.params.onAdd) {
       this.params.onAdd();
     }
+  }
+
+  showRequiredError(): boolean {
+    return this.errorMessage && (this.params.item.required || this.params.item.enumOptions) && this.errorMessage.includes('required');
   }
 
   isCheckboxType(): boolean {
@@ -72,7 +69,7 @@ export class CellRendererComponent extends ContentBaseComponent {
   }
 
   get getErrorMessage(): string {
-    if (!this.params.item || !this.params.value) {
+    if (!this.params.item) {
       return null;
     }
 

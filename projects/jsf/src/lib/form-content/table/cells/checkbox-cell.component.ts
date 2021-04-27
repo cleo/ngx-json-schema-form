@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { CellRendererComponent } from './cell-renderer.component';
 
 @Component({
@@ -8,9 +8,9 @@ import { CellRendererComponent } from './cell-renderer.component';
       type="checkbox"
       [checked]="params.value"
       [disabled]="params.item.disabledState.isReadOnly"
+      [(ngModel)]="params.value"
     />
-    `,
-  styleUrls: ['../table.component.scss']
+    `
 })
 export class CheckboxCellComponent extends CellRendererComponent {
   @Input() params: any;

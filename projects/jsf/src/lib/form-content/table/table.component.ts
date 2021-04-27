@@ -1,16 +1,12 @@
 import { AllCommunityModules, ColDef, ColumnApi, GridApi } from '@ag-grid-community/all-modules';
 import { Component, HostListener, Input, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { ReplaySubject } from 'rxjs';
-import { map, takeUntil, tap } from 'rxjs/operators';
+import { map, takeUntil } from 'rxjs/operators';
 import { getInputValue$ } from '../../component-life-cycle';
 import { ArrayDataItem } from '../../models/array-data-item';
-import { EnumDataItem } from '../../models/enum-data-item';
 import { FormDataItem, FormDataItemType } from '../../models/form-data-item';
-import { ValidatorService } from '../../validator.service';
 
 import { ContentBaseComponent } from '../content-base.component';
-import { FormControlBase } from '../form-controls/form-control-base';
 import { CellRendererComponent } from './cells/cell-renderer.component';
 
 @Component({
@@ -21,7 +17,6 @@ import { CellRendererComponent } from './cells/cell-renderer.component';
 
 export class TableComponent extends ContentBaseComponent implements OnInit {
   @Input() arrayItem: ArrayDataItem;
-  @Input() labelLengthClass: string;
 
   public modalTitle: string;
   public showDelete: boolean;
@@ -34,16 +29,15 @@ export class TableComponent extends ContentBaseComponent implements OnInit {
   public pinnedTopRowData$ = new ReplaySubject<any[] | null>(1);
   public defaultColDef: ColDef = {
     editable: true,
-    resizable: true,
+    resizable: false,
     suppressMovable: true,
-    singleClickEdit: true,
     pinnedRowCellRenderer: 'jsfCellRenderer',
-    cellRenderer: 'jsfCellRenderer'
+    cellRenderer: 'jsfCellRenderer',
+    cellEditor: 'jsfCellRenderer'
   };
   public colDefs: ColDef[] = [{
     headerCheckboxSelection: true,
     checkboxSelection: true,
-    resizable: false,
     minWidth: 30,
     maxWidth: 40,
     suppressMovable: true,
@@ -74,21 +68,17 @@ export class TableComponent extends ContentBaseComponent implements OnInit {
     this.rowData$.next([
       {make: 'Toyota', model: 'Celica', price: 35000, available: true, transmission: 'manual'},
       {make: 'Ford', model: 'Mondeo', price: 32000, available: false, transmission: 'automatic'},
-      {make: 'Porsche', model: 'Boxter', price: 72000, available: true, transmission: 'automatic'}
+      {make: 'Porsche', model: 'Boxter', price: 720000, available: true, transmission: 'automatic'}
     ]);
     this.setPinnedRowData();
   }
 
-  onRender(params: any) {
+  onRender() {
     setTimeout(() => this.onResize());
   }
 
   onCellValueChanged(params: any) {
-    params.api.redrawRows(); //todo: this is probably overkill
-  }
-
-  isRowSelectable(rowNode: any): boolean {
-    return true; //TODO rowNode.id !== '0';
+    params.api.redrawRows();
   }
 
   get numberOfSelectedRows(): number {
@@ -139,29 +129,18 @@ export class TableComponent extends ContentBaseComponent implements OnInit {
           },
           cellRendererParams: {
             item: item
+          },
+          cellEditorParams: {
+            item: item,
+            onAdd: this.onAdd.bind(this)
           }
         });
         break;
       case FormDataItemType.Boolean:
-        this.colDefs.push({
-          field: item.key,
-          headerName: item.label,
-          editable: false,
-          headerTooltip: item.tooltip,
-          pinnedRowCellRendererParams: {
-            item: item,
-            onAdd: this.onAdd.bind(this)
-          },
-          cellRendererParams: {
-            item: item
-          }
-        });
-        break;
       case FormDataItemType.Enum:
         this.colDefs.push({
           field: item.key,
           headerName: item.label,
-          editable: false,
           headerTooltip: item.tooltip,
           pinnedRowCellRendererParams: {
             item: item,
@@ -169,6 +148,10 @@ export class TableComponent extends ContentBaseComponent implements OnInit {
           },
           cellRendererParams: {
             item: item
+          },
+          cellEditorParams: {
+            item: item,
+            onAdd: this.onAdd.bind(this)
           }
         });
         break;

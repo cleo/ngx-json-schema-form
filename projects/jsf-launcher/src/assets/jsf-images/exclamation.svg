@@ -8,5 +8,5 @@
         </x:xmpmeta>
         <?xpacket end="w" ?>
     </metadata>
-    <path id="exclamation.svg" class="cls-1" d="M400,308a8,8,0,1,1,8-8A8,8,0,0,1,400,308Zm-0.987-3.985h1.973v-2h-1.973v2ZM398.983,296L399,300h2l0.016-4h-2.033Z" transform="translate(-392 -292)" />
+    <path id="exclamation.svg" class="cls-1" style="fill:#ff0000;" d="M400,308a8,8,0,1,1,8-8A8,8,0,0,1,400,308Zm-0.987-3.985h1.973v-2h-1.973v2ZM398.983,296L399,300h2l0.016-4h-2.033Z" transform="translate(-392 -292)" />
 </svg>
