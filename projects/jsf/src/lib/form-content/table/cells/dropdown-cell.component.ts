@@ -8,11 +8,13 @@ import { CellRendererComponent } from './cell-renderer.component';
 @Component({
   selector: 'jsf-dropdown-cell',
   template: `
-    <select [(ngModel)]="params.value" [disabled]="params.item.disabledState.isReadOnly">
-      <option *ngFor="let item of options"
-              [id]="item.path"
-              [ngValue]="item.key">
-        {{item.text}}
+    <select [(ngModel)]="params.value"
+            (ngModelChange)="onChange()"
+            [disabled]="params.item.disabledState.isReadOnly">
+      <option *ngFor="let option of options"
+              [id]="option.path"
+              [ngValue]="option.key">
+        {{option.text}}
       </option>
     </select>
     `
@@ -29,5 +31,9 @@ export class DropdownCellComponent extends CellRendererComponent {
         this.options = (params.item as EnumDataItem).enumOptions;
       }),
       takeUntil(this.ngDestroy$)).subscribe();
+  }
+
+  onChange() {
+    this.params.data[this.params.item.key] = this.params.value;
   }
 }

@@ -138,6 +138,7 @@ export class TableComponent extends ContentBaseComponent implements OnInit {
           field: item.key,
           headerName: item.label,
           headerTooltip: item.tooltip,
+          editable: false, // Double click required to edit. Prevent this by using the renderer to edit
           pinnedRowCellRendererParams: {
             item: item,
             onAdd: this.onAdd.bind(this)

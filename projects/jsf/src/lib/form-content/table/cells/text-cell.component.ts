@@ -7,6 +7,7 @@ import { CellRendererComponent } from './cell-renderer.component';
     <input
       class="jsf-text-cell-input"
       type="text"
+      #input
       [title]="params.value"
       [value]="params.value"
       [disabled]="params.item.disabledState.isReadOnly"
@@ -14,6 +15,15 @@ import { CellRendererComponent } from './cell-renderer.component';
     />
     `
 })
-export class TextCellComponent extends CellRendererComponent {
+export class TextCellComponent extends CellRendererComponent implements AfterViewInit {
   @Input() params: any;
+  @ViewChild('input', {read: ViewContainerRef}) public input;
+
+  ngAfterViewInit() {
+    if (this.params.cellStartedEdit) {
+      window.setTimeout(() => {
+        this.input.element.nativeElement.focus();
+      });
+    }
+  }
 }

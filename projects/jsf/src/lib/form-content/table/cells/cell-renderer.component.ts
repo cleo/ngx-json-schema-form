@@ -32,12 +32,7 @@ export class CellRendererComponent extends ContentBaseComponent {
   }
 
   public getValue() {
-    if (this.isCheckboxType()) {
-      return this.jsfCheckboxCell.params.value;
-    }
-    if (this.isDropdownType()) {
-      return this.jsfDropdownCell.params.value;
-    }
+    // Only text cells are editable due to issue with single click edit for checkboxes and dropdowns
     return this.jsfTextCell.params.value;
   }
 
