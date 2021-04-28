@@ -77,10 +77,6 @@ export class TableComponent extends ContentBaseComponent implements OnInit {
     setTimeout(() => this.onResize());
   }
 
-  onCellValueChanged(params: any) {
-    params.api.redrawRows();
-  }
-
   get numberOfSelectedRows(): number {
     return this.gridApi ? this.gridApi.getSelectedRows().length : 0;
   }

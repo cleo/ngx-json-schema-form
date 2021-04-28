@@ -29,8 +29,7 @@
     [pinnedTopRowData]="pinnedTopRowData$ | async"
     (gridReady)="onGridReady($event)"
     (firstDataRendered)="onRender()"
-    (rowSelected)="onRowSelected()"
-    (cellValueChanged)="onCellValueChanged($event)">
+    (rowSelected)="onRowSelected()">
   </ag-grid-angular>
 </div>
 <div class="jsf-modal-footer">
