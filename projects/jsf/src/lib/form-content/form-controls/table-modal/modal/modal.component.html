@@ -1,0 +1,11 @@
+<div class="modal-open" (click)="onOutsideClick($event)" (keydown.Escape)="onEscapeKeyDown($event)">
+  <div #modal class="modal fade" [class.in]="shouldHaveFadeInClass" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content" (click)="onClick($event)">
+        <ng-content></ng-content>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop fade" [class.in]="shouldHaveFadeInClass"></div>
+</div>

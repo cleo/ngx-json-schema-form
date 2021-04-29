@@ -12,16 +12,19 @@ import { FormControlComponent } from './form-content/form-controls/form-control.
 import { LabelComponent } from './form-content/form-controls/label/label.component';
 import { RadioButtonComponent } from './form-content/form-controls/radio-button/radio-button.component';
 import { SecuredTextComponent } from './form-content/form-controls/secured-text/secured-text.component';
+import { ModalOutletComponent } from './form-content/form-controls/table-modal/modal/modal-outlet.component';
+import { ModalComponent } from './form-content/form-controls/table-modal/modal/modal.component';
+import { TableSummaryComponent } from './form-content/form-controls/table-modal/table-summary.component';
+import { CheckboxCellComponent } from './form-content/form-controls/table-modal/table/cells/checkbox-cell.component';
+import { DropdownCellComponent } from './form-content/form-controls/table-modal/table/cells/dropdown-cell.component';
+import { TextCellComponent } from './form-content/form-controls/table-modal/table/cells/text-cell.component';
+import { CellRendererComponent } from './form-content/form-controls/table-modal/table/renderers/cell-renderer.component';
+import { TableModalComponent } from './form-content/form-controls/table-modal/table/table-modal.component';
 import { TextAreaComponent } from './form-content/form-controls/text-area/text-area.component';
 import { TextComponent } from './form-content/form-controls/text/text.component';
 import { OneOfDropdownComponent } from './form-content/one-of/one-of-dropdown/one-of-dropdown.component';
 import { OneOfComponent } from './form-content/one-of/one-of.component';
 import { SectionComponent } from './form-content/section/section.component';
-import { CellRendererComponent } from './form-content/table/cells/cell-renderer.component';
-import { CheckboxCellComponent } from './form-content/table/cells/checkbox-cell.component';
-import { DropdownCellComponent } from './form-content/table/cells/dropdown-cell.component';
-import { TextCellComponent } from './form-content/table/cells/text-cell.component';
-import { TableComponent } from './form-content/table/table.component';
 import { TabComponent } from './form-content/tabs/tab/tab.component';
 import { TabsComponent } from './form-content/tabs/tabs.component';
 import { TabstripComponent } from './form-content/tabs/tabstrip/tabstrip.component';
@@ -50,7 +53,10 @@ const components = [
   TextComponent,
   SecuredTextComponent,
   TextAreaComponent,
-  TableComponent,
+  TableModalComponent,
+  TableSummaryComponent,
+  ModalComponent,
+  ModalOutletComponent,
   CheckboxCellComponent,
   DropdownCellComponent,
   TextCellComponent,

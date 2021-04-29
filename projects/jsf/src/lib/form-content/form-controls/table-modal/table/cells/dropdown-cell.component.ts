@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 import { map, takeUntil } from 'rxjs/operators';
-import { getInputValue$ } from '../../../component-life-cycle';
-import { EnumDataItem, EnumOption } from '../../../models/enum-data-item';
-import { ValidatorService } from '../../../validator.service';
-import { CellRendererComponent } from './cell-renderer.component';
+import { getInputValue$ } from '../../../../../component-life-cycle';
+import { EnumDataItem, EnumOption } from '../../../../../models/enum-data-item';
+import { ValidatorService } from '../../../../../validator.service';
+import { CellRendererComponent } from '../renderers/cell-renderer.component';
 
 @Component({
   selector: 'jsf-dropdown-cell',

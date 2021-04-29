@@ -50,3 +50,12 @@
   [isEdit]="isEdit"
   [config]="config">
 </jsf-radio-button>
+
+<jsf-table-summary
+  *ngIf="isArray()"
+  [formItem]="formItem"
+  [formGroup]="formGroup"
+  [labelLengthClass]="labelLengthClass"
+  [isEdit]="isEdit"
+  [config]="config">
+</jsf-table-summary>

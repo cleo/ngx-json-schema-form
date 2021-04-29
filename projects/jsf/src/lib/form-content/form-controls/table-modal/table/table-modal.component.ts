@@ -1,32 +1,33 @@
-import { AllCommunityModules, ColDef, ColumnApi, GridApi } from '@ag-grid-community/all-modules';
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { AllCommunityModules, ColDef } from '@ag-grid-community/all-modules';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, Inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
-import { map, takeUntil } from 'rxjs/operators';
-import { getInputValue$ } from '../../component-life-cycle';
-import { ArrayDataItem } from '../../models/array-data-item';
-import { FormDataItem, FormDataItemType } from '../../models/form-data-item';
+import { ArrayDataItem } from '../../../../models/array-data-item';
+import { FormDataItem, FormDataItemType } from '../../../../models/form-data-item';
+import { ModalService, MODAL_OPTIONS_TOKEN } from '../modal/modal.service';
 
-import { ContentBaseComponent } from '../content-base.component';
-import { CellRendererComponent } from './cells/cell-renderer.component';
+import { FormControlBase } from '../../form-control-base';
+import { CellRendererComponent } from './renderers/cell-renderer.component';
 
 @Component({
-  selector: 'jsf-table',
-  templateUrl: 'table.component.html',
-  styleUrls: ['./table.component.scss']
+  selector: 'jsf-table-modal',
+  templateUrl: 'table-modal.component.html',
+  styleUrls: ['./table-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class TableComponent extends ContentBaseComponent implements OnInit {
-  @Input() arrayItem: ArrayDataItem;
-
+export class TableModalComponent extends FormControlBase {
+  public arrayItem: ArrayDataItem;
   public modalTitle: string;
   public showDelete: boolean;
 
   public modules = AllCommunityModules;
+  public rowData$ = new ReplaySubject<any[] | null>(1);
+  public pinnedTopRowData$ = new ReplaySubject<any[] | null>(1);
+
   public frameworkComponents = {
     jsfCellRenderer: CellRendererComponent
   };
-  public rowData$ = new ReplaySubject<any[] | null>(1);
-  public pinnedTopRowData$ = new ReplaySubject<any[] | null>(1);
+
   public defaultColDef: ColDef = {
     editable: true,
     resizable: false,
@@ -35,6 +36,7 @@ export class TableComponent extends ContentBaseComponent implements OnInit {
     cellRenderer: 'jsfCellRenderer',
     cellEditor: 'jsfCellRenderer'
   };
+
   public colDefs: ColDef[] = [{
     headerCheckboxSelection: true,
     checkboxSelection: true,
@@ -44,33 +46,35 @@ export class TableComponent extends ContentBaseComponent implements OnInit {
     pinned: 'left'
   }];
 
-  private gridApi: GridApi;
-  private columnApi: ColumnApi;
+  private params: any;
 
-  constructor() {
+  constructor(private modalService: ModalService<ITableModalOptions, any>,
+              private changeDetectorRef: ChangeDetectorRef,
+              @Inject(MODAL_OPTIONS_TOKEN) private readonly modalOptions: ITableModalOptions
+  ) {
     super();
-  }
-
-  ngOnInit() {
-    getInputValue$(this, 'arrayItem').pipe(
-      map((arrayItem: ArrayDataItem) => {
-        this.modalTitle = arrayItem.label;
-        arrayItem.items.forEach(item => this.addItemToColDefs(item));
-      }),
-      takeUntil(this.ngDestroy$)).subscribe();
+    this.arrayItem = modalOptions.arrayItem;
+    this.modalTitle = this.arrayItem.label;
+    this.arrayItem.items.forEach(item => this.addItemToColDefs(item));
   }
 
   onGridReady(params): void {
-    this.gridApi = params.api;
-    this.columnApi = params.columnApi;
+    this.params = params;
 
-    //TODO: actually read the data
-    this.rowData$.next([
-      {make: 'Toyota', model: 'Celica', price: 35000, available: true, transmission: 'manual'},
-      {make: 'Ford', model: 'Mondeo', price: 32000, available: false, transmission: 'automatic'},
-      {make: 'Porsche', model: 'Boxter', price: 720000, available: true, transmission: 'automatic'}
-    ]);
+    this.rowData$.next(this.arrayItem.value);
     this.setPinnedRowData();
+    this.changeDetectorRef.markForCheck();
+  }
+
+  onClose(): void {
+    this.modalService.close(null);
+  }
+
+  onSubmit(): void {
+    const rowData = [];
+    this.params.api.forEachNode(node => rowData.push(node.data));
+
+    this.modalService.close(rowData);
   }
 
   onRender() {
@@ -78,7 +82,7 @@ export class TableComponent extends ContentBaseComponent implements OnInit {
   }
 
   get numberOfSelectedRows(): number {
-    return this.gridApi ? this.gridApi.getSelectedRows().length : 0;
+    return this.params?.api ? this.params.api.getSelectedRows().length : 0;
   }
 
   onRowSelected(): void {
@@ -86,12 +90,12 @@ export class TableComponent extends ContentBaseComponent implements OnInit {
   }
 
   onDelete(): void {
-    this.gridApi.applyTransaction({ remove: this.gridApi.getSelectedRows()});
+    this.params.api.applyTransaction({remove: this.params.api.getSelectedRows()});
   }
 
   onAdd(): void {
-    this.gridApi.applyTransaction({
-      add: [this.gridApi.getPinnedTopRow(0).data]
+    this.params.api.applyTransaction({
+      add: [this.params.api.getPinnedTopRow(0).data]
     });
     this.setPinnedRowData();
   }
@@ -99,11 +103,13 @@ export class TableComponent extends ContentBaseComponent implements OnInit {
   @HostListener('window:resize')
   onResize() {
     const allColumnIds = [];
-    this.columnApi.getAllColumns().forEach(function (column) {
+    this.params.columnApi.getAllColumns().forEach(function (column) {
       allColumnIds.push(column.getColId());
     });
 
-    this.columnApi.autoSizeColumns(allColumnIds, false);
+    setTimeout(() =>
+      this.params.columnApi.autoSizeColumns(allColumnIds, false)
+    );
   }
 
   private addItemToColDefs(item: FormDataItem): void {
@@ -153,7 +159,7 @@ export class TableComponent extends ContentBaseComponent implements OnInit {
         });
         break;
       default :
-        throw new Error('Unsupported item in array');
+        throw new Error('Unsupported item in table-modal');
     }
   }
 
@@ -164,4 +170,8 @@ export class TableComponent extends ContentBaseComponent implements OnInit {
     });
     this.pinnedTopRowData$.next([pinnedData]);
   }
+}
+
+export interface ITableModalOptions {
+  arrayItem: ArrayDataItem;
 }

@@ -45,11 +45,6 @@
     [config]="config"
     [labelLengthClass]="labelLengthClass"
     (buttonEvent)="onButtonEvent($event)"></jsf-one-of>
-
-  <jsf-table
-    *ngIf="isArray(item)"
-    [arrayItem]="item">
-  </jsf-table>
 </div>
 
 <jsf-tabs

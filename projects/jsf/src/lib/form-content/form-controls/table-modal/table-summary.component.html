@@ -1,0 +1,21 @@
+<div class="form-item-with-label">
+  <jsf-label [formItem]="formItem" [labelLengthClass]="labelLengthClass"></jsf-label>
+  <div class="form-item">
+    <div class="control-with-error array-input">
+      <span>{{numItems}} Items</span>
+      <div class="edit-btn">
+        <button
+          (click)="onEdit()"
+          class="btn btn-primary">
+          Edit
+        </button>
+      </div>
+      <img *ngIf="formItem.helpText"
+           class="help"
+           [title]="formItem.helpText"
+           [src]="'assets/jsf-images/info.svg'">
+    </div>
+  </div>
+</div>
+
+<jsf-modal-outlet [modalService]="modalService"></jsf-modal-outlet>

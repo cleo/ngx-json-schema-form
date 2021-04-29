@@ -1,12 +1,12 @@
 import { Component, ViewChild } from '@angular/core';
 import { FormControl, Validators } from '@angular/forms';
-import { FormDataItemType } from '../../../models/form-data-item';
-import { ValidatorService } from '../../../validator.service';
-import { ContentBaseComponent } from '../../content-base.component';
-import { FormControlBase } from '../../form-controls/form-control-base';
-import { CheckboxCellComponent } from './checkbox-cell.component';
-import { DropdownCellComponent } from './dropdown-cell.component';
-import { TextCellComponent } from './text-cell.component';
+import { FormDataItemType } from '../../../../../models/form-data-item';
+import { ValidatorService } from '../../../../../validator.service';
+import { ContentBaseComponent } from '../../../../content-base.component';
+import { FormControlBase } from '../../../form-control-base';
+import { CheckboxCellComponent } from '../cells/checkbox-cell.component';
+import { DropdownCellComponent } from '../cells/dropdown-cell.component';
+import { TextCellComponent } from '../cells/text-cell.component';
 
 @Component({
   selector: 'jsf-renderer',
@@ -68,7 +68,7 @@ export class CellRendererComponent extends ContentBaseComponent {
       return null;
     }
 
-    // Create a validator for the value and reuse the non-table validations
+    // Create a validator for the value and reuse the non-table-modal validations
     const validatorFn = Validators.compose(this.validationService.getValidators(this.params.item));
     if (!validatorFn) {
       return null;

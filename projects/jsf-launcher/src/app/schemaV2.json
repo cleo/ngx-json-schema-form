@@ -4,10 +4,10 @@
   "type": "object",
   "display": "tabs",
   "properties": {
-    "arrayInputs": {
+    "arrays": {
       "type": "object",
       "name": "Array Inputs",
-      "description": "Array inputs",
+      "description": "This section displays array functionality of the JSF. A modal with a value editor will be displayed. Array functionality is limited - see Wiki for details.",
       "properties": {
         "arrayInput": {
           "type": "array",

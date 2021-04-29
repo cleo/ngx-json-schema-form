@@ -1,5 +1,5 @@
 import { Component, Input, ViewChild, ViewContainerRef } from '@angular/core';
-import { CellRendererComponent } from './cell-renderer.component';
+import { CellRendererComponent } from '../renderers/cell-renderer.component';
 
 @Component({
   selector: 'jsf-checkbox-cell',

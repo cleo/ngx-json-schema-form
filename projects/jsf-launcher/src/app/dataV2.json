@@ -1,4 +1,29 @@
 {
+  "arrays": {
+    "arrayInput": [
+      {
+        "make": "Toyota",
+        "model": "Celica",
+        "price": 35000,
+        "available": true,
+        "transmission": "manual"
+      },
+      {
+        "make": "Ford",
+        "model": "Mondeo",
+        "price": 32000,
+        "available": false,
+        "transmission": "automatic"
+      },
+      {
+        "make": "Porsche",
+        "model": "Boxter",
+        "price": 720000,
+        "available": true,
+        "transmission": "automatic"
+      }
+    ]
+  },
   "checkboxes": {
     "checkbox": false,
     "defaultCheckbox": true,
