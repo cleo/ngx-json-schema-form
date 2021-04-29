@@ -1,8 +1,20 @@
 <div class="modal-open" (click)="onOutsideClick($event)" (keydown.Escape)="onEscapeKeyDown($event)">
   <div #modal class="modal fade" [class.in]="shouldHaveFadeInClass" tabindex="-1" role="dialog">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content" (click)="onClick($event)">
+    <div class="modal-dialog">
+      <div #modalContent class="modal-content" (click)="onClick($event)"
+           [style.top.px]='top'
+           [style.left.px]='left'
+           [style.width.px]='width'
+           [style.height.px]='height'
+           (mousedown)='onWindowPress($event)'
+           (mousemove)='onWindowDrag($event)'>
         <ng-content></ng-content>
+
+        <img title="Resize Dialog Box"
+             [src]="'assets/jsf-images/resize.svg'"
+             alt="Resize Dialog Box"
+             class="corner-resize"
+             (mousedown)='onCornerClick($event)'>
       </div>
     </div>
   </div>
