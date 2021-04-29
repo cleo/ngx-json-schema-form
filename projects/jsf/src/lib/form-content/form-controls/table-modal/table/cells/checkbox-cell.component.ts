@@ -1,4 +1,5 @@
-import { Component, Input, ViewChild, ViewContainerRef } from '@angular/core';
+import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef } from '@angular/core';
+import { ContentBaseComponent } from '../../../../content-base.component';
 import { CellRendererComponent } from '../renderers/cell-renderer.component';
 
 @Component({
@@ -13,11 +14,12 @@ import { CellRendererComponent } from '../renderers/cell-renderer.component';
     />
     `
 })
-export class CheckboxCellComponent extends CellRendererComponent {
+export class CheckboxCellComponent extends ContentBaseComponent {
   @Input() params: any;
-  @ViewChild('input', {read: ViewContainerRef}) public input;
+  @Output() valueChanged: EventEmitter<string> = new EventEmitter();
 
   onChange() {
     this.params.data[this.params.item.key] = this.params.value;
+    this.valueChanged.next(this.params.value);
   }
 }

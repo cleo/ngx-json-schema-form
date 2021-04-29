@@ -3,20 +3,22 @@
     <jsf-checkbox-cell
       class="jsf-checkbox-cell"
       *ngIf="isCheckboxType()"
+      #jsfCheckboxCell
       [params]="params"
-      #jsfCheckboxCell>
+      (valueChanged)="rendererValueChanged($event)">
     </jsf-checkbox-cell>
     <jsf-dropdown-cell
       class="jsf-dropdown-cell"
       *ngIf="isDropdownType()"
+      #jsfDropdownCell
       [params]="params"
-      #jsfDropdownCell>
+      (valueChanged)="rendererValueChanged($event)">
     </jsf-dropdown-cell>
     <jsf-text-cell
       class="jsf-text-cell"
       *ngIf="isTextType()"
-      [params]="params"
-      #jsfTextCell>
+      #jsfTextCell
+      [params]="params">
     </jsf-text-cell>
     <img *ngIf="errorMessage && !showRequiredError()"
          [title]="errorMessage"

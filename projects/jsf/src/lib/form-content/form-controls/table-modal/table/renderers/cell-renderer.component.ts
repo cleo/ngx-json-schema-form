@@ -7,6 +7,7 @@ import { FormControlBase } from '../../../form-control-base';
 import { CheckboxCellComponent } from '../cells/checkbox-cell.component';
 import { DropdownCellComponent } from '../cells/dropdown-cell.component';
 import { TextCellComponent } from '../cells/text-cell.component';
+import { TableModalService } from '../table-modal.service';
 
 @Component({
   selector: 'jsf-renderer',
@@ -21,7 +22,7 @@ export class CellRendererComponent extends ContentBaseComponent {
   public params: any;
   public errorMessage: string;
 
-  constructor(private validationService: ValidatorService) {
+  constructor(private tableModalService: TableModalService) {
     super();
   }
 
@@ -64,24 +65,10 @@ export class CellRendererComponent extends ContentBaseComponent {
   }
 
   get getErrorMessage(): string {
-    if (!this.params.item) {
-      return null;
-    }
+    return this.tableModalService.getErrorMessage(this.params.item, this.params.value);
+  }
 
-    // Create a validator for the value and reuse the non-table-modal validations
-    const validatorFn = Validators.compose(this.validationService.getValidators(this.params.item));
-    if (!validatorFn) {
-      return null;
-    }
-
-    const control = new FormControl();
-    control.setValue(this.params.value);
-
-    const errors = validatorFn(control);
-    if (!errors) {
-      return null;
-    }
-
-    return FormControlBase.formatErrorMessage(errors, this.params.item);
+  rendererValueChanged(newValue: any): void {
+    this.errorMessage = this.getErrorMessage;
   }
 }

@@ -20,6 +20,7 @@ import { DropdownCellComponent } from './form-content/form-controls/table-modal/
 import { TextCellComponent } from './form-content/form-controls/table-modal/table/cells/text-cell.component';
 import { CellRendererComponent } from './form-content/form-controls/table-modal/table/renderers/cell-renderer.component';
 import { TableModalComponent } from './form-content/form-controls/table-modal/table/table-modal.component';
+import { TableModalService } from './form-content/form-controls/table-modal/table/table-modal.service';
 import { TextAreaComponent } from './form-content/form-controls/text-area/text-area.component';
 import { TextComponent } from './form-content/form-controls/text/text.component';
 import { OneOfDropdownComponent } from './form-content/one-of/one-of-dropdown/one-of-dropdown.component';
@@ -33,6 +34,17 @@ import { FormService } from './form.service';
 import { JSFComponent } from './jsf.component';
 import { SchemaTranslationService } from './schema-translation.service';
 import { ValidatorService } from './validator.service';
+
+const tableComponents = [
+  CellRendererComponent,
+  CheckboxCellComponent,
+  DropdownCellComponent,
+  ModalComponent,
+  ModalOutletComponent,
+  TableModalComponent,
+  TableSummaryComponent,
+  TextCellComponent
+];
 
 const components = [
   TabsComponent,
@@ -53,21 +65,15 @@ const components = [
   TextComponent,
   SecuredTextComponent,
   TextAreaComponent,
-  TableModalComponent,
-  TableSummaryComponent,
-  ModalComponent,
-  ModalOutletComponent,
-  CheckboxCellComponent,
-  DropdownCellComponent,
-  TextCellComponent,
-  CellRendererComponent
+  ...tableComponents
 ];
 
 const services = [
   FormService,
   FormDataItemService,
   SchemaTranslationService,
-  ValidatorService
+  ValidatorService,
+  TableModalService
 ];
 
 @NgModule({

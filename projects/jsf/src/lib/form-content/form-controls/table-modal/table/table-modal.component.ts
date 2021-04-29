@@ -7,6 +7,7 @@ import { ModalService, MODAL_OPTIONS_TOKEN } from '../modal/modal.service';
 
 import { FormControlBase } from '../../form-control-base';
 import { CellRendererComponent } from './renderers/cell-renderer.component';
+import { TableModalService } from './table-modal.service';
 
 @Component({
   selector: 'jsf-table-modal',
@@ -50,6 +51,7 @@ export class TableModalComponent extends FormControlBase {
 
   constructor(private modalService: ModalService<ITableModalOptions, any>,
               private changeDetectorRef: ChangeDetectorRef,
+              private tableModalService: TableModalService,
               @Inject(MODAL_OPTIONS_TOKEN) private readonly modalOptions: ITableModalOptions
   ) {
     super();
@@ -71,6 +73,11 @@ export class TableModalComponent extends FormControlBase {
   }
 
   onSubmit(): void {
+    this.params.api.stopEditing();
+    if (this.hasErrors) {
+      return;
+    }
+
     const rowData = [];
     this.params.api.forEachNode(node => rowData.push(node.data));
 
@@ -98,6 +105,24 @@ export class TableModalComponent extends FormControlBase {
       add: [this.params.api.getPinnedTopRow(0).data]
     });
     this.setPinnedRowData();
+  }
+
+  get hasErrors(): boolean {
+    if (!this.params?.api) {
+      return false;
+    }
+
+    let hasError = false;
+    this.params.api.forEachNode(node => {
+      Object.keys(node.data).forEach(key => {
+          if (this.tableModalService.getErrorMessage(this.arrayItem.items.find(item => item.key === key), node.data[key])) {
+            hasError = true;
+            return;
+          }
+        }
+      );
+    });
+    return hasError;
   }
 
   @HostListener('window:resize')
