@@ -12,6 +12,8 @@ import { FormControlComponent } from './form-content/form-controls/form-control.
 import { LabelComponent } from './form-content/form-controls/label/label.component';
 import { RadioButtonComponent } from './form-content/form-controls/radio-button/radio-button.component';
 import { SecuredTextComponent } from './form-content/form-controls/secured-text/secured-text.component';
+import { AlertComponent } from './form-content/form-controls/table-modal/alert/alert.component';
+import { AlertService } from './form-content/form-controls/table-modal/alert/alert.service';
 import { ModalOutletComponent } from './form-content/form-controls/table-modal/modal/modal-outlet.component';
 import { ModalComponent } from './form-content/form-controls/table-modal/modal/modal.component';
 import { TableSummaryComponent } from './form-content/form-controls/table-modal/table-summary.component';
@@ -36,6 +38,7 @@ import { SchemaTranslationService } from './schema-translation.service';
 import { ValidatorService } from './validator.service';
 
 const tableComponents = [
+  AlertComponent,
   CellRendererComponent,
   CheckboxCellComponent,
   DropdownCellComponent,
@@ -73,7 +76,8 @@ const services = [
   FormDataItemService,
   SchemaTranslationService,
   ValidatorService,
-  TableModalService
+  TableModalService,
+  AlertService
 ];
 
 @NgModule({

@@ -3,6 +3,7 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, In
 import { ReplaySubject } from 'rxjs';
 import { ArrayDataItem } from '../../../../models/array-data-item';
 import { FormDataItem, FormDataItemType } from '../../../../models/form-data-item';
+import { AlertService } from '../alert/alert.service';
 import { ModalService, MODAL_OPTIONS_TOKEN } from '../modal/modal.service';
 
 import { FormControlBase } from '../../form-control-base';
@@ -17,6 +18,8 @@ import { TableModalService } from './table-modal.service';
 })
 
 export class TableModalComponent extends FormControlBase {
+  public alertStreamService = new AlertService();
+
   public arrayItem: ArrayDataItem;
   public modalTitle: string;
   public showDelete: boolean;
@@ -105,6 +108,7 @@ export class TableModalComponent extends FormControlBase {
       add: [this.params.api.getPinnedTopRow(0).data]
     });
     this.setPinnedRowData();
+    this.alertStreamService.show('New row successfully added');
   }
 
   get hasErrors(): boolean {

@@ -9,7 +9,7 @@
            (click)="onClose()">
     </div>
   </div>
-
+  <jsf-alert [alertStream]="alertStreamService"></jsf-alert>
   <div class="modal-body">
     <div class="jsf-table-header">
       <button *ngIf="showDelete"
@@ -18,7 +18,6 @@
               (click)="onDelete()">
         <img [src]="'assets/jsf-images/trash.svg'">
       </button>
-
     </div>
     <ag-grid-angular
       class="jsf-table"
