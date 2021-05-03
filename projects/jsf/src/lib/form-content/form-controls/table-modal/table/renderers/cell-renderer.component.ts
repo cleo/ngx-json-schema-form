@@ -1,9 +1,6 @@
 import { Component, ViewChild } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
 import { FormDataItemType } from '../../../../../models/form-data-item';
-import { ValidatorService } from '../../../../../validator.service';
 import { ContentBaseComponent } from '../../../../content-base.component';
-import { FormControlBase } from '../../../form-control-base';
 import { CheckboxCellComponent } from '../cells/checkbox-cell.component';
 import { DropdownCellComponent } from '../cells/dropdown-cell.component';
 import { TextCellComponent } from '../cells/text-cell.component';
