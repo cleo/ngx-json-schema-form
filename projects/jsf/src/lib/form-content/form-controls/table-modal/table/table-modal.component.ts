@@ -45,9 +45,7 @@ export class TableModalComponent extends FormControlBase {
     headerCheckboxSelection: true,
     checkboxSelection: true,
     minWidth: 30,
-    maxWidth: 40,
-    suppressMovable: true,
-    pinned: 'left'
+    maxWidth: 40
   }];
 
   private params: any;
@@ -69,6 +67,7 @@ export class TableModalComponent extends FormControlBase {
     this.rowData$.next(this.arrayItem.value);
     this.setPinnedRowData();
     this.changeDetectorRef.markForCheck();
+    setTimeout(() => this.onResize());
   }
 
   onClose(): void {
