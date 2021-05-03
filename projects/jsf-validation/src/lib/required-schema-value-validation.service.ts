@@ -3,6 +3,9 @@ import { SecuredSchemaValueValidationService } from './secured-schema-value-vali
 
 // @dynamic
 export class RequiredSchemaValueValidationService {
+  private static readonly ARRAY_KEY = 'array';
+  private static readonly TYPE_KEY = 'type';
+  private static readonly ITEMS_KEY = 'items';
   private static readonly VALUE_KEY = 'value';
   private static readonly IS_CONDITIONAL_KEY = 'isConditional';
 
@@ -68,8 +71,8 @@ export class RequiredSchemaValueValidationService {
 
     // Array required keys need to be checked for each item
     const arraySchemaKeys = flattenedSchemaKeys
-      .filter(path => path.endsWith('type') && flattenedSchema[path] === 'array')
-      .map(path => SchemaHelperService.formatKeyPath(path.substring(0, path.lastIndexOf('.type'))));
+      .filter(path => path.endsWith(`.${RequiredSchemaValueValidationService.TYPE_KEY}`) && flattenedSchema[path] === RequiredSchemaValueValidationService.ARRAY_KEY)
+      .map(path => SchemaHelperService.formatKeyPath(path.substring(0, path.lastIndexOf(`.${RequiredSchemaValueValidationService.TYPE_KEY}`))));
     const requiredArraySchemaKeys = arraySchemaKeys.filter(key => requiredKeys.indexOf(key) >= 0);
     const requiredArrayItemKeys = requiredKeys.filter(key => requiredArraySchemaKeys.find(arrayKey => key.startsWith(arrayKey) && arrayKey !== key));
     const hasRequiredArrayKeys = requiredArrayItemKeys.every(requiredKey => {
@@ -85,7 +88,7 @@ export class RequiredSchemaValueValidationService {
       const matchingIndexes = indexRegex.exec(allItemValueKeys[allItemValueKeys.length - 1]);
       const maxIndex = matchingIndexes[matchingIndexes.length - 1];
       const expectedNumberOfValues = parseInt(maxIndex.substring(1, maxIndex.length - 1), 10) + 1; // increment due zero-based index vs length below
-      const actualValues = flattenedValueKeys.filter(path => path.replace(indexRegex, '.items') === requiredKey);
+      const actualValues = flattenedValueKeys.filter(path => path.replace(indexRegex, `.${RequiredSchemaValueValidationService.ITEMS_KEY}`) === requiredKey);
       if (actualValues.length !== expectedNumberOfValues) {
         return false;
       }
@@ -185,21 +188,30 @@ export class RequiredSchemaValueValidationService {
 
         // handle array fields
         const schemaObjectPath = RequiredSchemaValueValidationService.getParentObjectPath(formattedKeyPair.schemaFormattedKey);
-        if (schemaObjectPath.endsWith('.items')) {
-          const objectTypePath = `${schemaObjectPath.substr(0, schemaObjectPath.lastIndexOf('.items'))}.type`;
-          if (flattenedSchema[objectTypePath] === 'array') {
+        if (schemaObjectPath.endsWith(`.${RequiredSchemaValueValidationService.ITEMS_KEY}`)) {
+          const objectTypePath = `${schemaObjectPath.substr(0, schemaObjectPath.lastIndexOf(`.${RequiredSchemaValueValidationService.ITEMS_KEY}`))}.${RequiredSchemaValueValidationService.TYPE_KEY}`;
+          if (flattenedSchema[objectTypePath] === RequiredSchemaValueValidationService.ARRAY_KEY) {
             const arrayObject = RequiredSchemaValueValidationService.getParentObjectPath(schemaObjectPath);
             const arrayName = arrayObject.substr(arrayObject.lastIndexOf('.') + 1);
             let parentOfArray = RequiredSchemaValueValidationService.getParentObjectPath(arrayObject);
-            if (parentOfArray.endsWith('.properties')) {
-              parentOfArray = parentOfArray.substr(0, parentOfArray.lastIndexOf('.properties'));
+            if (parentOfArray.endsWith(`.${SchemaHelperService.PROPERTIES_KEY}`)) {
+              parentOfArray = parentOfArray.substr(0, parentOfArray.lastIndexOf(`.${SchemaHelperService.PROPERTIES_KEY}`));
+            }
+            if (parentOfArray === SchemaHelperService.PROPERTIES_KEY) {
+              parentOfArray = '';
+            } else {
+              parentOfArray = `${parentOfArray}.`;
             }
             const isRequiredArrayProperty = Object.keys(flattenedSchema)
-              .filter(key => key.startsWith(`${parentOfArray}.${SchemaHelperService.REQUIRED_KEY}[`))
+              .filter(key => key.startsWith(`${parentOfArray}${SchemaHelperService.REQUIRED_KEY}[`))
               .some(key => flattenedSchema[key] === arrayName);
-            if (!isRequiredArrayProperty) {
-              return false;
+            if (isRequiredArrayProperty) {
+              return true;
             }
+
+            // If it isn't a required property, check if it is an enum. Enums are always required.
+            return Object.keys(flattenedSchema)
+              .some(key => key.startsWith(`${schemaObjectPath}.${SchemaHelperService.PROPERTIES_KEY}.${flattenedSchema[formattedKeyPair.schemaFormattedKey]}.${SchemaHelperService.ENUM_KEY}[`));
           }
         }
 
