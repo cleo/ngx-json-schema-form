@@ -2,10 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { map, takeUntil } from 'rxjs/operators';
 import { getInputValue$ } from '../../../../../component-life-cycle';
 import { EnumDataItem, EnumOption } from '../../../../../models/enum-data-item';
-import { ValidatorService } from '../../../../../validator.service';
 import { ContentBaseComponent } from '../../../../content-base.component';
-import { CellRendererComponent } from '../renderers/cell-renderer.component';
-import { TableModalService } from '../table-modal.service';
 
 @Component({
   selector: 'jsf-dropdown-cell',

@@ -1,6 +1,5 @@
 import { AfterViewInit, Component, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { ContentBaseComponent } from '../../../../content-base.component';
-import { CellRendererComponent } from '../renderers/cell-renderer.component';
 
 @Component({
   selector: 'jsf-text-cell',
