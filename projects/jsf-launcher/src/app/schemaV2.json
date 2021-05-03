@@ -7,11 +7,12 @@
     "arrays": {
       "type": "object",
       "name": "Array Inputs",
+      "required": ["reqArrayInput"],
       "description": "This section displays array functionality of the JSF. A modal with a value editor will be displayed. Array functionality is limited - see Wiki for details.",
       "properties": {
-        "arrayInput": {
+        "reqArrayInput": {
           "type": "array",
-          "name": "Array Input",
+          "name": "Required Array Input",
           "helpText": "This help text will display when you hover over the information icon",
           "tooltip": "This tooltip will display when you hover over the label.",
           "items": {
@@ -23,8 +24,7 @@
               },
               "model": {
                 "type": "string",
-                "name": "Model",
-                "default": "Corolla"
+                "name": "Model"
               },
               "transmission": {
                 "name": "Transmission",
@@ -52,6 +52,25 @@
                 "tooltip": "This tooltip will display when you hover over the label.",
                 "minimum": 5000,
                 "maximum": 40000
+              }
+            }
+          }
+        },
+        "arrayInput": {
+          "type": "array",
+          "name": "Array Input",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "items": {
+            "required": ["make","model"],
+            "properties": {
+              "make": {
+                "type": "string",
+                "name": "Make"
+              },
+              "model": {
+                "type": "string",
+                "name": "Model"
               }
             }
           }

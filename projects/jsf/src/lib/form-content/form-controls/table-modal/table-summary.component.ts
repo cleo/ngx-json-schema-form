@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 import { filter, map, takeUntil, tap } from 'rxjs/operators';
 import { getInputValue$ } from '../../../component-life-cycle';
 import { ArrayDataItem } from '../../../models/array-data-item';
@@ -23,12 +24,15 @@ export class TableSummaryComponent extends FormControlBase implements OnInit {
         this.arrayItem = item as ArrayDataItem;
       }),
       takeUntil(this.ngDestroy$)).subscribe();
+
+    this.formGroup.addControl(this.formItem.key, new FormControl(this.arrayItem.value));
   }
 
   onEdit() {
     this.modalService.open({arrayItem: this.arrayItem}).pipe(
       filter(value => !!value),
-      tap(value => this.arrayItem.value = value)
+      tap(value => this.arrayItem.value = value),
+      tap(value => this.formGroup.controls[this.formItem.key].setValue(value))
     ).subscribe();
   }
 
