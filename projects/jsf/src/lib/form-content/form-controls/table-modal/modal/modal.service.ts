@@ -3,6 +3,8 @@ import { Observable, Subject } from 'rxjs';
 import { take } from 'rxjs/operators';
 
 export class ModalService<TOptions = undefined, TResult = undefined> {
+  private modalOpen = false;
+
   private openEvents$ = new Subject<TOptions>();
   private closeEvents$ = new Subject<TResult>();
 
@@ -15,13 +17,20 @@ export class ModalService<TOptions = undefined, TResult = undefined> {
   open(options?: TOptions): Observable<TResult> {
     const result$ = this.closeEvents$.pipe(take(1));
 
+    this.modalOpen = true;
+
     this.openEvents$.next(options);
 
     return result$;
   }
 
   close(result?: TResult): void {
+    this.modalOpen = false;
     this.closeEvents$.next(result);
+  }
+
+  isOpen(): boolean {
+    return this.modalOpen;
   }
 
   getOpenEvents(): Observable<TOptions> {
