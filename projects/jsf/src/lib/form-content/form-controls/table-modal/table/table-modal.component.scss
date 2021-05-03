@@ -16,12 +16,6 @@ $modal-footer-bg: $OffWhite;
 $modal-footer-height: 64px;
 $modal-footer-padding: 14px 10px 16px 10px;
 
-.modal-header {
-  background-color: $modal-title-bg;
-  height: $modal-header-height;
-  border-bottom: none;
-}
-
 .modal-title {
   color: $modal-title-color;
 
@@ -34,6 +28,12 @@ $modal-footer-padding: 14px 10px 16px 10px;
   }
 }
 
+.modal-header {
+  background-color: $modal-title-bg;
+  height: $modal-header-height;
+  border-bottom: none;
+}
+
 .modal-body {
   width: 100%;
   height: calc(100% - 116px);
@@ -41,6 +41,7 @@ $modal-footer-padding: 14px 10px 16px 10px;
   min-width: 600px;
   display: flex;
   flex-direction: column;
+  padding: 0 15px 0 15px;
 }
 
 .modal-footer {
@@ -67,7 +68,6 @@ $modal-footer-padding: 14px 10px 16px 10px;
 .jsf-table-header {
   height: 36px;
   padding: 5px;
-  margin-right: 15px;
 }
 
 .jsf-table-delete-button {
@@ -89,13 +89,6 @@ ag-grid-angular {
       outline: none;
     }
 
-    .ag-tooltip {
-      background-color: $White;
-      border: 1px solid $OffBlack;
-      color: $Black;
-      padding: 5px;
-    }
-
     .ag-body {
       height: 100%;
       width: 100%;
@@ -114,6 +107,10 @@ ag-grid-angular {
 
     .ag-root {
       border: none;
+    }
+
+    .ag-header-row {
+      margin-left: 10px;
     }
 
     .ag-header {
@@ -138,6 +135,17 @@ ag-grid-angular {
       }
     }
 
+    .ag-tooltip {
+      background-color: $White;
+      border: 1px solid $OffBlack;
+      color: $Black;
+      padding: 5px;
+    }
+
+    .ag-input-field-input {
+      min-width: 17px;
+    }
+
     .ag-floating {
       &-top {
         width: 100%;
@@ -156,6 +164,10 @@ ag-grid-angular {
           white-space: nowrap;
         }
 
+        .ag-row {
+          background-color: $OffWhite;
+        }
+
         input {
           border: 1px solid $OffBlack;
         }
@@ -170,16 +182,21 @@ ag-grid-angular {
       }
     }
 
-    .ag-header-row {
-      margin-left: 10px;
-    }
+    .ag-row {
+      border-bottom: 1px solid $OffBlack;
+      font-size: 15px;
+      margin: 5px;
 
-    .ag-cell-inline-editing input[type=text] {
-      height: initial;
-      border: 1px solid $Black;
-      background-color: $White;
-      vertical-align: middle;
-      align-self: center;
+      &-selected {
+        background-color: $table-row-selected;
+
+        input {
+          background-color: $table-row-selected;
+        }
+        select {
+          background-color: $table-row-selected;
+        }
+      }
     }
 
     .ag-cell {
@@ -204,41 +221,12 @@ ag-grid-angular {
       }
     }
 
-    .ag-hidden {
-      display: none !important;
-    }
-
-    .ag-visibility-hidden {
-      visibility: hidden !important;
-    }
-
-    .ag-row {
-      border-bottom: 1px solid $OffBlack;
-      font-size: 15px;
-      margin: 5px;
-
-      &-selected {
-        background-color: $table-row-selected;
-
-        input {
-          background-color: $table-row-selected;
-        }
-        select {
-          background-color: $table-row-selected;
-        }
-      }
-    }
-
-    .ag-floating-top .ag-row {
-      background-color: $OffWhite;
-    }
-
-    .ag-input-field-input {
-      min-width: 17px;
-    }
-
-    .ag-horizontal-left-spacer {
-      display: none;
+    .ag-cell-inline-editing input[type=text] {
+      height: initial;
+      border: 1px solid $Black;
+      background-color: $White;
+      vertical-align: middle;
+      align-self: center;
     }
   }
 }
