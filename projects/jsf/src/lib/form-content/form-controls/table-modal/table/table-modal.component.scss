@@ -1,0 +1,206 @@
+@import '../../../variables';
+
+.modal-body {
+  width: 100%;
+  height: calc(100% - 116px);
+  min-height: 400px;
+  min-width: 600px;
+  display: flex;
+  flex-direction: column;
+  padding: 0 15px 0 15px;
+}
+
+.modal-footer {
+  height: $modal-footer-height;
+  padding: $modal-footer-padding;
+  background-color: $modal-footer-bg;
+  text-align: center;
+
+  button,
+  .btn {
+    height: 36px;
+    line-height: 35px;
+    padding: 0 23px 0 23px;
+  }
+}
+
+.jsf-table {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.jsf-table-header {
+  height: 36px;
+  padding: 5px;
+}
+
+.jsf-table-delete-button {
+  float: right;
+}
+
+ag-grid-angular {
+  flex-basis: 0;
+  flex-grow: 1;
+}
+
+:host {
+  ::ng-deep {
+    [class^='ag-'],
+    [class^='ag-']:focus,
+    [class^='ag-']:after,
+    [class^='ag-']:before {
+      box-sizing: border-box;
+      outline: none;
+    }
+
+    .ag-root {
+      border: none;
+    }
+
+    .ag-body {
+      height: 100%;
+      width: 100%;
+      background-color: $White;
+
+      &-viewport {
+        overflow-x: auto;
+        overflow-y: auto;
+        height: 100%;
+
+        &-wrapper {
+          height: 100%;
+        }
+      }
+    }
+
+    .ag-header-row {
+      margin-left: 10px;
+    }
+
+    .ag-header {
+      white-space: nowrap;
+      overflow: hidden;
+      width: 100%;
+
+      &-viewport {
+        overflow: hidden;
+        height: 100%;
+      }
+
+      &-cell {
+        vertical-align: bottom;
+        height: 100%;
+        position: absolute;
+
+        &-label {
+          overflow: hidden;
+          font-weight: bold;
+        }
+      }
+    }
+
+    .ag-tooltip {
+      background-color: $White;
+      border: 1px solid $OffBlack;
+      color: $Black;
+      padding: 5px;
+    }
+
+    .ag-input-field-input {
+      min-width: 17px;
+    }
+
+    .ag-floating {
+      &-top {
+        width: 100%;
+        display: inline-flex;
+        white-space: nowrap;
+        overflow: hidden;
+        overflow-y: hidden !important;
+
+        &-viewport {
+          overflow: hidden;
+          height: 100%;
+        }
+
+        &-container {
+          position: relative;
+          white-space: nowrap;
+        }
+
+        .ag-row {
+          background-color: $OffWhite;
+        }
+
+        input {
+          border: 1px solid $OffBlack;
+        }
+
+        .jsf-required-cell-asterisk {
+          display: inline-block !important;
+        }
+
+        .jsf-error-cell-required {
+          display: none;
+        }
+      }
+    }
+
+    .ag-row-pinned {
+      border-top: 1px solid $OffBlack;
+    }
+
+    .ag-row {
+      border-bottom: 1px solid $OffBlack;
+      font-size: 15px;
+
+      &-selected {
+        background-color: $table-row-selected;
+
+        input {
+          background-color: $table-row-selected;
+        }
+        select {
+          background-color: $table-row-selected;
+        }
+      }
+    }
+
+    .ag-cell {
+      white-space: nowrap;
+      overflow: hidden;
+      position: absolute;
+      display: inline-flex;
+      justify-content: left;
+      align-items: center;
+      margin: 0 5px 0 5px;
+
+      &-focus {
+        border: 1px solid transparent;
+      }
+
+      &-no-focus {
+        border: 1px solid transparent;
+      }
+
+      .jsf-required-cell-asterisk {
+        display: none;
+      }
+    }
+
+    .ag-cell-inline-editing input[type=text] {
+      height: initial;
+      border: 1px solid $Black;
+      background-color: $White;
+      vertical-align: middle;
+      align-self: center;
+    }
+
+    .ag-input-field-input {
+      min-width: 17px;
+    }
+  }
+}
+

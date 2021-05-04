@@ -48,4 +48,8 @@ export class FormControlComponent extends ContentBaseComponent {
     const item = this.formItem as StringDataItem;
     return item.display && item.display.startsWith('textarea');
   }
+
+  isArray(): boolean {
+    return this.formItem.type === FormDataItemType.Array;
+  }
 }

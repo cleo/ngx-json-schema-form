@@ -1,0 +1,32 @@
+@import '~bootstrap-sass/assets/stylesheets/bootstrap/variables';
+@import '../../../variables';
+
+.modal-open .modal {
+  display: block;
+}
+
+.corner-resize {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+.modal-header {
+  background-color: $modal-title-bg;
+  height: $modal-header-height;
+  border-bottom: none;
+
+  img {
+    float: right;
+    vertical-align: middle;
+    margin-right: .4em;
+    font-size: 20px;
+    display: inline-block;
+    z-index: 2;
+  }
+}
+
+.modal-title {
+  color: $modal-title-color;
+  display: inline-block;
+}

@@ -1,6 +1,7 @@
 import { FormControl, FormGroup } from '@angular/forms';
 import { FormDataItemService } from './form-data-item.service';
 import { JSFSchemaData } from './jsf-schema-data';
+import { ArrayDataItem } from './models/array-data-item';
 import { ConditionalParentDataItem, CONDITIONAL_PARENT_VALUE_KEY } from './models/conditional-parent-data-item';
 import { EnumDataItem, OptionDisplayType } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
@@ -500,6 +501,79 @@ describe('FormDataItemService', () => {
           });
         });
       });
+    });
+  });
+
+  describe('Array Type', () => {
+    const stringName = 'stringName';
+    const booleanName1 = 'booleanName1';
+    const booleanName2 = 'booleanName2';
+    const description = 'description';
+    beforeEach(() => {
+      schemaData.schema.properties = {
+        arrayKey: {
+          type: 'array',
+          name: name,
+          description: description,
+          tooltip: tooltip,
+          helpText: helpText,
+          isReadOnly: true,
+          isHidden: true,
+          items: {
+            required: ['stringKey', 'booleanKey'],
+            properties: {
+              stringKey: {
+                type: 'string',
+                name: stringName,
+                description: description
+              },
+              booleanKey: {
+                type: 'boolean',
+                name: booleanName1,
+                description: description
+              },
+              booleanKey2: {
+                type: 'boolean',
+                name: booleanName2,
+                description: description
+              }
+            }
+          }
+        }
+      };
+    });
+
+    it('should set the basic properties', () => {
+      const result = service.getFormDataItems(schemaData)[0] as ArrayDataItem;
+      expect(result.label).toEqual(name);
+      expect(result.tooltip).toEqual(tooltip);
+      expect(result.helpText).toEqual(helpText);
+      expect(result.path).toEqual('arrayKey');
+      expect(result.disabledState.isReadOnly).toEqual(true);
+      expect(result.isHidden).toEqual(true);
+      expect(result.items.length).toEqual(3);
+    });
+
+    it('should set child items to readOnly', () => {
+      const result = service.getFormDataItems(schemaData)[0] as ArrayDataItem;
+      expect(result.items[0].disabledState.isReadOnly).toEqual(true);
+      expect(result.items[1].disabledState.isReadOnly).toEqual(true);
+      expect(result.items[2].disabledState.isReadOnly).toEqual(true);
+    });
+
+    it('should set child items as hidden', () => {
+      const result = service.getFormDataItems(schemaData)[0] as ArrayDataItem;
+      expect(result.items[0].isHidden).toEqual(true);
+      expect(result.items[1].isHidden).toEqual(true);
+      expect(result.items[2].isHidden).toEqual(true);
+    });
+
+    it('should set required keys', () => {
+      const resultParent = service.getFormDataItems(schemaData)[0] as ArrayDataItem;
+      const result = resultParent.items;
+      expect(result[0].required).toEqual(true);
+      expect(result[1].required).toEqual(true);
+      expect(result[2].required).toEqual(false);
     });
   });
 

@@ -1,0 +1,32 @@
+<div class="modal-open" (click)="onOutsideClick($event)" (keydown.Escape)="onEscapeKeyDown($event)">
+  <div #modal class="modal fade" [class.in]="shouldHaveFadeInClass" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+      <div #modalContent class="modal-content" (click)="onClick($event)"
+           [style.top.px]="top"
+           [style.left.px]="left"
+           [style.width.px]="width"
+           [style.height.px]="height">
+        <div class="modal-header" (mousedown)="onWindowPress($event)" (mousemove)="onWindowDrag($event)">
+          <div class="modal-title">
+            <span>{{title}}</span>
+          </div>
+          <img title="Close Dialog Box"
+               [src]="'assets/jsf-images/close.svg'"
+               alt="Close Dialog Box"
+               class="modal-close"
+               (click)="onOutsideClick($event)">
+        </div>
+
+        <ng-content></ng-content>
+
+        <img title="Resize Dialog Box"
+             [src]="'assets/jsf-images/resize.svg'"
+             alt="Resize Dialog Box"
+             class="corner-resize"
+             (mousedown)='onCornerClick($event)'>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal-backdrop fade" [class.in]="shouldHaveFadeInClass"></div>
+</div>

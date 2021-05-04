@@ -1,6 +1,6 @@
 // @dynamic
 export class SchemaHelperService {
-  private static readonly PROPERTIES_KEY = 'properties';
+  public static readonly PROPERTIES_KEY = 'properties';
   public static readonly SECURED_KEY = 'isSecured';
   public static readonly REQUIRED_KEY = 'required';
   public static readonly ENUM_KEY = 'enum';
