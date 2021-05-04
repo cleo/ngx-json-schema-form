@@ -153,6 +153,7 @@ ag-grid-angular {
         white-space: nowrap;
         overflow: hidden;
         overflow-y: hidden !important;
+        border-top: 1px solid $OffBlack;
 
         &-viewport {
           overflow: hidden;
@@ -185,7 +186,6 @@ ag-grid-angular {
     .ag-row {
       border-bottom: 1px solid $OffBlack;
       font-size: 15px;
-      margin: 5px;
 
       &-selected {
         background-color: $table-row-selected;
@@ -227,6 +227,10 @@ ag-grid-angular {
       background-color: $White;
       vertical-align: middle;
       align-self: center;
+    }
+
+    .ag-input-field-input {
+      min-width: 17px;
     }
   }
 }
