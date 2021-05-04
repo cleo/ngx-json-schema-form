@@ -13,6 +13,7 @@ export class ModalComponent extends ContentBaseComponent implements AfterViewIni
   @ViewChild('modal', { static: true }) modalEl: ElementRef;
   @ViewChild('modalContent', { static: true }) modalContentEl: ElementRef;
 
+  @Input() title: string;
   @Output() closeInput: EventEmitter<any> = new EventEmitter();
   @Output() resizeInput: EventEmitter<any> = new EventEmitter();
 

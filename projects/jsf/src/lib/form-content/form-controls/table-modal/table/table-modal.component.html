@@ -1,14 +1,4 @@
-<jsf-modal (closeInput)="onClose()" (resizeInput)="onResize()">
-  <div class="modal-header">
-    <div class="modal-title">
-      <span>{{modalTitle}}</span>
-      <img title="Close Dialog Box"
-           [src]="'assets/jsf-images/close.svg'"
-           alt="Close Dialog Box"
-           class="modal-close"
-           (click)="onClose()">
-    </div>
-  </div>
+<jsf-modal [title]="modalTitle" (closeInput)="onClose()" (resizeInput)="onResize()">
   <jsf-alert [alertStream]="alertStreamService"></jsf-alert>
   <div class="modal-body">
     <div class="jsf-table-header">

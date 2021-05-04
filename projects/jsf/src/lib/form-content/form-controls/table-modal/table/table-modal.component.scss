@@ -1,38 +1,4 @@
-// Grayscale
-$White: #fff;
-$OffWhite: #f5f5f5;
-$Black: #000;
-$OffBlack: #999;
-
-$table-row-hover: $OffWhite;
-$table-row-selected: $OffWhite;
-
-$navbar-inverse-bg: $OffWhite;
-$modal-title-padding: 12px 10px 15px 20px;
-$modal-header-height: 52px;
-$modal-title-bg: $navbar-inverse-bg;
-$modal-title-color: $Black;
-$modal-footer-bg: $OffWhite;
-$modal-footer-height: 64px;
-$modal-footer-padding: 14px 10px 16px 10px;
-
-.modal-title {
-  color: $modal-title-color;
-
-  img {
-    float: right;
-    vertical-align: middle;
-    margin-right: .4em;
-    font-size: 20px;
-    display: inline-block;
-  }
-}
-
-.modal-header {
-  background-color: $modal-title-bg;
-  height: $modal-header-height;
-  border-bottom: none;
-}
+@import '../../../variables';
 
 .modal-body {
   width: 100%;
