@@ -89,6 +89,10 @@ ag-grid-angular {
       outline: none;
     }
 
+    .ag-root {
+      border: none;
+    }
+
     .ag-body {
       height: 100%;
       width: 100%;
@@ -103,10 +107,6 @@ ag-grid-angular {
           height: 100%;
         }
       }
-    }
-
-    .ag-root {
-      border: none;
     }
 
     .ag-header-row {

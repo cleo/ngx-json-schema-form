@@ -15,6 +15,18 @@
       color: red;
     }
 
+    jsf-renderer {
+      width: 100%;
+    }
+
+    .jsf-cell-renderer {
+      width: 100%;
+    }
+
+    jsf-text-cell {
+      width: 100%;
+    }
+
     .jsf-text-cell-input {
       padding-right: 10px;
       text-overflow: ellipsis;

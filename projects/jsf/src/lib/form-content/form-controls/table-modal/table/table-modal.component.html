@@ -33,7 +33,8 @@
       [singleClickEdit]="true"
       [pinnedTopRowData]="pinnedTopRowData$ | async"
       (gridReady)="onGridReady($event)"
-      (firstDataRendered)="onRender()"
+      [ensureDomOrder]="true"
+      [suppressColumnVirtualisation]="true"
       (rowSelected)="onRowSelected()">
     </ag-grid-angular>
   </div>

@@ -1,5 +1,5 @@
 import { AllCommunityModules, ColDef } from '@ag-grid-community/all-modules';
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, HostListener, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, Inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { ArrayDataItem } from '../../../../models/array-data-item';
 import { FormDataItem, FormDataItemType } from '../../../../models/form-data-item';
@@ -45,13 +45,14 @@ export class TableModalComponent extends FormControlBase {
     headerCheckboxSelection: true,
     checkboxSelection: true,
     minWidth: 30,
-    maxWidth: 40
+    maxWidth: 40,
+    colId: 'jsfCheckboxSelection',
+    pinned: 'left'
   }];
 
   private params: any;
 
   constructor(private modalService: ModalService<ITableModalOptions, any>,
-              private changeDetectorRef: ChangeDetectorRef,
               private tableModalService: TableModalService,
               @Inject(MODAL_OPTIONS_TOKEN) private readonly modalOptions: ITableModalOptions
   ) {
@@ -66,8 +67,7 @@ export class TableModalComponent extends FormControlBase {
 
     this.rowData$.next(this.arrayItem.value);
     this.setPinnedRowData();
-    this.changeDetectorRef.markForCheck();
-    setTimeout(() => this.onResize());
+    this.onResize();
   }
 
   onClose(): void {
@@ -84,10 +84,6 @@ export class TableModalComponent extends FormControlBase {
     this.params.api.forEachNode(node => rowData.push(node.data));
 
     this.modalService.close(rowData);
-  }
-
-  onRender() {
-    setTimeout(() => this.onResize());
   }
 
   get numberOfSelectedRows(): number {
@@ -130,11 +126,7 @@ export class TableModalComponent extends FormControlBase {
 
   @HostListener('window:resize')
   onResize() {
-    const allColumnIds = [];
-    this.params.columnApi.getAllColumns().forEach(function (column) {
-      allColumnIds.push(column.getColId());
-    });
-
+    const allColumnIds = this.params.columnApi.getAllDisplayedColumns().map(col => col.getColId());
     setTimeout(() =>
       this.params.columnApi.autoSizeColumns(allColumnIds, false)
     );
