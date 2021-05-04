@@ -1,5 +1,5 @@
 import { Directive, Input, OnInit } from '@angular/core';
-import { Form, FormControl, ValidationErrors } from '@angular/forms';
+import { FormControl, ValidationErrors } from '@angular/forms';
 
 import { FormDataItem } from '../../models/form-data-item';
 import { StringDataItem } from '../../models/string-data-item';
@@ -8,6 +8,8 @@ import { ContentBaseComponent } from '../content-base.component';
 
 @Directive()
 export class FormControlBase extends ContentBaseComponent implements OnInit {
+  @Input() formItem: FormDataItem;
+  @Input() labelLengthClass: string;
 
   get formControl(): FormControl {
     return (this.formGroup.controls[this.formItem.key]) as FormControl;
@@ -16,8 +18,6 @@ export class FormControlBase extends ContentBaseComponent implements OnInit {
   get showError(): boolean {
     return !this.formControl.valid && this.formControl.touched && this.formControl.status !== 'DISABLED';
   }
-  @Input() formItem: FormDataItem;
-  @Input() labelLengthClass: string;
 
   static formatErrorMessage(errors: ValidationErrors, formItem: FormDataItem): string {
     const hasRequiredPattern = errors && errors.pattern && errors.pattern.requiredPattern;
