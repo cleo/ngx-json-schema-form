@@ -153,7 +153,6 @@ ag-grid-angular {
         white-space: nowrap;
         overflow: hidden;
         overflow-y: hidden !important;
-        border-top: 1px solid $OffBlack;
 
         &-viewport {
           overflow: hidden;
@@ -181,6 +180,10 @@ ag-grid-angular {
           display: none;
         }
       }
+    }
+
+    .ag-row-pinned {
+      border-top: 1px solid $OffBlack;
     }
 
     .ag-row {
