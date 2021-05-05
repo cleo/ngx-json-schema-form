@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 
 import { JSFJsonSchema } from './jsf-json-schema';
 import { JSFSchemaData } from './jsf-schema-data';
+import { ArrayDataItem } from './models/array-data-item';
 import { ButtonDataItem } from './models/button-data-item';
 import { ConditionalParentDataItem } from './models/conditional-parent-data-item';
 import { EnumDataItem, OptionDisplayType } from './models/enum-data-item';
@@ -30,18 +31,19 @@ export class FormDataItemService {
   }
 
   private getItemsFromSubschema(schema: JSFJsonSchema, values: object, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): FormDataItem[] {
-    return Object.keys(schema.properties).map(key => {
+    return Object.keys(schema.properties ?? schema.items.properties).map(key => {
       return this.getItemFromSchema(schema, values, key, pathParts.slice(), isParentReadOnly, isParentHidden);
     });
   }
 
   private getItemFromSchema(schema: JSFJsonSchema, values: any, key: string, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): FormDataItem {
     pathParts.push(key);
-    const schemaProperty = schema.properties[key];
+    const schemaProperty = schema.properties ? schema.properties[key] : schema.items.properties[key];
     const name = schemaProperty.name;
     const tooltip = schemaProperty.tooltip;
     const helpText = schemaProperty.helpText;
-    const required = this.getRequired(schema, key);
+    // Required fields for arrays are stored in items.properties
+    const required = this.getRequired(schema.properties ? schema : schema.items, key);
     const isReadOnly = Boolean(schemaProperty.isReadOnly) || isParentReadOnly;
     const type = this.getFormDataItemType(schemaProperty);
     const isHidden = Boolean(schemaProperty.isHidden) || isParentHidden;
@@ -65,6 +67,9 @@ export class FormDataItemService {
           return new ParentDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, childItems, schemaProperty.description, display);
         }
         return new ConditionalParentDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, childItems);
+      case FormDataItemType.Array:
+        const arrayItems = this.getItemsFromSubschema(schemaProperty, fieldValue, pathParts, isReadOnly, isHidden);
+        return new ArrayDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, arrayItems);
       case FormDataItemType.SecuredString:
         return new SecuredStringDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, this.isEdit, schemaProperty.placeholder);
       case FormDataItemType.Integer:
@@ -123,6 +128,8 @@ export class FormDataItemService {
         return FormDataItemType.Integer;
       case SchemaTypes.Object:
         return FormDataItemType.Object;
+      case SchemaTypes.Array:
+        return FormDataItemType.Array;
       default:
         return Boolean(schemaProperty.isSecured) ? FormDataItemType.SecuredString : FormDataItemType.String;
     }
@@ -220,7 +227,8 @@ enum SchemaTypes {
   Boolean = 'boolean',
   Integer = 'integer',
   Object = 'object',
-  String = 'string'
+  String = 'string',
+  Array = 'array'
 }
 
 export interface JSONSchemaProperty {

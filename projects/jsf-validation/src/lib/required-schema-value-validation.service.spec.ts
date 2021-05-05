@@ -4,6 +4,7 @@ import { SchemaHelperService } from './schema-helper.service';
 describe('RequiredSchemaValueValidationService', () => {
   let basicSchema: any;
   let oneOfSchema: any;
+  let arraySchema: any;
   const dropdownWithChildren = {
     name: 'Dropdown with Children 1',
     display: 'dropdown',
@@ -78,6 +79,35 @@ describe('RequiredSchemaValueValidationService', () => {
         }
       }
     };
+    arraySchema = {
+      type: 'array',
+      name: 'arrayObj',
+      items: {
+        required: ['checkbox', 'numberInput'],
+        properties: {
+          checkbox: {
+            type: 'boolean',
+            name: 'Checkbox Input'
+          },
+          numberInput: {
+            type: 'number',
+            name: 'Number Input'
+          },
+          textInput: {
+            type: 'string',
+            name: 'Text Input'
+          },
+          enumInput: {
+            name: 'Enum Input',
+            display: 'dropdown',
+            enum: [
+              'option1',
+              'option2'
+            ]
+          }
+        }
+      }
+    };
   });
 
   describe('getRequiredKeysFromSchemaOnly()', () => {
@@ -139,6 +169,48 @@ describe('RequiredSchemaValueValidationService', () => {
       expect(result[0]).toEqual('object.dropdownWithChildren.oneOf[0].child1');
       expect(result[1]).toEqual('object.dropdownWithChildren.oneOf[1].child2');
     });
+
+    describe('getRequiredKeysFromSchemaOnly() - array type', () => {
+      it('should return an array of required paths when a required field is an array object', () => {
+        const flattenedSchema = SchemaHelperService.getFlattenedObject(arraySchema);
+        const result = RequiredSchemaValueValidationService.getRequiredKeysFromSchemaOnly(flattenedSchema);
+        expect(result.length).toEqual(3);
+        expect(result[0]).toEqual('items.checkbox');
+        expect(result[1]).toEqual('items.numberInput');
+        expect(result[2]).toEqual('items.enumInput');
+      });
+
+      it('should return an array of required paths when an array is nested beneath a parent object', () => {
+        const schema = {
+          object: {...arraySchema}
+        };
+
+        const flattenedSchema = SchemaHelperService.getFlattenedObject(schema);
+        const result = RequiredSchemaValueValidationService.getRequiredKeysFromSchemaOnly(flattenedSchema);
+        expect(result.length).toEqual(3);
+        expect(result[0]).toEqual('object.items.checkbox');
+        expect(result[1]).toEqual('object.items.numberInput');
+        expect(result[2]).toEqual('object.items.enumInput');
+      });
+
+      it('should return an array of required paths when an array is nested beneath a parent object', () => {
+        const schema = {
+          type: 'object',
+          required: ['arrayObj'],
+          properties: {
+            arrayObj: {...arraySchema}
+          }
+        };
+
+        const flattenedSchema = SchemaHelperService.getFlattenedObject(schema);
+        const result = RequiredSchemaValueValidationService.getRequiredKeysFromSchemaOnly(flattenedSchema);
+        expect(result.length).toEqual(4);
+        expect(result[0]).toEqual('arrayObj');
+        expect(result[1]).toEqual('arrayObj.items.checkbox');
+        expect(result[2]).toEqual('arrayObj.items.numberInput');
+        expect(result[3]).toEqual('arrayObj.items.enumInput');
+      });
+    });
   });
 
   describe('valuesHaveRequiredKeys()', () => {
@@ -176,8 +248,51 @@ describe('RequiredSchemaValueValidationService', () => {
     it('should return false if one or more required fields are not present', () => {
       expect(RequiredSchemaValueValidationService.valuesHaveRequiredKeys(basicSchema, values, false)).toBe(false);
 
-      values = { checkbox: true };
+      values = {checkbox: true};
       expect(RequiredSchemaValueValidationService.valuesHaveRequiredKeys(basicSchema, values, false)).toBe(false);
+    });
+
+    describe('array', () => {
+      it('should return true if there are no required array fields', () => {
+        delete arraySchema.items.required;
+        delete arraySchema.items.properties.enumInput;
+        expect(RequiredSchemaValueValidationService.valuesHaveRequiredKeys(arraySchema, values, false)).toBe(true);
+      });
+
+      it('should return false if there are empty enum array fields', () => {
+        expect(RequiredSchemaValueValidationService.valuesHaveRequiredKeys(arraySchema, values, false)).toBe(false);
+      });
+
+      it('should return false if one or more required array fields are not present', () => {
+        expect(RequiredSchemaValueValidationService.valuesHaveRequiredKeys(arraySchema, values, false)).toBe(false);
+
+        values = [{enumInput: 'option1'}];
+        expect(RequiredSchemaValueValidationService.valuesHaveRequiredKeys(arraySchema, values, false)).toBe(false);
+      });
+
+      it('should return false if the array is required', () => {
+        delete arraySchema.items.properties.enumInput;
+        const schema = {
+          type: 'object',
+          required: ['arrayObj'],
+          properties: {
+            arrayObj: {...arraySchema}
+          }
+        };
+        expect(RequiredSchemaValueValidationService.valuesHaveRequiredKeys(schema, values, false)).toBe(false);
+      });
+
+      it('should return true if all values are provided', () => {
+        const schema = {
+          type: 'object',
+          required: ['arrayObj'],
+          properties: {
+            arrayObj: {...arraySchema}
+          }
+        };
+        values = {arrayObj: [{ enumInput: 'option1', checkbox: true, numberInput: 1234 }]};
+        expect(RequiredSchemaValueValidationService.valuesHaveRequiredKeys(schema, values, false)).toBe(true);
+      });
     });
 
     describe('oneOf', () => {

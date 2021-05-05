@@ -1,0 +1,45 @@
+<div class="jsf-cell-renderer">
+  <div class="jsf-cell-input" [class.cell-error]="errorMessage && !showRequiredError()">
+    <jsf-checkbox-cell
+      class="jsf-checkbox-cell"
+      *ngIf="isCheckboxType()"
+      #jsfCheckboxCell
+      [params]="params"
+      (valueChanged)="rendererValueChanged($event)">
+    </jsf-checkbox-cell>
+    <jsf-dropdown-cell
+      class="jsf-dropdown-cell"
+      *ngIf="isDropdownType()"
+      #jsfDropdownCell
+      [params]="params"
+      (valueChanged)="rendererValueChanged($event)">
+    </jsf-dropdown-cell>
+    <jsf-text-cell
+      class="jsf-text-cell"
+      *ngIf="isTextType()"
+      #jsfTextCell
+      [params]="params">
+    </jsf-text-cell>
+    <img *ngIf="errorMessage && !showRequiredError()"
+         [title]="errorMessage"
+         [src]="'assets/jsf-images/exclamation.svg'"
+         alt="errorMessage"
+         class="jsf-error-cell">
+    <img *ngIf="showRequiredError()"
+         [title]="errorMessage"
+         [src]="'assets/jsf-images/exclamation.svg'"
+         alt="errorMessage"
+         class="jsf-error-cell-required">
+    <div *ngIf="showRequiredError()"
+         class="jsf-required-cell-asterisk">
+      *
+    </div>
+  </div>
+  <div>
+    <button *ngIf="showAddButton()"
+            class="btn btn-primary jsf-table-add-button"
+            (click)="onAdd()">
+      Add
+    </button>
+  </div>
+</div>
