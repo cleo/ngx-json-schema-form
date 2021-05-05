@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
-## [3.0.3] (2021-05-05)
+## [3.1.0] (2021-05-05)
 ### Enhancement
 - Add limited array support
 
