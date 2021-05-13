@@ -13,6 +13,9 @@ export class FormDataItem {
               isReadOnly: boolean,
               public isHidden: boolean) {
     this.value = value === null || value === undefined ? '' : value;
+    if (this.value === '' && type === FormDataItemType.Array) {
+      this.value = [];
+    }
     this.tooltip = tooltip || '';
     this.helpText = helpText || '';
     this.path = pathParts.join('.');

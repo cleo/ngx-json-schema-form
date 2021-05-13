@@ -110,7 +110,7 @@ export class RequiredSchemaValueValidationService {
     }
 
     // Strip out the array required keys since they've already been checked
-    const hasRequiredKeys = requiredKeys.filter(key => requiredArrayItemKeys.indexOf(key) < 0)
+    const hasRequiredKeys = requiredKeys.filter(key => requiredArrayItemKeys.indexOf(key) < 0 && requiredArraySchemaKeys.indexOf(key) < 0)
       .every(requiredKey => !!flattenedValueKeys.find(path => path === requiredKey || path.includes(requiredKey)));
 
     if (!hasRequiredKeys) {
