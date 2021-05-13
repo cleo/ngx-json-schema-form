@@ -64,6 +64,21 @@ describe('SchemaValueSecuredValidationService', () => {
                 tooltip: 'This tooltip will display when you hover over the label.'
               }
             }
+          },
+          arrayInput: {
+            type: 'array',
+            name: 'Array Input',
+            description: 'This section displays array input functionality of the JSF.',
+            items: {
+              properties: {
+                  numberInput: {
+                  type: 'number',
+                  name: 'Number Input',
+                  helpText: 'This help text will display when you hover over the information icon',
+                  tooltip: 'This tooltip will display when you hover over the label.'
+                }
+              }
+            }
           }
         }
       };
@@ -74,11 +89,13 @@ describe('SchemaValueSecuredValidationService', () => {
         },
         numberInputs: {
           numberInput: 100
-        }
+        },
+        arrayInput: [{ numberInput: '100' }]
       };
       const result = SecuredSchemaValueValidationService.getNonSecuredValues(values, schema);
       expect(result.securedTextInput.securedTextInput).toBeUndefined();
       expect(result.numberInputs.numberInput).toEqual(100);
+      expect(result.arrayInput[0]).toEqual({ numberInput: '100'});
     });
 
     it('should not return secured text that returns an object', () => {

@@ -4,6 +4,7 @@ All notable changes to this project will be documented in this file. The changes
 ## [3.1.1] (2021-05-13)
 ### Bug Fixes
 - Empty array should not be defaulted to empty string
+- SecuredSchemaValueValidationService.getNonSecuredValues should handle arrays properly
 
 ## [3.1.0] (2021-05-05)
 ### Enhancement

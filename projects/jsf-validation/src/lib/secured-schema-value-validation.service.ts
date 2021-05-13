@@ -31,7 +31,7 @@ export class SecuredSchemaValueValidationService {
         const child = values[ key ];
 
         if (!securedKeyPaths.some(keyPath => keyPath === currentPath)) {
-          if (typeof child !== SecuredSchemaValueValidationService.OBJECT_KEY) { // the child is not an object & is a property
+          if (Array.isArray(child) || typeof child !== SecuredSchemaValueValidationService.OBJECT_KEY) { // the child is not an object & is a property
             result[ key ] = child;
           } else {
             result[ key ] = SecuredSchemaValueValidationService.getNonSecuredValuesFromObject(securedKeyPaths, currentPath, child, {});
