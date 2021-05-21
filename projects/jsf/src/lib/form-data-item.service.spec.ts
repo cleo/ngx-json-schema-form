@@ -792,9 +792,7 @@ describe('FormDataItemService', () => {
         },
         [child2Key]: {
           dropdowns: {
-            [oneOfChildKey]: {
-              child1: stringInput2
-            }
+            child1: stringInput2
           }
         }
       };
