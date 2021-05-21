@@ -35,6 +35,13 @@ export class XOfDataItem extends ParentDataItem {
       this.value = Object.keys(this.value)[0];
     }
 
+    if (this.value) {
+      const selectedEnum = children.find(child => child.items.find(item => item.key === this.value));
+      if (selectedEnum) {
+        this.value = selectedEnum.key;
+      }
+    }
+
     const enumDataItem = new XOfEnumDataItem(
       this.key,
       this.label,

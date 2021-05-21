@@ -35,22 +35,16 @@
   },
   "dropdownsWithChildren": {
     "dropdownWithChildren1": {
-      "option1": {
-        "child1": "TEST TEXT",
-        "child2": ""
-      }
+      "opt1Child1": "TEST TEXT",
+      "opt1Child2": ""
     },
     "dropdownWithChildren1WithDefault": {
-      "option2": {
-        "child1": "",
-        "child2": "TEST TEXT"
-      }
+      "opt2Child1": "",
+      "opt2Child2": "TEST TEXT"
     },
     "hiddenDropdownWithChildren": {
-      "option2": {
-        "child1": "",
-        "child2": "default value"
-      }
+      "opt2Child1": "",
+      "opt2Child2": "default value"
     }
   },
   "textInputs": {
@@ -74,16 +68,12 @@
     },
     "dropdownsChildrenII": {
       "moreDropdowns": {
-        "dd1": {
-          "child1": "TEST TEXT",
-          "child2": "HELLO"
-        }
+        "child1": "TEST TEXT",
+        "child2": "HELLO"
       },
       "moreDropdownsDefault": {
-        "op1": {
-          "ch1": "FGIEQGFIEQGIREWGI",
-          "ch2": "TEST TEXT"
-        }
+        "ch1": "FGIEQGFIEQGIREWGI",
+        "ch2": "TEST TEXT"
       }
     },
     "integerInputs": {

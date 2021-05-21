@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [4.0.0] (2021-05-21)
+### Bug Fixes
+- OneOf: XOf Enum values should not be sent when retrieving form values. These were added for JSF to display the data as a dropdown but is not part of the schema specification. All child properties should have unique key names so that the matching OneOf subschema can be determined.
+
 ## [3.1.1] (2021-05-13)
 ### Bug Fixes
 - Empty array should not be defaulted to empty string

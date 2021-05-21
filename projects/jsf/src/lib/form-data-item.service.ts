@@ -152,7 +152,7 @@ export class FormDataItemService {
       childPathParts.push(object.key);
       const objectValues =
         values && values[key]
-          ? values[key][object.key]
+          ? schema[XOfType.OneOf] ? values[key] : values[key][object.key]
           : {};
 
       const isHidden = isParentHidden || object.isHidden;
