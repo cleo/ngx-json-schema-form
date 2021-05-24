@@ -60,6 +60,17 @@ export class SchemaHelperService {
     return flattenedObject;
   }
 
+  public static getLastIndexOfXOfSegment(schemaFormattedKeySegments: string[], xOfKeyword: string): number {
+    // find index of _last_ instance of xOf key to get the most deeply nested xOf
+    // https://stackoverflow.com/a/40929530
+    // TODO: modify findIndex() to find either the oneOf key, anyOf key, or allOf key
+    const index = schemaFormattedKeySegments
+      .slice()
+      .reverse()
+      .findIndex(keySegment => keySegment.includes(xOfKeyword)); // .includes(), since schema format is an array format, ex. oneOf[0], rather than simply oneOf
+    return index >= 0 ? (schemaFormattedKeySegments.length - 1) - index : index;
+  }
+
   /**
    * Gets a list of any existing keys that contain a keyword.
    * Example: Passing a key of 'required' will return a list of all child required[#] properties.
@@ -157,4 +168,9 @@ export class SchemaHelperService {
       }
     }
   }
+}
+
+export enum XOfKeys {
+  ONE_OF_KEY = 'oneOf',
+  ALL_OF_KEY = 'allOf'
 }
