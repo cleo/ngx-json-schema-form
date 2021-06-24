@@ -52,4 +52,8 @@ export class FormControlComponent extends ContentBaseComponent {
   isArray(): boolean {
     return this.formItem.type === FormDataItemType.Array;
   }
+
+  isTemplate(): boolean {
+    return this.formItem.type === FormDataItemType.Template;
+  }
 }

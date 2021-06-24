@@ -969,6 +969,27 @@
           }
         }
       }
+    },
+    "templateTest": {
+      "type": "object",
+      "name": "Template Test",
+      "description": "This section displays template functionality.",
+      "properties": {
+        "templateDisplay": {
+          "name": "Template 1",
+          "type": "template",
+          "isReadOnly": true,
+          "templateName": "testTemplate1",
+          "targetPaths": [
+            "templateValue"
+          ]
+        },
+        "templateValue": {
+          "name": "Hidden template value",
+          "type": "string",
+          "isHidden": true
+        }
+      }
     }
   }
 }

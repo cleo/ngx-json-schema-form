@@ -36,6 +36,7 @@ import { FormService } from './form.service';
 import { JSFComponent } from './jsf.component';
 import { SchemaTranslationService } from './schema-translation.service';
 import { ValidatorService } from './validator.service';
+import { TemplateComponent } from './form-content/form-controls/template/template.component';
 
 const tableComponents = [
   AlertComponent,
@@ -66,6 +67,7 @@ const components = [
   OneOfDropdownComponent,
   RadioButtonComponent,
   TextComponent,
+  TemplateComponent,
   SecuredTextComponent,
   TextAreaComponent,
   ...tableComponents
