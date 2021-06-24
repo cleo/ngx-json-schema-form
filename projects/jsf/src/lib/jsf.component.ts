@@ -27,6 +27,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
   @ViewChild('formRoot', {static: true}) formElement: ElementRef<HTMLFormElement>;
   @Input() config: JSFConfig;
   @Input() schemaData;
+  @Input() templates: any = {};
   @Output() disableSubmit: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() formHeightChange: EventEmitter<number> = new EventEmitter();
   @Output() buttonEvent: EventEmitter<JSFEventButton> = new EventEmitter();

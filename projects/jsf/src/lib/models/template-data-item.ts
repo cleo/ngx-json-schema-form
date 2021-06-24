@@ -1,9 +1,9 @@
-import { ButtonDataItem } from './button-data-item';
+import { Input } from '@angular/core';
 import { FormDataItem } from './form-data-item';
 import { FormDataItemType } from './form-data-item';
 
 export class TemplateDataItem extends FormDataItem {
-
+  @Input() templates: any = {};
   constructor(key: string,
               label: string,
               tooltip: string,

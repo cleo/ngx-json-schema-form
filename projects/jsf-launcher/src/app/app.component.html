@@ -1,6 +1,7 @@
 <jsf-component
   [schemaData]="schemaData"
   [config]="config"
+  [templates]="{ testTemplate1: testTemplate1, testTemplate2: testTemplate2 }"
   (disableSubmit)="updateSubmitButtonStatus($event)"
   (formHeightChange)="emitTotalHeight($event)"
   (buttonEvent)="buttonEvent($event)"></jsf-component>
@@ -27,4 +28,7 @@
 
 <ng-template #testTemplate1>
   <label>Some first value goes here</label>
+</ng-template>
+<ng-template #testTemplate2>
+  <label>Some second value goes here</label>
 </ng-template>

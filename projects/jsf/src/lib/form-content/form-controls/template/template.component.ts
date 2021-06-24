@@ -1,12 +1,6 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
-import { FormDataItem, FormDataItemType } from '../../../models/form-data-item';
-import { StringDataItem, StringFormat, StringLengthOptions } from '../../../models/string-data-item';
-import { FormControlBase } from '../form-control-base';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
 import { TemplateDataItem } from '../../../models/template-data-item';
-import { FormControl } from '@angular/forms';
-import { ArrayDataItem } from '../../../models/array-data-item';
-import { map, takeUntil } from 'rxjs/operators';
-import { getInputValue$ } from '../../../component-life-cycle';
+import { FormControlBase } from '../form-control-base';
 
 @Component({
   selector: 'jsf-template',
@@ -14,8 +8,14 @@ import { getInputValue$ } from '../../../component-life-cycle';
   styleUrls: ['template.component.scss']
 })
 export class TemplateComponent extends FormControlBase  implements OnInit{
+  @Input() templates: any = {};
+
   get formItemAsTemplateType(): TemplateDataItem {
     return this.formItem as TemplateDataItem;
+  }
+
+  get template() {
+    return this.templates[this.formItemAsTemplateType.templateName];
   }
 
   // get templateRef(): TemplateRef<any> {

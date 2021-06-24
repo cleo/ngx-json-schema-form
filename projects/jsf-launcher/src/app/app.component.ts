@@ -24,7 +24,6 @@ export class AppComponent implements OnInit {
   schemaData: JSFSchemaData;
   schema: JSFJsonSchema;
   data: any = {};
-
   version: JSFVersion = JSFVersion.V2;
   isEdit = false;
 

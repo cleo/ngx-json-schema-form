@@ -8,6 +8,7 @@ export class ContentBaseComponent extends ComponentLifeCycle {
   @Input() formGroup: FormGroup;
   @Input() config: JSFConfig;
   @Input() isEdit: boolean;
+  @Input() templates: any = {};
   @Output() buttonEvent: EventEmitter<{ key: string; targetPaths: string[] }> = new EventEmitter();
 
   onButtonEvent(event: { key: string; targetPaths: string[] }): void {

@@ -17,6 +17,7 @@ export class FormControlComponent extends ContentBaseComponent {
   @Input() formGroup: FormGroup;
   @Input() config: JSFConfig;
   @Input() isEdit: boolean;
+  @Input() templates: any = {};
   @Input() labelLengthClass: string;
 
   isStringInput(): boolean {

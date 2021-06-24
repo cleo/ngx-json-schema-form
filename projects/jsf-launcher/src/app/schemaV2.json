@@ -988,6 +988,20 @@
           "name": "Hidden template value",
           "type": "string",
           "isHidden": true
+        },
+        "templateDisplay2": {
+          "name": "Template 2",
+          "type": "template",
+          "isReadOnly": true,
+          "templateName": "testTemplate2",
+          "targetPaths": [
+            "templateValue2"
+          ]
+        },
+        "templateValue2": {
+          "name": "Hidden template value 2",
+          "type": "string",
+          "isHidden": true
         }
       }
     }
