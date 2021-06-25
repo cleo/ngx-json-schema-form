@@ -981,7 +981,7 @@
           "isReadOnly": true,
           "templateName": "testTemplate1",
           "targetPaths": [
-            "templateValue"
+            "templateTest.templateValue"
           ]
         },
         "templateValue": {
@@ -995,7 +995,7 @@
           "isReadOnly": true,
           "templateName": "testTemplate2",
           "targetPaths": [
-            "templateValue2"
+            "templateTest.templateValue2"
           ]
         },
         "templateValue2": {

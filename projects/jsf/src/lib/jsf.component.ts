@@ -31,6 +31,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
   @Output() disableSubmit: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() formHeightChange: EventEmitter<number> = new EventEmitter();
   @Output() buttonEvent: EventEmitter<JSFEventButton> = new EventEmitter();
+  @Output() templateEvent: EventEmitter<{key: string; targetPaths: string[]}> = new EventEmitter();
 
   formDataItems: FormDataItem[] = [];
   formGroup: FormGroup = new FormGroup({});
@@ -183,4 +184,10 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
     }).filter(value => !!value);
     this.buttonEvent.next({ key: event.key, targets: targets });
   }
+
+  onTemplateEvent(event: { key: string; targetPaths: string[] }): void {
+    // could do pre-processing here
+    this.templateEvent.next(event);
+  }
+
 }

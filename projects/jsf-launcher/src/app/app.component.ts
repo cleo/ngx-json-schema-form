@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
 import { RequiredSchemaValueValidationService } from '../../../jsf-validation/src/lib/required-schema-value-validation.service';
 import { JSFConfig } from '../../../jsf/src/lib/jsf-config';
 import { JSFJsonSchema } from '../../../jsf/src/lib/jsf-json-schema';
@@ -69,6 +69,7 @@ export class AppComponent implements OnInit {
   }
 
   onLogForm(): void {
+    console.log(JSON.stringify(this.jsfComponent.getFormValues()));
     // console.log(this.jsfComponent.form);
   }
 
@@ -77,8 +78,26 @@ export class AppComponent implements OnInit {
   }
 
   buttonEvent(event: any): void {
-    // console.log(event);
+    //console.log('in buttonEvent in app.component.ts: \n', event);
   }
+
+  templateEvent(event: any): void{
+    console.log('in templateEvent in app.component.ts:\n', event);
+    //const control = this.formService.findAbstractControl(targetPath, this.formGroup);
+    // for (let i = 0; i < elements.length; i++) {
+    //   if (elements[i].id === event.targetPaths[0]) {
+    //     // would need to modify the value to prepend "imported on" in crowsnest
+    //     // what's up with value not being recognized?
+    //     // @ts-ignore
+    //     console.log('before: ' + elements[i].value);
+    //     // @ts-ignore
+    //     elements[i].value = 'testVALUESS';
+    //     // @ts-ignore
+    //     console.log('after: ' + elements[i].value);
+    //   }
+    // }
+  }
+
 }
 
 export enum JSFVersion {

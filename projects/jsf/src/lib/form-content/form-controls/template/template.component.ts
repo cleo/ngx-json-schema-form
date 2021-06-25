@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, OnInit, Output } from '@angular/core';
 import { TemplateDataItem } from '../../../models/template-data-item';
 import { FormControlBase } from '../form-control-base';
 
@@ -7,8 +7,15 @@ import { FormControlBase } from '../form-control-base';
   templateUrl: './template.component.html',
   styleUrls: ['template.component.scss']
 })
-export class TemplateComponent extends FormControlBase  implements OnInit{
+export class TemplateComponent extends FormControlBase  implements OnInit {
   @Input() templates: any = {};
+
+  @HostListener('click') run()
+  {
+    console.log('ss HostListener change fired');
+    //console.log({key: this.formItemAsTemplateType.templateName, targetPaths: this.formItemAsTemplateType.targetPaths});
+    this.templateEvent.emit({key: this.formItemAsTemplateType.templateName, targetPaths: this.formItemAsTemplateType.targetPaths });
+  }
 
   get formItemAsTemplateType(): TemplateDataItem {
     return this.formItem as TemplateDataItem;
@@ -18,13 +25,9 @@ export class TemplateComponent extends FormControlBase  implements OnInit{
     return this.templates[this.formItemAsTemplateType.templateName];
   }
 
-  // get templateRef(): TemplateRef<any> {
-  //   let templateName = this.formItemAsTemplateType.templateName;
-  //   return templateName as TemplateRef<any>;
-  // }
-
   ngOnInit() {
     console.log("Creating Template comonent");
     console.log("Okapi template name " + this.formItemAsTemplateType.templateName);
   }
+
 }

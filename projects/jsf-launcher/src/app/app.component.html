@@ -4,7 +4,9 @@
   [templates]="{ testTemplate1: testTemplate1, testTemplate2: testTemplate2 }"
   (disableSubmit)="updateSubmitButtonStatus($event)"
   (formHeightChange)="emitTotalHeight($event)"
-  (buttonEvent)="buttonEvent($event)"></jsf-component>
+  (buttonEvent)="buttonEvent($event)"
+  (templateEvent)="templateEvent($event)">
+</jsf-component>
 
 <div *ngIf="showValidationMessage"
      class="validation"

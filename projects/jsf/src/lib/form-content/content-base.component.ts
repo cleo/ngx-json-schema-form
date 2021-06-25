@@ -10,8 +10,13 @@ export class ContentBaseComponent extends ComponentLifeCycle {
   @Input() isEdit: boolean;
   @Input() templates: any = {};
   @Output() buttonEvent: EventEmitter<{ key: string; targetPaths: string[] }> = new EventEmitter();
+  @Output() templateEvent: EventEmitter<{ key: string; targetPaths: string[] }> = new EventEmitter();
 
   onButtonEvent(event: { key: string; targetPaths: string[] }): void {
     this.buttonEvent.next(event);
+  }
+
+   onTemplateEvent(event:{ key: string; targetPaths: string[] }): void {
+    this.templateEvent.emit(event);
   }
 }
