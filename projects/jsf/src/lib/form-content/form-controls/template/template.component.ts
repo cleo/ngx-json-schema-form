@@ -10,7 +10,7 @@ import { FormControlBase } from '../form-control-base';
 export class TemplateComponent extends FormControlBase  implements OnInit {
   @Input() templates: any = {};
 
-  @HostListener('click') run()
+  @HostListener('change') run()
   {
     console.log('ss HostListener change fired');
     //console.log({key: this.formItemAsTemplateType.templateName, targetPaths: this.formItemAsTemplateType.targetPaths});

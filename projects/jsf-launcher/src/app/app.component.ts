@@ -28,6 +28,8 @@ export class AppComponent implements OnInit {
   version: JSFVersion = JSFVersion.V2;
   isEdit = false;
 
+  templateInput1 = '';
+
   ngOnInit(): void {
     this.setSchemas();
     this.schemaData = new JSFSchemaData(this.schema, this.data);
@@ -79,21 +81,22 @@ export class AppComponent implements OnInit {
   }
 
   buttonEvent(event: any): void {
-    //console.log('in buttonEvent in app.component.ts: \n', event);
+    console.log('in buttonEvent in app.component.ts: \n', event);
   }
 
   templateEvent(event: TemplateEvent): void{
     console.log('in templateEvent in app.component.ts:\n', event);
     for (let i = 0; i < event.targetPaths.length; i++) {
       let target = event.targetPaths[i];
-      target.formControl.setValue("Okapi Testing control");
+      if (target.path.endsWith('templateValue'))
+      target.formControl.setValue(this.templateInput1);
     }
   }
 
 }
 
 export interface TemplateEvent {
-  key: string,
+  key: string;
   targetPaths: TemplateTarget[];
 }
 
