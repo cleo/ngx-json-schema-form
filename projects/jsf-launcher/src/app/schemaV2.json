@@ -981,13 +981,19 @@
           "isReadOnly": true,
           "templateName": "testTemplate1",
           "targetPaths": [
-            "templateTest.templateValue"
+            "templateTest.templateValue",
+            "templateTest.templateVisibleValue"
           ]
         },
         "templateValue": {
           "name": "Hidden template value",
           "type": "string",
           "isHidden": true
+        },
+        "templateVisibleValue": {
+          "name": "Visible template value",
+          "type": "string",
+          "isHidden": false
         },
         "templateDisplay2": {
           "name": "Template 2",

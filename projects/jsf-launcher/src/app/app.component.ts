@@ -10,6 +10,7 @@ import dataV1 from './outdatedSchema/dataV1.json';
 import schemaV1 from './outdatedSchema/schemaV1.json';
 import schemaV2 from './schemaV2.json';
 import { AbstractControl } from '@angular/forms';
+import { TemplateComponent } from './template-component/template.component';
 
 @Component({
   selector: 'app-root',
@@ -18,6 +19,7 @@ import { AbstractControl } from '@angular/forms';
 })
 export class AppComponent implements OnInit {
   @ViewChild(JSFComponent) jsfComponent: JSFComponent;
+  @ViewChild(TemplateComponent) templateComponent: TemplateComponent;
   config: JSFConfig = { enableCollapsibleSections: false, showSectionDivider: true };
   isSubmitDisabled = true;
   showValidationMessage = false;
@@ -27,8 +29,6 @@ export class AppComponent implements OnInit {
   data: any = {};
   version: JSFVersion = JSFVersion.V2;
   isEdit = false;
-
-  templateInput1 = '';
 
   ngOnInit(): void {
     this.setSchemas();
@@ -86,11 +86,7 @@ export class AppComponent implements OnInit {
 
   templateEvent(event: any): void{
     console.log('in templateEvent in app.component.ts:\n', event);
-    for (let i = 0; i < event.targetPaths.length; i++) {
-      let target = event.targetPaths[i];
-      if (target.path.endsWith('templateValue'))
-      target.formControl.setValue(this.templateInput1);
-    }
+    this.templateComponent.setValuesInJSF(event);
   }
 
 }
