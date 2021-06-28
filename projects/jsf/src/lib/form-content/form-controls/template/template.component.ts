@@ -10,9 +10,11 @@ import { FormControlBase } from '../form-control-base';
 export class TemplateComponent extends FormControlBase  implements OnInit {
   @Input() templates: any = {};
 
-  @HostListener('change') run()
-  {
-    this.templateEvent.emit({key: this.formItemAsTemplateType.templateName, targetPaths: this.formItemAsTemplateType.targetPaths });
+  @HostListener('click', ['$event', '$event.target'])
+  @HostListener('change', ['$event', '$event.target'])
+  run(event: any, targetElement: HTMLElement): void {
+    if(event.type === 'change' || (targetElement && targetElement.nodeName === 'BUTTON' && event.type === 'click'))
+      this.templateEvent.emit({key: this.formItemAsTemplateType.templateName, targetPaths: this.formItemAsTemplateType.targetPaths });
   }
 
   get formItemAsTemplateType(): TemplateDataItem {
