@@ -199,7 +199,6 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
         return { path: path, formControl: control, data: result };
       }
     }).filter(value => !!value);
-    // could do pre-processing here
     this.templateEvent.next({ key: event.key, targetPaths: targets });
   }
 

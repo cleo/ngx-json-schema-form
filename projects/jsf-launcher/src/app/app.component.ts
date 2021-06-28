@@ -82,7 +82,7 @@ export class AppComponent implements OnInit {
     //console.log('in buttonEvent in app.component.ts: \n', event);
   }
 
-  templateEvent(event: TemplateEvent): void{
+  templateEvent(event: any): void{
     console.log('in templateEvent in app.component.ts:\n', event);
     for (let i = 0; i < event.targetPaths.length; i++) {
       let target = event.targetPaths[i];
@@ -90,17 +90,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-}
-
-export interface TemplateEvent {
-  key: string,
-  targetPaths: TemplateTarget[];
-}
-
-export interface TemplateTarget {
-  path: string;
-  formControl: AbstractControl;
-  data: any;
 }
 
 export enum JSFVersion {
