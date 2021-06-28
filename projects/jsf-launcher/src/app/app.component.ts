@@ -9,6 +9,7 @@ import dataV2 from './dataV2.json';
 import dataV1 from './outdatedSchema/dataV1.json';
 import schemaV1 from './outdatedSchema/schemaV1.json';
 import schemaV2 from './schemaV2.json';
+import { AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -81,23 +82,25 @@ export class AppComponent implements OnInit {
     //console.log('in buttonEvent in app.component.ts: \n', event);
   }
 
-  templateEvent(event: any): void{
+  templateEvent(event: TemplateEvent): void{
     console.log('in templateEvent in app.component.ts:\n', event);
-    //const control = this.formService.findAbstractControl(targetPath, this.formGroup);
-    // for (let i = 0; i < elements.length; i++) {
-    //   if (elements[i].id === event.targetPaths[0]) {
-    //     // would need to modify the value to prepend "imported on" in crowsnest
-    //     // what's up with value not being recognized?
-    //     // @ts-ignore
-    //     console.log('before: ' + elements[i].value);
-    //     // @ts-ignore
-    //     elements[i].value = 'testVALUESS';
-    //     // @ts-ignore
-    //     console.log('after: ' + elements[i].value);
-    //   }
-    // }
+    for (let i = 0; i < event.targetPaths.length; i++) {
+      let target = event.targetPaths[i];
+      target.formControl.setValue("Okapi Testing control");
+    }
   }
 
+}
+
+export interface TemplateEvent {
+  key: string,
+  targetPaths: TemplateTarget[];
+}
+
+export interface TemplateTarget {
+  path: string;
+  formControl: AbstractControl;
+  data: any;
 }
 
 export enum JSFVersion {

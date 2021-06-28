@@ -10,11 +10,13 @@ import { FormDataItemService } from './form-data-item.service';
 import { FormService, getLongestFieldLabelClass } from './form.service';
 import { JSFConfig } from './jsf-config';
 import { JSFEventButton } from './jsf-event-button';
-import { JSFEventButtonTarget } from './jsf-event-button-target';
+import { JSFEventButtonTarget} from './jsf-event-button-target';
 import { JSFSchemaData } from './jsf-schema-data';
 import { FormDataItem } from './models/form-data-item';
 import { ParentDataItem } from './models/parent-data-item';
 import { XOfEnumDataItem } from './models/xOf-enum-data-item';
+import { JSFTemplateTarget } from './jsf-template-target';
+import { JSFTemplateEvent } from './jsf-template-event';
 
 @Component({
   selector: 'jsf-component',
@@ -31,7 +33,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
   @Output() disableSubmit: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() formHeightChange: EventEmitter<number> = new EventEmitter();
   @Output() buttonEvent: EventEmitter<JSFEventButton> = new EventEmitter();
-  @Output() templateEvent: EventEmitter<{key: string; targetPaths: string[]}> = new EventEmitter();
+  @Output() templateEvent: EventEmitter<JSFTemplateEvent> = new EventEmitter();
 
   formDataItems: FormDataItem[] = [];
   formGroup: FormGroup = new FormGroup({});
@@ -186,8 +188,19 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
   }
 
   onTemplateEvent(event: { key: string; targetPaths: string[] }): void {
+    const targets: JSFTemplateTarget[] = event.targetPaths.map(path => {
+      const targetPath = path.split('.');
+      const control = this.formService.findAbstractControl(targetPath, this.formGroup);
+      const dataItem = this.dataItemService.findFormDataItem(targetPath, this.formDataItems);
+
+      if (dataItem && control) {
+        const items = dataItem instanceof ParentDataItem ? (dataItem as ParentDataItem).items : [dataItem];
+        const result = this.formService.getFormValues(control, items);
+        return { path: path, formControl: control, data: result };
+      }
+    }).filter(value => !!value);
     // could do pre-processing here
-    this.templateEvent.next(event);
+    this.templateEvent.next({ key: event.key, targetPaths: targets });
   }
 
 }
