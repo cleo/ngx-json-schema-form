@@ -12,8 +12,6 @@ export class TemplateComponent extends FormControlBase  implements OnInit {
 
   @HostListener('change') run()
   {
-    console.log('ss HostListener change fired');
-    //console.log({key: this.formItemAsTemplateType.templateName, targetPaths: this.formItemAsTemplateType.targetPaths});
     this.templateEvent.emit({key: this.formItemAsTemplateType.templateName, targetPaths: this.formItemAsTemplateType.targetPaths });
   }
 
@@ -26,8 +24,6 @@ export class TemplateComponent extends FormControlBase  implements OnInit {
   }
 
   ngOnInit() {
-    console.log("Creating Template comonent");
-    console.log("Okapi template name " + this.formItemAsTemplateType.templateName);
   }
 
 }
