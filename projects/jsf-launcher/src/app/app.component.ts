@@ -81,11 +81,11 @@ export class AppComponent implements OnInit {
   }
 
   buttonEvent(event: any): void {
-    console.log('in buttonEvent in app.component.ts: \n', event);
+    //console.log('in buttonEvent in app.component.ts: \n', event);
   }
 
   templateEvent(event: any): void{
-    console.log('in templateEvent in app.component.ts:\n', event);
+    //console.log('in templateEvent in app.component.ts:\n', event);
     this.templateComponent.setValuesInJSF(event);
   }
 
