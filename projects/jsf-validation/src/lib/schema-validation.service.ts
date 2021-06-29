@@ -20,7 +20,7 @@ export class SchemaValidationService {
    */
   public static validate(schema: any, values: any): JSFErrorObject[] {
     const ajv = new Ajv({allErrors: true});
-    let updatedSchema = SchemaHelperService.removeTemplateType(schema);
+    let updatedSchema = SchemaHelperService.removeUnsupportedTypes(schema);
     const valid = ajv.validate(updatedSchema, values);
     if (!valid) {
       return ajv.errors.map(error => SchemaValidationService.toJsfError(ajv, error));

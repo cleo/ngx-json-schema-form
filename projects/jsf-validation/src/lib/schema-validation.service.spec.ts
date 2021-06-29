@@ -70,7 +70,20 @@ describe('SchemaValidationService', () => {
             }
           },
           additionalProperties: false
-        }
+        },
+        buttonInput: {
+          name: 'button 1',
+          type: 'button',
+          isReadOnly: true,
+          targetPaths: [
+            'buttonValue'
+          ]
+        },
+        buttonValue: {
+          name: 'Hidden value',
+          type: 'string',
+          isHidden: true
+        },
       }
     };
   });
@@ -135,7 +148,6 @@ describe('SchemaValidationService', () => {
           templateInput: {templateDisplay: '1', templateVisibleValue: '2', templateValue: '3'}
         }
       );
-      console.log(result[0].errorObject);
       expect((result[0].errorObject.params as AdditionalPropertiesParams).additionalProperty).toContain('templateDisplay');
     });
 

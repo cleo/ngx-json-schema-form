@@ -21,13 +21,13 @@ export class SchemaHelperService {
       .join('.');
   }
 
-  public static removeTemplateType(obj): any
+  public static removeUnsupportedTypes(obj): any
   {
      let flat = this.getFlattenedObject(obj);
      let templateItems: string[] = [];
 
      for(let key in flat)
-       if(key.endsWith('.type') && flat[key] === 'template')
+       if(key.endsWith('.type') && (flat[key] === 'template' || flat[key] === 'button'))
          templateItems.push(key.split('.').slice(0, -1).join('.'));
  
      for(let key in flat)
