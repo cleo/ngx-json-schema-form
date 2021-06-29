@@ -16,7 +16,7 @@ export class ContentBaseComponent extends ComponentLifeCycle {
     this.buttonEvent.next(event);
   }
 
-   onTemplateEvent(event:{ key: string; targetPaths: string[] }): void {
+   onTemplateEvent(event: { key: string; targetPaths: string[] }): void {
     this.templateEvent.emit(event);
   }
 }

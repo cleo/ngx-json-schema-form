@@ -83,7 +83,7 @@ describe('SchemaValidationService', () => {
           name: 'Hidden value',
           type: 'string',
           isHidden: true
-        },
+        }
       }
     };
   });

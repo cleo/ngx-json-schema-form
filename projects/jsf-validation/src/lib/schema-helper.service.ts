@@ -41,38 +41,51 @@ export class SchemaHelperService {
   }
 
   public static getUnflattenedObject(table): any {
-    let cursor, length, property, index, char, start, end, bracket, dot;
+    let cursor;
+    let length;
+    let property;
+    let index;
+    let char;
+    let start;
+    let end;
+    let bracket;
+    let dot;
     const result = {};
     for (const path in table) {
         cursor = result;
         length = path.length;
-        property = "";
+        property = '';
         index = 0;
         while (index < length) {
             char = path.charAt(index);
-            if (char === "[") {
+            if (char === '[') {
                 start = index + 1,
-                end = path.indexOf("]", start),
+                end = path.indexOf(']', start),
                 cursor = cursor[property] = cursor[property] || [],
                 property = path.slice(start, end),
                 index = end + 1;
             } else {
                 cursor = cursor[property] = cursor[property] || {},
-                start = char === "." ? index + 1 : index,
-                bracket = path.indexOf("[", start),
-                dot = path.indexOf(".", start);
+                start = char === '.' ? index + 1 : index,
+                bracket = path.indexOf('[', start),
+                dot = path.indexOf('.', start);
 
-                if (bracket < 0 && dot < 0) end = index = length;
-                else if (bracket < 0) end = index = dot;
-                else if (dot < 0) end = index = bracket;
-                else end = index = bracket < dot ? bracket : dot;
+                if (bracket < 0 && dot < 0) {
+                  end = index = length;
+                } else if (bracket < 0) {
+                  end = index = dot;
+                } else if (dot < 0) {
+                  end = index = bracket;
+                } else {
+                  end = index = bracket < dot ? bracket : dot;
+                }
 
                 property = path.slice(start, end);
             }
         }
         cursor[property] = table[path];
     }
-    return result[""];
+    return result[''];
   }
 
   public static getFlattenedObject(object): any {

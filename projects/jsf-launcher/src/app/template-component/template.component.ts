@@ -1,4 +1,4 @@
-import { Component, } from '@angular/core';
+import { Component } from '@angular/core';
 import { TemplateEvent } from '../app.component';
 
 @Component({
@@ -14,7 +14,7 @@ export class TemplateComponent {
   public setValuesInJSF(event: TemplateEvent): void {
     // console.log('Received Event: ', event);
     for (let i = 0; i < event.targetPaths.length; i++) {
-      let target = event.targetPaths[i];
+      const target = event.targetPaths[i];
       if (target.path.endsWith('templateValue')) {
         target.formControl.setValue(this.templateInput1);
       }

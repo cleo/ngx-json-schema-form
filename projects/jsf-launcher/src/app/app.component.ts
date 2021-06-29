@@ -4,12 +4,12 @@ import { JSFConfig } from '../../../jsf/src/lib/jsf-config';
 import { JSFJsonSchema } from '../../../jsf/src/lib/jsf-json-schema';
 import { JSFSchemaData } from '../../../jsf/src/lib/jsf-schema-data';
 
+import { AbstractControl } from '@angular/forms';
 import { JSFComponent } from '../../../jsf/src/lib/jsf.component';
 import dataV2 from './dataV2.json';
 import dataV1 from './outdatedSchema/dataV1.json';
 import schemaV1 from './outdatedSchema/schemaV1.json';
 import schemaV2 from './schemaV2.json';
-import { AbstractControl } from '@angular/forms';
 import { TemplateComponent } from './template-component/template.component';
 
 @Component({

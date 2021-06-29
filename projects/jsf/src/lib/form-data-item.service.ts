@@ -11,9 +11,9 @@ import { IntegerDataItem } from './models/integer-data-item';
 import { ParentDataItem } from './models/parent-data-item';
 import { SecuredStringDataItem } from './models/secured-string-data-item';
 import { StringDataItem, StringFormat } from './models/string-data-item';
+import { TemplateDataItem } from './models/template-data-item';
 import { XOfDataItem, XOfType } from './models/xOf-data-item';
 import { SchemaTranslationService } from './schema-translation.service';
-import { TemplateDataItem } from './models/template-data-item';
 
 @Injectable()
 export class FormDataItemService {

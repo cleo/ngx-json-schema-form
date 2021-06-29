@@ -10,13 +10,13 @@ import { FormDataItemService } from './form-data-item.service';
 import { FormService, getLongestFieldLabelClass } from './form.service';
 import { JSFConfig } from './jsf-config';
 import { JSFEventButton } from './jsf-event-button';
-import { JSFEventButtonTarget} from './jsf-event-button-target';
+import { JSFEventButtonTarget } from './jsf-event-button-target';
 import { JSFSchemaData } from './jsf-schema-data';
+import { JSFTemplateEvent } from './jsf-template-event';
+import { JSFTemplateTarget } from './jsf-template-target';
 import { FormDataItem } from './models/form-data-item';
 import { ParentDataItem } from './models/parent-data-item';
 import { XOfEnumDataItem } from './models/xOf-enum-data-item';
-import { JSFTemplateTarget } from './jsf-template-target';
-import { JSFTemplateEvent } from './jsf-template-event';
 
 @Component({
   selector: 'jsf-component',
