@@ -21,27 +21,29 @@ export class SchemaHelperService {
       .join('.');
   }
 
-  public static removeUnsupportedTypes(obj): any
-  {
-     let flat = this.getFlattenedObject(obj);
-     let templateItems: string[] = [];
+  public static removeUnsupportedTypes(obj): any {
+    const flat = this.getFlattenedObject(obj);
+    const templateItems: string[] = [];
 
-     for(let key in flat)
-       if(key.endsWith('.type') && (flat[key] === 'template' || flat[key] === 'button'))
-         templateItems.push(key.split('.').slice(0, -1).join('.'));
- 
-     for(let key in flat)
-      if(templateItems.some(el => key.includes(el)))
+    for (const key in flat) {
+      if (key.endsWith('.type') && (flat[key] === 'template' || flat[key] === 'button')) {
+        templateItems.push(key.split('.').slice(0, -1).join('.'));
+      }
+    }
+
+    for (const key in flat) {
+      if (templateItems.some(el => key.includes(el))) {
         delete flat[key];
-     
-     return this.getUnflattenedObject(flat);
+      }
+    }
+
+    return this.getUnflattenedObject(flat);
   }
 
-  public static getUnflattenedObject(table): any
-  {
+  public static getUnflattenedObject(table): any {
     let cursor, length, property, index, char, start, end, bracket, dot;
-    let result = {};
-    for (let path in table) {
+    const result = {};
+    for (const path in table) {
         cursor = result;
         length = path.length;
         property = "";

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, } from '@angular/core';
 import { TemplateEvent } from '../app.component';
 
 @Component({
@@ -9,9 +9,10 @@ export class TemplateComponent {
 
   templateInput1 = '';
   templateInput2 = '';
+  timesButtonClicked = 0;
 
   public setValuesInJSF(event: TemplateEvent): void {
-    console.log('in templateEvent in component: \n', event);
+    // console.log('Received Event: ', event);
     for (let i = 0; i < event.targetPaths.length; i++) {
       let target = event.targetPaths[i];
       if (target.path.endsWith('templateValue')) {
@@ -20,11 +21,14 @@ export class TemplateComponent {
       if (target.path.endsWith('templateVisibleValue')) {
         target.formControl.setValue(this.templateInput2);
       }
+      if (target.path.endsWith('timesButtonClicked')) {
+        target.formControl.setValue(this.timesButtonClicked);
+      }
     }
   }
 
   onClick() {
-    // Get the JSF property values so that we can send them
+    this.timesButtonClicked ++;
   }
 
 }

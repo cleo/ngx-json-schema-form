@@ -1,4 +1,4 @@
-import { Component, HostListener, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { RequiredSchemaValueValidationService } from '../../../jsf-validation/src/lib/required-schema-value-validation.service';
 import { JSFConfig } from '../../../jsf/src/lib/jsf-config';
 import { JSFJsonSchema } from '../../../jsf/src/lib/jsf-json-schema';
@@ -72,8 +72,11 @@ export class AppComponent implements OnInit {
   }
 
   onLogForm(): void {
-    console.log(JSON.stringify(this.jsfComponent.getFormValues()));
     // console.log(this.jsfComponent.form);
+  }
+
+  onLogFormValues(): void {
+    // console.log(this.jsfComponent.getFormValues());
   }
 
   private validate(schema: any, values: any): boolean {
@@ -84,8 +87,8 @@ export class AppComponent implements OnInit {
     //console.log('in buttonEvent in app.component.ts: \n', event);
   }
 
-  templateEvent(event: any): void{
-    //console.log('in templateEvent in app.component.ts:\n', event);
+  templateEvent(event: any): void {
+    // Send the template event back to the corresponding component so it can set values
     this.templateComponent.setValuesInJSF(event);
   }
 
