@@ -41,16 +41,13 @@ export class SchemaHelperService {
   {
     let cursor, length, property, index, char, start, end, bracket, dot;
     let result = {};
-
     for (let path in table) {
         cursor = result;
         length = path.length;
         property = "";
         index = 0;
-
         while (index < length) {
             char = path.charAt(index);
-
             if (char === "[") {
                 start = index + 1,
                 end = path.indexOf("]", start),
@@ -71,10 +68,8 @@ export class SchemaHelperService {
                 property = path.slice(start, end);
             }
         }
-
         cursor[property] = table[path];
     }
-
     return result[""];
   }
 

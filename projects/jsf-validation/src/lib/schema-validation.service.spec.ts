@@ -1,3 +1,4 @@
+import { AdditionalPropertiesParams } from 'ajv';
 import { SchemaValidationService } from './schema-validation.service';
 
 describe('SchemaValidationService', () => {
@@ -43,7 +44,7 @@ describe('SchemaValidationService', () => {
             required: ['requiredItem']
           }
         },
-        templateTest: {
+        templateInput: {
           type: 'object',
           name: 'Template Test',
           properties: {
@@ -67,7 +68,8 @@ describe('SchemaValidationService', () => {
               type: 'string',
               isHidden: false
             }
-          }
+          },
+          additionalProperties: false
         }
       }
     };
@@ -122,6 +124,21 @@ describe('SchemaValidationService', () => {
       );
       expect(result[0].errorObject.message).toContain('should NOT be shorter than 5 characters');
     });
+
+    it('should throw an error when template type values are set', () => {
+      const result = SchemaValidationService.validate(basicSchema,
+        {
+          textInput: 'abcde',
+          checkboxInput: true,
+          arrayInput: [{textItem: 'abcde', requiredItem: 'abcde'}],
+          numberInput: 1,
+          templateInput: {templateDisplay: '1', templateVisibleValue: '2', templateValue: '3'}
+        }
+      );
+      console.log(result[0].errorObject);
+      expect((result[0].errorObject.params as AdditionalPropertiesParams).additionalProperty).toContain('templateDisplay');
+    });
+
   });
 
   describe('prettyPrintErrors()', () => {
