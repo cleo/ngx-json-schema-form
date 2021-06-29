@@ -42,6 +42,32 @@ describe('SchemaValidationService', () => {
             },
             required: ['requiredItem']
           }
+        },
+        templateTest: {
+          type: 'object',
+          name: 'Template Test',
+          properties: {
+            templateDisplay: {
+              name: 'Template 1',
+              type: 'template',
+              isReadOnly: true,
+              templateName: 'testTemplate1',
+              targetPaths: [
+                'templateInput.templateValue',
+                'templateInput.templateVisibleValue'
+              ]
+            },
+            templateValue: {
+              name: 'Hidden template value',
+              type: 'string',
+              isHidden: true
+            },
+            templateVisibleValue: {
+              name: 'Visible template value',
+              type: 'string',
+              isHidden: false
+            }
+          }
         }
       }
     };

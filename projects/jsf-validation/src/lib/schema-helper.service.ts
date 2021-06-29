@@ -21,6 +21,63 @@ export class SchemaHelperService {
       .join('.');
   }
 
+  public static removeTemplateType(obj): any
+  {
+     let flat = this.getFlattenedObject(obj);
+     let templateItems: string[] = [];
+
+     for(let key in flat)
+       if(key.endsWith('.type') && flat[key] === 'template')
+         templateItems.push(key.split('.').slice(0, -1).join('.'));
+ 
+     for(let key in flat)
+      if(templateItems.some(el => key.includes(el)))
+        delete flat[key];
+     
+     return this.getUnflattenedObject(flat);
+  }
+
+  public static getUnflattenedObject(table): any
+  {
+    let cursor, length, property, index, char, start, end, bracket, dot;
+    let result = {};
+
+    for (let path in table) {
+        cursor = result;
+        length = path.length;
+        property = "";
+        index = 0;
+
+        while (index < length) {
+            char = path.charAt(index);
+
+            if (char === "[") {
+                start = index + 1,
+                end = path.indexOf("]", start),
+                cursor = cursor[property] = cursor[property] || [],
+                property = path.slice(start, end),
+                index = end + 1;
+            } else {
+                cursor = cursor[property] = cursor[property] || {},
+                start = char === "." ? index + 1 : index,
+                bracket = path.indexOf("[", start),
+                dot = path.indexOf(".", start);
+
+                if (bracket < 0 && dot < 0) end = index = length;
+                else if (bracket < 0) end = index = dot;
+                else if (dot < 0) end = index = bracket;
+                else end = index = bracket < dot ? bracket : dot;
+
+                property = path.slice(start, end);
+            }
+        }
+
+        cursor[property] = table[path];
+    }
+
+    return result[""];
+  }
+
   public static getFlattenedObject(object): any {
     const flattenedObject = {} as any;
 
