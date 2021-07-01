@@ -28,7 +28,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   schema: JSFJsonSchema;
   data: any = {};
   version: JSFVersion = JSFVersion.V2;
-  isEdit = true;
+  isEdit = false;
 
   templateInitEvent: TemplateEvent;
 
