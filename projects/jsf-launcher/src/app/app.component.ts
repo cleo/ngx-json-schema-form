@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { RequiredSchemaValueValidationService } from '../../../jsf-validation/src/lib/required-schema-value-validation.service';
 import { JSFConfig } from '../../../jsf/src/lib/jsf-config';
 import { JSFJsonSchema } from '../../../jsf/src/lib/jsf-json-schema';
@@ -17,7 +17,7 @@ import { TemplateComponent } from './template-component/template.component';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(JSFComponent) jsfComponent: JSFComponent;
   @ViewChild(TemplateComponent) templateComponent: TemplateComponent;
   config: JSFConfig = { enableCollapsibleSections: false, showSectionDivider: true };
@@ -28,7 +28,9 @@ export class AppComponent implements OnInit {
   schema: JSFJsonSchema;
   data: any = {};
   version: JSFVersion = JSFVersion.V2;
-  isEdit = false;
+  isEdit = true;
+
+  templateInitEvent: TemplateEvent;
 
   ngOnInit(): void {
     this.setSchemas();
@@ -89,7 +91,17 @@ export class AppComponent implements OnInit {
 
   templateEvent(event: any): void {
     // Send the template event back to the corresponding component so it can set values
-    this.templateComponent.setValuesInJSF(event);
+    if (this.templateComponent) {
+      this.templateComponent.doJsfEvent(event);
+    } else {
+      this.templateInitEvent = event;
+    }
+  }
+
+  ngAfterViewInit() {
+    if (this.templateInitEvent) {
+      this.templateComponent.doJsfEvent(this.templateInitEvent);
+    }
   }
 
 }

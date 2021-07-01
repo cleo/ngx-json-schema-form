@@ -970,9 +970,9 @@
         }
       }
     },
-    "templateTest": {
+    "template": {
       "type": "object",
-      "name": "Template Test",
+      "name": "Template",
       "description": "This section displays template functionality.",
       "properties": {
         "templateVisibleValue": {
@@ -986,9 +986,9 @@
           "isReadOnly": true,
           "templateName": "testTemplate1",
           "targetPaths": [
-            "templateTest.templateValue",
-            "templateTest.templateVisibleValue",
-            "templateTest.timesButtonClicked"
+            "template.templateValue",
+            "template.templateVisibleValue",
+            "template.timesButtonClicked"
           ]
         },
         "templateValue": {

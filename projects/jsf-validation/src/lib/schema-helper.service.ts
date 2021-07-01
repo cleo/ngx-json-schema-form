@@ -5,6 +5,9 @@ export class SchemaHelperService {
   public static readonly REQUIRED_KEY = 'required';
   public static readonly ENUM_KEY = 'enum';
   public static readonly READONLY_KEY = 'isReadOnly';
+  public static readonly TYPE_KEY = '.type';
+  public static readonly TEMPLATE_KEY = 'template';
+  public static readonly BUTTON_KEY = 'button';
 
   /**
    * Takes in a path to a value in a JSON Schema object and re-formats it.
@@ -26,7 +29,7 @@ export class SchemaHelperService {
     const templateItems: string[] = [];
 
     for (const key in flat) {
-      if (key.endsWith('.type') && (flat[key] === 'template' || flat[key] === 'button')) {
+      if (key.endsWith(this.TYPE_KEY) && (flat[key] === this.TEMPLATE_KEY || flat[key] === this.BUTTON_KEY)) {
         templateItems.push(key.split('.').slice(0, -1).join('.'));
       }
     }

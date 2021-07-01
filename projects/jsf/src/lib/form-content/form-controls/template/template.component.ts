@@ -1,13 +1,12 @@
-import { Component, HostListener, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener, Input, OnInit } from '@angular/core';
 import { TemplateDataItem } from '../../../models/template-data-item';
 import { FormControlBase } from '../form-control-base';
 
 @Component({
   selector: 'jsf-template',
-  templateUrl: './template.component.html',
-  styleUrls: ['template.component.scss']
+  templateUrl: './template.component.html'
 })
-export class TemplateComponent extends FormControlBase  implements OnInit {
+export class TemplateComponent extends FormControlBase implements AfterViewInit {
   @Input() templates: any = {};
 
   @HostListener('click', ['$event', '$event.target'])
@@ -26,7 +25,8 @@ export class TemplateComponent extends FormControlBase  implements OnInit {
     return this.templates[this.formItemAsTemplateType.templateName];
   }
 
-  ngOnInit() {
+  ngAfterViewInit() {
+    // When we start up, then emit an event that will return the current values so that the template can set existing values
+    this.templateEvent.emit({key: this.formItemAsTemplateType.templateName, targetPaths: this.formItemAsTemplateType.targetPaths});
   }
-
 }
