@@ -31,7 +31,8 @@ export enum FormDataItemType {
   SecuredString,
   Object,
   Integer,
-  Array
+  Array,
+  Template
 }
 
 export interface ControlDisabledState {

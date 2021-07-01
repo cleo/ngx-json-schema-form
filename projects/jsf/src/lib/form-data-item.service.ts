@@ -11,6 +11,7 @@ import { IntegerDataItem } from './models/integer-data-item';
 import { ParentDataItem } from './models/parent-data-item';
 import { SecuredStringDataItem } from './models/secured-string-data-item';
 import { StringDataItem, StringFormat } from './models/string-data-item';
+import { TemplateDataItem } from './models/template-data-item';
 import { XOfDataItem, XOfType } from './models/xOf-data-item';
 import { SchemaTranslationService } from './schema-translation.service';
 
@@ -70,6 +71,9 @@ export class FormDataItemService {
       case FormDataItemType.Array:
         const arrayItems = this.getItemsFromSubschema(schemaProperty, fieldValue, pathParts, isReadOnly, isHidden);
         return new ArrayDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, arrayItems);
+      case FormDataItemType.Template:
+        return new TemplateDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden,
+          schemaProperty.templateName, schemaProperty.targetPaths);
       case FormDataItemType.SecuredString:
         return new SecuredStringDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, this.isEdit, schemaProperty.placeholder);
       case FormDataItemType.Integer:
@@ -130,6 +134,8 @@ export class FormDataItemService {
         return FormDataItemType.Object;
       case SchemaTypes.Array:
         return FormDataItemType.Array;
+      case SchemaTypes.Template:
+        return FormDataItemType.Template;
       default:
         return Boolean(schemaProperty.isSecured) ? FormDataItemType.SecuredString : FormDataItemType.String;
     }
@@ -228,7 +234,8 @@ enum SchemaTypes {
   Integer = 'integer',
   Object = 'object',
   String = 'string',
-  Array = 'array'
+  Array = 'array',
+  Template = 'template'
 }
 
 export interface JSONSchemaProperty {

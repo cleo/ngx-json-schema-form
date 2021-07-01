@@ -1,3 +1,4 @@
+import { AdditionalPropertiesParams } from 'ajv';
 import { SchemaValidationService } from './schema-validation.service';
 
 describe('SchemaValidationService', () => {
@@ -42,6 +43,46 @@ describe('SchemaValidationService', () => {
             },
             required: ['requiredItem']
           }
+        },
+        templateInput: {
+          type: 'object',
+          name: 'Template Test',
+          properties: {
+            templateDisplay: {
+              name: 'Template 1',
+              type: 'template',
+              isReadOnly: true,
+              templateName: 'testTemplate1',
+              targetPaths: [
+                'templateInput.templateValue',
+                'templateInput.templateVisibleValue'
+              ]
+            },
+            templateValue: {
+              name: 'Hidden template value',
+              type: 'string',
+              isHidden: true
+            },
+            templateVisibleValue: {
+              name: 'Visible template value',
+              type: 'string',
+              isHidden: false
+            }
+          },
+          additionalProperties: false
+        },
+        buttonInput: {
+          name: 'button 1',
+          type: 'button',
+          isReadOnly: true,
+          targetPaths: [
+            'buttonValue'
+          ]
+        },
+        buttonValue: {
+          name: 'Hidden value',
+          type: 'string',
+          isHidden: true
         }
       }
     };
@@ -96,6 +137,20 @@ describe('SchemaValidationService', () => {
       );
       expect(result[0].errorObject.message).toContain('should NOT be shorter than 5 characters');
     });
+
+    it('should throw an error when template type values are set', () => {
+      const result = SchemaValidationService.validate(basicSchema,
+        {
+          textInput: 'abcde',
+          checkboxInput: true,
+          arrayInput: [{textItem: 'abcde', requiredItem: 'abcde'}],
+          numberInput: 1,
+          templateInput: {templateDisplay: '1', templateVisibleValue: '2', templateValue: '3'}
+        }
+      );
+      expect((result[0].errorObject.params as AdditionalPropertiesParams).additionalProperty).toContain('templateDisplay');
+    });
+
   });
 
   describe('prettyPrintErrors()', () => {
