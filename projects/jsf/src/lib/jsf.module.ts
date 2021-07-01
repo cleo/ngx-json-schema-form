@@ -23,6 +23,7 @@ import { TextCellComponent } from './form-content/form-controls/table-modal/tabl
 import { CellRendererComponent } from './form-content/form-controls/table-modal/table/renderers/cell-renderer.component';
 import { TableModalComponent } from './form-content/form-controls/table-modal/table/table-modal.component';
 import { TableModalService } from './form-content/form-controls/table-modal/table/table-modal.service';
+import { TemplateComponent } from './form-content/form-controls/template/template.component';
 import { TextAreaComponent } from './form-content/form-controls/text-area/text-area.component';
 import { TextComponent } from './form-content/form-controls/text/text.component';
 import { OneOfDropdownComponent } from './form-content/one-of/one-of-dropdown/one-of-dropdown.component';
@@ -66,6 +67,7 @@ const components = [
   OneOfDropdownComponent,
   RadioButtonComponent,
   TextComponent,
+  TemplateComponent,
   SecuredTextComponent,
   TextAreaComponent,
   ...tableComponents

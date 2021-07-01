@@ -8,6 +8,7 @@ import { FormDataItem, FormDataItemType } from './models/form-data-item';
 import { ParentDataItem } from './models/parent-data-item';
 import { SecuredStringDataItem } from './models/secured-string-data-item';
 import { StringDataItem } from './models/string-data-item';
+import { TemplateDataItem } from './models/template-data-item';
 import { XOfDataItem } from './models/xOf-data-item';
 import { XOfEnumDataItem } from './models/xOf-enum-data-item';
 import { SchemaTranslationService } from './schema-translation.service';
@@ -963,4 +964,42 @@ describe('FormDataItemService', () => {
       expect(result).toBeNull();
     });
   });
+
+  describe('templates', () => {
+    const templatePropertyName = 'Template Name';
+    const templateKey = 'templateDisplay';
+    const templateName = 'template1';
+
+    it('should set a template data item if present', () => {
+      schemaData.schema.properties[templateKey] = {
+        type: 'template',
+        name: templatePropertyName,
+        targetPaths: ['key1.key2', 'key1.key3'],
+        templateName: templateName
+      };
+      const result = service.getFormDataItems(schemaData)[0] as TemplateDataItem;
+      expect(result.key).toEqual(templateKey);
+      expect(result.label).toEqual(templatePropertyName);
+      expect(result.targetPaths).toEqual(['key1.key2', 'key1.key3']);
+      expect(result.templateName).toEqual(templateName);
+    });
+
+    it('should set defaults properties that are not present', () => {
+      schemaData.schema.properties[templateKey] = {
+        type: 'template'
+      };
+      const result = service.getFormDataItems(schemaData)[0] as TemplateDataItem;
+      expect(result.targetPaths).toEqual([]);
+    });
+
+    it('should set defaults property when the targetPaths key contains items other than strings', () => {
+      schemaData.schema.properties[templateKey] = {
+        type: 'template',
+        targetPaths: ['key1.key2', 100]
+      };
+      const result = service.getFormDataItems(schemaData)[0] as TemplateDataItem;
+      expect(result.targetPaths).toEqual([]);
+    });
+  });
+
 });

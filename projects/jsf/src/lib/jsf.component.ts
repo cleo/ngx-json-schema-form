@@ -12,6 +12,8 @@ import { JSFConfig } from './jsf-config';
 import { JSFEventButton } from './jsf-event-button';
 import { JSFEventButtonTarget } from './jsf-event-button-target';
 import { JSFSchemaData } from './jsf-schema-data';
+import { JSFTemplateEvent } from './jsf-template-event';
+import { JSFTemplateTarget } from './jsf-template-target';
 import { FormDataItem } from './models/form-data-item';
 import { ParentDataItem } from './models/parent-data-item';
 import { XOfEnumDataItem } from './models/xOf-enum-data-item';
@@ -27,9 +29,11 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
   @ViewChild('formRoot', {static: true}) formElement: ElementRef<HTMLFormElement>;
   @Input() config: JSFConfig;
   @Input() schemaData;
+  @Input() templates: any = {};
   @Output() disableSubmit: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() formHeightChange: EventEmitter<number> = new EventEmitter();
   @Output() buttonEvent: EventEmitter<JSFEventButton> = new EventEmitter();
+  @Output() templateEvent: EventEmitter<JSFTemplateEvent> = new EventEmitter();
 
   formDataItems: FormDataItem[] = [];
   formGroup: FormGroup = new FormGroup({});
@@ -182,4 +186,20 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
     }).filter(value => !!value);
     this.buttonEvent.next({ key: event.key, targets: targets });
   }
+
+  onTemplateEvent(event: { key: string; targetPaths: string[] }): void {
+    const targets: JSFTemplateTarget[] = event.targetPaths.map(path => {
+      const targetPath = path.split('.');
+      const control = this.formService.findAbstractControl(targetPath, this.formGroup);
+      const dataItem = this.dataItemService.findFormDataItem(targetPath, this.formDataItems);
+
+      if (dataItem && control) {
+        const items = dataItem instanceof ParentDataItem ? (dataItem as ParentDataItem).items : [dataItem];
+        const result = this.formService.getFormValues(control, items);
+        return { path: path, formControl: control, data: result };
+      }
+    }).filter(value => !!value);
+    this.templateEvent.next({ key: event.key, targetPaths: targets });
+  }
+
 }

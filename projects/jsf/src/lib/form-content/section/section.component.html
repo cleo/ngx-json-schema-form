@@ -27,7 +27,9 @@
     [formGroup]="formGroup"
     [isEdit]="isEdit"
     [config]="config"
+    [templates]="templates"
     [labelLengthClass]="sectionLabelLengthClass"
-    (buttonEvent)="onButtonEvent($event)">
+    (buttonEvent)="onButtonEvent($event)"
+    (templateEvent)="onTemplateEvent($event)">
   </jsf-form-content>
 </div>
