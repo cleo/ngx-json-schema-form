@@ -19,7 +19,7 @@ export class SchemaValidationService {
    * @param values: values to validate
    */
   public static validate(schema: any, values: any): JSFErrorObject[] {
-    const ajv = new Ajv({allErrors: true});
+    const ajv = new Ajv({allErrors: true, useDefaults: true});
     const updatedSchema = SchemaHelperService.removeUnsupportedTypes(schema);
     const valid = ajv.validate(updatedSchema, values);
     if (!valid) {
