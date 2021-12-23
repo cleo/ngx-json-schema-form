@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [4.1.1] (2021-12-23)
+### Bug fixes
+- Use defaults from schema on validation
+
 ## [4.1.0] (2021-06-29)
 ### Enhancement
 - Added template type support for custom templates inside schemas
