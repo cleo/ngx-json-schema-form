@@ -7,7 +7,7 @@ describe('SchemaValidationService', () => {
   beforeEach(() => {
     basicSchema = {
       type: 'object',
-      required: ['checkboxInput', 'numberInput', 'arrayInput'],
+      required: ['checkboxInput', 'numberInput', 'arrayInput', 'defaultedRequiredValue'],
       properties: {
         checkboxInput: {
           type: 'boolean',
@@ -25,6 +25,11 @@ describe('SchemaValidationService', () => {
           minLength: 5,
           maxLength: 10
         },
+        defaultedRequiredValue: {
+          type: 'string',
+          name: 'Default Text Input',
+          default: 'should not cause error when value is omitted'
+        },
         arrayInput: {
           type: 'array',
           name: 'Array field',
@@ -39,9 +44,14 @@ describe('SchemaValidationService', () => {
               requiredItem: {
                 type: 'string',
                 name: 'Required Item'
+              },
+              requiredItemWithDefault: {
+                type: 'string',
+                name: 'Default Required Item',
+                default: 'should not cause error when value is omitted'
               }
             },
-            required: ['requiredItem']
+            required: ['requiredItem', 'requiredItemWithDefault']
           }
         },
         templateInput: {
