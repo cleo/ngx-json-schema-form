@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [4.1.2] (2022-03-02)
+### Bug fixes
+- Modified URI text format to not limit the last part of subdomain to three characters
+
 ## [4.1.1] (2021-12-23)
 ### Bug fixes
 - Use defaults from schema on validation
