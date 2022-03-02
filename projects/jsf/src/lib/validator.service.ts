@@ -9,7 +9,8 @@ import { StringDataItem, StringFormat } from './models/string-data-item';
 // http://stackoverflow.com/a/46181/1447823 chromium's regex for testing for email
 export const EMAIL_REGEX = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
 // https://stackoverflow.com/a/27755
-export const URI_REGEX = /^((http[s]?|ftp):\/\/)?\/?([^\/\.]+\.)*?([^\/\.]+\.[^:\/\s\.]{2,3}(\.[^:\/\s\.]{2,3})?)(:\d+)?($|\/)([^#?\s]+)?(.*?)?(#[\w\-]+)?$/;
+// modified to allow last part of subdomain to not be limited to 3 chars
+export const URI_REGEX = /^((http[s]?|ftp):\/\/)?\/?([^\/\.]+\.)*?([^\/\.]+\.[^:\/\s\.]{2,}(\.[^:\/\s\.]{2,})?)(:\d+)?($|\/)([^#?\s]+)?(.*?)?(#[\w\-]+)?$/;
 
 @Injectable()
 export class ValidatorService {
