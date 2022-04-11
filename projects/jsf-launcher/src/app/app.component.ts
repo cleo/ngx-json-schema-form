@@ -11,6 +11,7 @@ import dataV1 from './outdatedSchema/dataV1.json';
 import schemaV1 from './outdatedSchema/schemaV1.json';
 import schemaV2 from './schemaV2.json';
 import { TemplateComponent } from './template-component/template.component';
+import { findLastIndex } from 'lodash';
 
 @Component({
   selector: 'app-root',
@@ -29,6 +30,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   data: any = {};
   version: JSFVersion = JSFVersion.V2;
   isEdit = false;
+
+  hideSpike = false;
+  fc: any;
+  options = ['volvo', 'saab', 'toyota', 'nissan'];
 
   templateInitEvent: TemplateEvent;
 
@@ -78,7 +83,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   onLogFormValues(): void {
-    // console.log(this.jsfComponent.getFormValues());
+    console.log(this.jsfComponent.getFormValues());
   }
 
   private validate(schema: any, values: any): boolean {
@@ -90,6 +95,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   templateEvent(event: any): void {
+
+    if (event.key === 'spike') {
+      this.fc = event.targetPaths[0].formControl;
+    }
+
     // Send the template event back to the corresponding component so it can set values
     if (this.templateComponent) {
       this.templateComponent.doJsfEvent(event);
@@ -102,6 +112,12 @@ export class AppComponent implements OnInit, AfterViewInit {
     if (this.templateInitEvent) {
       this.templateComponent.doJsfEvent(this.templateInitEvent);
     }
+  }
+
+  selectChanged(val) {
+    console.log('this.fc.value', this.fc.value);
+    console.log('val', val);
+    this.fc.setValue(val);
   }
 
 }

@@ -1002,6 +1002,24 @@
           "isHidden": true
         }
       }
+    },
+    "spike": {
+      "type": "object",
+      "name": "spike",
+      "description": "This section displays spike stuff",
+      "properties": {
+        "spikeTemplate": {
+          "type": "template",
+          "isReadOnly": true,
+          "templateName": "spike",
+          "targetPaths": ["spike.spikeValue"]
+        },
+        "spikeValue": {
+          "name": "Spike value, this value would be hidden on actual form",
+          "type": "string",
+          "isHidden": false
+        }
+      }
     }
   }
 }

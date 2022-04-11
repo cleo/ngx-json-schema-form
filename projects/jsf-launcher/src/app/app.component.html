@@ -1,7 +1,7 @@
 <jsf-component
   [schemaData]="schemaData"
   [config]="config"
-  [templates]="{ testTemplate1: testTemplate1 }"
+  [templates]="{ testTemplate1: testTemplate1, spike: spike }"
   (disableSubmit)="updateSubmitButtonStatus($event)"
   (formHeightChange)="emitTotalHeight($event)"
   (buttonEvent)="buttonEvent($event)"
@@ -33,4 +33,13 @@
 
 <ng-template #testTemplate1>
   <app-template-test></app-template-test>
+</ng-template>
+
+<ng-template #spike>
+  <div [ngClass]="{'hidden': hideSpike}" >
+    <label for="cars">Choose a car:</label>
+    <select name="cars" id="cars" (change)="selectChanged($event.target.value)">
+      <option *ngFor="let i of options">{{i}}</option>
+    </select>
+  </div>
 </ng-template>
