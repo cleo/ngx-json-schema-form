@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [4.1.3] (2022-04-20)
+### Bug fixes
+- Fixed jsf readme not pointing to correct schemaV2.json file.
+
 ## [4.1.2] (2022-03-02)
 ### Bug fixes
 - Modified URI text format to not limit the last part of subdomain to three characters
