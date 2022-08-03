@@ -8,10 +8,8 @@ import { StringDataItem, StringFormat } from './models/string-data-item';
 
 // http://stackoverflow.com/a/46181/1447823 chromium's regex for testing for email
 export const EMAIL_REGEX = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-// https://stackoverflow.com/a/27755
-// modified to allow last part of subdomain to not be limited to 3 chars
-export const URI_REGEX = /^((http[s]?|ftp):\/\/)?\/?([^\/\.]+\.)*?([^\/\.]+\.[^:\/\s\.]{2,}(\.[^:\/\s\.]{2,})?)(:\d+)?($|\/)([^#?\s]+)?(.*?)?(#[\w\-]+)?$/;
-export const URI_VALID_CHARS_REGEX = /^[A-Za-z0-9\-._~!$&'()*+,;=:@\/?]*$/;
+//built by combining "^((http[s]?|ftp):\/\/)?\/?([^\/\.]+\.)*?" with https://uibakery.io/regex-library/url
+export const URI_REGEX = /^((http[s]?|ftp):\/\/)?\/?([^\/\.]+\.)*?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{2,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 
 @Injectable()
 export class ValidatorService {
@@ -51,7 +49,7 @@ export class ValidatorService {
     const options = item.validationSettings;
     switch (options.format) {
       case StringFormat.Uri:
-        validators.push(item.validationSettings.listDelimiter ? this.getUriListValidator(item.validationSettings.listDelimiter) : Validators.pattern(URI_REGEX), Validators.pattern(URI_VALID_CHARS_REGEX));
+        validators.push(item.validationSettings.listDelimiter ? this.getUriListValidator(item.validationSettings.listDelimiter) : Validators.pattern(URI_REGEX));
         break;
       case StringFormat.Email:
         validators.push(item.validationSettings.listDelimiter ? this.getEmailListValidator(item.validationSettings.listDelimiter) : Validators.pattern(EMAIL_REGEX));
@@ -119,7 +117,7 @@ export class ValidatorService {
 
   private getInvalidUris(control: AbstractControl, delimiter: string): string[] {
     const uris = control.value.split(delimiter);
-    return uris.filter(uri => !URI_REGEX.test(uri) || !URI_VALID_CHARS_REGEX.test(uri));
+    return uris.filter(uri => !URI_REGEX.test(uri));
   }
 
   private getEmailListValidator(delimiter: string): ValidatorFn {

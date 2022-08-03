@@ -3,7 +3,7 @@ All notable changes to this project will be documented in this file. The changes
 
 ## [4.1.4] (2022-08-03)
 ### Bug fixes
-- Modified URI text format to only allow valid URI characters.
+- Modified URI text format to only allow valid URI characters, and for additional URI validation to run during the JSF BE validation.
 
 ## [4.1.3] (2022-04-20)
 ### Bug fixes
