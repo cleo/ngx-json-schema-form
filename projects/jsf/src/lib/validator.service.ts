@@ -11,6 +11,7 @@ export const EMAIL_REGEX = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*
 // https://stackoverflow.com/a/27755
 // modified to allow last part of subdomain to not be limited to 3 chars
 export const URI_REGEX = /^((http[s]?|ftp):\/\/)?\/?([^\/\.]+\.)*?([^\/\.]+\.[^:\/\s\.]{2,}(\.[^:\/\s\.]{2,})?)(:\d+)?($|\/)([^#?\s]+)?(.*?)?(#[\w\-]+)?$/;
+export const URI_VALID_CHARS_REGEX = /^[A-Za-z0-9\-._~!$&'()*+,;=:@\/?]*$/;
 
 @Injectable()
 export class ValidatorService {
@@ -50,7 +51,7 @@ export class ValidatorService {
     const options = item.validationSettings;
     switch (options.format) {
       case StringFormat.Uri:
-        validators.push(item.validationSettings.listDelimiter ? this.getUriListValidator(item.validationSettings.listDelimiter) : Validators.pattern(URI_REGEX));
+        validators.push(item.validationSettings.listDelimiter ? this.getUriListValidator(item.validationSettings.listDelimiter) : Validators.pattern(URI_REGEX), Validators.pattern(URI_VALID_CHARS_REGEX));
         break;
       case StringFormat.Email:
         validators.push(item.validationSettings.listDelimiter ? this.getEmailListValidator(item.validationSettings.listDelimiter) : Validators.pattern(EMAIL_REGEX));
@@ -118,7 +119,7 @@ export class ValidatorService {
 
   private getInvalidUris(control: AbstractControl, delimiter: string): string[] {
     const uris = control.value.split(delimiter);
-    return uris.filter(uri => !URI_REGEX.test(uri));
+    return uris.filter(uri => !URI_REGEX.test(uri) || !URI_VALID_CHARS_REGEX.test(uri));
   }
 
   private getEmailListValidator(delimiter: string): ValidatorFn {
