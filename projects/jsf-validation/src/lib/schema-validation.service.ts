@@ -1,4 +1,6 @@
 import Ajv, { ErrorObject } from 'ajv';
+import { get } from 'lodash';
+import { URI_REGEX } from 'projects/jsf/src/lib/validator.service';
 import { SchemaHelperService } from './schema-helper.service';
 
 /**
@@ -25,6 +27,12 @@ export class SchemaValidationService {
     if (!valid) {
       return ajv.errors.map(error => SchemaValidationService.toJsfError(ajv, error));
     }
+
+    const uriErrors = this.validateUris(schema, values);
+    if (uriErrors) {
+      return [uriErrors];
+    }
+
     return null;
   }
 
@@ -72,6 +80,34 @@ export class SchemaValidationService {
     );
 
     return errorMsg;
+  }
+
+  /**
+   * Used to apply extra validation to uri format, since ajv.validate doesn't validate uris correctly.
+   */
+  private static validateUris(schema: any, values: any) {
+    const flatSchema = SchemaHelperService.getFlattenedObject(schema);
+
+    for (const originalKey in flatSchema) {
+      if (originalKey.endsWith('.format') && flatSchema[originalKey] === 'uri') {
+        const key = SchemaHelperService.formatKeyPath(originalKey);
+        const uriValue = get(values, key.substring(0, key.lastIndexOf('.')));
+        if (!URI_REGEX.test(uriValue)) {
+          return {
+            errorObject: {
+              keyword: 'format',
+              dataPath: key.substring(0, key.lastIndexOf('.')),
+              schemaPath: originalKey,
+              params: {format: 'uri'},
+              message : 'should match format "uri"'
+            },
+            errorSchema: get(schema, originalKey.substring(0, originalKey.lastIndexOf('.')))
+          };
+        }
+      }
+    }
+
+    return null;
   }
 }
 

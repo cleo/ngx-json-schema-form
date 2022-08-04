@@ -1,5 +1,5 @@
 import { AdditionalPropertiesParams } from 'ajv';
-import { SchemaValidationService } from './schema-validation.service';
+import { JSFErrorObject, SchemaValidationService } from './schema-validation.service';
 
 describe('SchemaValidationService', () => {
   let basicSchema: any;
@@ -99,6 +99,46 @@ describe('SchemaValidationService', () => {
   });
 
   describe('validate()', () => {
+    it('should validate uri format, and at different depths', () => {
+      let err: JSFErrorObject[] = [];
+
+      let uriSchema: any = {
+        type: 'object',
+        properties: {
+          inbound: {
+            name: 'inbound',
+            type: 'object',
+            properties: {
+              url: {
+                type: 'string',
+                name: 'my uri string',
+                format: 'uri'
+              }
+            }
+          }
+        }
+      };
+      err = SchemaValidationService.validate(uriSchema, {inbound: {url: 'https://t'}});
+      expect(err[0].errorObject.schemaPath).toBe('properties.inbound.properties.url.format');
+      err = SchemaValidationService.validate(uriSchema, {inbound: {url: 'https://test.com'}});
+      expect(err).toBe(null);
+
+      uriSchema = {
+        type: 'object',
+        properties: {
+          url: {
+            type: 'string',
+            name: 'my uri string',
+            format: 'uri'
+          }
+        }
+      };
+      err = SchemaValidationService.validate(uriSchema, {url: 'https://t'});
+      expect(err[0].errorObject.schemaPath).toBe('properties.url.format');
+      err = SchemaValidationService.validate(uriSchema, {url: 'https://test.com'});
+      expect(err).toBe(null);
+    });
+
     it('should return an array of errors when missing required properties', () => {
       const result = SchemaValidationService.validate(basicSchema, {textInput: 'abcde'});
       expect(result[0].errorObject.message).toContain('checkboxInput');
