@@ -8,9 +8,8 @@ import { StringDataItem, StringFormat } from './models/string-data-item';
 
 // http://stackoverflow.com/a/46181/1447823 chromium's regex for testing for email
 export const EMAIL_REGEX = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-// https://stackoverflow.com/a/27755
-// modified to allow last part of subdomain to not be limited to 3 chars
-export const URI_REGEX = /^((http[s]?|ftp):\/\/)?\/?([^\/\.]+\.)*?([^\/\.]+\.[^:\/\s\.]{2,}(\.[^:\/\s\.]{2,})?)(:\d+)?($|\/)([^#?\s]+)?(.*?)?(#[\w\-]+)?$/;
+//built by combining "^((http[s]?|ftp):\/\/)?\/?([^\/\.]+\.)*?" with https://uibakery.io/regex-library/url
+export const URI_REGEX = /^((http[s]?|ftp):\/\/)?\/?([^\/\.]+\.)*?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{2,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
 
 @Injectable()
 export class ValidatorService {
