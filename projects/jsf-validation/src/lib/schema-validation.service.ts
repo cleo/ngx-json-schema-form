@@ -1,9 +1,9 @@
 import Ajv, { ErrorObject } from 'ajv';
 import { get } from 'lodash';
 import { SchemaHelperService } from './schema-helper.service';
+import * as isURI from 'is.uri';
 
-//same as the one in 'projects/jsf/src/lib/validator.service', cannot be imported since they are different projects;
-const URI_REGEX = /^((http[s]?|ftp):\/\/)?\/?([^\/\.]+\.)*?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{2,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/; 
+export const URI_VALID_CHARS_REGEX = /^[A-Za-z0-9\-._~!$&'()*+,;=:@\/?]+$/
 
 /**
  * Schema validation using Another JSON Validator (AJV)
@@ -94,7 +94,7 @@ export class SchemaValidationService {
       if (originalKey.endsWith('.format') && flatSchema[originalKey] === 'uri') {
         const key = SchemaHelperService.formatKeyPath(originalKey);
         const uriValue = get(values, key.substring(0, key.lastIndexOf('.')));
-        if (!URI_REGEX.test(uriValue)) {
+        if (!this.isUriValid(uriValue)) {
           return {
             errorObject: {
               keyword: 'format',
@@ -110,6 +110,19 @@ export class SchemaValidationService {
     }
 
     return null;
+  }
+
+  private static isUriValid(uri: string): boolean {
+    if (!URI_VALID_CHARS_REGEX.test(uri)) {
+      return false
+    }
+
+    let isValid = isURI(uri);
+    //if invalid, try adding 'https://' (allow scheme to be missing)
+    if (!isValid) {
+      isValid = isURI('https://' + uri);
+    }
+    return isValid;
   }
 }
 
