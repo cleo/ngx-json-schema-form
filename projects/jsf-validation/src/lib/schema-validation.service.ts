@@ -1,9 +1,11 @@
 import Ajv, { ErrorObject } from 'ajv';
 import { get } from 'lodash';
 import { SchemaHelperService } from './schema-helper.service';
-import * as isURI from 'is.uri';
 
-export const URI_VALID_CHARS_REGEX = /^[A-Za-z0-9\-._~!$&'()*+,;=:@\/?]+$/
+import * as isURI_ from 'is.uri';
+const isURI = isURI_;
+
+export const URI_VALID_CHARS_REGEX = /^[A-Za-z0-9\-._~!$&'()*+,;=:@\/?]+$/;
 
 /**
  * Schema validation using Another JSON Validator (AJV)
@@ -114,13 +116,13 @@ export class SchemaValidationService {
 
   private static isUriValid(uri: string): boolean {
     if (!URI_VALID_CHARS_REGEX.test(uri)) {
-      return false
+      return false;
     }
 
     let isValid = isURI(uri);
     //if invalid, try adding 'https://' (allow scheme to be missing)
     if (!isValid) {
-      isValid = isURI('https://' + uri);
+      isValid = isURI(`https://${uri}`);
     }
     return isValid;
   }
