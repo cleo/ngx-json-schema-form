@@ -5,11 +5,11 @@ import { EnumDataItem } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
 import { IntegerDataItem } from './models/integer-data-item';
 import { StringDataItem, StringFormat } from './models/string-data-item';
+import * as isURI from 'is.uri';
 
 // http://stackoverflow.com/a/46181/1447823 chromium's regex for testing for email
 export const EMAIL_REGEX = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-//built by combining "^((http[s]?|ftp):\/\/)?\/?([^\/\.]+\.)*?" with https://uibakery.io/regex-library/url
-export const URI_REGEX = /^((http[s]?|ftp):\/\/)?\/?([^\/\.]+\.)*?[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9()]{2,6}\b(?:[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)$/;
+export const URI_VALID_CHARS_REGEX = /^[A-Za-z0-9\-._~!$&'()*+,;=:@\/?]+$/
 
 @Injectable()
 export class ValidatorService {
@@ -49,7 +49,7 @@ export class ValidatorService {
     const options = item.validationSettings;
     switch (options.format) {
       case StringFormat.Uri:
-        validators.push(item.validationSettings.listDelimiter ? this.getUriListValidator(item.validationSettings.listDelimiter) : Validators.pattern(URI_REGEX));
+        validators.push(item.validationSettings.listDelimiter ? this.getUriListValidator(item.validationSettings.listDelimiter) : this.uriValidator());
         break;
       case StringFormat.Email:
         validators.push(item.validationSettings.listDelimiter ? this.getEmailListValidator(item.validationSettings.listDelimiter) : Validators.pattern(EMAIL_REGEX));
@@ -69,6 +69,30 @@ export class ValidatorService {
     }
 
     return validators;
+  }
+
+  private uriValidator(): ValidatorFn {
+    return control => {
+      if (!control.value) {
+        return null;
+      }
+
+      let result = !this.isUriValid(control.value) ? {invalidUri: {value: control.value}} : null;
+      return result;
+    }
+  }
+
+  private isUriValid(uri: string): boolean {
+      if (!URI_VALID_CHARS_REGEX.test(uri)) {
+        return false
+      }
+
+      let isValid = isURI(uri);
+      //if invalid, try adding 'https://' (allow scheme to be missing)
+      if (!isValid) {
+        isValid = isURI('https://' + uri);
+      }
+      return isValid;
   }
 
   private getIntegerValidators(item: IntegerDataItem): ValidatorFn[] {
@@ -117,7 +141,7 @@ export class ValidatorService {
 
   private getInvalidUris(control: AbstractControl, delimiter: string): string[] {
     const uris = control.value.split(delimiter);
-    return uris.filter(uri => !URI_REGEX.test(uri));
+    return uris.filter(uri => !this.isUriValid(uri));
   }
 
   private getEmailListValidator(delimiter: string): ValidatorFn {
