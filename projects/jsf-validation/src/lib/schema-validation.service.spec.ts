@@ -164,8 +164,8 @@ describe('SchemaValidationService', () => {
       for (const testSet of urls) {
         const url = testSet[0];
         const expectedValidity = testSet[1];
-        let err = SchemaValidationService.validate(uriSchema, {url: url});
-        expect(err == null).toBe(expectedValidity, `url: ${url} expectedValidity: ${expectedValidity}`);
+        const validationError = SchemaValidationService.validate(uriSchema, {url: url});
+        expect(validationError == null).toBe(expectedValidity, `url: ${url} expectedValidity: ${expectedValidity}`);
       }
     });
 
