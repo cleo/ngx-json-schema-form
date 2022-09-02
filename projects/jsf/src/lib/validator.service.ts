@@ -1,15 +1,16 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
 import { EnumDataItem } from './models/enum-data-item';
-
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
 import { IntegerDataItem } from './models/integer-data-item';
 import { StringDataItem, StringFormat } from './models/string-data-item';
-import * as isURI from 'is.uri';
+
+import * as isURI_ from 'is.uri';
+const isURI = isURI_;
 
 // http://stackoverflow.com/a/46181/1447823 chromium's regex for testing for email
 export const EMAIL_REGEX = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-export const URI_VALID_CHARS_REGEX = /^[A-Za-z0-9\-._~!$&'()*+,;=:@\/?]+$/
+export const URI_VALID_CHARS_REGEX = /^[A-Za-z0-9\-._~!$&'()*+,;=:@\/?]+$/;
 
 @Injectable()
 export class ValidatorService {
@@ -77,20 +78,20 @@ export class ValidatorService {
         return null;
       }
 
-      let result = !this.isUriValid(control.value) ? {invalidUri: {value: control.value}} : null;
+      const result = !this.isUriValid(control.value) ? {invalidUri: {value: control.value}} : null;
       return result;
-    }
+    };
   }
 
   private isUriValid(uri: string): boolean {
       if (!URI_VALID_CHARS_REGEX.test(uri)) {
-        return false
+        return false;
       }
 
       let isValid = isURI(uri);
       //if invalid, try adding 'https://' (allow scheme to be missing)
       if (!isValid) {
-        isValid = isURI('https://' + uri);
+        isValid = isURI(`https://${uri}`);
       }
       return isValid;
   }
