@@ -90,6 +90,7 @@ export class ValidatorService {
       }
 
       let isValid = URI_REGEX.test(uri);
+      //if invalid, try adding 'https://' (allow scheme to be missing)
       if (!isValid) {
         isValid = URI_REGEX.test(`https://${uri}`);
       }
