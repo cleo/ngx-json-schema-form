@@ -257,7 +257,8 @@ describe('ValidatorService', () => {
               ['http://test .com', false],
               ['https//test.com', false],
               ['http://i-comms.truecommerce.net:42000AS2/F30510A3CH', false],
-              ['http://i-comms.truecommerce.net:42000/AS2/F30510A3CH', true]
+              ['http://i-comms.truecommerce.net:42000/AS2/F30510A3CH', true],
+              ['http://i-comms.truecommerce.net:42000/AS2/F30510A3CH1234567890123456789012345678901234567890', true]
             ];
 
             for (const testSet of urls) {
