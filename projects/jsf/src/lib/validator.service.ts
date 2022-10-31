@@ -1,16 +1,17 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
+import { isEmpty } from 'lodash';
 import { EnumDataItem } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
 import { IntegerDataItem } from './models/integer-data-item';
 import { StringDataItem, StringFormat } from './models/string-data-item';
 
-import * as isURI_ from 'is.uri';
-const isURI = isURI_;
-
 // http://stackoverflow.com/a/46181/1447823 chromium's regex for testing for email
 export const EMAIL_REGEX = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
-export const URI_VALID_CHARS_REGEX = /^[A-Za-z0-9\-._~!$&'()*+,;=:@\/?]+$/;
+export const URI_VALID_CHARS_REGEX = new RegExp(/^[A-Za-z0-9\-._~!$&'()*+,;=:@\/?]+$/);
+
+//https://mathiasbynens.be/demo/url-regex
+export const URI_REGEX = new RegExp(/^(?:(?:(?:https?|ftp):)?\/\/)(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u00a1-\uffff][a-z0-9\u00a1-\uffff_-]{0,62})?[a-z0-9\u00a1-\uffff]\.)+(?:[a-z\u00a1-\uffff]{2,}\.?))(?::\d{2,5})?(?:[/?#]\S*)?$/, 'i');
 
 @Injectable()
 export class ValidatorService {
@@ -84,14 +85,14 @@ export class ValidatorService {
   }
 
   private isUriValid(uri: string): boolean {
-      if (!URI_VALID_CHARS_REGEX.test(uri)) {
+      if (isEmpty(uri) || !URI_VALID_CHARS_REGEX.test(uri)) {
         return false;
       }
 
-      let isValid = isURI(uri);
+      let isValid = URI_REGEX.test(uri);
       //if invalid, try adding 'https://' (allow scheme to be missing)
       if (!isValid) {
-        isValid = isURI(`https://${uri}`);
+        isValid = URI_REGEX.test(`https://${uri}`);
       }
       return isValid;
   }
