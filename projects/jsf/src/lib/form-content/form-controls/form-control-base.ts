@@ -3,13 +3,14 @@ import { FormControl, ValidationErrors } from '@angular/forms';
 
 import { FormDataItem } from '../../models/form-data-item';
 import { StringDataItem } from '../../models/string-data-item';
-import { EMAIL_REGEX, URI_REGEX, ValidatorService } from '../../validator.service';
+import { EMAIL_REGEX, ValidatorService } from '../../validator.service';
 import { ContentBaseComponent } from '../content-base.component';
 
 @Directive()
 export class FormControlBase extends ContentBaseComponent implements OnInit {
   @Input() formItem: FormDataItem;
   @Input() labelLengthClass: string;
+  @Input() templates: any = {};
 
   get formControl(): FormControl {
     return (this.formGroup.controls[this.formItem.key]) as FormControl;
@@ -30,7 +31,7 @@ export class FormControlBase extends ContentBaseComponent implements OnInit {
       return `Please enter a list of valid emails separated by \"${(formItem as StringDataItem).validationSettings.listDelimiter}\"
       Invalid emails:
       ${errors.invalidEmails.join(', ')}`;
-    } else if (hasRequiredPattern && errors.pattern.requiredPattern.toString() === URI_REGEX.toString()) {
+    } else if (errors.invalidUri) {
       return 'Please enter a valid url.';
     } else if (hasRequiredPattern) {
       return `Please enter a valid value.`;

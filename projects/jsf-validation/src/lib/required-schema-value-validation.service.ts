@@ -1,4 +1,4 @@
-import { SchemaHelperService } from './schema-helper.service';
+import { SchemaHelperService, XOfKeys } from './schema-helper.service';
 import { SecuredSchemaValueValidationService } from './secured-schema-value-validation.service';
 
 // @dynamic
@@ -110,7 +110,7 @@ export class RequiredSchemaValueValidationService {
     }
 
     // Strip out the array required keys since they've already been checked
-    const hasRequiredKeys = requiredKeys.filter(key => requiredArrayItemKeys.indexOf(key) < 0)
+    const hasRequiredKeys = requiredKeys.filter(key => requiredArrayItemKeys.indexOf(key) < 0 && requiredArraySchemaKeys.indexOf(key) < 0)
       .every(requiredKey => !!flattenedValueKeys.find(path => path === requiredKey || path.includes(requiredKey)));
 
     if (!hasRequiredKeys) {
@@ -276,7 +276,7 @@ export class RequiredSchemaValueValidationService {
       xOfKeys.forEach(xOfKey => {
         if (segment.includes(xOfKey)) {
           lastGeneralXOfSegmentIdx = xOfKeys.reduce((greatestIdx: number, currentXOfKey: string) => {
-            const lastIdx = RequiredSchemaValueValidationService.getLastIndexOfXOfSegment(keySegments, currentXOfKey);
+            const lastIdx = SchemaHelperService.getLastIndexOfXOfSegment(keySegments, currentXOfKey);
             return lastIdx > greatestIdx ? lastIdx : greatestIdx;
           }, 0);
 
@@ -332,17 +332,6 @@ export class RequiredSchemaValueValidationService {
       oneOfArray.push(optionKey);
       xOfMap.set(parentPath, oneOfArray);
     }
-  }
-
-  private static getLastIndexOfXOfSegment(schemaFormattedKeySegments: string[], xOfKeyword: string): number {
-    // find index of _last_ instance of xOf key to get the most deeply nested xOf
-    // https://stackoverflow.com/a/40929530
-    // TODO: modify findIndex() to find either the oneOf key, anyOf key, or allOf key
-    const index = schemaFormattedKeySegments
-      .slice()
-      .reverse()
-      .findIndex(keySegment => keySegment.includes(xOfKeyword)); // .includes(), since schema format is an array format, ex. oneOf[0], rather than simply oneOf
-    return index >= 0 ? (schemaFormattedKeySegments.length - 1) - index : index;
   }
 
   private static getParentObjectPath(key: string): string {
@@ -414,9 +403,4 @@ class XOfMaps {
     this.allOf = new Map();
     this.anyOf = new Map();
   }
-}
-
-enum XOfKeys {
-  ONE_OF_KEY = 'oneOf',
-  ALL_OF_KEY = 'allOf'
 }

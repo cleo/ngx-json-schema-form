@@ -361,12 +361,15 @@
               "type": "object",
               "name": "Option 1",
               "key": "option1",
+              "required": [
+                "opt1Child1"
+              ],
               "properties": {
-                "child1": {
+                "opt1Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 1"
                 },
-                "child2": {
+                "opt1Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 1"
                 }
@@ -377,14 +380,14 @@
               "name": "Option 2",
               "key": "option2",
               "required": [
-                "child2"
+                "opt2Child2"
               ],
               "properties": {
-                "child1": {
+                "opt2Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 2"
                 },
-                "child2": {
+                "opt2Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 2"
                 }
@@ -401,12 +404,15 @@
               "type": "object",
               "name": "Option 1",
               "key": "option1",
+              "required": [
+                "opt1Child2"
+              ],
               "properties": {
-                "child1": {
+                "opt1Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 1"
                 },
-                "child2": {
+                "opt1Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 1"
                 }
@@ -417,14 +423,14 @@
               "name": "Option 2",
               "key": "option2",
               "required": [
-                "child2"
+                "opt2Child2"
               ],
               "properties": {
-                "child1": {
+                "opt2Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 2"
                 },
-                "child2": {
+                "opt2Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 2"
                 }
@@ -442,12 +448,15 @@
               "type": "object",
               "name": "Option 1",
               "key": "option1",
+              "required": [
+                "opt1Child2"
+              ],
               "properties": {
-                "child1": {
+                "opt1Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 1"
                 },
-                "child2": {
+                "opt1Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 1"
                 }
@@ -458,14 +467,14 @@
               "name": "Option 2",
               "key": "option2",
               "required": [
-                "child2"
+                "opt2Child2"
               ],
               "properties": {
-                "child1": {
+                "opt2Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 2"
                 },
-                "child2": {
+                "opt2Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 2",
                   "default": "default value"
@@ -484,12 +493,15 @@
               "type": "object",
               "name": "Option 1",
               "key": "option1",
+              "required": [
+                "opt1Child2"
+              ],
               "properties": {
-                "child1": {
+                "opt1Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 1"
                 },
-                "child2": {
+                "opt1Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 1"
                 }
@@ -500,14 +512,14 @@
               "name": "Option 2",
               "key": "option2",
               "required": [
-                "child2"
+                "opt2Child2"
               ],
               "properties": {
-                "child1": {
+                "opt2Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 2"
                 },
-                "child2": {
+                "opt2Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 2",
                   "default": "default value"
@@ -556,7 +568,7 @@
               "dropdownsWithChildren.dropdownWithChildren1.option1",
               "dropdownsWithChildren.dropdownWithChildren1WithDefault",
               "dropdownsWithChildren.dropdownWithChildren1WithDefault.option1",
-              "dropdownsWithChildren.dropdownWithChildren1WithDefault.option1.child1",
+              "dropdownsWithChildren.dropdownWithChildren1WithDefault.option1.opt1Child1",
               "dropdownsWithChildren.dropdownWithChildren1WithDefault.option2",
               "securedTextInput",
               "securedTextInput.securedTextInput",
@@ -771,6 +783,9 @@
                   "type": "object",
                   "name": "Option 1",
                   "key": "dd1",
+                  "required": [
+                    "child1"
+                  ],
                   "properties": {
                     "child1": {
                       "type": "string",
@@ -811,12 +826,15 @@
                   "type": "object",
                   "name": "Option 1",
                   "key": "op1",
+                  "required": [
+                    "child1"
+                  ],
                   "properties": {
-                    "ch1": {
+                    "child1": {
                       "type": "string",
                       "name": "Child 1 of Option 1"
                     },
-                    "ch2": {
+                    "child2": {
                       "type": "string",
                       "name": "Child 2 of Option 1"
                     }
@@ -949,6 +967,39 @@
               }
             }
           }
+        }
+      }
+    },
+    "template": {
+      "type": "object",
+      "name": "Template",
+      "description": "This section displays template functionality.",
+      "properties": {
+        "templateVisibleValue": {
+          "name": "JSF Visible template value",
+          "type": "string",
+          "isHidden": false
+        },
+        "templateDisplay": {
+          "name": "Template 1",
+          "type": "template",
+          "isReadOnly": true,
+          "templateName": "testTemplate1",
+          "targetPaths": [
+            "template.templateValue",
+            "template.templateVisibleValue",
+            "template.timesButtonClicked"
+          ]
+        },
+        "templateValue": {
+          "name": "Hidden template value",
+          "type": "string",
+          "isHidden": true
+        },
+        "timesButtonClicked": {
+          "name": "Number of times the button was clicked",
+          "type": "integer",
+          "isHidden": true
         }
       }
     }

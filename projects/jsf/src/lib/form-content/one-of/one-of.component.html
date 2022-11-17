@@ -3,7 +3,9 @@
   [formGroup]="formGroup"
   [xOfDataItem]="item"
   [config]="config"
+  [templates]="templates"
   [isEdit]="isEdit"
   [labelLengthClass]="labelLengthClass"
-  (buttonEvent)="onButtonEvent($event)">
+  (buttonEvent)="onButtonEvent($event)"
+  (templateEvent)="onTemplateEvent($event)">
 </jsf-one-of-drop-down>

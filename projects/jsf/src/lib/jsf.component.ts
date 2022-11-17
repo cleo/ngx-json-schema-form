@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { AbstractControl, FormControl, FormGroup } from '@angular/forms';
+import { FormGroup } from '@angular/forms';
 
 import { NEVER } from 'rxjs';
 import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
@@ -12,23 +12,28 @@ import { JSFConfig } from './jsf-config';
 import { JSFEventButton } from './jsf-event-button';
 import { JSFEventButtonTarget } from './jsf-event-button-target';
 import { JSFSchemaData } from './jsf-schema-data';
-import { FormDataItem, FormDataItemType } from './models/form-data-item';
+import { JSFTemplateEvent } from './jsf-template-event';
+import { JSFTemplateTarget } from './jsf-template-target';
+import { FormDataItem } from './models/form-data-item';
 import { ParentDataItem } from './models/parent-data-item';
+import { XOfEnumDataItem } from './models/xOf-enum-data-item';
 
 @Component({
   selector: 'jsf-component',
   templateUrl: './jsf.component.html',
-  styleUrls: [ './jsf.component.scss' ],
+  styleUrls: ['./jsf.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, OnInit {
-  @ViewChild(FormContentComponent, { static: true }) content: FormContentComponent;
-  @ViewChild('formRoot', { static: true }) formElement: ElementRef<HTMLFormElement>;
+  @ViewChild(FormContentComponent, {static: true}) content: FormContentComponent;
+  @ViewChild('formRoot', {static: true}) formElement: ElementRef<HTMLFormElement>;
   @Input() config: JSFConfig;
   @Input() schemaData;
+  @Input() templates: any = {};
   @Output() disableSubmit: EventEmitter<boolean> = new EventEmitter<boolean>();
   @Output() formHeightChange: EventEmitter<number> = new EventEmitter();
   @Output() buttonEvent: EventEmitter<JSFEventButton> = new EventEmitter();
+  @Output() templateEvent: EventEmitter<JSFTemplateEvent> = new EventEmitter();
 
   formDataItems: FormDataItem[] = [];
   formGroup: FormGroup = new FormGroup({});
@@ -107,7 +112,51 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
   }
 
   getFormValues(): any {
-    return this.formService.getFormValues(this.formGroup, this.formDataItems);
+    const formValues = this.formService.getFormValues(this.formGroup, this.formDataItems);
+
+    const flattenedItems = this.flattenDataItems(this.formDataItems);
+    const xOfEnumKeys = flattenedItems.filter(item => {
+      if (item instanceof XOfEnumDataItem) {
+        return true;
+      }
+      return false;
+    }).map(item => item.key);
+    this.removeXOfEnumValues(xOfEnumKeys, formValues);
+    return formValues;
+  }
+
+  private removeXOfEnumValues(xOfEnumKeys: string[], values: any): void {
+    Object.keys(values).forEach(key => {
+      if (xOfEnumKeys.some(enumKey => enumKey === key)) {
+        const enumValue = Object.keys(values[key])[0];
+        values[key] = values[key][enumValue];
+      }
+      if (typeof values[key] === 'object' && Object.keys(values[key])) {
+        this.removeXOfEnumValues(xOfEnumKeys, values[key]);
+      }
+    });
+  }
+
+  private flattenDataItems(items: FormDataItem[]): FormDataItem[] {
+    const flattenedObject = [];
+
+    function recursiveFlattening(cur: any) {
+      if (Array.isArray(cur)) {
+        const l = cur.length;
+        for (let i = 0; i < l; i++) {
+          recursiveFlattening(cur[i]);
+        }
+      } else if (!cur.items) {
+        flattenedObject.push(cur);
+      } else {
+        for (const p of Object.keys(cur.items)) {
+          recursiveFlattening(cur.items[p]);
+        }
+      }
+    }
+
+    recursiveFlattening(items);
+    return flattenedObject;
   }
 
   /**
@@ -137,4 +186,20 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
     }).filter(value => !!value);
     this.buttonEvent.next({ key: event.key, targets: targets });
   }
+
+  onTemplateEvent(event: { key: string; targetPaths: string[] }): void {
+    const targets: JSFTemplateTarget[] = event.targetPaths.map(path => {
+      const targetPath = path.split('.');
+      const control = this.formService.findAbstractControl(targetPath, this.formGroup);
+      const dataItem = this.dataItemService.findFormDataItem(targetPath, this.formDataItems);
+
+      if (dataItem && control) {
+        const items = dataItem instanceof ParentDataItem ? (dataItem as ParentDataItem).items : [dataItem];
+        const result = this.formService.getFormValues(control, items);
+        return { path: path, formControl: control, data: result };
+      }
+    }).filter(value => !!value);
+    this.templateEvent.next({ key: event.key, targetPaths: targets });
+  }
+
 }
