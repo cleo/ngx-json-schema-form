@@ -1,6 +1,6 @@
 {
   "name": "@cleo/ngx-json-schema-form",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/cleo/ngx-json-schema-form"
@@ -9,7 +9,7 @@
     "@angular/common": "^9.0.2",
     "@angular/core": "^9.0.2",
     "@angular/forms": "^9.0.2",
-    "bootstrap-sass": "^3.3.7",
+    "bootstrap-sass": "3.4.1",
     "rxjs": "^6.5.4"
   }
 }
