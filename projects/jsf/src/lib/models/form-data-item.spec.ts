@@ -28,6 +28,11 @@ describe('SchemaDataItem', () =>  {
     expect(result.value).toEqual('');
   });
 
+  it('should set the value to an empty array', () => {
+    const result = new FormDataItem(key, label, tooltip, helpText, required, pathParts, FormDataItemType.Array, undefined, isReadOnly, isHidden);
+    expect(result.value).toEqual([]);
+  });
+
   it('should set the key', () => {
     expect(dataItem.key).toEqual(key);
   });

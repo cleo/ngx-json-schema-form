@@ -1,6 +1,56 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [4.2.0] (2022-11-18)
+### Enhancement
+- Upgraded to Node 16
+
+## [4.1.6] (2022-10-31)
+### Bug fixes
+- Fixed URI validation regex timing out with long URIs.
+
+## [4.1.5] (2022-09-02)
+### Bug fixes
+- Changed URI validation to be compliant with RFC-3986 
+
+## [4.1.4] (2022-08-03)
+### Bug fixes
+- Modified URI text format to only allow valid URI characters, and for additional URI validation to run during the JSF BE validation.
+
+## [4.1.3] (2022-04-20)
+### Bug fixes
+- Fixed jsf readme not pointing to correct schemaV2.json file.
+
+## [4.1.2] (2022-03-02)
+### Bug fixes
+- Modified URI text format to not limit the last part of subdomain to three characters
+
+## [4.1.1] (2021-12-23)
+### Bug fixes
+- Use defaults from schema on validation
+
+## [4.1.0] (2021-06-29)
+### Enhancement
+- Added template type support for custom templates inside schemas
+
+## [4.0.1] (2021-05-24)
+### Bug Fixes
+- Secured fields within a oneOf should not be returned. Added optional parameter to getNonSecuredValues to return the key with a null value to support oneOf
+
+## [4.0.0] (2021-05-21)
+### Bug Fixes
+- OneOf: XOf Enum values should not be sent when retrieving form values. These were added for JSF to display the data as a dropdown but is not part of the schema specification. All child properties should have unique key names so that the matching OneOf subschema can be determined.
+
+## [3.1.1] (2021-05-13)
+### Bug Fixes
+- Empty array should not be defaulted to empty string
+- SecuredSchemaValueValidationService.getNonSecuredValues should handle arrays properly
+
+## [3.1.0] (2021-05-05)
+### Enhancement
+- Add limited array support
+
+
 ## [3.0.2] (2021-04-23)
 ### Bug Fixes
 - SchemaValidationService will validate hidden and read-only fields

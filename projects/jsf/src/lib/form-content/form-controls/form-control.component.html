@@ -14,7 +14,8 @@
   [config]="config"
   [isEdit]="isEdit"
   [labelLengthClass]="labelLengthClass"
-  (buttonEvent)="onButtonEvent($event)">
+  (buttonEvent)="onButtonEvent($event)"
+  (templateEvent)="onTemplateEvent($event)">
 </jsf-text>
 
 <jsf-text-area
@@ -50,3 +51,25 @@
   [isEdit]="isEdit"
   [config]="config">
 </jsf-radio-button>
+
+<jsf-table-summary
+  *ngIf="isArray()"
+  [formItem]="formItem"
+  [formGroup]="formGroup"
+  [labelLengthClass]="labelLengthClass"
+  [isEdit]="isEdit"
+  [config]="config">
+</jsf-table-summary>
+
+<jsf-template
+  *ngIf="isTemplate()"
+  [formItem]="formItem"
+  [formGroup]="formGroup"
+  [labelLengthClass]="labelLengthClass"
+  [isEdit]="isEdit"
+  [config]="config"
+  [templates]="templates"
+  (buttonEvent)="onButtonEvent($event)"
+  (templateEvent)="onTemplateEvent($event)"
+  >
+</jsf-template>

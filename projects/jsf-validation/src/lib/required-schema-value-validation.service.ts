@@ -1,8 +1,11 @@
-import { SchemaHelperService } from './schema-helper.service';
+import { SchemaHelperService, XOfKeys } from './schema-helper.service';
 import { SecuredSchemaValueValidationService } from './secured-schema-value-validation.service';
 
 // @dynamic
 export class RequiredSchemaValueValidationService {
+  private static readonly ARRAY_KEY = 'array';
+  private static readonly TYPE_KEY = 'type';
+  private static readonly ITEMS_KEY = 'items';
   private static readonly VALUE_KEY = 'value';
   private static readonly IS_CONDITIONAL_KEY = 'isConditional';
 
@@ -66,21 +69,66 @@ export class RequiredSchemaValueValidationService {
       return false;
     }
 
-    const hasRequiredKeys = requiredKeys.every(requiredKey => !!flattenedValueKeys.find(path => path === requiredKey || path.includes(requiredKey)));
+    // Array required keys need to be checked for each item
+    const arraySchemaKeys = flattenedSchemaKeys
+      .filter(path => path.endsWith(`.${RequiredSchemaValueValidationService.TYPE_KEY}`) && flattenedSchema[path] === RequiredSchemaValueValidationService.ARRAY_KEY)
+      .map(path => SchemaHelperService.formatKeyPath(path.substring(0, path.lastIndexOf(`.${RequiredSchemaValueValidationService.TYPE_KEY}`))));
+    const requiredArraySchemaKeys = arraySchemaKeys.filter(key => requiredKeys.indexOf(key) >= 0);
+    const requiredArrayItemKeys = requiredKeys.filter(key => requiredArraySchemaKeys.find(arrayKey => key.startsWith(arrayKey) && arrayKey !== key));
+    const hasRequiredArrayKeys = requiredArrayItemKeys.every(requiredKey => {
+      const itemKey = requiredKey.substring(0, requiredKey.lastIndexOf('.'));
+      const arrayKey = itemKey.substring(0, itemKey.lastIndexOf('.'));
+      const indexRegex = /\[[0-9]+]/gm;
+      const allItemValueKeys = flattenedValueKeys.filter(path => path.startsWith(arrayKey));
+      if (!allItemValueKeys.length) {
+        return false;
+      }
+
+      // Find the maximum index of the parent array item to determine how many values there should be
+      const matchingIndexes = indexRegex.exec(allItemValueKeys[allItemValueKeys.length - 1]);
+      const maxIndex = matchingIndexes[matchingIndexes.length - 1];
+      const expectedNumberOfValues = parseInt(maxIndex.substring(1, maxIndex.length - 1), 10) + 1; // increment due zero-based index vs length below
+      const actualValues = flattenedValueKeys.filter(path => path.replace(indexRegex, `.${RequiredSchemaValueValidationService.ITEMS_KEY}`) === requiredKey);
+      if (actualValues.length !== expectedNumberOfValues) {
+        return false;
+      }
+
+      // If this is an enum array property, check its value
+      const enumSchemaKeys = flattenedSchemaKeys.filter(path => SchemaHelperService.formatKeyPath(path).includes(`${requiredKey}.${SchemaHelperService.ENUM_KEY}[`));
+      if (!enumSchemaKeys.length) {
+        return true;
+      }
+      const validValues = enumSchemaKeys.map(key => flattenedSchema[key]);
+      return actualValues.every(enumKey => {
+        const value = flattenedValues[enumKey] === 'null' ? null : flattenedValues[enumKey];
+        return validValues.includes(value);
+      });
+    });
+
+    if (!hasRequiredArrayKeys) {
+      return false;
+    }
+
+    // Strip out the array required keys since they've already been checked
+    const hasRequiredKeys = requiredKeys.filter(key => requiredArrayItemKeys.indexOf(key) < 0 && requiredArraySchemaKeys.indexOf(key) < 0)
+      .every(requiredKey => !!flattenedValueKeys.find(path => path === requiredKey || path.includes(requiredKey)));
+
     if (!hasRequiredKeys) {
       return false;
     }
 
-    const doesNotHaveCorrectEnumValue = requiredKeys.some(requiredKey => {
-      const enumSchemaKeys = flattenedSchemaKeys.filter(path => SchemaHelperService.formatKeyPath(path).includes(`${requiredKey}.${SchemaHelperService.ENUM_KEY}[`));
-      if (!enumSchemaKeys.length) {
-        return false;
-      }
+    // Strip out array required keys since they've already been checked
+    const doesNotHaveCorrectEnumValue = requiredKeys.filter(key => requiredArrayItemKeys.indexOf(key) < 0 && requiredArraySchemaKeys.indexOf(key) < 0)
+      .some(requiredKey => {
+        const enumSchemaKeys = flattenedSchemaKeys.filter(path => SchemaHelperService.formatKeyPath(path).includes(`${requiredKey}.${SchemaHelperService.ENUM_KEY}[`));
+        if (!enumSchemaKeys.length) {
+          return false;
+        }
 
-      const value = flattenedValues[requiredKey] === 'null' ? null : flattenedValues[requiredKey];
-      const validValues = enumSchemaKeys.map(key => flattenedSchema[key]);
-      return !validValues.includes(value);
-    });
+        const value = flattenedValues[requiredKey] === 'null' ? null : flattenedValues[requiredKey];
+        const validValues = enumSchemaKeys.map(key => flattenedSchema[key]);
+        return !validValues.includes(value);
+      });
 
     return !doesNotHaveCorrectEnumValue;
   }
@@ -101,7 +149,6 @@ export class RequiredSchemaValueValidationService {
    *
    * @param flattenedSchema
    * @param flattenedValues
-   * @param flattenedValueKeys - an array of the value keys
    * @param includeSecuredFields - a boolean indicating whether secured-required fields should ultimately be included in the "required" array, or ignored
    * @param includedXOfsInSchema - the xOfs and their children that are included in the schema. Only the parents are recorded here; the children are filled in later.
    * @param includedXOfsInValues - the xOfs and their children that are included in the values
@@ -139,8 +186,36 @@ export class RequiredSchemaValueValidationService {
           return false;
         }
 
-        // handle secured required fields
+        // handle array fields
         const schemaObjectPath = RequiredSchemaValueValidationService.getParentObjectPath(formattedKeyPair.schemaFormattedKey);
+        if (schemaObjectPath.endsWith(`.${RequiredSchemaValueValidationService.ITEMS_KEY}`)) {
+          const objectTypePath = `${schemaObjectPath.substr(0, schemaObjectPath.lastIndexOf(`.${RequiredSchemaValueValidationService.ITEMS_KEY}`))}.${RequiredSchemaValueValidationService.TYPE_KEY}`;
+          if (flattenedSchema[objectTypePath] === RequiredSchemaValueValidationService.ARRAY_KEY) {
+            const arrayObject = RequiredSchemaValueValidationService.getParentObjectPath(schemaObjectPath);
+            const arrayName = arrayObject.substr(arrayObject.lastIndexOf('.') + 1);
+            let parentOfArray = RequiredSchemaValueValidationService.getParentObjectPath(arrayObject);
+            if (parentOfArray.endsWith(`.${SchemaHelperService.PROPERTIES_KEY}`)) {
+              parentOfArray = parentOfArray.substr(0, parentOfArray.lastIndexOf(`.${SchemaHelperService.PROPERTIES_KEY}`));
+            }
+            if (parentOfArray === SchemaHelperService.PROPERTIES_KEY) {
+              parentOfArray = '';
+            } else {
+              parentOfArray = `${parentOfArray}.`;
+            }
+            const isRequiredArrayProperty = Object.keys(flattenedSchema)
+              .filter(key => key.startsWith(`${parentOfArray}${SchemaHelperService.REQUIRED_KEY}[`))
+              .some(key => flattenedSchema[key] === arrayName);
+            if (isRequiredArrayProperty) {
+              return true;
+            }
+
+            // If it isn't a required property, check if it is an enum. Enums are always required.
+            return Object.keys(flattenedSchema)
+              .some(key => key.startsWith(`${schemaObjectPath}.${SchemaHelperService.PROPERTIES_KEY}.${flattenedSchema[formattedKeyPair.schemaFormattedKey]}.${SchemaHelperService.ENUM_KEY}[`));
+          }
+        }
+
+        // handle secured required fields
         const requiredField = this.getFullPathFromParentPathAndChild(SchemaHelperService.formatKeyPath(schemaObjectPath), flattenedSchema[formattedKeyPair.schemaFormattedKey]);
         return securedKeyPaths.includes(requiredField) ? includeSecuredFields : true;
       })
@@ -201,7 +276,7 @@ export class RequiredSchemaValueValidationService {
       xOfKeys.forEach(xOfKey => {
         if (segment.includes(xOfKey)) {
           lastGeneralXOfSegmentIdx = xOfKeys.reduce((greatestIdx: number, currentXOfKey: string) => {
-            const lastIdx = RequiredSchemaValueValidationService.getLastIndexOfXOfSegment(keySegments, currentXOfKey);
+            const lastIdx = SchemaHelperService.getLastIndexOfXOfSegment(keySegments, currentXOfKey);
             return lastIdx > greatestIdx ? lastIdx : greatestIdx;
           }, 0);
 
@@ -257,17 +332,6 @@ export class RequiredSchemaValueValidationService {
       oneOfArray.push(optionKey);
       xOfMap.set(parentPath, oneOfArray);
     }
-  }
-
-  private static getLastIndexOfXOfSegment(schemaFormattedKeySegments: string[], xOfKeyword: string): number {
-    // find index of _last_ instance of xOf key to get the most deeply nested xOf
-    // https://stackoverflow.com/a/40929530
-    // TODO: modify findIndex() to find either the oneOf key, anyOf key, or allOf key
-    const index = schemaFormattedKeySegments
-      .slice()
-      .reverse()
-      .findIndex(keySegment => keySegment.includes(xOfKeyword)); // .includes(), since schema format is an array format, ex. oneOf[0], rather than simply oneOf
-    return index >= 0 ? (schemaFormattedKeySegments.length - 1) - index : index;
   }
 
   private static getParentObjectPath(key: string): string {
@@ -339,9 +403,4 @@ class XOfMaps {
     this.allOf = new Map();
     this.anyOf = new Map();
   }
-}
-
-enum XOfKeys {
-  ONE_OF_KEY = 'oneOf',
-  ALL_OF_KEY = 'allOf'
 }

@@ -11,7 +11,10 @@
     [isEdit]="isEdit"
     [config]="config"
     [labelLengthClass]="labelLengthClass"
-    (buttonEvent)="onButtonEvent($event)"></jsf-form-control>
+    [templates]="templates"
+    (buttonEvent)="onButtonEvent($event)"
+    (templateEvent)="onTemplateEvent($event)">
+  </jsf-form-control>
 
   <jsf-checkbox-with-children
     *ngIf="isConditionalObject(item) && !isHidden(item)"
@@ -19,7 +22,10 @@
     [formGroup]="getFormGroup(item)"
     [isEdit]="isEdit"
     [config]="config"
-    (buttonEvent)="onButtonEvent($event)"></jsf-checkbox-with-children>
+    [templates]="templates"
+    (buttonEvent)="onButtonEvent($event)"
+    (templateEvent)="onTemplateEvent($event)">
+  </jsf-checkbox-with-children>
 
   <jsf-section
     *ngIf="isSection(item) && !isHidden(item)"
@@ -27,7 +33,10 @@
     [formGroup]="getFormGroup(item)"
     [isEdit]="isEdit"
     [config]="config"
-    (buttonEvent)="onButtonEvent($event)"></jsf-section>
+    [templates]="templates"
+    (buttonEvent)="onButtonEvent($event)"
+    (templateEvent)="onTemplateEvent($event)">
+  </jsf-section>
 
 <!--
   The "hidden" class is a temporary solution for hidden oneOfs. ngIf* cannot be used.
@@ -43,8 +52,11 @@
     [formGroup]="getFormGroup(item)"
     [isEdit]="isEdit"
     [config]="config"
+    [templates]="templates"
     [labelLengthClass]="labelLengthClass"
-    (buttonEvent)="onButtonEvent($event)"></jsf-one-of>
+    (buttonEvent)="onButtonEvent($event)"
+    (templateEvent)="onTemplateEvent($event)">
+  </jsf-one-of>
 </div>
 
 <jsf-tabs
@@ -52,6 +64,9 @@
   [items]="getTabbedItems()"
   [formGroup]="formGroup"
   [config]="config"
+  [templates]="templates"
   [isEdit]="isEdit"
-  (buttonEvent)="onButtonEvent($event)"></jsf-tabs>
+  (buttonEvent)="onButtonEvent($event)"
+  (templateEvent)="onTemplateEvent($event)">
+</jsf-tabs>
 

@@ -1,0 +1,45 @@
+<jsf-modal [title]="modalTitle" (closeInput)="onClose()" (resizeInput)="onResize()">
+  <jsf-alert [alertStream]="alertStreamService"></jsf-alert>
+  <div class="modal-body">
+    <div class="jsf-table-header">
+      <button *ngIf="showDelete"
+              class="btn btn-primary jsf-table-delete-button"
+              type="button"
+              (click)="onDelete()">
+        <img [src]="'assets/jsf-images/trash.svg'">
+      </button>
+    </div>
+    <ag-grid-angular
+      class="jsf-table"
+      [rowData]="rowData$ | async"
+      [columnDefs]="colDefs"
+      [defaultColDef]="defaultColDef"
+      [modules]="modules"
+      [frameworkComponents]="frameworkComponents"
+      [rowHeight]="45"
+      [suppressNoRowsOverlay]="true"
+      [rowSelection]="'multiple'"
+      [suppressRowClickSelection]="true"
+      [singleClickEdit]="true"
+      [pinnedTopRowData]="pinnedTopRowData$ | async"
+      (gridReady)="onGridReady($event)"
+      [ensureDomOrder]="true"
+      [suppressColumnVirtualisation]="true"
+      (rowSelected)="onRowSelected()">
+    </ag-grid-angular>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-primary"
+            type="button"
+            [disabled]="hasErrors"
+            (click)="onSubmit()">
+      OK
+    </button>
+
+    <button class="btn btn-secondary"
+            type="button"
+            (click)="onClose()">
+      Cancel
+    </button>
+  </div>
+</jsf-modal>
