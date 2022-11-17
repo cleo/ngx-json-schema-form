@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [4.2.0] (2022-11-18)
+### Enhancement
+- Upgraded to Node 16
+
 ## [4.1.6] (2022-10-31)
 ### Bug fixes
 - Fixed URI validation regex timing out with long URIs.
