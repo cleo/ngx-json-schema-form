@@ -26,7 +26,8 @@ export class StringDataItem extends FormDataItem {
     this.validationSettings = {
       format: schemaOptions.format && Object.values(StringFormat).includes(schemaOptions.format) ? schemaOptions.format as StringFormat : StringFormat.None,
       length: { minLength: schemaOptions.minLength, maxLength: schemaOptions.maxLength },
-      listDelimiter: schemaOptions.listDelimiter
+      listDelimiter: schemaOptions.listDelimiter,
+      pattern: schemaOptions.pattern
     };
   }
 }
@@ -46,4 +47,5 @@ export interface StringValidationSettings {
   format: StringFormat;
   length: StringLengthOptions;
   listDelimiter: string;
+  pattern: string;
 }

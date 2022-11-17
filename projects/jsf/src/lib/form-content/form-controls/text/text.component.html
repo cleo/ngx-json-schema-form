@@ -1,7 +1,7 @@
 <div class="form-item-with-label">
   <jsf-label [formItem]="formItem" [labelLengthClass]="labelLengthClass"></jsf-label>
   <div class="form-item" [formGroup]="formGroup">
-    <div class="control-with-error">
+    <div [class]="getClass()">
       <input
         class="form-control"
         [placeholder]="getStringDataItem().placeholder"
@@ -9,7 +9,8 @@
         [id]="formItem.path"
         [type]="getInputType()"
         (blur)="onStringBlur()"
-        (focus)="onFocus()">
+        (focus)="onFocus()"
+        autocomplete="new-password">
       <div class="character-counter" *ngIf="showCounter">
         <span class="max" [class.error]="hasMaxLengthError()" *ngIf="hasMaxLength()">{{getMaxCharacterCountInfo()}}</span>
         <span class="min" [class.error]="hasMinLengthError()" *ngIf="hasMinLength()">{{getMinCharacterCountInfo()}}</span>

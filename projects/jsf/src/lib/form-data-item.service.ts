@@ -1,14 +1,17 @@
 import { Injectable } from '@angular/core';
-import { ButtonDataItem } from './models/button-data-item';
 
 import { JSFJsonSchema } from './jsf-json-schema';
 import { JSFSchemaData } from './jsf-schema-data';
+import { ArrayDataItem } from './models/array-data-item';
+import { ButtonDataItem } from './models/button-data-item';
 import { ConditionalParentDataItem } from './models/conditional-parent-data-item';
 import { EnumDataItem, OptionDisplayType } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
+import { IntegerDataItem } from './models/integer-data-item';
 import { ParentDataItem } from './models/parent-data-item';
 import { SecuredStringDataItem } from './models/secured-string-data-item';
 import { StringDataItem, StringFormat } from './models/string-data-item';
+import { TemplateDataItem } from './models/template-data-item';
 import { XOfDataItem, XOfType } from './models/xOf-data-item';
 import { SchemaTranslationService } from './schema-translation.service';
 
@@ -29,18 +32,19 @@ export class FormDataItemService {
   }
 
   private getItemsFromSubschema(schema: JSFJsonSchema, values: object, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): FormDataItem[] {
-    return Object.keys(schema.properties).map(key => {
+    return Object.keys(schema.properties ?? schema.items.properties).map(key => {
       return this.getItemFromSchema(schema, values, key, pathParts.slice(), isParentReadOnly, isParentHidden);
     });
   }
 
   private getItemFromSchema(schema: JSFJsonSchema, values: any, key: string, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): FormDataItem {
     pathParts.push(key);
-    const schemaProperty = schema.properties[key];
+    const schemaProperty = schema.properties ? schema.properties[key] : schema.items.properties[key];
     const name = schemaProperty.name;
     const tooltip = schemaProperty.tooltip;
     const helpText = schemaProperty.helpText;
-    const required = this.getRequired(schema, key);
+    // Required fields for arrays are stored in items.properties
+    const required = this.getRequired(schema.properties ? schema : schema.items, key);
     const isReadOnly = Boolean(schemaProperty.isReadOnly) || isParentReadOnly;
     const type = this.getFormDataItemType(schemaProperty);
     const isHidden = Boolean(schemaProperty.isHidden) || isParentHidden;
@@ -64,9 +68,26 @@ export class FormDataItemService {
           return new ParentDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, childItems, schemaProperty.description, display);
         }
         return new ConditionalParentDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, childItems);
+      case FormDataItemType.Array:
+        const arrayItems = this.getItemsFromSubschema(schemaProperty, fieldValue, pathParts, isReadOnly, isHidden);
+        return new ArrayDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, arrayItems);
+      case FormDataItemType.Template:
+        return new TemplateDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden,
+          schemaProperty.templateName, schemaProperty.targetPaths);
       case FormDataItemType.SecuredString:
         return new SecuredStringDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, this.isEdit, schemaProperty.placeholder);
-      default: // String or Integer
+      case FormDataItemType.Integer:
+        const intButtons = this.getButtonDataItems(schemaProperty, pathParts);
+        const integerOptions: SchemaIntegerOptions = {
+          display: schemaProperty.display,
+          placeholder: schemaProperty.placeholder ? schemaProperty.placeholder : '',
+          minimum: schemaProperty.minimum,
+          maximum: schemaProperty.maximum,
+          exclusiveMinimum: schemaProperty.exclusiveMinimum,
+          exclusiveMaximum: schemaProperty.exclusiveMaximum
+        };
+        return new IntegerDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, intButtons, integerOptions);
+      default: // String
         const buttons = this.getButtonDataItems(schemaProperty, pathParts);
         const stringOptions: SchemaStringOptions = {
           display: schemaProperty.display,
@@ -74,7 +95,8 @@ export class FormDataItemService {
           format: schemaProperty.format,
           listDelimiter: schemaProperty.listDelimiter,
           minLength: schemaProperty.minLength,
-          maxLength: schemaProperty.maxLength
+          maxLength: schemaProperty.maxLength,
+          pattern: schemaProperty.pattern
         };
         return new StringDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, buttons, stringOptions);
     }
@@ -110,6 +132,10 @@ export class FormDataItemService {
         return FormDataItemType.Integer;
       case SchemaTypes.Object:
         return FormDataItemType.Object;
+      case SchemaTypes.Array:
+        return FormDataItemType.Array;
+      case SchemaTypes.Template:
+        return FormDataItemType.Template;
       default:
         return Boolean(schemaProperty.isSecured) ? FormDataItemType.SecuredString : FormDataItemType.String;
     }
@@ -132,7 +158,7 @@ export class FormDataItemService {
       childPathParts.push(object.key);
       const objectValues =
         values && values[key]
-          ? values[key][object.key]
+          ? schema[XOfType.OneOf] ? values[key] : values[key][object.key]
           : {};
 
       const isHidden = isParentHidden || object.isHidden;
@@ -207,7 +233,9 @@ enum SchemaTypes {
   Boolean = 'boolean',
   Integer = 'integer',
   Object = 'object',
-  String = 'string'
+  String = 'string',
+  Array = 'array',
+  Template = 'template'
 }
 
 export interface JSONSchemaProperty {
@@ -225,6 +253,20 @@ export interface JSONSchemaProperty {
   helpText?: string;
   tooltip?: string;
   default?: any;
+  minimum?: number;
+  maximum?: number;
+  exclusiveMinimum?: number;
+  exclusiveMaximum?: number;
+  pattern?: string;
+}
+
+export interface SchemaIntegerOptions {
+  display: string;
+  placeholder: string;
+  maximum: number;
+  minimum: number;
+  exclusiveMaximum: number;
+  exclusiveMinimum: number;
 }
 
 export interface SchemaStringOptions {
@@ -234,4 +276,5 @@ export interface SchemaStringOptions {
   listDelimiter: string;
   minLength: number;
   maxLength: number;
+  pattern: string;
 }

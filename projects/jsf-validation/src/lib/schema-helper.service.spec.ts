@@ -44,6 +44,42 @@ describe('SchemaHelperService', () => {
     });
   });
 
+  it('should flatten an enum object and add required flag', () => {
+      const schema = {
+        enumInput: {
+          name: 'Enum Input',
+          display: 'dropdown',
+          enum: [
+            'option1',
+            'option2'
+          ]
+        }
+      };
+
+      const result = SchemaHelperService.getFlattenedObject(schema);
+      expect(result['required[0]']).toEqual('enumInput');
+    });
+
+  it('should flatten the keys of child enum values and add required flag', () => {
+      const schema = {
+        key: {
+          properties: {
+            enumInput: {
+              name: 'Enum Input',
+              display: 'dropdown',
+              enum: [
+                'option1',
+                'option2'
+              ]
+            }
+          }
+        }
+      };
+
+      const result = SchemaHelperService.getFlattenedObject(schema);
+      expect(result['key.required[0]']).toEqual('enumInput');
+    });
+
   describe('formatKeyPath()', () => {
     it('should remove the keyword "properties" from the key path', () => {
       const keyPath = 'key1.key2.properties.key4.key5';
@@ -61,6 +97,61 @@ describe('SchemaHelperService', () => {
       const keyPath = 'key1.key2.required.key4.key5';
       const result = SchemaHelperService.formatKeyPath(keyPath);
       expect(result).toEqual('key1.key2.key4.key5');
+    });
+  });
+
+  describe('removeUnsupportedTypes()', () => {
+    it('should remove objects that have a type of template', () => {
+      const schema = {
+        templateDisplay: {
+          name: 'Template 1',
+          type: 'template',
+          isReadOnly: true,
+          templateName: 'testTemplate1',
+          targetPaths: [
+            'templateValue',
+            'templateVisibleValue'
+          ]
+        },
+        templateValue: {
+          name: 'Hidden template value',
+          type: 'string',
+          isHidden: true
+        },
+        templateVisibleValue: {
+          name: 'Visible template value',
+          type: 'string',
+          isHidden: false
+        }
+      };
+
+      const result = SchemaHelperService.removeUnsupportedTypes(schema);
+      expect(result.templateValue).toBeDefined('Template Value should remain');
+      expect(result.templateVisibleValue).toBeDefined('Template VisibleValue should remain');
+      expect(result.templateDisplay).toBeUndefined('TemplateDisplay should have been removed');
+    });
+
+    it('should remove objects that have a type of button', () => {
+      const schema = {
+        buttonInput: {
+          name: 'button 1',
+          type: 'button',
+          isReadOnly: true,
+          targetPaths: [
+            'buttonValue'
+          ]
+        },
+        buttonValue: {
+          name: 'Hidden value',
+          type: 'string',
+          isHidden: true
+        }
+      };
+
+      const result = SchemaHelperService.removeUnsupportedTypes(schema);
+      expect(result).toBeDefined('AAH NO RESULT');
+      expect(result.buttonValue).toBeDefined('Button Value should remain');
+      expect(result.buttonInput).toBeUndefined('ButtonInput should have been removed');
     });
   });
 });

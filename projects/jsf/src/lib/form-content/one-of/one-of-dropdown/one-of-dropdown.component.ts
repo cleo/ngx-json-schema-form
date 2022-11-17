@@ -30,7 +30,8 @@ export class OneOfDropdownComponent extends ContentBaseComponent implements OnIn
     if (!this.selectedKey) {
       this.formService.setVisibilityForAllConditionalChildren(this.xOfDataItem, this.formGroup, false);
     } else {
-      this.formService.showNecessaryConditionalChildren(this.xOfDataItem, this.formGroup, [ this.selectedKey]);
+      this.selectedKey = this.selectedChildDataItem.key;
+      this.formService.showNecessaryConditionalChildren(this.xOfDataItem, this.formGroup, [ this.selectedKey ]);
     }
 
     this.formService.setVisibilityForConditionalChild(this.getDropdownDataItem(), this.getDropdownFormControl(), true);
@@ -57,6 +58,7 @@ export class OneOfDropdownComponent extends ContentBaseComponent implements OnIn
   }
 
   get selectedChildDataItem(): ParentDataItem {
-    return this.xOfDataItem.items.find(item => item.key === this.selectedKey) as ParentDataItem;
+    return this.xOfDataItem.items.find(item => item.key === this.selectedKey || ((item as any).items !== undefined &&
+      (item as any).items.find(childItem => childItem.key === this.selectedKey))) as ParentDataItem;
   }
 }

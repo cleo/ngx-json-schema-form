@@ -1,9 +1,12 @@
 <jsf-component
   [schemaData]="schemaData"
   [config]="config"
+  [templates]="{ testTemplate1: testTemplate1 }"
   (disableSubmit)="updateSubmitButtonStatus($event)"
   (formHeightChange)="emitTotalHeight($event)"
-  (buttonEvent)="buttonEvent($event)"></jsf-component>
+  (buttonEvent)="buttonEvent($event)"
+  (templateEvent)="templateEvent($event)">
+</jsf-component>
 
 <div *ngIf="showValidationMessage"
      class="validation"
@@ -17,6 +20,9 @@
           (click)="onLogForm()"
           title="This will log the form.">Log Form</button>
   <button class="btn btn-secondary"
+          (click)="onLogFormValues()"
+          title="This will log the form values from JSF without validating them.">Log Form Values</button>
+  <button class="btn btn-secondary"
           (click)="onCancel()"
           title="This will reload the form.">Cancel</button>
   <button class="btn btn-primary"
@@ -25,3 +31,6 @@
           title="This will validate the form.">Submit</button>
 </div>
 
+<ng-template #testTemplate1>
+  <app-template-test></app-template-test>
+</ng-template>

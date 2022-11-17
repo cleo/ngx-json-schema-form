@@ -9,7 +9,8 @@
         [formControlName]="formItem.key"
         [id]="formItem.path"
         [type]="getSecuredInputType()"
-        (blur)="onBlur()">
+        (blur)="onBlur()"
+        autocomplete="new-password">
       <img *ngIf="showObscureIcon()"
            [src]=" 'assets/jsf-images/obscure.svg'"
            class="obscure"

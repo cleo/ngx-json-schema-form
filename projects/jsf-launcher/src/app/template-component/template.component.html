@@ -1,0 +1,16 @@
+<h3>---------- Template Component -----------</h3>
+<label>Input without visible JSF field: </label>
+<br>
+<input type='text' [(ngModel)]='templateInput1'>
+<br>
+<label>Input with field visible in JSF. When this is updated the 'Visible template value' field will be updated in the UI: </label>
+<br>
+<input type='text' [(ngModel)]='templateInput2'>
+<br>
+<br>
+<button (click)="onClick()">Click Me</button>
+<br>
+<label>Times button clicked: </label>
+<br>
+<input type='text' [value]="timesButtonClicked" readonly>
+<h3>---------- End Template Component -----------</h3>

@@ -17,6 +17,7 @@ export class FormControlComponent extends ContentBaseComponent {
   @Input() formGroup: FormGroup;
   @Input() config: JSFConfig;
   @Input() isEdit: boolean;
+  @Input() templates: any = {};
   @Input() labelLengthClass: string;
 
   isStringInput(): boolean {
@@ -47,5 +48,13 @@ export class FormControlComponent extends ContentBaseComponent {
   isTextArea(): boolean {
     const item = this.formItem as StringDataItem;
     return item.display && item.display.startsWith('textarea');
+  }
+
+  isArray(): boolean {
+    return this.formItem.type === FormDataItemType.Array;
+  }
+
+  isTemplate(): boolean {
+    return this.formItem.type === FormDataItemType.Template;
   }
 }

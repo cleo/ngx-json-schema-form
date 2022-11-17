@@ -160,12 +160,47 @@
         "dropdowns": {
           "type": "object",
           "name": "Dropdowns",
-          "required": ["dropdown1"],
-          "description": "Dropdowns can be required or not required. If no values are passed in, the form will display \"Select an option...\" by default. If the dropdown is required, then the default option will be hidden once the user has selected a value. If the dropdown is not required, the default option will always be present.",
+          "description": "A value must be selected from a dropdown. A default enum value may be specified",
           "properties": {
             "dropdown1": {
               "display": "dropdown",
-              "name": "Dropdown",
+              "name": "Dropdown with empty string option",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "enum": [
+                "",
+                "option1",
+                "option2",
+                "option3"
+              ],
+              "enumNames": [
+                "None",
+                "Option 1",
+                "Option 2",
+                "Option 3"
+              ]
+            },
+            "dropdown2": {
+              "display": "dropdown",
+              "name": "Dropdown with null option",
+              "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "enum": [
+                null,
+                "option1",
+                "option2",
+                "option3"
+              ],
+              "enumNames": [
+                "None",
+                "Option 1",
+                "Option 2",
+                "Option 3"
+              ]
+            },
+            "dropdown3": {
+              "display": "dropdown",
+              "name": "Dropdown without empty string option",
               "helpText": "This help text will display when you hover over the information icon",
               "tooltip": "This tooltip will display when you hover over the label.",
               "enum": [
@@ -248,12 +283,12 @@
                 "option1",
                 "option2",
                 "option3"
-                ],
+              ],
               "enumNames": [
                 "Option 1",
                 "Option 2",
                 "Option 3"
-               ]
+              ]
             },
             "radioButtonsWithDefault": {
               "display": "radio-buttons",
@@ -301,7 +336,7 @@
                 "defaultOption1",
                 "defaultOption2",
                 "defaultOption3"
-                ],
+              ],
               "enumNames": [
                 "Option 1",
                 "Option 2",
@@ -326,12 +361,15 @@
               "type": "object",
               "name": "Option 1",
               "key": "option1",
+              "required": [
+                "opt1Child1"
+              ],
               "properties": {
-                "child1": {
+                "opt1Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 1"
                 },
-                "child2": {
+                "opt1Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 1"
                 }
@@ -342,14 +380,14 @@
               "name": "Option 2",
               "key": "option2",
               "required": [
-                "child2"
+                "opt2Child2"
               ],
               "properties": {
-                "child1": {
+                "opt2Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 2"
                 },
-                "child2": {
+                "opt2Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 2"
                 }
@@ -366,12 +404,15 @@
               "type": "object",
               "name": "Option 1",
               "key": "option1",
+              "required": [
+                "opt1Child2"
+              ],
               "properties": {
-                "child1": {
+                "opt1Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 1"
                 },
-                "child2": {
+                "opt1Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 1"
                 }
@@ -382,14 +423,14 @@
               "name": "Option 2",
               "key": "option2",
               "required": [
-                "child2"
+                "opt2Child2"
               ],
               "properties": {
-                "child1": {
+                "opt2Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 2"
                 },
-                "child2": {
+                "opt2Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 2"
                 }
@@ -407,12 +448,15 @@
               "type": "object",
               "name": "Option 1",
               "key": "option1",
+              "required": [
+                "opt1Child2"
+              ],
               "properties": {
-                "child1": {
+                "opt1Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 1"
                 },
-                "child2": {
+                "opt1Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 1"
                 }
@@ -423,14 +467,14 @@
               "name": "Option 2",
               "key": "option2",
               "required": [
-                "child2"
+                "opt2Child2"
               ],
               "properties": {
-                "child1": {
+                "opt2Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 2"
                 },
-                "child2": {
+                "opt2Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 2",
                   "default": "default value"
@@ -449,12 +493,15 @@
               "type": "object",
               "name": "Option 1",
               "key": "option1",
+              "required": [
+                "opt1Child2"
+              ],
               "properties": {
-                "child1": {
+                "opt1Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 1"
                 },
-                "child2": {
+                "opt1Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 1"
                 }
@@ -465,14 +512,14 @@
               "name": "Option 2",
               "key": "option2",
               "required": [
-                "child2"
+                "opt2Child2"
               ],
               "properties": {
-                "child1": {
+                "opt2Child1": {
                   "type": "string",
                   "name": "Child 1 of Option 2"
                 },
-                "child2": {
+                "opt2Child2": {
                   "type": "string",
                   "name": "Child 2 of Option 2",
                   "default": "default value"
@@ -521,7 +568,7 @@
               "dropdownsWithChildren.dropdownWithChildren1.option1",
               "dropdownsWithChildren.dropdownWithChildren1WithDefault",
               "dropdownsWithChildren.dropdownWithChildren1WithDefault.option1",
-              "dropdownsWithChildren.dropdownWithChildren1WithDefault.option1.child1",
+              "dropdownsWithChildren.dropdownWithChildren1WithDefault.option1.opt1Child1",
               "dropdownsWithChildren.dropdownWithChildren1WithDefault.option2",
               "securedTextInput",
               "securedTextInput.securedTextInput",
@@ -559,6 +606,12 @@
           "name": "Text Input With Email List Format",
           "format": "email",
           "listDelimiter": ":"
+        },
+        "patternTextInput": {
+          "placeholder": "(###)###-####",
+          "type": "string",
+          "name": "Text Input With Phone Number Regex",
+          "pattern": "^(\\([0-9]{3}\\))?[0-9]{3}-[0-9]{4}$"
         },
         "textAreaInput": {
           "type": "string",
@@ -646,6 +699,14 @@
           "type": "integer",
           "name": "Hidden Integer Input",
           "isHidden": true
+        },
+        "integerRange": {
+          "type": "integer",
+          "name": "Ranged Integer Input (5-99)",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "minimum": 5,
+          "exclusiveMaximum": 100
         }
       }
     },
@@ -722,6 +783,9 @@
                   "type": "object",
                   "name": "Option 1",
                   "key": "dd1",
+                  "required": [
+                    "child1"
+                  ],
                   "properties": {
                     "child1": {
                       "type": "string",
@@ -762,12 +826,15 @@
                   "type": "object",
                   "name": "Option 1",
                   "key": "op1",
+                  "required": [
+                    "child1"
+                  ],
                   "properties": {
-                    "ch1": {
+                    "child1": {
                       "type": "string",
                       "name": "Child 1 of Option 1"
                     },
-                    "ch2": {
+                    "child2": {
                       "type": "string",
                       "name": "Child 2 of Option 1"
                     }
@@ -829,6 +896,112 @@
           }
         }
       ]
+    },
+    "arrays": {
+      "type": "object",
+      "name": "Array Inputs",
+      "required": ["reqArrayInput"],
+      "description": "This section displays array functionality of the JSF. A modal with a value editor will be displayed. Array functionality is limited - see Wiki for details.",
+      "properties": {
+        "reqArrayInput": {
+          "type": "array",
+          "name": "Required Array Input",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "items": {
+            "required": ["make","price"],
+            "properties": {
+              "make": {
+                "type": "string",
+                "name": "Make"
+              },
+              "model": {
+                "type": "string",
+                "name": "Model"
+              },
+              "transmission": {
+                "name": "Transmission",
+                "helpText": "This help text will display when you hover over the information icon",
+                "tooltip": "This tooltip will display when you hover over the label.",
+                "enum": [
+                  "manual",
+                  "automatic"
+                ],
+                "enumNames": [
+                  "Manual",
+                  "Automatic"
+                ]
+              },
+              "available": {
+                "type": "boolean",
+                "name": "Available",
+                "helpText": "This help text will display when you hover over the information icon",
+                "tooltip": "This tooltip will display when you hover over the label."
+              },
+              "price": {
+                "type": "integer",
+                "name": "Price",
+                "helpText": "This help text will display when you hover over the information icon",
+                "tooltip": "This tooltip will display when you hover over the label.",
+                "minimum": 5000,
+                "maximum": 40000
+              }
+            }
+          }
+        },
+        "arrayInput": {
+          "type": "array",
+          "name": "Array Input",
+          "helpText": "This help text will display when you hover over the information icon",
+          "tooltip": "This tooltip will display when you hover over the label.",
+          "items": {
+            "required": ["make","model"],
+            "properties": {
+              "make": {
+                "type": "string",
+                "name": "Make"
+              },
+              "model": {
+                "type": "string",
+                "name": "Model"
+              }
+            }
+          }
+        }
+      }
+    },
+    "template": {
+      "type": "object",
+      "name": "Template",
+      "description": "This section displays template functionality.",
+      "properties": {
+        "templateVisibleValue": {
+          "name": "JSF Visible template value",
+          "type": "string",
+          "isHidden": false
+        },
+        "templateDisplay": {
+          "name": "Template 1",
+          "type": "template",
+          "isReadOnly": true,
+          "templateName": "testTemplate1",
+          "targetPaths": [
+            "template.templateValue",
+            "template.templateVisibleValue",
+            "template.timesButtonClicked"
+          ]
+        },
+        "templateValue": {
+          "name": "Hidden template value",
+          "type": "string",
+          "isHidden": true
+        },
+        "timesButtonClicked": {
+          "name": "Number of times the button was clicked",
+          "type": "integer",
+          "isHidden": true
+        }
+      }
     }
   }
 }
