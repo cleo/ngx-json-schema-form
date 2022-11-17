@@ -237,6 +237,37 @@ describe('ValidatorService', () => {
             control.setValue('https://test.Okta.com/api');
             expect(validatorFn(control)).toBeNull();
           });
+
+          it('front end correctly validates uris against the uri validator', () => {
+            const urls: [string, boolean][] = [
+              ['test.com', true],
+              ['https://test.com', true],
+              ['https://test.com:4200', true],
+              ['ftp://test.com', true],
+              ['test.com?query=testquery', true],
+              ['test-hyphen.com', true],
+              ['http://test.com', true],
+              ['http://test.co', true],
+              ['test.com/🤔', false],
+              ['test.com/text\u0002.com', false],
+              ['http://test.com/text\u0002.com', false],
+              ['http://test.com/textu0002.com', true],
+              ['http://test.c', false],
+              ['test', false],
+              ['http://test .com', false],
+              ['https//test.com', false],
+              ['http://i-comms.truecommerce.net:42000AS2/F30510A3CH', false],
+              ['http://i-comms.truecommerce.net:42000/AS2/F30510A3CH', true],
+              ['http://i-comms.truecommerce.net:42000/AS2/F30510A3CH1234567890123456789012345678901234567890', true]
+            ];
+
+            for (const testSet of urls) {
+              const url = testSet[0];
+              const expectedValidity = testSet[1];
+              control.setValue(url);
+              expect(validatorFn(control) === null).toBe(expectedValidity, `url: ${url} expectedValidity: ${expectedValidity}`);
+            }
+          });
         });
 
         describe('for a uri list', () => {
