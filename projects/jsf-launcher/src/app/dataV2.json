@@ -105,5 +105,10 @@
         "transmission": "automatic"
       }
     ]
+  },
+  "template": {
+    "templateVisibleValue": "Value 1",
+    "templateValue": "Hidden Value",
+    "timesButtonClicked": 77
   }
 }

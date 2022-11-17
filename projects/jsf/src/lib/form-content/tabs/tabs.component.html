@@ -7,8 +7,10 @@
       [formGroup]="getFormGroup(item)"
       [formItems]="item.items"
       [config]="config"
+      [templates]="templates"
       [labelLengthClass]="getLabelLengthClass(item)"
       (buttonEvent)="onButtonEvent($event)"
+      (templateEvent)="onTemplateEvent($event)"
       [isEdit]="isEdit">
     </jsf-form-content>
   </jsf-tab>

@@ -969,6 +969,39 @@
           }
         }
       }
+    },
+    "template": {
+      "type": "object",
+      "name": "Template",
+      "description": "This section displays template functionality.",
+      "properties": {
+        "templateVisibleValue": {
+          "name": "JSF Visible template value",
+          "type": "string",
+          "isHidden": false
+        },
+        "templateDisplay": {
+          "name": "Template 1",
+          "type": "template",
+          "isReadOnly": true,
+          "templateName": "testTemplate1",
+          "targetPaths": [
+            "template.templateValue",
+            "template.templateVisibleValue",
+            "template.timesButtonClicked"
+          ]
+        },
+        "templateValue": {
+          "name": "Hidden template value",
+          "type": "string",
+          "isHidden": true
+        },
+        "timesButtonClicked": {
+          "name": "Number of times the button was clicked",
+          "type": "integer",
+          "isHidden": true
+        }
+      }
     }
   }
 }

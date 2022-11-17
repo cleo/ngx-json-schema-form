@@ -10,7 +10,9 @@
       [formItems]="selectedChildDataItem.items"
       [formGroup]="selectedChildFormGroup"
       [config]="config"
+      [templates]="templates"
       [isEdit]="isEdit"
       [labelLengthClass]="labelLengthClass"
-      (buttonEvent)="onButtonEvent($event)"></jsf-form-content>
+      (buttonEvent)="onButtonEvent($event)"
+      (templateEvent)="onTemplateEvent($event)"></jsf-form-content>
   </div>

@@ -5,6 +5,9 @@ export class SchemaHelperService {
   public static readonly REQUIRED_KEY = 'required';
   public static readonly ENUM_KEY = 'enum';
   public static readonly READONLY_KEY = 'isReadOnly';
+  public static readonly TYPE_KEY = '.type';
+  public static readonly TEMPLATE_KEY = 'template';
+  public static readonly BUTTON_KEY = 'button';
 
   /**
    * Takes in a path to a value in a JSON Schema object and re-formats it.
@@ -19,6 +22,73 @@ export class SchemaHelperService {
         && !value.includes(SchemaHelperService.SECURED_KEY)
         && !value.includes(SchemaHelperService.REQUIRED_KEY))
       .join('.');
+  }
+
+  public static removeUnsupportedTypes(obj): any {
+    const flat = this.getFlattenedObject(obj);
+    const templateItems: string[] = [];
+
+    for (const key in flat) {
+      if (key.endsWith(this.TYPE_KEY) && (flat[key] === this.TEMPLATE_KEY || flat[key] === this.BUTTON_KEY)) {
+        templateItems.push(key.split('.').slice(0, -1).join('.'));
+      }
+    }
+
+    for (const key in flat) {
+      if (templateItems.some(el => key.includes(el))) {
+        delete flat[key];
+      }
+    }
+
+    return this.getUnflattenedObject(flat);
+  }
+
+  public static getUnflattenedObject(table): any {
+    let cursor;
+    let length;
+    let property;
+    let index;
+    let char;
+    let start;
+    let end;
+    let bracket;
+    let dot;
+    const result = {};
+    for (const path in table) {
+        cursor = result;
+        length = path.length;
+        property = '';
+        index = 0;
+        while (index < length) {
+            char = path.charAt(index);
+            if (char === '[') {
+                start = index + 1,
+                end = path.indexOf(']', start),
+                cursor = cursor[property] = cursor[property] || [],
+                property = path.slice(start, end),
+                index = end + 1;
+            } else {
+                cursor = cursor[property] = cursor[property] || {},
+                start = char === '.' ? index + 1 : index,
+                bracket = path.indexOf('[', start),
+                dot = path.indexOf('.', start);
+
+                if (bracket < 0 && dot < 0) {
+                  end = index = length;
+                } else if (bracket < 0) {
+                  end = index = dot;
+                } else if (dot < 0) {
+                  end = index = bracket;
+                } else {
+                  end = index = bracket < dot ? bracket : dot;
+                }
+
+                property = path.slice(start, end);
+            }
+        }
+        cursor[property] = table[path];
+    }
+    return result[''];
   }
 
   public static getFlattenedObject(object): any {

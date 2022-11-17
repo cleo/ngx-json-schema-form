@@ -1,4 +1,5 @@
-import { SchemaValidationService } from './schema-validation.service';
+import { AdditionalPropertiesParams } from 'ajv';
+import { JSFErrorObject, SchemaValidationService } from './schema-validation.service';
 
 describe('SchemaValidationService', () => {
   let basicSchema: any;
@@ -6,7 +7,7 @@ describe('SchemaValidationService', () => {
   beforeEach(() => {
     basicSchema = {
       type: 'object',
-      required: ['checkboxInput', 'numberInput', 'arrayInput'],
+      required: ['checkboxInput', 'numberInput', 'arrayInput', 'defaultedRequiredValue'],
       properties: {
         checkboxInput: {
           type: 'boolean',
@@ -24,6 +25,11 @@ describe('SchemaValidationService', () => {
           minLength: 5,
           maxLength: 10
         },
+        defaultedRequiredValue: {
+          type: 'string',
+          name: 'Default Text Input',
+          default: 'should not cause error when value is omitted'
+        },
         arrayInput: {
           type: 'array',
           name: 'Array field',
@@ -38,16 +44,131 @@ describe('SchemaValidationService', () => {
               requiredItem: {
                 type: 'string',
                 name: 'Required Item'
+              },
+              requiredItemWithDefault: {
+                type: 'string',
+                name: 'Default Required Item',
+                default: 'should not cause error when value is omitted'
               }
             },
-            required: ['requiredItem']
+            required: ['requiredItem', 'requiredItemWithDefault']
           }
+        },
+        templateInput: {
+          type: 'object',
+          name: 'Template Test',
+          properties: {
+            templateDisplay: {
+              name: 'Template 1',
+              type: 'template',
+              isReadOnly: true,
+              templateName: 'testTemplate1',
+              targetPaths: [
+                'templateInput.templateValue',
+                'templateInput.templateVisibleValue'
+              ]
+            },
+            templateValue: {
+              name: 'Hidden template value',
+              type: 'string',
+              isHidden: true
+            },
+            templateVisibleValue: {
+              name: 'Visible template value',
+              type: 'string',
+              isHidden: false
+            }
+          },
+          additionalProperties: false
+        },
+        buttonInput: {
+          name: 'button 1',
+          type: 'button',
+          isReadOnly: true,
+          targetPaths: [
+            'buttonValue'
+          ]
+        },
+        buttonValue: {
+          name: 'Hidden value',
+          type: 'string',
+          isHidden: true
         }
       }
     };
   });
 
   describe('validate()', () => {
+    it('back end validation should validate uri format, and at different depths', () => {
+      let err: JSFErrorObject[] = [];
+
+      let uriSchema: any = {
+        type: 'object',
+        properties: {
+          inbound: {
+            name: 'inbound',
+            type: 'object',
+            properties: {
+              url: {
+                type: 'string',
+                name: 'my uri string',
+                format: 'uri'
+              }
+            }
+          }
+        }
+      };
+      err = SchemaValidationService.validate(uriSchema, {inbound: {url: 'https://t'}});
+      expect(err[0].errorObject.schemaPath).toBe('properties.inbound.properties.url.format');
+      err = SchemaValidationService.validate(uriSchema, {inbound: {url: 'https://test.com'}});
+      expect(err).toBe(null);
+
+      uriSchema = {
+        type: 'object',
+        properties: {
+          url: {
+            type: 'string',
+            name: 'my uri string',
+            format: 'uri'
+          }
+        }
+      };
+      err = SchemaValidationService.validate(uriSchema, {url: 'https://t'});
+      expect(err[0].errorObject.schemaPath).toBe('properties.url.format');
+      err = SchemaValidationService.validate(uriSchema, {url: 'https://test.com'});
+      expect(err).toBe(null);
+
+      const urls: [string, boolean][] = [
+        ['test.com', false],
+        ['https://test.com', true],
+        ['https://test.com:4200', true],
+        ['ftp://test.com', true],
+        ['http://test.com?query=testquery', true],
+        ['http://test-hyphen.com', true],
+        ['http://test.com', true],
+        ['http://test.co', true],
+        ['test.com/🤔', false],
+        ['http://test.com/🤔', false],
+        ['http://test.com/', true],
+        ['test.com/text\u0002.com', false],
+        ['http://test.com/text\u0002.com', false],
+        ['http://test.com/textu0002.com', true],
+        ['http://test.c', false],
+        ['test', false],
+        ['http://test .com', false],
+        ['https//test.com', false],
+        ['http://i-comms.truecommerce.net:42000AS2/F30510A3CH', false],
+        ['http://i-comms.truecommerce.net:42000/AS2/F30510A3CH', true]
+      ];
+
+      for (const testSet of urls) {
+        const url = testSet[0];
+        const expectedValidity = testSet[1];
+        const validationError = SchemaValidationService.validate(uriSchema, {url: url});
+        expect(validationError == null).toBe(expectedValidity, `url: ${url} expectedValidity: ${expectedValidity}`);
+      }
+    });
+
     it('should return an array of errors when missing required properties', () => {
       const result = SchemaValidationService.validate(basicSchema, {textInput: 'abcde'});
       expect(result[0].errorObject.message).toContain('checkboxInput');
@@ -96,6 +217,20 @@ describe('SchemaValidationService', () => {
       );
       expect(result[0].errorObject.message).toContain('should NOT be shorter than 5 characters');
     });
+
+    it('should throw an error when template type values are set', () => {
+      const result = SchemaValidationService.validate(basicSchema,
+        {
+          textInput: 'abcde',
+          checkboxInput: true,
+          arrayInput: [{textItem: 'abcde', requiredItem: 'abcde'}],
+          numberInput: 1,
+          templateInput: {templateDisplay: '1', templateVisibleValue: '2', templateValue: '3'}
+        }
+      );
+      expect((result[0].errorObject.params as AdditionalPropertiesParams).additionalProperty).toContain('templateDisplay');
+    });
+
   });
 
   describe('prettyPrintErrors()', () => {
