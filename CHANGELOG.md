@@ -1,6 +1,22 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [4.2.0] (2022-11-18)
+### Enhancement
+- Upgraded to Node 16
+
+## [4.1.6] (2022-10-31)
+### Bug fixes
+- Fixed URI validation regex timing out with long URIs.
+
+## [4.1.5] (2022-09-02)
+### Bug fixes
+- Changed URI validation to be compliant with RFC-3986 
+
+## [4.1.4] (2022-08-03)
+### Bug fixes
+- Modified URI text format to only allow valid URI characters, and for additional URI validation to run during the JSF BE validation.
+
 ## [4.1.3] (2022-04-20)
 ### Bug fixes
 - Fixed jsf readme not pointing to correct schemaV2.json file.
