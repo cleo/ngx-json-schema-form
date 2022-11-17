@@ -77,4 +77,4 @@ export class ExampleComponent {
   </jsf-component>
 ```
 
-_Note: be sure to only pass in a valid JSON schema object. If you don't already have your own schemas, you can use a preconfigured schema `projects/jsf-launcher/src/app/schema.json` to test with._
+_Note: be sure to only pass in a valid JSON schema object. If you don't already have your own schemas, you can use a preconfigured schema `projects/jsf-launcher/src/app/schemaV2.json` to test with._
