@@ -126,9 +126,9 @@ describe('SchemaHelperService', () => {
       };
 
       const result = SchemaHelperService.removeUnsupportedTypes(schema);
-      expect(result['templateValue']).toBeDefined('Template Value should remain');
-      expect(result['templateVisibleValue']).toBeDefined('Template VisibleValue should remain');
-      expect(result['templateDisplay']).toBeUndefined('TemplateDisplay should have been removed');
+      expect(result.templateValue).toBeDefined('Template Value should remain');
+      expect(result.templateVisibleValue).toBeDefined('Template VisibleValue should remain');
+      expect(result.templateDisplay).toBeUndefined('TemplateDisplay should have been removed');
     });
 
     it('should remove objects that have a type of button', () => {
@@ -150,8 +150,8 @@ describe('SchemaHelperService', () => {
 
       const result = SchemaHelperService.removeUnsupportedTypes(schema);
       expect(result).toBeDefined('AAH NO RESULT');
-      expect(result['buttonValue']).toBeDefined('Button Value should remain');
-      expect(result['buttonInput']).toBeUndefined('ButtonInput should have been removed');
+      expect(result.buttonValue).toBeDefined('Button Value should remain');
+      expect(result.buttonInput).toBeUndefined('ButtonInput should have been removed');
     });
   });
 });
