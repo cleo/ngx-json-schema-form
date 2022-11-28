@@ -4,7 +4,7 @@ import { merge, Observable, of, timer } from 'rxjs';
 import { delay, map, switchAll, takeUntil, tap } from 'rxjs/operators';
 import { ComponentLifeCycle } from '../../../../component-life-cycle';
 
-import { ModalService, MODAL_OPTIONS_TOKEN } from './modal.service';
+import { MODAL_OPTIONS_TOKEN, ModalService } from './modal.service';
 
 @Component({
   selector: 'jsf-modal-outlet',

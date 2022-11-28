@@ -4,7 +4,7 @@ import { ReplaySubject } from 'rxjs';
 import { ArrayDataItem } from '../../../../models/array-data-item';
 import { FormDataItem, FormDataItemType } from '../../../../models/form-data-item';
 import { AlertService } from '../alert/alert.service';
-import { ModalService, MODAL_OPTIONS_TOKEN } from '../modal/modal.service';
+import { MODAL_OPTIONS_TOKEN, ModalService } from '../modal/modal.service';
 
 import { FormControlBase } from '../../form-control-base';
 import { CellRendererComponent } from './renderers/cell-renderer.component';
