@@ -12,8 +12,8 @@ describe('SchemaHelperService', () => {
       };
 
       const result = SchemaHelperService.getFlattenedObject(schema);
-      expect(result[`key1`]).toEqual(value1);
-      expect(result[`key2`]).toEqual(value2);
+      expect(result.key1).toEqual(value1);
+      expect(result.key2).toEqual(value2);
     });
 
     it('should be flatten the keys of child values into one path', () => {

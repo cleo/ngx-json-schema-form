@@ -130,18 +130,6 @@
             ],
             "scripts": []
           }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/jsf-launcher/e2e/protractor.conf.js",
-            "devServerTarget": "jsf-launcher:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "jsf-launcher:serve:production"
-            }
-          }
         }
       }
     },
