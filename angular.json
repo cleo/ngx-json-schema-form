@@ -28,18 +28,6 @@
             "tsConfig": "projects/jsf/tsconfig.spec.json",
             "karmaConfig": "projects/jsf/karma.conf.js"
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/jsf/tsconfig.lib.json",
-              "projects/jsf/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
         }
       }
     },
@@ -143,19 +131,6 @@
             "scripts": []
           }
         },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/jsf-launcher/tsconfig.app.json",
-              "projects/jsf-launcher/tsconfig.spec.json",
-              "projects/jsf-launcher/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
         "e2e": {
           "builder": "@angular-devkit/build-angular:protractor",
           "options": {
@@ -193,18 +168,6 @@
             "main": "projects/jsf-validation/src/test.ts",
             "tsConfig": "projects/jsf-validation/tsconfig.spec.json",
             "karmaConfig": "projects/jsf-validation/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/jsf-validation/tsconfig.lib.json",
-              "projects/jsf-validation/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
