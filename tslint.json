@@ -18,6 +18,9 @@
     "curly": true,
     "eofline": false,
     "forin": false,
+    "deprecation": {
+      "severity": "warning"
+    },
     "import-blacklist": [
       true
     ],
@@ -114,8 +117,6 @@
     "no-trailing-whitespace": true,
     "no-unnecessary-initializer": true,
     "no-unused-expression": true,
-    "no-unused-variable": false,
-    "no-use-before-declare": false,
     "no-var-keyword": true,
     "no-var-requires": true,
     "number-literal-format": true,
