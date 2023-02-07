@@ -175,19 +175,12 @@ ag-grid-angular {
       display: inline-flex;
       justify-content: left;
       align-items: center;
+      height: 100%;
       margin: 0 5px 0 5px;
+    }
 
-      &-focus {
-        border: 1px solid transparent;
-      }
-
-      &-no-focus {
-        border: 1px solid transparent;
-      }
-
-      .jsf-required-cell-asterisk {
-        display: none;
-      }
+    .ag-cell-inline-editing .jsf-required-cell-asterisk {
+      display: none !important;
     }
 
     .ag-cell-inline-editing input[type=text] {
