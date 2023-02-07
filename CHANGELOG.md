@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
-## [4.2.0] (2023-02-07)
+## [5.0.0] (2023-02-07)
 ### Enhancement
 - Update to Angular 13, TypeScript 4.6.4, Node 16.18.0
 
