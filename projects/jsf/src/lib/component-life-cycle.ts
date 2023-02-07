@@ -1,8 +1,9 @@
-import { AfterContentInit, AfterViewInit, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges } from '@angular/core';
+import { AfterContentInit, AfterViewInit, OnChanges, OnDestroy, OnInit, SimpleChange, SimpleChanges, Directive } from '@angular/core';
 
 import { Observable ,  Subject } from 'rxjs';
 import { distinctUntilChanged, filter, map, startWith } from 'rxjs/operators';
 
+@Directive()
 export class ComponentLifeCycle implements OnInit, AfterContentInit, AfterViewInit, OnChanges, OnDestroy {
   ngInit$: Subject<any> = new Subject<any>();
   ngAfterViewInit$ = new Subject<void>();

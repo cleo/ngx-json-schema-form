@@ -31,12 +31,12 @@ export class CellRendererComponent extends ContentBaseComponent {
 
   public getValue() {
     // Only text cells are editable due to issue with single click edit for checkboxes and dropdowns
-    return this.jsfTextCell.params.value;
+    return this.jsfTextCell?.params?.value;
   }
 
   showAddButton(): boolean {
     return this.params.node.rowPinned &&
-      this.params.api.columnController.getAllDisplayedColumns().indexOf(this.params.column) === this.params.api.columnController.getAllDisplayedColumns().length - 1;
+      this.params.columnApi.getAllDisplayedColumns().indexOf(this.params.column) === this.params.columnApi.getAllDisplayedColumns().length - 1;
   }
 
   onAdd(): void {

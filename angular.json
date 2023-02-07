@@ -10,7 +10,7 @@
       "prefix": "jsf",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/jsf/tsconfig.lib.json",
             "project": "projects/jsf/ng-package.json"
@@ -27,18 +27,6 @@
             "main": "projects/jsf/src/test.ts",
             "tsConfig": "projects/jsf/tsconfig.spec.json",
             "karmaConfig": "projects/jsf/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/jsf/tsconfig.lib.json",
-              "projects/jsf/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }
@@ -62,7 +50,6 @@
             "main": "projects/jsf-launcher/src/main.ts",
             "polyfills": "projects/jsf-launcher/src/polyfills.ts",
             "tsConfig": "projects/jsf-launcher/tsconfig.app.json",
-            "aot": true,
             "assets": [
               "projects/jsf-launcher/src/favicon.ico",
               "projects/jsf-launcher/src/assets"
@@ -71,7 +58,13 @@
               "projects/jsf-launcher/src/styles.scss",
               "node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss"
             ],
-            "scripts": []
+            "scripts": [],
+            "vendorChunk": true,
+            "extractLicenses": false,
+            "buildOptimizer": false,
+            "sourceMap": true,
+            "optimization": false,
+            "namedChunks": true
           },
           "configurations": {
             "production": {
@@ -84,7 +77,6 @@
               "optimization": true,
               "outputHashing": "all",
               "sourceMap": false,
-              "extractCss": true,
               "namedChunks": false,
               "extractLicenses": true,
               "vendorChunk": false,
@@ -102,7 +94,8 @@
                 }
               ]
             }
-          }
+          },
+          "defaultConfiguration": ""
         },
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
@@ -137,31 +130,6 @@
             ],
             "scripts": []
           }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/jsf-launcher/tsconfig.app.json",
-              "projects/jsf-launcher/tsconfig.spec.json",
-              "projects/jsf-launcher/e2e/tsconfig.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
-          }
-        },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "projects/jsf-launcher/e2e/protractor.conf.js",
-            "devServerTarget": "jsf-launcher:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "jsf-launcher:serve:production"
-            }
-          }
         }
       }
     },
@@ -171,7 +139,7 @@
       "sourceRoot": "projects/jsf-validation/src",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
           "options": {
             "tsConfig": "projects/jsf-validation/tsconfig.lib.json",
             "project": "projects/jsf-validation/ng-package.json"
@@ -188,18 +156,6 @@
             "main": "projects/jsf-validation/src/test.ts",
             "tsConfig": "projects/jsf-validation/tsconfig.spec.json",
             "karmaConfig": "projects/jsf-validation/karma.conf.js"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/jsf-validation/tsconfig.lib.json",
-              "projects/jsf-validation/tsconfig.spec.json"
-            ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
           }
         }
       }

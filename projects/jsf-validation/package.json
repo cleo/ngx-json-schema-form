@@ -1,7 +1,10 @@
 {
   "name": "@cleo/ngx-json-schema-form-validation",
-  "version": "4.1.6",
+  "version": "5.0.0",
   "peerDependencies": {},
+  "dependencies": {
+    "tslib": "^2.0.0"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/cleo/ngx-json-schema-form"

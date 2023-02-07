@@ -12,7 +12,7 @@ _See our wiki on how to configure JSON 7 Schema into a visual form._
 
 ### Local Development
 
-1. Install [Node.js](https://nodejs.org/en/download/)
+1. Install [Node.js](https://nodejs.org/download/release/v16.18.0/)
 
 2. Install project dependencies
 ```

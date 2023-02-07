@@ -1,4 +1,4 @@
-import { AllCommunityModules, ColDef } from '@ag-grid-community/all-modules';
+import { ColDef } from 'ag-grid-community';
 import { ChangeDetectionStrategy, Component, HostListener, Inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { ArrayDataItem } from '../../../../models/array-data-item';
@@ -24,7 +24,6 @@ export class TableModalComponent extends FormControlBase {
   public modalTitle: string;
   public showDelete: boolean;
 
-  public modules = AllCommunityModules;
   public rowData$ = new ReplaySubject<any[] | null>(1);
   public pinnedTopRowData$ = new ReplaySubject<any[] | null>(1);
 
@@ -150,7 +149,8 @@ export class TableModalComponent extends FormControlBase {
             onAdd: this.onAdd.bind(this)
           },
           cellRendererParams: {
-            item: item
+            item: item,
+            onAdd: this.onAdd.bind(this)
           },
           cellEditorParams: {
             item: item,
@@ -170,7 +170,8 @@ export class TableModalComponent extends FormControlBase {
             onAdd: this.onAdd.bind(this)
           },
           cellRendererParams: {
-            item: item
+            item: item,
+            onAdd: this.onAdd.bind(this)
           },
           cellEditorParams: {
             item: item,
