@@ -149,7 +149,8 @@ export class TableModalComponent extends FormControlBase {
             onAdd: this.onAdd.bind(this)
           },
           cellRendererParams: {
-            item: item
+            item: item,
+            onAdd: this.onAdd.bind(this)
           },
           cellEditorParams: {
             item: item,
@@ -169,7 +170,8 @@ export class TableModalComponent extends FormControlBase {
             onAdd: this.onAdd.bind(this)
           },
           cellRendererParams: {
-            item: item
+            item: item,
+            onAdd: this.onAdd.bind(this)
           },
           cellEditorParams: {
             item: item,
