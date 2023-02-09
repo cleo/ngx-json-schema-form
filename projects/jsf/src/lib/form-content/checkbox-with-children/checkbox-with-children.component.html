@@ -6,14 +6,5 @@
 </jsf-check-box>
 
 <div class="item-group">
-  <jsf-form-content
-    [formItems]="visibleChildFormItems"
-    [formGroup]="formGroup"
-    [isEdit]="isEdit"
-    [config]="config"
-    [templates]="templates"
-    [labelLengthClass]="labelLengthClass"
-    (buttonEvent)="onButtonEvent($event)"
-    (templateEvent)="onTemplateEvent($event)">
-  </jsf-form-content>
+  <ng-content></ng-content>
 </div>
