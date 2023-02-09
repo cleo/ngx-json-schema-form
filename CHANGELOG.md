@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file. The changes
 ## [5.0.0] (2023-02-07)
 ### Enhancement
 - Update to Angular 13, TypeScript 4.6.4, Node 16.18.0
-- 
+
 ### Breaking Changes
 - Removed jsf-tabstrip element. Any CSS for this element should instead use class .jsf-tabstrip
 - Removed jsf-one-of-drop-down element. Any CSS for this element should instead use class .jsf-one-of-drop-down. 
