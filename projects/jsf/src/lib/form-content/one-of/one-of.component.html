@@ -1,4 +1,4 @@
-<ng-container
+<div class="jsf-one-of-drop-down"
   *ngIf="xOfDataItem.display === display.DROPDOWN">
   <jsf-drop-down
     [formItem]="getDropdownDataItem()"
@@ -10,4 +10,4 @@
   <div class="selected-schema-content" *ngIf="selectedKey">
     <ng-content></ng-content>
   </div>
-</ng-container>
+</div>
