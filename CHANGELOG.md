@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file. The changes
 ### Enhancement
 - Update to Angular 13, TypeScript 4.6.4, Node 16.18.0
 
+### Breaking Changes
+- Removed jsf-tabstrip element. Any CSS for this element should instead use class .jsf-tabstrip
+- Removed jsf-one-of-drop-down element. Any CSS for this element should instead use class .jsf-one-of-drop-down. 
+
 ## [4.1.6] (2022-10-31)
 ### Bug fixes
 - Fixed URI validation regex timing out with long URIs.

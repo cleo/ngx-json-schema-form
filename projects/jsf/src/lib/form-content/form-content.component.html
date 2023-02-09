@@ -16,7 +16,7 @@
     (templateEvent)="onTemplateEvent($event)">
   </jsf-form-control>
 
-  <jsf-checkbox-with-children
+  <jsf-checkbox-with-children #checkboxWithChildrenComponent
     *ngIf="isConditionalObject(item) && !isHidden(item)"
     [formItem]="getConditionalParentFormItem(item)"
     [formGroup]="getFormGroup(item)"
@@ -25,9 +25,19 @@
     [templates]="templates"
     (buttonEvent)="onButtonEvent($event)"
     (templateEvent)="onTemplateEvent($event)">
+    <jsf-form-content
+      [formItems]="checkboxWithChildrenComponent.visibleChildFormItems"
+      [formGroup]="checkboxWithChildrenComponent.formGroup"
+      [isEdit]="isEdit"
+      [config]="checkboxWithChildrenComponent.config"
+      [templates]="templates"
+      [labelLengthClass]="checkboxWithChildrenComponent.labelLengthClass"
+      (buttonEvent)="onButtonEvent($event)"
+      (templateEvent)="onTemplateEvent($event)">
+    </jsf-form-content>
   </jsf-checkbox-with-children>
 
-  <jsf-section
+  <jsf-section #sectionComponent
     *ngIf="isSection(item) && !isHidden(item)"
     [formItem]="getParentFormItem(item)"
     [formGroup]="getFormGroup(item)"
@@ -36,6 +46,16 @@
     [templates]="templates"
     (buttonEvent)="onButtonEvent($event)"
     (templateEvent)="onTemplateEvent($event)">
+    <jsf-form-content
+      [formItems]="sectionComponent.formItem.items"
+      [formGroup]="sectionComponent.formGroup"
+      [isEdit]="isEdit"
+      [config]="sectionComponent.config"
+      [templates]="templates"
+      [labelLengthClass]="sectionComponent.sectionLabelLengthClass"
+      (buttonEvent)="onButtonEvent($event)"
+      (templateEvent)="onTemplateEvent($event)">
+    </jsf-form-content>
   </jsf-section>
 
 <!--
@@ -45,10 +65,10 @@
   Therefore, the returned data for a hidden oneOf includes ALL options, rather than one. This fails 1.0.0 backend validation.
   TODO: address this, if necessary, in S-19293 https://www4.v1host.com/CleoCommunications/story.mvc/Summary?oidToken=Story%3A225149
 -->
-  <jsf-one-of
+  <jsf-one-of #oneOfComponent
     *ngIf="isOneOf(item)"
     [class.hidden]="isHidden(item)"
-    [item]="item"
+    [xOfDataItem]="item"
     [formGroup]="getFormGroup(item)"
     [isEdit]="isEdit"
     [config]="config"
@@ -56,10 +76,19 @@
     [labelLengthClass]="labelLengthClass"
     (buttonEvent)="onButtonEvent($event)"
     (templateEvent)="onTemplateEvent($event)">
+    <jsf-form-content *ngIf="oneOfComponent.selectedKey"
+      [formItems]="oneOfComponent.selectedChildDataItem.items"
+      [formGroup]="oneOfComponent.selectedChildFormGroup"
+      [config]="config"
+      [templates]="templates"
+      [isEdit]="isEdit"
+      [labelLengthClass]="labelLengthClass"
+      (buttonEvent)="onButtonEvent($event)"
+      (templateEvent)="onTemplateEvent($event)"></jsf-form-content>
   </jsf-one-of>
 </div>
 
-<jsf-tabs
+<jsf-tabs #tabsComponent
   *ngIf="hasTabbedItems()"
   [items]="getTabbedItems()"
   [formGroup]="formGroup"
@@ -68,5 +97,21 @@
   [isEdit]="isEdit"
   (buttonEvent)="onButtonEvent($event)"
   (templateEvent)="onTemplateEvent($event)">
+  <jsf-tab
+    *ngFor="let item of tabsComponent.items; let i = index"
+    [selected]="i === 0"
+    [dataItem]="item"
+    [formGroup]="tabsComponent.getFormGroup(item)">
+    <jsf-form-content
+      [formGroup]="tabsComponent.getFormGroup(item)"
+      [formItems]="item.items"
+      [config]="tabsComponent.config"
+      [templates]="templates"
+      [labelLengthClass]="tabsComponent.getLabelLengthClass(item)"
+      (buttonEvent)="onButtonEvent($event)"
+      (templateEvent)="onTemplateEvent($event)"
+      [isEdit]="isEdit">
+    </jsf-form-content>
+  </jsf-tab>
 </jsf-tabs>
 

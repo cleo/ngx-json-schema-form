@@ -22,14 +22,5 @@
 </div>
 <div [class.collapsible-sections-padding]="config.enableCollapsibleSections" class="description">{{formItem.description}}</div>
 <div [class.item-group]="formItem.label || formItem.description" [class.hidden]="!isContentShown">
-  <jsf-form-content
-    [formItems]="formItem.items"
-    [formGroup]="formGroup"
-    [isEdit]="isEdit"
-    [config]="config"
-    [templates]="templates"
-    [labelLengthClass]="sectionLabelLengthClass"
-    (buttonEvent)="onButtonEvent($event)"
-    (templateEvent)="onTemplateEvent($event)">
-  </jsf-form-content>
+  <ng-content></ng-content>
 </div>
