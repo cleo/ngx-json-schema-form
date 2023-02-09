@@ -88,7 +88,7 @@
   </jsf-one-of>
 </div>
 
-<jsf-tabs
+<jsf-tabs #tabsComponent
   *ngIf="hasTabbedItems()"
   [items]="getTabbedItems()"
   [formGroup]="formGroup"
@@ -97,5 +97,21 @@
   [isEdit]="isEdit"
   (buttonEvent)="onButtonEvent($event)"
   (templateEvent)="onTemplateEvent($event)">
+  <jsf-tab
+    *ngFor="let item of tabsComponent.items; let i = index"
+    [selected]="i === 0"
+    [dataItem]="item"
+    [formGroup]="tabsComponent.getFormGroup(item)">
+    <jsf-form-content
+      [formGroup]="tabsComponent.getFormGroup(item)"
+      [formItems]="item.items"
+      [config]="tabsComponent.config"
+      [templates]="templates"
+      [labelLengthClass]="tabsComponent.getLabelLengthClass(item)"
+      (buttonEvent)="onButtonEvent($event)"
+      (templateEvent)="onTemplateEvent($event)"
+      [isEdit]="isEdit">
+    </jsf-form-content>
+  </jsf-tab>
 </jsf-tabs>
 

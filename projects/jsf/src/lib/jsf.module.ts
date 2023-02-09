@@ -30,7 +30,6 @@ import { OneOfComponent } from './form-content/one-of/one-of.component';
 import { SectionComponent } from './form-content/section/section.component';
 import { TabComponent } from './form-content/tabs/tab/tab.component';
 import { TabsComponent } from './form-content/tabs/tabs.component';
-import { TabstripComponent } from './form-content/tabs/tabstrip/tabstrip.component';
 import { FormDataItemService } from './form-data-item.service';
 import { FormService } from './form.service';
 import { JSFComponent } from './jsf.component';
@@ -52,7 +51,6 @@ const tableComponents = [
 const components = [
   TabsComponent,
   TabComponent,
-  TabstripComponent,
   CheckboxComponent,
   FormControlComponent,
   CheckboxWithChildrenComponent,
