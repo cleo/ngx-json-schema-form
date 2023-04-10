@@ -4,7 +4,7 @@
       {{title}}
     </div>
     <ul class="nav nav-tabs">
-      <li class="clickable" *ngFor="let tab of tabs; let i = index" (click)="onTabClicked(tab)" [class.active]="tab.selected" [class.has-error]="!isValid(tab) && !isDisabled(tab)">
+      <li class="clickable" *ngFor="let tab of tabs; let i = index" (click)="onTabClicked(tab)" [class.active]="tab.selected" [class.disabled]="isDisabled(tab)" [class.has-error]="!isValid(tab) && !isDisabled(tab)">
         <a>{{tab.dataItem.label}}<span class="required-star" *ngIf="tabHasRequiredFields(tab)">*</span></a>
       </li>
     </ul>
