@@ -68,7 +68,7 @@
             },
             "textInput2": {
               "type": "string",
-              "name": "Text Input 2",
+              "name": "Text Input 2 with a very long label to increase the label size",
               "helpText": "This help text will display when you hover over the information icon",
               "tooltip": "This tooltip will display when you hover over the label.",
               "placeholder": "This is placeholder text"
