@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [5.0.2] (2023-06-22)
+### Bug fix
+- Fix label size on edit of checkbox with children
+
 ## [5.0.1] (2023-04-10)
 ### Enhancement
 - Add styling class to tabstrip when the form group is disabled.
