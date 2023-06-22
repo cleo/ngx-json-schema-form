@@ -6,7 +6,7 @@
   },
   "checkboxesWithChildren": {
     "checkboxWithChildren1": {
-      "value": false
+      "value": true
     },
     "checkboxWithChildrenWithDefault": {
       "textInput1": "TEST TEXT",

@@ -27,15 +27,15 @@ export class CheckboxWithChildrenComponent extends ContentBaseComponent  impleme
   ngOnInit(): void {
     this.initializeItems();
     this.updateChildControls(this.parentFormItem.value);
+    if (this.parentFormItem.value === true) {
+      this.labelLengthClass = getLongestFieldLabelClass(this.visibleChildFormItems);
+    }
   }
 
   private initializeItems(): void {
     this.formItem.items.forEach(item => {
       if (item.key === CONDITIONAL_PARENT_VALUE_KEY) {
         this.parentFormItem = item;
-        if (this.parentFormItem.value === true) {
-          this.labelLengthClass = getLongestFieldLabelClass(this.visibleChildFormItems);
-        }
       } else {
         this.childFormItems.push(item);
       }
