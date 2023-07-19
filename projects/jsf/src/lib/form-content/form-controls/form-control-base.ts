@@ -1,5 +1,5 @@
 import { Directive, Input, OnInit } from '@angular/core';
-import { FormControl, ValidationErrors } from '@angular/forms';
+import { UntypedFormControl, ValidationErrors } from '@angular/forms';
 
 import { FormDataItem } from '../../models/form-data-item';
 import { StringDataItem } from '../../models/string-data-item';
@@ -12,8 +12,8 @@ export class FormControlBase extends ContentBaseComponent implements OnInit {
   @Input() labelLengthClass: string;
   @Input() templates: any = {};
 
-  get formControl(): FormControl {
-    return (this.formGroup.controls[this.formItem.key]) as FormControl;
+  get formControl(): UntypedFormControl {
+    return (this.formGroup.controls[this.formItem.key]) as UntypedFormControl;
   }
 
   get showError(): boolean {

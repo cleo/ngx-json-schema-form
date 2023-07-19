@@ -1,11 +1,11 @@
 import { Directive, EventEmitter, Input, Output } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ComponentLifeCycle } from '../component-life-cycle';
 import { JSFConfig } from '../jsf-config';
 
 @Directive()
 export class ContentBaseComponent extends ComponentLifeCycle {
-  @Input() formGroup: FormGroup;
+  @Input() formGroup: UntypedFormGroup;
   @Input() config: JSFConfig;
   @Input() isEdit: boolean;
   @Input() templates: any = {};
