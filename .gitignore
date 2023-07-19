@@ -45,4 +45,3 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
-/projects/jsf/node_modules/
