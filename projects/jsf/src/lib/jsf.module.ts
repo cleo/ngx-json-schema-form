@@ -84,8 +84,8 @@ const services = [
   ],
   imports: [
     CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
+    FormsModule.withConfig({callSetDisabledState: 'whenDisabledForLegacyCode'}),
+    ReactiveFormsModule.withConfig({callSetDisabledState: 'whenDisabledForLegacyCode'}),
     AgGridModule
   ],
   exports: [
