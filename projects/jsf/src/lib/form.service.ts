@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, FormArray, FormControl, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { EnumDataItem, OptionDisplayType } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
 import { ParentDataItem } from './models/parent-data-item';
@@ -10,14 +10,14 @@ import { ValidatorService } from './validator.service';
 export class FormService {
   constructor(private validatorService: ValidatorService) {}
 
-  getForm(form: FormGroup, itemsToAdd: FormDataItem[]): FormGroup {
+  getForm(form: UntypedFormGroup, itemsToAdd: FormDataItem[]): UntypedFormGroup {
     return this.fillForm(form, itemsToAdd);
   }
 
-  private fillForm(groupToAddTo: FormGroup, itemsToAdd: FormDataItem[]): FormGroup {
+  private fillForm(groupToAddTo: UntypedFormGroup, itemsToAdd: FormDataItem[]): UntypedFormGroup {
     itemsToAdd.forEach(item => {
       if (item.type === FormDataItemType.Object || item.type === FormDataItemType.xOf) {
-        const formGroup = this.fillForm(new FormGroup({}), (item as ParentDataItem).items);
+        const formGroup = this.fillForm(new UntypedFormGroup({}), (item as ParentDataItem).items);
         groupToAddTo.addControl(item.key, formGroup);
       } else {
         groupToAddTo.addControl(item.key, this.createControl(item));
@@ -26,8 +26,8 @@ export class FormService {
     return groupToAddTo;
   }
 
-  private createControl(item: FormDataItem): FormControl {
-    const control =  new FormControl(item.value, Validators.compose(this.validatorService.getValidators(item)));
+  private createControl(item: FormDataItem): UntypedFormControl {
+    const control =  new UntypedFormControl(item.value, Validators.compose(this.validatorService.getValidators(item)));
     if (item.disabledState.isReadOnly) {
       control.disable();
     }
@@ -42,7 +42,7 @@ export class FormService {
    * @param {FormGroup} formGroup - an Angular FormGroup with nested controls (FormControl or FormGroup)
    * @returns {AbstractControl} - the target AbstractControl or null if it is not found.
    */
-  findAbstractControl(targetPathSegments: string[], formGroup: FormGroup): AbstractControl {
+  findAbstractControl(targetPathSegments: string[], formGroup: UntypedFormGroup): AbstractControl {
     if (!targetPathSegments.length) {
       return null;
     }
@@ -54,8 +54,8 @@ export class FormService {
 
     if (targetPathSegments.length === 1) {
       return control as AbstractControl;
-    } else if (control instanceof FormGroup) {
-      return this.findAbstractControl(targetPathSegments.slice(1), control as FormGroup);
+    } else if (control instanceof UntypedFormGroup) {
+      return this.findAbstractControl(targetPathSegments.slice(1), control as UntypedFormGroup);
     } else {
       return null;
     }
@@ -83,7 +83,7 @@ export class FormService {
     formDataItem.disabledState.isCurrentlyDisabled = !isVisible;
   }
 
-  setVisibilityForAllConditionalChildren(parentDataItem: ParentDataItem, formGroup: FormGroup, isVisible: boolean): void {
+  setVisibilityForAllConditionalChildren(parentDataItem: ParentDataItem, formGroup: UntypedFormGroup, isVisible: boolean): void {
     parentDataItem.items.forEach(item => {
         const control = formGroup.controls[item.key];
         this.setVisibilityForConditionalChild(item, control, isVisible);
@@ -97,7 +97,7 @@ export class FormService {
    * @param {FormGroup} formGroup
    * @param {string[]} childKeys - an array of keys that correspond to child AbstractControls that should be visible
    */
-  showNecessaryConditionalChildren(parentDataItem: ParentDataItem, formGroup: FormGroup, childKeys: string[]): void {
+  showNecessaryConditionalChildren(parentDataItem: ParentDataItem, formGroup: UntypedFormGroup, childKeys: string[]): void {
     parentDataItem.items.forEach(item => {
       const control = formGroup.controls[item.key];
       if (childKeys.some(key => key === item.key)) {
@@ -143,23 +143,23 @@ export class FormService {
    * @param {boolean} shouldDisable: a boolean to disable or enable form items
    */
   toggleDisabledOnSubmit(abstractControl: AbstractControl, items: FormDataItem[], shouldDisable: boolean): void {
-    if (abstractControl instanceof FormArray) {
+    if (abstractControl instanceof UntypedFormArray) {
       return;
     }
 
     items.forEach(item => {
 
       let control: AbstractControl;
-      if (abstractControl instanceof FormGroup) {
+      if (abstractControl instanceof UntypedFormGroup) {
         control = abstractControl.controls[item.key];
-      } else if (abstractControl instanceof FormControl) {
+      } else if (abstractControl instanceof UntypedFormControl) {
         control = abstractControl;
       }
 
       switch (item.type) {
       case FormDataItemType.Object:
       case FormDataItemType.xOf:
-        this.toggleDisabledOnSubmit(control as FormGroup, (item as ParentDataItem).items, shouldDisable);
+        this.toggleDisabledOnSubmit(control as UntypedFormGroup, (item as ParentDataItem).items, shouldDisable);
         break;
       case FormDataItemType.Enum:
       case FormDataItemType.SecuredString:

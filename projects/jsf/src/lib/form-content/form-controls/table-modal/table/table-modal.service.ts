@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { UntypedFormControl, Validators } from '@angular/forms';
 import { ValidatorService } from '../../../../validator.service';
 import { FormControlBase } from '../../form-control-base';
 
@@ -18,7 +18,7 @@ export class TableModalService {
       return null;
     }
 
-    const control = new FormControl();
+    const control = new UntypedFormControl();
     control.setValue(value);
 
     const errors = validatorFn(control);

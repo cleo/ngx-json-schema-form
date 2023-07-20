@@ -16,7 +16,7 @@ import { TemplateComponent } from './template-component/template.component';
     BrowserModule,
     AppRoutingModule,
     JSFModule,
-    FormsModule
+    FormsModule.withConfig({callSetDisabledState: 'whenDisabledForLegacyCode'})
   ],
   providers: [],
   bootstrap: [AppComponent]

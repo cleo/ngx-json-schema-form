@@ -1,5 +1,5 @@
 import { Component, Input, QueryList, ViewChildren } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { ConditionalParentDataItem } from '../models/conditional-parent-data-item';
 import { OptionDisplayType } from '../models/enum-data-item';
@@ -59,8 +59,8 @@ export class FormContentComponent extends ContentBaseComponent {
     return item as ConditionalParentDataItem;
   }
 
-  getFormGroup(item: FormDataItem): FormGroup {
-    return this.formGroup.controls[item.key] as FormGroup;
+  getFormGroup(item: FormDataItem): UntypedFormGroup {
+    return this.formGroup.controls[item.key] as UntypedFormGroup;
   }
 
   isSection(item: FormDataItem): boolean {

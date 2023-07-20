@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { JSFConfig } from '../../jsf-config';
 import { EnumDataItem, OptionDisplayType } from '../../models/enum-data-item';
@@ -14,7 +14,7 @@ import { ContentBaseComponent } from '../content-base.component';
 })
 export class FormControlComponent extends ContentBaseComponent {
   @Input() formItem: FormDataItem;
-  @Input() formGroup: FormGroup;
+  @Input() formGroup: UntypedFormGroup;
   @Input() config: JSFConfig;
   @Input() isEdit: boolean;
   @Input() templates: any = {};

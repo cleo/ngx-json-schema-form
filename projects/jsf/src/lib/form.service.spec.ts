@@ -1,4 +1,4 @@
-import { FormControl, FormGroup, FormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup, FormsModule } from '@angular/forms';
 import { FormService } from './form.service';
 import { OptionDisplayType } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
@@ -22,36 +22,36 @@ describe('FormService', () => {
 
   describe('findAbstractControl()', () => {
     it('should return null if there is nothing in the path array', () => {
-      const result = service.findAbstractControl([], new FormGroup({}));
+      const result = service.findAbstractControl([], new UntypedFormGroup({}));
       expect(result).toBeNull();
     });
 
     it('should return null if nothing is found', () => {
       const controlValue = 'value1';
-      const formControl = new FormControl(controlValue);
-      const formGroup = new FormGroup({ formControlKey: formControl });
+      const formControl = new UntypedFormControl(controlValue);
+      const formGroup = new UntypedFormGroup({ formControlKey: formControl });
       const result = service.findAbstractControl(['invalidKey'], formGroup);
       expect(result).toBeNull();
     });
 
     it('should find a child form Control at the root level', () => {
-      const formControl = new FormControl();
-      const formGroup = new FormGroup({ formControlKey: formControl });
+      const formControl = new UntypedFormControl();
+      const formGroup = new UntypedFormGroup({ formControlKey: formControl });
       const result = service.findAbstractControl(['formControlKey'], formGroup);
       expect(result).toEqual(formControl);
     });
 
     it('should find a nested child form Control', () => {
-      const formControl = new FormControl();
-      const formGroup = new FormGroup({ formControlKey: formControl });
-      const formGroup2 = new FormGroup({ formGroupKey: formGroup });
+      const formControl = new UntypedFormControl();
+      const formGroup = new UntypedFormGroup({ formControlKey: formControl });
+      const formGroup2 = new UntypedFormGroup({ formGroupKey: formGroup });
       const result = service.findAbstractControl(['formGroupKey', 'formControlKey'], formGroup2);
       expect(result).toEqual(formControl);
     });
 
     it('should return null if the path points to a FormControl, but there is more to the path', () => {
-      const formControl = new FormControl();
-      const formGroup = new FormGroup({ formControlKey: formControl });
+      const formControl = new UntypedFormControl();
+      const formGroup = new UntypedFormGroup({ formControlKey: formControl });
       const result = service.findAbstractControl(['formControlKey', 'extraKey'], formGroup);
       expect(result).toBeNull();
     });
@@ -59,10 +59,10 @@ describe('FormService', () => {
 
   describe('setVisibility()', () => {
     let dataItem: FormDataItem;
-    let control: FormControl;
+    let control: UntypedFormControl;
 
     beforeEach(() => {
-      control = new FormControl(value);
+      control = new UntypedFormControl(value);
       dataItem = new FormDataItem(key, label, tooltip, helpText, required, pathParts, FormDataItemType.String, value, false, false);
     });
 
@@ -90,13 +90,13 @@ describe('FormService', () => {
 
   describe('when setting visibility for multiple children', () => {
     let parentDataItem: ParentDataItem;
-    let formGroup: FormGroup;
+    let formGroup: UntypedFormGroup;
 
     const childKey1 = 'childKey1';
     const childKey2 = 'childKey2';
 
-    let child1FormControl: FormControl;
-    let child2FormControl: FormControl;
+    let child1FormControl: UntypedFormControl;
+    let child2FormControl: UntypedFormControl;
 
     let child1DataItem: FormDataItem;
     let child2DataItem: FormDataItem;
@@ -111,10 +111,10 @@ describe('FormService', () => {
                                           value, false, false, items,
                                           '', OptionDisplayType.SECTIONS);
 
-      child1FormControl = new FormControl();
-      child2FormControl = new FormControl();
+      child1FormControl = new UntypedFormControl();
+      child2FormControl = new UntypedFormControl();
 
-      formGroup = new FormGroup({ childKey1: child1FormControl, childKey2: child2FormControl });
+      formGroup = new UntypedFormGroup({ childKey1: child1FormControl, childKey2: child2FormControl });
     });
 
     describe('setVisibilityForAllChildren()', () => {
@@ -183,13 +183,13 @@ describe('FormService', () => {
   });
 
   describe('toggleDisabledOnSubmit()', () => {
-    let formControl: FormControl;
+    let formControl: UntypedFormControl;
     let dataItem: FormDataItem;
 
     beforeEach(() => {
       dataItem = new FormDataItem(key, label, tooltip, helpText, required, pathParts, FormDataItemType.SecuredString, value, false, false);
       dataItem.disabledState.isDisabledOnSubmit = true;
-      formControl = new FormControl(value);
+      formControl = new UntypedFormControl(value);
     });
 
     describe('when a single item is passed in', () => {
@@ -226,9 +226,9 @@ describe('FormService', () => {
     });
 
     describe('when a parent item is passed in', () => {
-      let formGroup: FormGroup;
+      let formGroup: UntypedFormGroup;
       beforeEach(() => {
-        formGroup = new FormGroup({ key: formControl });
+        formGroup = new UntypedFormGroup({ key: formControl });
       });
 
       it('it should toggle the form control to be disabled', () => {
@@ -249,7 +249,7 @@ describe('FormService', () => {
         const key2 = 'key2';
         const dataItem2 = new FormDataItem(key2, label, tooltip, helpText, required, pathParts, FormDataItemType.SecuredString, value, false, false);
         dataItem2.disabledState.isDisabledOnSubmit = false;
-        const formControl2 = new FormControl();
+        const formControl2 = new UntypedFormControl();
 
         formGroup.addControl(key2, formControl2);
         expect(formGroup.controls[key2].disabled).toEqual(false);

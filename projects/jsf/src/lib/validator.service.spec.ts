@@ -1,4 +1,4 @@
-import { FormControl, ValidatorFn, Validators } from '@angular/forms';
+import { UntypedFormControl, ValidatorFn, Validators } from '@angular/forms';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
 import { IntegerDataItem, IntegerRangeOptions } from './models/integer-data-item';
 import { StringDataItem, StringFormat, StringLengthOptions } from './models/string-data-item';
@@ -12,13 +12,13 @@ describe('ValidatorService', () => {
 
   let service: ValidatorService;
   let item: FormDataItem;
-  let control: FormControl;
+  let control: UntypedFormControl;
   let validatorFn: ValidatorFn;
   beforeEach(() => {
     service = new ValidatorService();
     item = new FormDataItem(key, label, tooltip, '', false,
       ['path'], FormDataItemType.Boolean, undefined, false, false);
-    control = new FormControl('');
+    control = new UntypedFormControl('');
     validatorFn = null;
   });
 
