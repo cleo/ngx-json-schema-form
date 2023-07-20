@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { FormService } from '../../form.service';
 
 import { EnumDataItem, OptionDisplayType } from '../../models/enum-data-item';
@@ -38,8 +38,8 @@ export class OneOfComponent extends ContentBaseComponent implements OnInit {
     this.formService.setVisibilityForConditionalChild(this.getDropdownDataItem(), this.getDropdownFormControl(), true);
   }
 
-  getDropdownFormControl(): FormControl {
-    return this.formGroup.controls[this.xOfDataItem.key] as FormControl;
+  getDropdownFormControl(): UntypedFormControl {
+    return this.formGroup.controls[this.xOfDataItem.key] as UntypedFormControl;
   }
 
   getDropdownDataItem(): EnumDataItem {
@@ -54,8 +54,8 @@ export class OneOfComponent extends ContentBaseComponent implements OnInit {
     this.formService.setVisibilityForConditionalChild(this.selectedChildDataItem, this.selectedChildFormGroup, true);
   }
 
-  get selectedChildFormGroup(): FormGroup {
-    return this.formGroup.controls[this.selectedKey] as FormGroup;
+  get selectedChildFormGroup(): UntypedFormGroup {
+    return this.formGroup.controls[this.selectedKey] as UntypedFormGroup;
   }
 
   get selectedChildDataItem(): ParentDataItem {

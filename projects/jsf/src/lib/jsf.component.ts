@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 
 import { NEVER } from 'rxjs';
 import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
@@ -36,7 +36,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
   @Output() templateEvent: EventEmitter<JSFTemplateEvent> = new EventEmitter();
 
   formDataItems: FormDataItem[] = [];
-  formGroup: FormGroup = new FormGroup({});
+  formGroup: UntypedFormGroup = new UntypedFormGroup({});
   isEdit = false;
   sectionLabelLengthClass: string;
 
@@ -54,7 +54,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
         }
         this.isEdit = this.dataItemService.isFormInEditMode(data);
         this.formDataItems = this.dataItemService.getFormDataItems(data);
-        this.formGroup = this.formService.getForm(new FormGroup({}), this.formDataItems);
+        this.formGroup = this.formService.getForm(new UntypedFormGroup({}), this.formDataItems);
         this.sectionLabelLengthClass = getLongestFieldLabelClass(this.formDataItems);
 
         if (this.isEdit && this.formGroup.valid) {

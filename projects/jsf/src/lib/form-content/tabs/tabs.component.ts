@@ -1,5 +1,5 @@
 import { AfterContentInit, AfterViewInit, Component, ContentChildren, Input, QueryList, ViewChildren } from '@angular/core';
-import { AbstractControl, FormGroup } from '@angular/forms';
+import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { getLongestFieldLabelClass } from '../../form.service';
 import { FormDataItem } from '../../models/form-data-item';
 import { ParentDataItem } from '../../models/parent-data-item';
@@ -23,8 +23,8 @@ export class TabsComponent extends ContentBaseComponent implements AfterContentI
     this.selectedTab = this.tabs.first;
   }
 
-  getFormGroup(item: FormDataItem): FormGroup {
-    return this.formGroup.controls[item.key] as FormGroup;
+  getFormGroup(item: FormDataItem): UntypedFormGroup {
+    return this.formGroup.controls[item.key] as UntypedFormGroup;
   }
 
   getLabelLengthClass(tab: ParentDataItem): string {
@@ -53,10 +53,10 @@ export class TabsComponent extends ContentBaseComponent implements AfterContentI
     return this.formGroupHasRequiredFields(tab.formGroup);
   }
 
-  private formGroupHasRequiredFields(formGroup: FormGroup): boolean {
+  private formGroupHasRequiredFields(formGroup: UntypedFormGroup): boolean {
     const controls: AbstractControl[] = Object.values(formGroup.controls);
     return controls.some(control => {
-      if (control instanceof FormGroup) {
+      if (control instanceof UntypedFormGroup) {
         return this.formGroupHasRequiredFields(control);
       }
       return this.formControlIsRequired(control);

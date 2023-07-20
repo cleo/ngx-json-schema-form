@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { UntypedFormGroup } from '@angular/forms';
 import { ParentDataItem } from '../../../models/parent-data-item';
 
 @Component({
@@ -9,5 +9,5 @@ import { ParentDataItem } from '../../../models/parent-data-item';
 export class TabComponent {
   @Input() dataItem: ParentDataItem;
   @Input() selected = false;
-  @Input() formGroup: FormGroup;
+  @Input() formGroup: UntypedFormGroup;
 }
