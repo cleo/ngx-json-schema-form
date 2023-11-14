@@ -63,9 +63,5 @@ export class SecuredTextComponent extends FormControlBase {
 
     // null indicates the input has been cleared and that a value should be returned.
     this.formItem.disabledState.isDisabledOnSubmit = this.isEdit && (value === undefined || value === '');
-
-    try {
-      this.formControl.setValue(JSON.parse(this.formControl.value));
-    } catch { }
   }
 }
