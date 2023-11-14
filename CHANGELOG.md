@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [6.0.2] (2023-11-14)
+### Bug Fix
+- Fix Secured Text Input values to always be treated as a string
+
 ## [6.0.1] (2023-07-20)
 ### Bug Fix
 - Target ES2015
