@@ -13,7 +13,8 @@
     [labelLengthClass]="labelLengthClass"
     [templates]="templates"
     (buttonEvent)="onButtonEvent($event)"
-    (templateEvent)="onTemplateEvent($event)">
+    (templateEvent)="onTemplateEvent($event)"
+    (manualFormChangeEvent)="onManualFormChangeEvent()">
   </jsf-form-control>
 
   <jsf-checkbox-with-children #checkboxWithChildrenComponent
@@ -24,7 +25,8 @@
     [config]="config"
     [templates]="templates"
     (buttonEvent)="onButtonEvent($event)"
-    (templateEvent)="onTemplateEvent($event)">
+    (templateEvent)="onTemplateEvent($event)"
+    (manualFormChangeEvent)="onManualFormChangeEvent()">
     <jsf-form-content
       [formItems]="checkboxWithChildrenComponent.visibleChildFormItems"
       [formGroup]="checkboxWithChildrenComponent.formGroup"
@@ -33,7 +35,8 @@
       [templates]="templates"
       [labelLengthClass]="checkboxWithChildrenComponent.labelLengthClass"
       (buttonEvent)="onButtonEvent($event)"
-      (templateEvent)="onTemplateEvent($event)">
+      (templateEvent)="onTemplateEvent($event)"
+      (manualFormChangeEvent)="onManualFormChangeEvent()">
     </jsf-form-content>
   </jsf-checkbox-with-children>
 
@@ -45,7 +48,8 @@
     [config]="config"
     [templates]="templates"
     (buttonEvent)="onButtonEvent($event)"
-    (templateEvent)="onTemplateEvent($event)">
+    (templateEvent)="onTemplateEvent($event)"
+    (manualFormChangeEvent)="onManualFormChangeEvent()">
     <jsf-form-content
       [formItems]="sectionComponent.formItem.items"
       [formGroup]="sectionComponent.formGroup"
@@ -54,7 +58,8 @@
       [templates]="templates"
       [labelLengthClass]="sectionComponent.sectionLabelLengthClass"
       (buttonEvent)="onButtonEvent($event)"
-      (templateEvent)="onTemplateEvent($event)">
+      (templateEvent)="onTemplateEvent($event)"
+      (manualFormChangeEvent)="onManualFormChangeEvent()">
     </jsf-form-content>
   </jsf-section>
 
@@ -75,7 +80,8 @@
     [templates]="templates"
     [labelLengthClass]="labelLengthClass"
     (buttonEvent)="onButtonEvent($event)"
-    (templateEvent)="onTemplateEvent($event)">
+    (templateEvent)="onTemplateEvent($event)"
+    (manualFormChangeEvent)="onManualFormChangeEvent()">
     <jsf-form-content *ngIf="oneOfComponent.selectedKey"
       [formItems]="oneOfComponent.selectedChildDataItem.items"
       [formGroup]="oneOfComponent.selectedChildFormGroup"
@@ -84,7 +90,8 @@
       [isEdit]="isEdit"
       [labelLengthClass]="labelLengthClass"
       (buttonEvent)="onButtonEvent($event)"
-      (templateEvent)="onTemplateEvent($event)"></jsf-form-content>
+      (templateEvent)="onTemplateEvent($event)"
+      (manualFormChangeEvent)="onManualFormChangeEvent()"></jsf-form-content>
   </jsf-one-of>
 </div>
 
@@ -96,7 +103,8 @@
   [templates]="templates"
   [isEdit]="isEdit"
   (buttonEvent)="onButtonEvent($event)"
-  (templateEvent)="onTemplateEvent($event)">
+  (templateEvent)="onTemplateEvent($event)"
+  (manualFormChangeEvent)="onManualFormChangeEvent()">
   <jsf-tab
     *ngFor="let item of tabsComponent.items; let i = index"
     [selected]="i === 0"
@@ -110,8 +118,9 @@
       [labelLengthClass]="tabsComponent.getLabelLengthClass(item)"
       (buttonEvent)="onButtonEvent($event)"
       (templateEvent)="onTemplateEvent($event)"
-      [isEdit]="isEdit">
-    </jsf-form-content>
+      (manualFormChangeEvent)="onManualFormChangeEvent()"
+      [isEdit]="isEdit"
+    ></jsf-form-content>
   </jsf-tab>
 </jsf-tabs>
 

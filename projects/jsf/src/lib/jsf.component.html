@@ -7,6 +7,7 @@
       [labelLengthClass]="sectionLabelLengthClass"
       [isEdit]="isEdit"
       (buttonEvent)="onButtonEvent($event)"
-      (templateEvent)="onTemplateEvent($event)">
-    </jsf-form-content>
+      (templateEvent)="onTemplateEvent($event)"
+      (manualFormChangeEvent)="onManualFormChangeEvent()"
+    ></jsf-form-content>
   </form>
