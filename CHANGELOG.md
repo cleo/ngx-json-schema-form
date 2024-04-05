@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [6.0.4] (2024-04-04)
+### Bug Fix
+- Fix array form type not triggering a form change when its value is changed
+
 ## [6.0.3] (2024-04-04)
 ### Bug Fix
 - Fix array form type not marking form as dirty when it is modified

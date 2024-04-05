@@ -33,13 +33,14 @@ export class TableSummaryComponent extends FormControlBase implements OnInit {
     const arrayItemBefore = cloneDeep(this.arrayItem.value);
     this.modalService.open({arrayItem: this.arrayItem}).pipe(
       filter(value => !!value),
+      tap(value => this.arrayItem.value = value),
+      tap(value => this.formGroup.controls[this.formItem.key].setValue(value)),
       tap(value => {
         if (!isEqual(value, arrayItemBefore)) {
           this.formGroup.controls[this.formItem.key].markAsDirty();
+          this.manualFormChangeEvent.emit();
         }
-      }),
-      tap(value => this.arrayItem.value = value),
-      tap(value => this.formGroup.controls[this.formItem.key].setValue(value))
+      })
     ).subscribe();
   }
 

@@ -15,7 +15,8 @@
   [isEdit]="isEdit"
   [labelLengthClass]="labelLengthClass"
   (buttonEvent)="onButtonEvent($event)"
-  (templateEvent)="onTemplateEvent($event)">
+  (templateEvent)="onTemplateEvent($event)"
+  (manualFormChangeEvent)="onManualFormChangeEvent()">
 </jsf-text>
 
 <jsf-text-area
@@ -58,8 +59,9 @@
   [formGroup]="formGroup"
   [labelLengthClass]="labelLengthClass"
   [isEdit]="isEdit"
-  [config]="config">
-</jsf-table-summary>
+  [config]="config"
+  (manualFormChangeEvent)="onManualFormChangeEvent()"
+></jsf-table-summary>
 
 <jsf-template
   *ngIf="isTemplate()"
@@ -71,5 +73,6 @@
   [templates]="templates"
   (buttonEvent)="onButtonEvent($event)"
   (templateEvent)="onTemplateEvent($event)"
+  (manualFormChangeEvent)="onManualFormChangeEvent()"
   >
 </jsf-template>

@@ -202,4 +202,8 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
     this.templateEvent.next({ key: event.key, targetPaths: targets });
   }
 
+  onManualFormChangeEvent(): void {
+    this.onFormElementChange();
+  }
+
 }
