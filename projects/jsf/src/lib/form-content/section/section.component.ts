@@ -9,9 +9,9 @@ import { ContentBaseComponent } from '../content-base.component';
   styleUrls: ['../common.scss', 'section.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class SectionComponent extends ContentBaseComponent  implements OnInit {
+export class SectionComponent extends ContentBaseComponent implements OnInit {
   @Input() formItem: ParentDataItem;
-  isContentShown = true;
+  @Input() isContentShown = true;
   sectionLabelLengthClass: string;
 
   ngOnInit(): void {
