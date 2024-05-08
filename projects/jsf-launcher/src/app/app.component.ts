@@ -20,7 +20,7 @@ import { TemplateComponent } from './template-component/template.component';
 export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(JSFComponent) jsfComponent: JSFComponent;
   @ViewChild(TemplateComponent) templateComponent: TemplateComponent;
-  config: JSFConfig = { enableCollapsibleSections: false, showSectionDivider: true };
+  config: JSFConfig = { enableCollapsibleSections: false, showSectionDivider: true, expandOuterSectionsByDefault: true };
   isSubmitDisabled = true;
   showValidationMessage = false;
   isValid = false;

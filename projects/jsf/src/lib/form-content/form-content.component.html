@@ -47,6 +47,7 @@
     [isEdit]="isEdit"
     [config]="config"
     [templates]="templates"
+    [isContentShown]="config.expandOuterSectionsByDefault"
     (buttonEvent)="onButtonEvent($event)"
     (templateEvent)="onTemplateEvent($event)"
     (manualFormChangeEvent)="onManualFormChangeEvent()">
@@ -54,7 +55,7 @@
       [formItems]="sectionComponent.formItem.items"
       [formGroup]="sectionComponent.formGroup"
       [isEdit]="isEdit"
-      [config]="sectionComponent.config"
+      [config]="getSubSectionConfig(sectionComponent.config)"
       [templates]="templates"
       [labelLengthClass]="sectionComponent.sectionLabelLengthClass"
       (buttonEvent)="onButtonEvent($event)"

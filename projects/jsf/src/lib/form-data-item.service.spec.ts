@@ -582,6 +582,7 @@ describe('FormDataItemService', () => {
     const stringName = 'stringName';
     const booleanName1 = 'booleanName1';
     const booleanName2 = 'booleanName2';
+    const objName = 'objName';
     const description = 'description';
     beforeEach(() => {
       schemaData.schema.properties = {
@@ -608,6 +609,19 @@ describe('FormDataItemService', () => {
               type: 'boolean',
               name: booleanName2,
               description: description
+            },
+            objKey: {
+              type: 'object',
+              name: objName,
+              description: description,
+              properties: {
+                stringKey: {
+                  isReadOnly: true,
+                  type: 'string',
+                  name: stringName,
+                  description: description
+                }
+              }
             }
           }
         }
@@ -636,6 +650,20 @@ describe('FormDataItemService', () => {
       expect(result.items[0].disabledState.isReadOnly).toEqual(true);
       expect(result.items[1].disabledState.isReadOnly).toEqual(true);
       expect(result.items[2].disabledState.isReadOnly).toEqual(true);
+      expect(result.items[3].disabledState.isReadOnly).toEqual(true);
+      expect((result.items[3] as ParentDataItem).items[0].disabledState.isReadOnly).toEqual(true);
+    });
+
+    it('should not change nested child item readOnly flag', () => {
+      schema.properties.conditionalParentObject.isReadOnly = false;
+      schema.properties.conditionalParentObject.value = true;
+
+      const result = service.getFormDataItems(schemaData)[0] as ConditionalParentDataItem;
+      expect(result.items[0].disabledState.isReadOnly).toEqual(false);
+      expect(result.items[1].disabledState.isReadOnly).toEqual(false);
+      expect(result.items[2].disabledState.isReadOnly).toEqual(false);
+      expect(result.items[3].disabledState.isReadOnly).toEqual(false);
+      expect((result.items[3] as ParentDataItem).items[0].disabledState.isReadOnly).toEqual(true);
     });
 
     it('should set child items as hidden', () => {

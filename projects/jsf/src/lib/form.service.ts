@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { AbstractControl, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormGroup, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { EnumDataItem, OptionDisplayType } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
 import { ParentDataItem } from './models/parent-data-item';
@@ -76,11 +76,19 @@ export class FormService {
    * @param {boolean} isVisible: whether or not the form should be toggled as visible or hidden
    */
   setVisibilityForConditionalChild(formDataItem: FormDataItem, control: AbstractControl, isVisible: boolean): void {
-    if (!formDataItem.disabledState.isReadOnly) {
-      isVisible ? control.enable() : control.disable();
+    formDataItem.isHidden = !isVisible || formDataItem.disabledState.isHidden;
+    formDataItem.disabledState.isCurrentlyDisabled = !isVisible || formDataItem.disabledState.isReadOnly;
+    if (formDataItem.disabledState.isCurrentlyDisabled) {
+      control.disable();
+    } else {
+      control.enable();
     }
-    formDataItem.isHidden = !isVisible;
-    formDataItem.disabledState.isCurrentlyDisabled = !isVisible;
+
+    if (formDataItem instanceof ParentDataItem) {
+      (formDataItem as ParentDataItem).items.forEach(child => {
+        this.setVisibilityForConditionalChild(child, (control as FormGroup).controls[child.key], isVisible);
+      });
+    }
   }
 
   setVisibilityForAllConditionalChildren(parentDataItem: ParentDataItem, formGroup: UntypedFormGroup, isVisible: boolean): void {
