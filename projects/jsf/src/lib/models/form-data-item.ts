@@ -1,6 +1,6 @@
 export class FormDataItem {
   public path: string;
-  public disabledState: ControlDisabledState = { isCurrentlyDisabled: false, isReadOnly: false, isDisabledOnSubmit: false };
+  public disabledState: ControlDisabledState = { isCurrentlyDisabled: false, isReadOnly: false, isDisabledOnSubmit: false, isHidden: false };
 
   constructor(public key: string,
               public label: string,
@@ -20,6 +20,7 @@ export class FormDataItem {
     this.helpText = helpText || '';
     this.path = pathParts.join('.');
     this.disabledState.isReadOnly = isReadOnly;
+    this.disabledState.isHidden = isHidden; // value from schema definition: do not update.
   }
 }
 
@@ -39,4 +40,5 @@ export interface ControlDisabledState {
   isCurrentlyDisabled: boolean;
   isDisabledOnSubmit: boolean;
   isReadOnly: boolean;
+  isHidden: boolean;
 }

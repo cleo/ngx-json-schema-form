@@ -1,5 +1,6 @@
 import { Component, Input, QueryList, ViewChildren } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
+import { JSFConfig } from '../jsf-config';
 
 import { ConditionalParentDataItem } from '../models/conditional-parent-data-item';
 import { OptionDisplayType } from '../models/enum-data-item';
@@ -65,6 +66,10 @@ export class FormContentComponent extends ContentBaseComponent {
 
   isSection(item: FormDataItem): boolean {
     return this.isStaticObject(item) || this.isAllOf(item);
+  }
+
+  getSubSectionConfig(parentSectionConfig: JSFConfig): JSFConfig {
+    return {...parentSectionConfig, expandOuterSectionsByDefault: true}; // always expand subsections
   }
 
   isObject(item: FormDataItem): boolean {
