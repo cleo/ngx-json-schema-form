@@ -11,6 +11,8 @@
   </div>
   <label
     class="header"
+    (click)="config.enableCollapsibleSections ? toggleContentShown() : noop()"
+    [ngClass]="{clickable: config.enableCollapsibleSections}"
     [title]="formItem.tooltip"
     [attr.for]="formItem.path">
     {{formItem.label}}
