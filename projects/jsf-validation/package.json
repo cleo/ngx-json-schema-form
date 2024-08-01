@@ -1,6 +1,6 @@
 {
   "name": "@cleo/ngx-json-schema-form-validation",
-  "version": "6.0.5",
+  "version": "6.0.6",
   "peerDependencies": {},
   "dependencies": {
     "tslib": "^2.0.0"

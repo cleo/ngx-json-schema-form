@@ -1,7 +1,11 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
-## [6.0.4] (2024-05-06)
+## [6.0.6] (2024-05-28)
+### Enhancement
+- Clicking a section name will expand/collapse a section (same functionality as clicking the small arrow icon)
+
+## [6.0.5] (2024-05-06)
 ### Bug Fix
 - Fix nested readonly items within a conditional checkbox not being readonly
 - Fix nested readonly items within a conditional checkbox not being hidden
