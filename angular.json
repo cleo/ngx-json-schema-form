@@ -100,18 +100,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "browserTarget": "jsf-launcher:build"
+            "buildTarget": "jsf-launcher:build"
           },
           "configurations": {
             "production": {
-              "browserTarget": "jsf-launcher:build:production"
+              "buildTarget": "jsf-launcher:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "jsf-launcher:build"
+            "buildTarget": "jsf-launcher:build"
           }
         },
         "test": {
