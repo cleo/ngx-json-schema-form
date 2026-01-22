@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { TemplateEvent } from '../app.component';
 
 @Component({
-  selector: 'app-template-test',
-  templateUrl: 'template.component.html'
+    selector: 'app-template-test',
+    templateUrl: 'template.component.html',
+    standalone: false
 })
 export class TemplateComponent {
 

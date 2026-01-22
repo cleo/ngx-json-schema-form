@@ -8,9 +8,10 @@ import { StringDataItem } from '../../models/string-data-item';
 import { ContentBaseComponent } from '../content-base.component';
 
 @Component({
-  selector: 'jsf-form-control',
-  templateUrl: './form-control.component.html',
-  styleUrls: ['./form-control.component.scss']
+    selector: 'jsf-form-control',
+    templateUrl: './form-control.component.html',
+    styleUrls: ['./form-control.component.scss'],
+    standalone: false
 })
 export class FormControlComponent extends ContentBaseComponent {
   @Input() formItem: FormDataItem;

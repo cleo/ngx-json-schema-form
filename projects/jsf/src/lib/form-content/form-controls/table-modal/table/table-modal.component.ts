@@ -11,10 +11,11 @@ import { CellRendererComponent } from './renderers/cell-renderer.component';
 import { TableModalService } from './table-modal.service';
 
 @Component({
-  selector: 'jsf-table-modal',
-  templateUrl: 'table-modal.component.html',
-  styleUrls: ['./table-modal.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'jsf-table-modal',
+    templateUrl: 'table-modal.component.html',
+    styleUrls: ['./table-modal.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 
 export class TableModalComponent extends FormControlBase {

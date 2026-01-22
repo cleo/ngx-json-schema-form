@@ -2,8 +2,8 @@ import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef } f
 import { ContentBaseComponent } from '../../../../content-base.component';
 
 @Component({
-  selector: 'jsf-checkbox-cell',
-  template: `
+    selector: 'jsf-checkbox-cell',
+    template: `
     <input
       type="checkbox"
       [checked]="params.value"
@@ -11,7 +11,8 @@ import { ContentBaseComponent } from '../../../../content-base.component';
       [(ngModel)]="params.value"
       (ngModelChange)="onChange()"
     />
-    `
+    `,
+    standalone: false
 })
 export class CheckboxCellComponent extends ContentBaseComponent {
   @Input() params: any;

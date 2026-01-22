@@ -10,9 +10,10 @@ import { XOfDataItem, XOfType } from '../models/xOf-data-item';
 import { ContentBaseComponent } from './content-base.component';
 
 @Component({
-  selector: 'jsf-form-content',
-  templateUrl: 'form-content.component.html',
-  styleUrls: [ './form-content.component.scss']
+    selector: 'jsf-form-content',
+    templateUrl: 'form-content.component.html',
+    styleUrls: ['./form-content.component.scss'],
+    standalone: false
 })
 export class FormContentComponent extends ContentBaseComponent {
   @ViewChildren('contentDiv') divs: QueryList<any>;

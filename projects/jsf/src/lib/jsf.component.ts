@@ -19,10 +19,11 @@ import { ParentDataItem } from './models/parent-data-item';
 import { XOfEnumDataItem } from './models/xOf-enum-data-item';
 
 @Component({
-  selector: 'jsf-component',
-  templateUrl: './jsf.component.html',
-  styleUrls: ['./jsf.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'jsf-component',
+    templateUrl: './jsf.component.html',
+    styleUrls: ['./jsf.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, OnInit {
   @ViewChild(FormContentComponent, {static: true}) content: FormContentComponent;

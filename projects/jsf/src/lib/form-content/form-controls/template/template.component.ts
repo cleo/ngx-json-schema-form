@@ -3,8 +3,9 @@ import { TemplateDataItem } from '../../../models/template-data-item';
 import { FormControlBase } from '../form-control-base';
 
 @Component({
-  selector: 'jsf-template',
-  templateUrl: './template.component.html'
+    selector: 'jsf-template',
+    templateUrl: './template.component.html',
+    standalone: false
 })
 export class TemplateComponent extends FormControlBase implements AfterViewInit {
   @Input() templates: any = {};

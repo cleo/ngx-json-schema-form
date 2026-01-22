@@ -8,8 +8,8 @@ const AUTO_HIDE_DELAY = 3000;
 const SECONDARY_AUTO_HIDE_DELAY = 2000;
 
 @Component({
-  selector: 'jsf-alert',
-  template: `
+    selector: 'jsf-alert',
+    template: `
     <div class="alert alert-success"
          [ngClass]="{'active': active}"
          (mouseenter)="onMouseEnter()"
@@ -27,7 +27,8 @@ const SECONDARY_AUTO_HIDE_DELAY = 2000;
            (click)="onCloseClick()">
     </div>
   `,
-  styleUrls: ['./alert.component.scss']
+    styleUrls: ['./alert.component.scss'],
+    standalone: false
 })
 export class AlertComponent extends ComponentLifeCycle implements OnInit {
   @Input() alertStream: AlertService;

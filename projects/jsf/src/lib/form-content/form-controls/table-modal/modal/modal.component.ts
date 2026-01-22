@@ -4,9 +4,10 @@ import { ContentBaseComponent } from '../../../content-base.component';
 import { ModalService } from './modal.service';
 
 @Component({
-  selector: 'jsf-modal',
-  templateUrl: 'modal.component.html',
-  styleUrls: ['./modal.component.scss']
+    selector: 'jsf-modal',
+    templateUrl: 'modal.component.html',
+    styleUrls: ['./modal.component.scss'],
+    standalone: false
 })
 
 export class ModalComponent extends ContentBaseComponent implements AfterViewInit {

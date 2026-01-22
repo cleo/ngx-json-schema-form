@@ -5,8 +5,8 @@ import { EnumDataItem, EnumOption } from '../../../../../models/enum-data-item';
 import { ContentBaseComponent } from '../../../../content-base.component';
 
 @Component({
-  selector: 'jsf-dropdown-cell',
-  template: `
+    selector: 'jsf-dropdown-cell',
+    template: `
     <select [(ngModel)]="params.value"
             (ngModelChange)="onChange()"
             [disabled]="params.item.disabledState.isReadOnly">
@@ -16,7 +16,8 @@ import { ContentBaseComponent } from '../../../../content-base.component';
         {{option.text}}
       </option>
     </select>
-    `
+    `,
+    standalone: false
 })
 export class DropdownCellComponent extends ContentBaseComponent {
   @Input() params: any;

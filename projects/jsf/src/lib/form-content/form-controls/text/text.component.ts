@@ -4,9 +4,10 @@ import { StringDataItem, StringFormat, StringLengthOptions } from '../../../mode
 import { FormControlBase } from '../form-control-base';
 
 @Component({
-  selector: 'jsf-text',
-  templateUrl: './text.component.html',
-  styleUrls: ['text.component.scss']
+    selector: 'jsf-text',
+    templateUrl: './text.component.html',
+    styleUrls: ['text.component.scss'],
+    standalone: false
 })
 export class TextComponent extends FormControlBase {
   showCounter = false;

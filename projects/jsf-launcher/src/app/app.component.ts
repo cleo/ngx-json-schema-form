@@ -13,9 +13,10 @@ import schemaV2 from './schemaV2.json';
 import { TemplateComponent } from './template-component/template.component';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+    selector: 'app-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
+    standalone: false
 })
 export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(JSFComponent) jsfComponent: JSFComponent;

@@ -2,9 +2,10 @@ import {  Component, EventEmitter, Output } from '@angular/core';
 import { FormControlBase } from '../form-control-base';
 
 @Component({
-  selector: 'jsf-check-box',
-  templateUrl: './checkbox.component.html',
-  styleUrls: [ './checkbox.component.scss']
+    selector: 'jsf-check-box',
+    templateUrl: './checkbox.component.html',
+    styleUrls: ['./checkbox.component.scss'],
+    standalone: false
 })
 export class CheckboxComponent extends FormControlBase {
   @Output() toggle: EventEmitter<boolean> = new EventEmitter();

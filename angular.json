@@ -43,12 +43,15 @@
       "prefix": "app",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/jsf-launcher",
+            "outputPath": {
+              "base": "dist/jsf-launcher"
+            },
             "index": "projects/jsf-launcher/src/index.html",
-            "main": "projects/jsf-launcher/src/main.ts",
-            "polyfills": "projects/jsf-launcher/src/polyfills.ts",
+            "polyfills": [
+              "projects/jsf-launcher/src/polyfills.ts"
+            ],
             "tsConfig": "projects/jsf-launcher/tsconfig.app.json",
             "assets": [
               "projects/jsf-launcher/src/favicon.ico",
@@ -59,12 +62,11 @@
               "node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss"
             ],
             "scripts": [],
-            "vendorChunk": true,
             "extractLicenses": false,
-            "buildOptimizer": false,
             "sourceMap": true,
             "optimization": false,
-            "namedChunks": true
+            "namedChunks": true,
+            "browser": "projects/jsf-launcher/src/main.ts"
           },
           "configurations": {
             "production": {
@@ -79,8 +81,6 @@
               "sourceMap": false,
               "namedChunks": false,
               "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
               "budgets": [
                 {
                   "type": "initial",

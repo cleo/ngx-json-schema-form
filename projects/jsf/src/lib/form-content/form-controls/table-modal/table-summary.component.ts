@@ -10,9 +10,10 @@ import { ITableModalOptions, TableModalComponent } from './table/table-modal.com
 import { cloneDeep, isEqual } from 'lodash';
 
 @Component({
-  selector: 'jsf-table-summary',
-  templateUrl: 'table-summary.component.html',
-  styleUrls: ['table-summary.component.scss']
+    selector: 'jsf-table-summary',
+    templateUrl: 'table-summary.component.html',
+    styleUrls: ['table-summary.component.scss'],
+    standalone: false
 })
 
 export class TableSummaryComponent extends FormControlBase implements OnInit {

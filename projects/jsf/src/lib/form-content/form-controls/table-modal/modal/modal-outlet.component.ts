@@ -7,9 +7,10 @@ import { ComponentLifeCycle } from '../../../../component-life-cycle';
 import { ModalService, MODAL_OPTIONS_TOKEN } from './modal.service';
 
 @Component({
-  selector: 'jsf-modal-outlet',
-  template: `<ng-container *ngComponentOutlet="componentType; injector: componentInjector"></ng-container>`,
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'jsf-modal-outlet',
+    template: `<ng-container *ngComponentOutlet="componentType; injector: componentInjector"></ng-container>`,
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class ModalOutletComponent extends ComponentLifeCycle implements OnInit {
   private readonly fadeOutDuration = 300;

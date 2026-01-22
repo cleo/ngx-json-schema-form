@@ -7,9 +7,10 @@ import { TextCellComponent } from '../cells/text-cell.component';
 import { TableModalService } from '../table-modal.service';
 
 @Component({
-  selector: 'jsf-renderer',
-  templateUrl: 'cell-renderer.component.html',
-  styleUrls: ['cell-renderer.component.scss']
+    selector: 'jsf-renderer',
+    templateUrl: 'cell-renderer.component.html',
+    styleUrls: ['cell-renderer.component.scss'],
+    standalone: false
 })
 export class CellRendererComponent extends ContentBaseComponent {
   @ViewChild('jsfTextCell') jsfTextCell: TextCellComponent;

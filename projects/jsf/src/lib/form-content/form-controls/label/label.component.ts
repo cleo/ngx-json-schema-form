@@ -3,9 +3,10 @@ import { EnumDataItem, OptionDisplayType } from '../../../models/enum-data-item'
 import { FormDataItem, FormDataItemType } from '../../../models/form-data-item';
 
 @Component({
-  selector: 'jsf-label',
-  templateUrl: './label.component.html',
-  styleUrls: [ './label.component.scss']
+    selector: 'jsf-label',
+    templateUrl: './label.component.html',
+    styleUrls: ['./label.component.scss'],
+    standalone: false
 })
 export class LabelComponent implements OnInit {
   @Input() formItem: FormDataItem;

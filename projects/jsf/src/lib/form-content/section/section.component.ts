@@ -5,10 +5,11 @@ import { ParentDataItem } from '../../models/parent-data-item';
 import { ContentBaseComponent } from '../content-base.component';
 
 @Component({
-  selector: 'jsf-section',
-  templateUrl: 'section.component.html',
-  styleUrls: ['../common.scss', 'section.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'jsf-section',
+    templateUrl: 'section.component.html',
+    styleUrls: ['../common.scss', 'section.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class SectionComponent extends ContentBaseComponent implements OnInit {
   @Input() formItem: ParentDataItem;

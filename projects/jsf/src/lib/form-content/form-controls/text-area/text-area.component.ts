@@ -3,9 +3,10 @@ import { StringDataItem } from '../../../models/string-data-item';
 import { FormControlBase } from '../form-control-base';
 
 @Component({
-  selector: 'jsf-text-area',
-  templateUrl: './text-area.component.html',
-  styleUrls: ['./text-area.component.scss']
+    selector: 'jsf-text-area',
+    templateUrl: './text-area.component.html',
+    styleUrls: ['./text-area.component.scss'],
+    standalone: false
 })
 export class TextAreaComponent extends FormControlBase implements OnInit {
   rows: string;

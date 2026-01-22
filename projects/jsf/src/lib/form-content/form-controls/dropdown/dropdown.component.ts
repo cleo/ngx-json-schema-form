@@ -3,9 +3,10 @@ import { EnumDataItem } from '../../../models/enum-data-item';
 import { FormControlBase } from '../form-control-base';
 
 @Component({
-  selector: 'jsf-drop-down',
-  templateUrl: './dropdown.component.html',
-  styleUrls: [ './dropdown.component.scss']
+    selector: 'jsf-drop-down',
+    templateUrl: './dropdown.component.html',
+    styleUrls: ['./dropdown.component.scss'],
+    standalone: false
 })
 export class DropdownComponent extends FormControlBase {
   @Output() selectedKey: EventEmitter<string> = new EventEmitter();

@@ -7,10 +7,11 @@ import { FormDataItem } from '../../models/form-data-item';
 import { ContentBaseComponent } from '../content-base.component';
 
 @Component({
-  selector: 'jsf-checkbox-with-children',
-  templateUrl: 'checkbox-with-children.component.html',
-  styleUrls: [ '../common.scss', './checkbox-with-children.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+    selector: 'jsf-checkbox-with-children',
+    templateUrl: 'checkbox-with-children.component.html',
+    styleUrls: ['../common.scss', './checkbox-with-children.component.scss'],
+    changeDetection: ChangeDetectionStrategy.OnPush,
+    standalone: false
 })
 export class CheckboxWithChildrenComponent extends ContentBaseComponent  implements OnInit {
   @Input() formItem: ConditionalParentDataItem;

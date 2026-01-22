@@ -3,8 +3,9 @@ import { UntypedFormGroup } from '@angular/forms';
 import { ParentDataItem } from '../../../models/parent-data-item';
 
 @Component({
-  selector: 'jsf-tab',
-  templateUrl: './tab.component.html'
+    selector: 'jsf-tab',
+    templateUrl: './tab.component.html',
+    standalone: false
 })
 export class TabComponent {
   @Input() dataItem: ParentDataItem;

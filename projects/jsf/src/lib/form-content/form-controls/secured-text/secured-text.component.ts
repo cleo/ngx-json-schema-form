@@ -4,9 +4,10 @@ import { SecuredStringDataItem } from '../../../models/secured-string-data-item'
 import { FormControlBase } from '../form-control-base';
 
 @Component({
-  selector: 'jsf-secured-text',
-  templateUrl: './secured-text.component.html',
-  styleUrls: ['./secured-text.component.scss']
+    selector: 'jsf-secured-text',
+    templateUrl: './secured-text.component.html',
+    styleUrls: ['./secured-text.component.scss'],
+    standalone: false
 })
 export class SecuredTextComponent extends FormControlBase {
   @Input() config: JSFConfig;

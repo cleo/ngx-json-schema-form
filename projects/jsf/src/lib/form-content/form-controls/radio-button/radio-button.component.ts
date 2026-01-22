@@ -3,9 +3,10 @@ import { EnumDataItem } from '../../../models/enum-data-item';
 import { FormControlBase } from '../form-control-base';
 
 @Component({
-  selector: 'jsf-radio-button',
-  templateUrl: './radio-button.component.html',
-  styleUrls: ['radio-button.component.scss']
+    selector: 'jsf-radio-button',
+    templateUrl: './radio-button.component.html',
+    styleUrls: ['radio-button.component.scss'],
+    standalone: false
 })
 export class RadioButtonComponent extends FormControlBase {
   get formItemAsEnumType(): EnumDataItem {

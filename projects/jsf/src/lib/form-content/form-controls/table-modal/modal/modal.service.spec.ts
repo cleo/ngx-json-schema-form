@@ -2,7 +2,10 @@ import { Component } from '@angular/core';
 import { ModalService } from './modal.service';
 
 describe('ModalService', () => {
-  @Component({ template: `` })
+  @Component({
+    template: ``,
+    standalone: false
+})
   class MockComponent {}
 
   let service: ModalService<string, number>;
