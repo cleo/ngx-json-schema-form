@@ -17,9 +17,9 @@ module.exports = {
     {
       files: '*.ts',
       extends: [
-        'plugin:@typescript-eslint/eslint-recommended',
         'plugin:@typescript-eslint/recommended',
-        'plugin:@typescript-eslint/recommended-requiring-type-checking'
+        'plugin:@typescript-eslint/recommended-type-checked',
+        'plugin:@angular-eslint/recommended'
       ],
       parserOptions: {
         project: 'tsconfig.lint.json'
@@ -137,7 +137,7 @@ module.exports = {
         '@typescript-eslint/no-var-requires': 'error',
         '@typescript-eslint/prefer-function-type': 'error',
         '@typescript-eslint/prefer-namespace-keyword': 'error',
-        '@typescript-eslint/quotes': [
+        'quotes': [
           'error',
           'single',
           {
@@ -145,15 +145,11 @@ module.exports = {
             avoidEscape: true
           }
         ],
-        '@typescript-eslint/semi': [
-          'error',
-          'always'
-        ],
+        'semi': ['error', 'always'],
         '@typescript-eslint/unified-signatures': 'error',
 
         '@angular-eslint/contextual-lifecycle': 'error',
         '@angular-eslint/no-conflicting-lifecycle': 'error',
-        '@angular-eslint/no-host-metadata-property': 'error',
         '@angular-eslint/no-input-rename': 'error',
         '@angular-eslint/no-inputs-metadata-property': 'error',
         '@angular-eslint/no-output-rename': 'error',
