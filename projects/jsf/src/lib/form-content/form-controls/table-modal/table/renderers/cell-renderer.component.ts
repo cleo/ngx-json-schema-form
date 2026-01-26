@@ -5,13 +5,22 @@ import { CheckboxCellComponent } from '../cells/checkbox-cell.component';
 import { DropdownCellComponent } from '../cells/dropdown-cell.component';
 import { TextCellComponent } from '../cells/text-cell.component';
 import { TableModalService } from '../table-modal.service';
+import { CommonModule } from '@angular/common';
+import { CheckboxComponent } from '../../../checkbox/checkbox.component';
 
 @Component({
     selector: 'jsf-renderer',
+    standalone: true,
+    imports: [
+      CommonModule,
+      DropdownCellComponent,
+      TextCellComponent,
+      CheckboxCellComponent
+    ],
     templateUrl: 'cell-renderer.component.html',
-    styleUrls: ['cell-renderer.component.scss'],
-    standalone: false
+    styleUrls: ['cell-renderer.component.scss']
 })
+
 export class CellRendererComponent extends ContentBaseComponent {
   @ViewChild('jsfTextCell') jsfTextCell: TextCellComponent;
   @ViewChild('jsfDropdownCell') jsfDropdownCell: DropdownCellComponent;

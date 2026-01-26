@@ -2,13 +2,24 @@ import { Component } from '@angular/core';
 import { FormDataItemType } from '../../../models/form-data-item';
 import { StringDataItem, StringFormat, StringLengthOptions } from '../../../models/string-data-item';
 import { FormControlBase } from '../form-control-base';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LabelComponent } from '../label/label.component';
+import { EventButtonComponent } from '../event-button/event-button.component';
 
 @Component({
     selector: 'jsf-text',
+    standalone: true,
+    imports: [
+      CommonModule,
+      ReactiveFormsModule,
+      LabelComponent,
+      EventButtonComponent
+    ],
     templateUrl: './text.component.html',
     styleUrls: ['text.component.scss'],
-    standalone: false
 })
+
 export class TextComponent extends FormControlBase {
   showCounter = false;
 

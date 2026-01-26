@@ -1,13 +1,22 @@
 import { Component, OnInit } from '@angular/core';
 import { StringDataItem } from '../../../models/string-data-item';
 import { FormControlBase } from '../form-control-base';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LabelComponent } from '../label/label.component';
 
 @Component({
     selector: 'jsf-text-area',
+    standalone: true,
+    imports: [
+      CommonModule,
+      ReactiveFormsModule,
+      LabelComponent
+      ],
     templateUrl: './text-area.component.html',
     styleUrls: ['./text-area.component.scss'],
-    standalone: false
 })
+
 export class TextAreaComponent extends FormControlBase implements OnInit {
   rows: string;
   cols: string;

@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 
 import { NEVER } from 'rxjs';
 import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
@@ -17,13 +17,19 @@ import { JSFTemplateTarget } from './jsf-template-target';
 import { FormDataItem } from './models/form-data-item';
 import { ParentDataItem } from './models/parent-data-item';
 import { XOfEnumDataItem } from './models/xOf-enum-data-item';
+import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'jsf-component',
-    templateUrl: './jsf.component.html',
-    styleUrls: ['./jsf.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+  selector: 'jsf-component',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    FormContentComponent,
+  ],
+  templateUrl: './jsf.component.html',
+  styleUrls: ['./jsf.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, OnInit {
   @ViewChild(FormContentComponent, {static: true}) content: FormContentComponent;
@@ -79,7 +85,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
     super.ngAfterViewInit();
     this.content.divs.changes
       .pipe(take(1))
-      .subscribe(() => this.formHeightChange.emit(this.getFormHeight()));
+      .subscribe({ next: () => this.formHeightChange.emit(this.getFormHeight())});
   }
 
   onFormElementChange(): void {

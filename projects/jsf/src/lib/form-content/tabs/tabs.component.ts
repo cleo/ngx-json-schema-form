@@ -5,13 +5,19 @@ import { FormDataItem } from '../../models/form-data-item';
 import { ParentDataItem } from '../../models/parent-data-item';
 import { ContentBaseComponent } from '../content-base.component';
 import { TabComponent } from './tab/tab.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'jsf-tabs',
+    standalone: true,
+    imports: [
+      CommonModule,
+      TabComponent
+    ],
     templateUrl: 'tabs.component.html',
     styleUrls: ['tabs.component.scss'],
-    standalone: false
 })
+
 export class TabsComponent extends ContentBaseComponent implements AfterContentInit {
   @ContentChildren(TabComponent) public tabs: QueryList<TabComponent>;
   @Input() items: ParentDataItem[];

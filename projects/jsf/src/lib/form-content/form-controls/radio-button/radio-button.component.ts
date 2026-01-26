@@ -1,12 +1,20 @@
 import { Component } from '@angular/core';
 import { EnumDataItem } from '../../../models/enum-data-item';
 import { FormControlBase } from '../form-control-base';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LabelComponent } from '../label/label.component';
 
 @Component({
     selector: 'jsf-radio-button',
+    standalone: true,
+     imports: [
+      CommonModule,
+      ReactiveFormsModule,
+      LabelComponent
+     ],
     templateUrl: './radio-button.component.html',
-    styleUrls: ['radio-button.component.scss'],
-    standalone: false
+    styleUrls: ['radio-button.component.scss']
 })
 export class RadioButtonComponent extends FormControlBase {
   get formItemAsEnumType(): EnumDataItem {

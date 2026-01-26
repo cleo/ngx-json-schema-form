@@ -4,8 +4,9 @@ import { ModalService } from './modal.service';
 describe('ModalService', () => {
   @Component({
     template: ``,
-    standalone: false
+    standalone: true
 })
+
   class MockComponent {}
 
   let service: ModalService<string, number>;
@@ -25,7 +26,7 @@ describe('ModalService', () => {
       const options = 'test';
 
       const resultNextSpy = jasmine.createSpy('next');
-      service.getOpenEvents().subscribe(resultNextSpy);
+      service.getOpenEvents().subscribe({next: resultNextSpy});
 
       service.open(options);
 
@@ -46,7 +47,7 @@ describe('ModalService', () => {
       const result = 123;
 
       const resultNextSpy = jasmine.createSpy('next');
-      service.getCloseEvents().subscribe(resultNextSpy);
+      service.getCloseEvents().subscribe({next: resultNextSpy});
 
       service.open();
 
@@ -59,7 +60,7 @@ describe('ModalService', () => {
       const result = 123;
 
       const resultNextSpy = jasmine.createSpy('next');
-      service.open().subscribe(resultNextSpy);
+      service.open().subscribe({next: resultNextSpy});
 
       service.close(result);
 

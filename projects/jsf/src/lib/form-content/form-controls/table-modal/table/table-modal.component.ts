@@ -9,13 +9,23 @@ import { ModalService, MODAL_OPTIONS_TOKEN } from '../modal/modal.service';
 import { FormControlBase } from '../../form-control-base';
 import { CellRendererComponent } from './renderers/cell-renderer.component';
 import { TableModalService } from './table-modal.service';
+import { CommonModule } from '@angular/common';
+import { AlertComponent } from '../alert/alert.component';
+import { ModalComponent } from '../modal/modal.component';
+import { AgGridBridgeModule } from 'projects/jsf/src/public_api';
 
 @Component({
     selector: 'jsf-table-modal',
+    standalone: true,
+    imports: [
+      CommonModule,
+      AgGridBridgeModule,
+      AlertComponent,
+      ModalComponent
+    ],
     templateUrl: 'table-modal.component.html',
     styleUrls: ['./table-modal.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class TableModalComponent extends FormControlBase {

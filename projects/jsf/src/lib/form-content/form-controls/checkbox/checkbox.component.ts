@@ -1,11 +1,19 @@
 import {  Component, EventEmitter, Output } from '@angular/core';
 import { FormControlBase } from '../form-control-base';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LabelComponent } from '../label/label.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'jsf-check-box',
+    standalone: true,
+    imports: [
+      CommonModule,
+      ReactiveFormsModule,
+      LabelComponent
+    ],
     templateUrl: './checkbox.component.html',
-    styleUrls: ['./checkbox.component.scss'],
-    standalone: false
+    styleUrls: ['./checkbox.component.scss']
 })
 export class CheckboxComponent extends FormControlBase {
   @Output() toggle: EventEmitter<boolean> = new EventEmitter();

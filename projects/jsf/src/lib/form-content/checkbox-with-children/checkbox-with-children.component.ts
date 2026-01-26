@@ -1,17 +1,24 @@
 import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 import { FormService, getLongestFieldLabelClass } from '../../form.service';
 import { ConditionalParentDataItem, CONDITIONAL_PARENT_VALUE_KEY } from '../../models/conditional-parent-data-item';
 import { FormDataItem } from '../../models/form-data-item';
 import { ContentBaseComponent } from '../content-base.component';
+import { CheckboxComponent } from '../form-controls/checkbox/checkbox.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'jsf-checkbox-with-children',
+    standalone: true,
+    imports: [
+      CommonModule,
+      ReactiveFormsModule,
+      CheckboxComponent
+    ],
     templateUrl: 'checkbox-with-children.component.html',
     styleUrls: ['../common.scss', './checkbox-with-children.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
-    standalone: false
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckboxWithChildrenComponent extends ContentBaseComponent  implements OnInit {
   @Input() formItem: ConditionalParentDataItem;

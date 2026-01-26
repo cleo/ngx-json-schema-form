@@ -1,18 +1,40 @@
 import { Component, Input } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 
 import { JSFConfig } from '../../jsf-config';
 import { EnumDataItem, OptionDisplayType } from '../../models/enum-data-item';
 import { FormDataItem, FormDataItemType } from '../../models/form-data-item';
 import { StringDataItem } from '../../models/string-data-item';
 import { ContentBaseComponent } from '../content-base.component';
+import { CommonModule } from '@angular/common';
+import { TextComponent } from './text/text.component';
+import { SecuredTextComponent } from './secured-text/secured-text.component';
+import { TextAreaComponent } from './text-area/text-area.component';
+import { CheckboxComponent } from './checkbox/checkbox.component';
+import { DropdownComponent } from './dropdown/dropdown.component';
+import { RadioButtonComponent } from './radio-button/radio-button.component';
+import { TableSummaryComponent } from './table-modal/table-summary.component';
+import { TemplateComponent } from './template/template.component';
 
 @Component({
     selector: 'jsf-form-control',
+    standalone: true,
+    imports: [
+      CommonModule,
+      ReactiveFormsModule,
+      SecuredTextComponent,
+      TextComponent,
+      TextAreaComponent,
+      CheckboxComponent,
+      DropdownComponent,
+      RadioButtonComponent,
+      TableSummaryComponent,
+      TemplateComponent
+    ],
     templateUrl: './form-control.component.html',
     styleUrls: ['./form-control.component.scss'],
-    standalone: false
 })
+
 export class FormControlComponent extends ContentBaseComponent {
   @Input() formItem: FormDataItem;
   @Input() formGroup: UntypedFormGroup;

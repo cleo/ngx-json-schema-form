@@ -3,21 +3,27 @@ import { map, takeUntil } from 'rxjs/operators';
 import { getInputValue$ } from '../../../../../component-life-cycle';
 import { EnumDataItem, EnumOption } from '../../../../../models/enum-data-item';
 import { ContentBaseComponent } from '../../../../content-base.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'jsf-dropdown-cell',
+    standalone: true,
+    imports: [
+      CommonModule,
+      FormsModule
+    ],
     template: `
-    <select [(ngModel)]="params.value"
-            (ngModelChange)="onChange()"
-            [disabled]="params.item.disabledState.isReadOnly">
-      <option *ngFor="let option of options"
-              [id]="option.path"
-              [ngValue]="option.key">
-        {{option.text}}
-      </option>
-    </select>
+      <select [(ngModel)]="params.value"
+              (ngModelChange)="onChange()"
+              [disabled]="params.item.disabledState.isReadOnly">
+        <option *ngFor="let option of options"
+                [id]="option.path"
+                [ngValue]="option.key">
+          {{option.text}}
+        </option>
+      </select>
     `,
-    standalone: false
 })
 export class DropdownCellComponent extends ContentBaseComponent {
   @Input() params: any;

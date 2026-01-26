@@ -1,8 +1,15 @@
 import { AfterViewInit, Component, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { ContentBaseComponent } from '../../../../content-base.component';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'jsf-text-cell',
+    standalone: true,
+    imports: [
+      CommonModule,
+      FormsModule
+    ],
     template: `
     <input
       class="jsf-text-cell-input"
@@ -13,9 +20,9 @@ import { ContentBaseComponent } from '../../../../content-base.component';
       [disabled]="params.item.disabledState.isReadOnly"
       [(ngModel)]="params.value"
     />
-    `,
-    standalone: false
+    `
 })
+
 export class TextCellComponent extends ContentBaseComponent implements AfterViewInit {
   @Input() params: any;
   @ViewChild('input', {read: ViewContainerRef}) public input;

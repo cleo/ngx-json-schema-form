@@ -1,12 +1,15 @@
 import { AfterViewInit, Component, HostListener, Input, OnInit } from '@angular/core';
 import { TemplateDataItem } from '../../../models/template-data-item';
 import { FormControlBase } from '../form-control-base';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'jsf-template',
-    templateUrl: './template.component.html',
-    standalone: false
+    standalone: true,
+    imports: [CommonModule],
+    templateUrl: './template.component.html'
 })
+
 export class TemplateComponent extends FormControlBase implements AfterViewInit {
   @Input() templates: any = {};
 

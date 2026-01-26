@@ -11,13 +11,20 @@ import dataV1 from './outdatedSchema/dataV1.json';
 import schemaV1 from './outdatedSchema/schemaV1.json';
 import schemaV2 from './schemaV2.json';
 import { TemplateComponent } from './template-component/template.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'app-root',
+    standalone: true,
+    imports: [
+      CommonModule,
+      JSFComponent,
+      TemplateComponent
+    ],
     templateUrl: './app.component.html',
-    styleUrls: ['./app.component.scss'],
-    standalone: false
+    styleUrls: ['./app.component.scss']
 })
+
 export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(JSFComponent) jsfComponent: JSFComponent;
   @ViewChild(TemplateComponent) templateComponent: TemplateComponent;

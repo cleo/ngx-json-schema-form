@@ -1,12 +1,20 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { EnumDataItem } from '../../../models/enum-data-item';
 import { FormControlBase } from '../form-control-base';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LabelComponent } from '../label/label.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
     selector: 'jsf-drop-down',
+    standalone: true,
+    imports: [
+      CommonModule,
+      ReactiveFormsModule,
+      LabelComponent
+    ],
     templateUrl: './dropdown.component.html',
-    styleUrls: ['./dropdown.component.scss'],
-    standalone: false
+    styleUrls: ['./dropdown.component.scss']
 })
 export class DropdownComponent extends FormControlBase {
   @Output() selectedKey: EventEmitter<string> = new EventEmitter();
