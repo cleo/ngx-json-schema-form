@@ -1,0 +1,155 @@
+<div class="api-example-container">
+  <!-- Header -->
+  <div class="header-section">
+    <h1>🌐 JSF Complete Demo</h1>
+    <p class="subtitle">Full CRUD with localStorage + All JSF Component Features</p>
+  </div>
+
+  <!-- Loading Indicator -->
+  <div class="loading-overlay" *ngIf="isLoading()">
+    <div class="spinner"></div>
+    <p>Loading...</p>
+  </div>
+
+  <!-- Success Message -->
+  <div class="alert alert-success" *ngIf="successMessage()">
+    <span class="alert-icon">✅</span>
+    {{ successMessage() }}
+  </div>
+
+  <!-- Error Message -->
+  <div class="alert alert-danger" *ngIf="error()">
+    <span class="alert-icon">❌</span>
+    {{ error() }}
+  </div>
+
+  <!-- Controls Bar -->
+  <div class="controls-bar">
+    <button 
+      class="btn btn-primary" 
+      (click)="showAddForm()"
+      [disabled]="isLoading()">
+      ➕ Add New User
+    </button>
+
+    <div class="stats">
+      <span class="stat-badge">
+        👥 {{ users().length }} users loaded
+      </span>
+    </div>
+  </div>
+
+  <!-- Users Table -->
+  <div class="users-table-container">
+    <h2>User Management</h2>
+    <div class="table-wrapper">
+      <table class="users-table">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Username</th>
+            <th>Email</th>
+            <th>Phone</th>
+            <th>City</th>
+            <th>Company</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users()">
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.username }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.phone }}</td>
+            <td>{{ user.address?.city || 'N/A' }}</td>
+            <td>{{ user.company?.name || 'N/A' }}</td>
+            <td class="actions-cell">
+              <button 
+                class="btn-icon btn-view" 
+                (click)="viewUserDetails(user)"
+                title="View Details"
+                [disabled]="isLoading()">
+                👁️
+              </button>
+              <button 
+                class="btn-icon btn-edit" 
+                (click)="editUser(user)"
+                title="Edit"
+                [disabled]="isLoading()">
+                ✏️
+              </button>
+              <button 
+                class="btn-icon btn-delete" 
+                (click)="deleteUser(user)"
+                title="Delete"
+                [disabled]="isLoading()">
+                🗑️
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- User Modal -->
+  <app-user-modal
+    [show]="showModal()"
+    [user]="userToEdit()"
+    [isLoading]="isLoading()"
+    (save)="onModalSave($event)"
+    (cancel)="closeModal()">
+  </app-user-modal>
+
+  <!-- Features Info -->
+  <div class="features-info">
+    <h3>🎯 JSF Features Demonstrated</h3>
+    <div class="features-grid">
+      <div class="feature-box">
+        <strong>📑 Tabs:</strong> 5 organized tabs (Basic Info, Address, Contact, Company, Skills)
+      </div>
+      <div class="feature-box">
+        <strong>🌳 Checkboxes with Children:</strong> GPS Coordinates, Company Details
+      </div>
+      <div class="feature-box">
+        <strong>📋 Dropdowns:</strong> Role, Country, Department, Skill Level, Proficiency
+      </div>
+      <div class="feature-box">
+        <strong>🔘 Radio Buttons:</strong> Account Status (Active/Inactive/Suspended)
+      </div>
+      <div class="feature-box">
+        <strong>🔀 Dropdown with Children (oneOf):</strong> Preferred Contact Method with dynamic fields
+      </div>
+      <div class="feature-box">
+        <strong>📊 Tables:</strong> Primary Skills table with sortable columns
+      </div>
+      <div class="feature-box">
+        <strong>📝 Arrays:</strong> Emergency Contacts, Languages
+      </div>
+      <div class="feature-box">
+        <strong>🔢 Integer Inputs:</strong> Age, Years of Experience
+      </div>
+      <div class="feature-box">
+        <strong>✔️ Validation:</strong> Email pattern, username format, min/max values, required fields
+      </div>
+      <div class="feature-box">
+        <strong>📝 TextAreas:</strong> Catch Phrase, Business Description
+      </div>
+      <div class="feature-box">
+        <strong>🔒 Read-only:</strong> User ID field
+      </div>
+      <div class="feature-box">
+        <strong>❓ Conditionals:</strong> Company details shown only when employed
+      </div>
+      <div class="feature-box">
+        <strong>💾 Persistence:</strong> Data saved in browser localStorage
+      </div>
+      <div class="feature-box">
+        <strong>📋 Placeholders:</strong> Helpful examples in all input fields
+      </div>
+    </div>
+  </div>
+
+</div>

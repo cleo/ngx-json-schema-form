@@ -159,6 +159,95 @@
           }
         }
       }
+    },
+    "jsf-demo": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "scss",
+          "standalone": true
+        }
+      },
+      "root": "projects/jsf-demo",
+      "sourceRoot": "projects/jsf-demo/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular/build:application",
+          "options": {
+            "outputPath": {
+              "base": "dist/jsf-demo"
+            },
+            "index": "projects/jsf-demo/src/index.html",
+            "browser": "projects/jsf-demo/src/main.ts",
+            "polyfills": [
+              "zone.js"
+            ],
+            "tsConfig": "projects/jsf-demo/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "projects/jsf-demo/src/favicon.ico",
+              "projects/jsf-demo/src/assets",
+              {
+                "glob": "**/*",
+                "input": "projects/jsf-launcher/src/assets/jsf-images",
+                "output": "/assets/jsf-images"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/bootstrap-sass/assets/fonts/",
+                "output": "/fonts/"
+              }
+            ],
+            "styles": [
+              "projects/jsf-demo/src/bootstrap-custom.scss",
+              "projects/jsf-demo/src/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kB",
+                  "maximumError": "1MB"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kB",
+                  "maximumError": "4kB"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "optimization": false,
+              "extractLicenses": false,
+              "sourceMap": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular/build:dev-server",
+          "options": {
+            "buildTarget": "jsf-demo:build"
+          },
+          "configurations": {
+            "production": {
+              "buildTarget": "jsf-demo:build:production"
+            },
+            "development": {
+              "buildTarget": "jsf-demo:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular/build:extract-i18n"
+        }
+      }
     }
   },
   "schematics": {

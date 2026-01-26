@@ -1,0 +1,43 @@
+{
+  "basicInfo": {
+    "name": "",
+    "username": "",
+    "email": "",
+    "age": null,
+    "role": "",
+    "status": "active",
+    "phone": "",
+    "website": "",
+    "newsletter": false
+  },
+  "address": {
+    "street": "",
+    "suite": "",
+    "city": "",
+    "zipcode": "",
+    "country": "",
+    "geo": {
+      "lat": "",
+      "lng": ""
+    }
+  },
+  "contact": {
+    "preferredContact": {},
+    "emergencyContacts": []
+  },
+  "company": {
+    "hasCompany": false,
+    "companyDetails": {
+      "name": "",
+      "position": "",
+      "department": "",
+      "yearsOfExperience": null,
+      "catchPhrase": "",
+      "bs": ""
+    }
+  },
+  "skills": {
+    "primarySkills": [],
+    "languages": []
+  }
+}

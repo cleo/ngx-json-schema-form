@@ -1,0 +1,701 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "version": "2.0.0",
+  "type": "object",
+  "display": "tabs",
+  "properties": {
+    "basicInfo": {
+      "type": "object",
+      "name": "Basic Information",
+      "description": "User personal data",
+      "required": [
+        "name",
+        "email",
+        "role",
+        "status"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "name": "User ID",
+          "helpText": "ID automatically generated",
+          "isReadOnly": true
+        },
+        "name": {
+          "type": "string",
+          "name": "Full Name",
+          "helpText": "User's full name",
+          "minLength": 3,
+          "maxLength": 100,
+          "placeholder": "e.g., John Doe"
+        },
+        "username": {
+          "type": "string",
+          "name": "Username",
+          "helpText": "Unique username for the system",
+          "pattern": "^[a-zA-Z0-9._-]{3,20}$",
+          "placeholder": "e.g., john.doe"
+        },
+        "email": {
+          "type": "string",
+          "name": "Email",
+          "helpText": "Valid email address",
+          "format": "email",
+          "placeholder": "e.g., john@example.com"
+        },
+        "age": {
+          "type": "integer",
+          "name": "Age",
+          "helpText": "User's age",
+          "minimum": 18,
+          "maximum": 120
+        },
+        "role": {
+          "display": "dropdown",
+          "name": "User Role",
+          "helpText": "Select user role in the system",
+          "tooltip": "Role defines user permissions",
+          "enum": [
+            "admin",
+            "user",
+            "guest",
+            "moderator"
+          ],
+          "enumNames": [
+            "Administrator",
+            "Regular User",
+            "Guest",
+            "Moderator"
+          ]
+        },
+        "status": {
+          "display": "radio-buttons",
+          "name": "Account Status",
+          "helpText": "Current account status",
+          "enum": [
+            "active",
+            "inactive",
+            "suspended"
+          ],
+          "enumNames": [
+            "Active",
+            "Inactive",
+            "Suspended"
+          ]
+        },
+        "phone": {
+          "type": "string",
+          "name": "Phone",
+          "helpText": "Contact phone number in US format",
+          "pattern": "^(\\+?1-?)?\\(?([0-9]{3})\\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$",
+          "placeholder": "+1-555-123-4567 or (555)123-4567"
+        },
+        "website": {
+          "type": "string",
+          "name": "Website",
+          "helpText": "Personal or professional website URL",
+          "format": "uri",
+          "placeholder": "e.g., https://example.com"
+        },
+        "newsletter": {
+          "type": "boolean",
+          "name": "Subscribe to Newsletter",
+          "helpText": "Receive updates and news",
+          "default": false
+        },
+        "emailNotifications": {
+          "type": "boolean",
+          "name": "Enable Email Notifications",
+          "helpText": "Receive email notifications",
+          "tooltip": "This can be changed later in settings",
+          "default": true
+        },
+        "twoFactorAuth": {
+          "type": "boolean",
+          "name": "Enable Two-Factor Authentication",
+          "helpText": "Add an extra layer of security",
+          "default": false,
+          "isReadOnly": false
+        }
+      }
+    },
+    "address": {
+      "type": "object",
+      "name": "Address",
+      "description": "User location information",
+      "properties": {
+        "street": {
+          "type": "string",
+          "name": "Street",
+          "helpText": "Street name",
+          "placeholder": "e.g., 123 Main St"
+        },
+        "suite": {
+          "type": "string",
+          "name": "Suite/Apartment",
+          "helpText": "Suite or apartment number",
+          "placeholder": "e.g., Apt 4B"
+        },
+        "city": {
+          "type": "string",
+          "name": "City",
+          "helpText": "City of residence",
+          "placeholder": "e.g., New York"
+        },
+        "zipcode": {
+          "type": "string",
+          "name": "Zip Code",
+          "helpText": "Address zip code",
+          "placeholder": "e.g., 10001"
+        },
+        "country": {
+          "display": "dropdown",
+          "name": "Country",
+          "helpText": "Select your country",
+          "enum": [
+            "usa",
+            "canada",
+            "mexico",
+            "uk",
+            "germany",
+            "france"
+          ],
+          "enumNames": [
+            "United States",
+            "Canada",
+            "Mexico",
+            "United Kingdom",
+            "Germany",
+            "France"
+          ]
+        },
+        "geo": {
+          "type": "object",
+          "name": "GPS Coordinates",
+          "isCheckbox": true,
+          "properties": {
+            "lat": {
+              "type": "string",
+              "name": "Latitude",
+              "helpText": "Latitude coordinate",
+              "placeholder": "e.g., 40.7128"
+            },
+            "lng": {
+              "type": "string",
+              "name": "Longitude",
+              "helpText": "Longitude coordinate",
+              "placeholder": "e.g., -74.0060"
+            }
+          }
+        }
+      }
+    },
+    "contact": {
+      "type": "object",
+      "name": "Contact Preferences",
+      "description": "How the user prefers to be contacted",
+      "properties": {
+        "preferredContact": {
+          "name": "Preferred Contact Method",
+          "display": "dropdown",
+          "helpText": "Choose how you want to be contacted",
+          "oneOf": [
+            {
+              "type": "object",
+              "name": "Email",
+              "key": "email",
+              "required": [
+                "emailAddress"
+              ],
+              "properties": {
+                "emailAddress": {
+                  "type": "string",
+                  "name": "Email Address",
+                  "helpText": "Your preferred email",
+                  "placeholder": "contact@example.com"
+                },
+                "emailFrequency": {
+                  "display": "dropdown",
+                  "name": "Email Frequency",
+                  "enum": [
+                    "daily",
+                    "weekly",
+                    "monthly"
+                  ],
+                  "enumNames": [
+                    "Daily",
+                    "Weekly",
+                    "Monthly"
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "name": "Phone",
+              "key": "phone",
+              "required": [
+                "phoneNumber"
+              ],
+              "properties": {
+                "phoneNumber": {
+                  "type": "string",
+                  "name": "Phone Number",
+                  "helpText": "Your preferred phone",
+                  "placeholder": "+1-555-123-4567"
+                },
+                "bestTimeToCall": {
+                  "display": "dropdown",
+                  "name": "Best Time to Call",
+                  "enum": [
+                    "morning",
+                    "afternoon",
+                    "evening"
+                  ],
+                  "enumNames": [
+                    "Morning (8AM-12PM)",
+                    "Afternoon (12PM-5PM)",
+                    "Evening (5PM-9PM)"
+                  ]
+                }
+              }
+            },
+            {
+              "type": "object",
+              "name": "SMS",
+              "key": "sms",
+              "required": [
+                "smsNumber"
+              ],
+              "properties": {
+                "smsNumber": {
+                  "type": "string",
+                  "name": "SMS Number",
+                  "helpText": "Mobile number for SMS",
+                  "placeholder": "+1-555-987-6543"
+                }
+              }
+            }
+          ]
+        },
+        "emergencyContacts": {
+          "type": "array",
+          "name": "Emergency Contacts",
+          "helpText": "Add emergency contact persons",
+          "items": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string",
+                "name": "Contact Name",
+                "placeholder": "e.g., Jane Doe"
+              },
+              "relationship": {
+                "type": "string",
+                "name": "Relationship",
+                "placeholder": "e.g., Spouse, Parent"
+              },
+              "phone": {
+                "type": "string",
+                "name": "Phone Number",
+                "placeholder": "+1-555-000-0000"
+              }
+            }
+          }
+        }
+      }
+    },
+    "company": {
+      "type": "object",
+      "name": "Company",
+      "description": "Employment and company information",
+      "properties": {
+        "hasCompany": {
+          "type": "boolean",
+          "name": "Works at a Company",
+          "helpText": "Check if employed",
+          "default": false
+        },
+        "companyDetails": {
+          "type": "object",
+          "name": "Company Details",
+          "isConditional": true,
+          "properties": {
+            "name": {
+              "type": "string",
+              "name": "Company Name",
+              "helpText": "Name of the company",
+              "placeholder": "e.g., Acme Corporation"
+            },
+            "position": {
+              "type": "string",
+              "name": "Position/Title",
+              "helpText": "Your job title",
+              "placeholder": "e.g., Software Engineer"
+            },
+            "department": {
+              "display": "dropdown",
+              "name": "Department",
+              "helpText": "Select your department",
+              "enum": [
+                "engineering",
+                "sales",
+                "marketing",
+                "hr",
+                "finance",
+                "operations"
+              ],
+              "enumNames": [
+                "Engineering",
+                "Sales",
+                "Marketing",
+                "Human Resources",
+                "Finance",
+                "Operations"
+              ]
+            },
+            "yearsOfExperience": {
+              "type": "integer",
+              "name": "Years of Experience",
+              "helpText": "Total years in this field",
+              "minimum": 0,
+              "maximum": 50
+            },
+            "catchPhrase": {
+              "type": "string",
+              "name": "Catch Phrase",
+              "helpText": "Company's slogan or motto",
+              "isTextArea": true,
+              "placeholder": "Enter company slogan..."
+            },
+            "bs": {
+              "type": "string",
+              "name": "Business Description",
+              "helpText": "Business description",
+              "isTextArea": true,
+              "placeholder": "Describe the business..."
+            }
+          }
+        }
+      }
+    },
+    "skills": {
+      "type": "object",
+      "name": "Skills & Projects",
+      "description": "Professional skills and project history",
+      "properties": {
+        "primarySkills": {
+          "type": "array",
+          "name": "Primary Technical Skills",
+          "helpText": "List your main technical skills",
+          "tooltip": "Add your technical skills and proficiency levels.",
+          "items": {
+            "required": [
+              "skill",
+              "level"
+            ],
+            "properties": {
+              "skill": {
+                "type": "string",
+                "name": "Skill Name",
+                "placeholder": "e.g., JavaScript"
+              },
+              "level": {
+                "name": "Proficiency Level",
+                "helpText": "Select your proficiency level",
+                "tooltip": "Choose from Beginner to Expert",
+                "enum": [
+                  "beginner",
+                  "intermediate",
+                  "advanced",
+                  "expert"
+                ],
+                "enumNames": [
+                  "Beginner",
+                  "Intermediate",
+                  "Advanced",
+                  "Expert"
+                ]
+              },
+              "yearsExperience": {
+                "type": "integer",
+                "name": "Years",
+                "minimum": 0,
+                "maximum": 50
+              },
+              "certified": {
+                "type": "boolean",
+                "name": "Certified",
+                "helpText": "Do you have certification for this skill?",
+                "tooltip": "Check if you are certified"
+              }
+            }
+          }
+        },
+        "languages": {
+          "type": "array",
+          "name": "Spoken Languages",
+          "helpText": "Languages you can speak",
+          "tooltip": "Add the languages you speak and your proficiency level.",
+          "items": {
+            "required": [
+              "language",
+              "proficiency"
+            ],
+            "properties": {
+              "language": {
+                "type": "string",
+                "name": "Language",
+                "placeholder": "e.g., English"
+              },
+              "proficiency": {
+                "name": "Proficiency",
+                "helpText": "Select your language proficiency level",
+                "tooltip": "Choose from Basic to Native",
+                "enum": [
+                  "basic",
+                  "conversational",
+                  "fluent",
+                  "native"
+                ],
+                "enumNames": [
+                  "Basic",
+                  "Conversational",
+                  "Fluent",
+                  "Native"
+                ]
+              }
+            }
+          }
+        }
+      }
+    },
+    "security": {
+      "type": "object",
+      "name": "Security & Privacy",
+      "description": "Secure credentials and privacy settings",
+      "required": [
+        "password"
+      ],
+      "properties": {
+        "password": {
+          "type": "string",
+          "name": "Password",
+          "helpText": "Your account password",
+          "tooltip": "Password will be stored securely",
+          "isSecured": true,
+          "minLength": 8
+        },
+        "apiKey": {
+          "type": "string",
+          "name": "API Key (Optional)",
+          "helpText": "API key for integrations",
+          "tooltip": "Click 'unset' to remove the key",
+          "isSecured": true
+        },
+        "secretToken": {
+          "type": "string",
+          "name": "Secret Token",
+          "helpText": "Authentication token",
+          "isSecured": true,
+          "isReadOnly": true,
+          "default": "hidden_token_value"
+        },
+        "privacySettings": {
+          "type": "object",
+          "name": "Privacy Settings",
+          "description": "Control your privacy preferences",
+          "properties": {
+            "profileVisibility": {
+              "display": "dropdown",
+              "name": "Profile Visibility",
+              "helpText": "Who can see your profile",
+              "default": "friends",
+              "enum": [
+                "public",
+                "friends",
+                "private"
+              ],
+              "enumNames": [
+                "Public - Everyone",
+                "Friends Only",
+                "Private - Only Me"
+              ]
+            },
+            "showEmail": {
+              "type": "boolean",
+              "name": "Show Email in Profile",
+              "helpText": "Make email visible to others",
+              "default": false
+            },
+            "allowMessages": {
+              "type": "boolean",
+              "name": "Allow Direct Messages",
+              "helpText": "Let others send you messages",
+              "default": true
+            }
+          }
+        }
+      }
+    },
+    "preferences": {
+      "type": "object",
+      "name": "Preferences & Settings",
+      "description": "User preferences and advanced settings",
+      "properties": {
+        "theme": {
+          "display": "radio-buttons",
+          "name": "Theme Preference",
+          "helpText": "Choose your preferred theme",
+          "default": "auto",
+          "enum": [
+            "light",
+            "dark",
+            "auto"
+          ],
+          "enumNames": [
+            "Light Mode",
+            "Dark Mode",
+            "Auto (System)"
+          ]
+        },
+        "language": {
+          "display": "dropdown",
+          "name": "Interface Language",
+          "helpText": "Select your preferred language",
+          "default": "en",
+          "enum": [
+            "en",
+            "es",
+            "fr",
+            "de",
+            "pt"
+          ],
+          "enumNames": [
+            "English",
+            "Español",
+            "Français",
+            "Deutsch",
+            "Português"
+          ]
+        },
+        "timezone": {
+          "display": "dropdown",
+          "name": "Timezone",
+          "helpText": "Your local timezone",
+          "enum": [
+            "UTC",
+            "America/New_York",
+            "America/Los_Angeles",
+            "Europe/London",
+            "Europe/Paris",
+            "Asia/Tokyo"
+          ],
+          "enumNames": [
+            "UTC (GMT+0)",
+            "Eastern Time (GMT-5)",
+            "Pacific Time (GMT-8)",
+            "London (GMT+0)",
+            "Paris (GMT+1)",
+            "Tokyo (GMT+9)"
+          ]
+        },
+        "notificationPreferences": {
+          "type": "object",
+          "name": "Notification Preferences",
+          "isConditional": true,
+          "default": true,
+          "helpText": "Configure how you receive notifications",
+          "properties": {
+            "emailDigest": {
+              "display": "dropdown",
+              "name": "Email Digest Frequency",
+              "helpText": "How often to receive email digests",
+              "default": "weekly",
+              "enum": [
+                "daily",
+                "weekly",
+                "monthly",
+                "never"
+              ],
+              "enumNames": [
+                "Daily Summary",
+                "Weekly Digest",
+                "Monthly Roundup",
+                "Never Send"
+              ]
+            },
+            "pushNotifications": {
+              "type": "boolean",
+              "name": "Enable Push Notifications",
+              "helpText": "Receive browser push notifications",
+              "default": false
+            },
+            "smsAlerts": {
+              "type": "boolean",
+              "name": "Enable SMS Alerts",
+              "helpText": "Receive important alerts via SMS",
+              "default": false
+            }
+          }
+        },
+        "advancedSettings": {
+          "type": "object",
+          "name": "Advanced Settings",
+          "isConditional": true,
+          "helpText": "For advanced users only",
+          "properties": {
+            "debugMode": {
+              "type": "boolean",
+              "name": "Enable Debug Mode",
+              "helpText": "Show debug information",
+              "default": false
+            },
+            "autoSave": {
+              "type": "boolean",
+              "name": "Auto-Save Forms",
+              "helpText": "Automatically save form data",
+              "default": true
+            },
+            "maxConcurrentSessions": {
+              "type": "integer",
+              "name": "Max Concurrent Sessions",
+              "helpText": "Maximum number of simultaneous sessions",
+              "minimum": 1,
+              "maximum": 10,
+              "default": 3
+            }
+          }
+        }
+      }
+    },
+    "readOnlyInfo": {
+      "type": "object",
+      "name": "System Information",
+      "description": "Read-only system and account information",
+      "isReadOnly": true,
+      "properties": {
+        "accountCreated": {
+          "type": "string",
+          "name": "Account Created Date",
+          "helpText": "Date when account was created"
+        },
+        "lastLogin": {
+          "type": "string",
+          "name": "Last Login",
+          "helpText": "Last successful login timestamp"
+        },
+        "accountType": {
+          "type": "string",
+          "name": "Account Type",
+          "helpText": "Type of account"
+        },
+        "subscriptionLevel": {
+          "type": "string",
+          "name": "Subscription Level",
+          "helpText": "Current subscription plan"
+        }
+      }
+    }
+  }
+}

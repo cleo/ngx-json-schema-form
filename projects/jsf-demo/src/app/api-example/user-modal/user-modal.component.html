@@ -1,0 +1,60 @@
+<div class="modal-backdrop" *ngIf="show" (click)="onCancel()"></div>
+
+<div class="modal user-modal" [class.show]="show" tabindex="-1" role="dialog">
+  <div class="modal-dialog modal-lg modal-dialog-centered modal-dialog-scrollable" role="document" (click)="$event.stopPropagation()">
+    <div class="modal-content">
+      <!-- Modal Header -->
+      <div class="modal-header">
+        <h2 class="modal-title">{{ modalTitle }}</h2>
+        <button 
+          type="button" 
+          class="close" 
+          (click)="onCancel()"
+          [disabled]="isLoading">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+
+      <!-- Modal Body -->
+      <div class="modal-body">
+        <p class="modal-subtitle" *ngIf="isEditing">
+          Editing user ID: {{ user?.id }}
+        </p>
+        <div class="loading-overlay" *ngIf="isLoading">
+          <div class="spinner"></div>
+          <p>Processing...</p>
+        </div>
+
+        <jsf-component
+          *ngIf="show"
+          [schemaData]="schemaData()"
+          [config]="config"
+          (disableSubmit)="onDisableSubmit($event)"
+          (formHeightChange)="onFormHeightChange($event)"
+          (dataChange)="onDataChange($event)">
+        </jsf-component>
+      </div>
+
+      <!-- Modal Footer -->
+      <div class="modal-footer">
+        <span class="validation-status" *ngIf="isSubmitDisabled">
+          ⚠️ Please complete all required fields
+        </span>
+        <button 
+          type="button" 
+          class="btn btn-secondary" 
+          (click)="onCancel()"
+          [disabled]="isLoading">
+          ❌ Cancel
+        </button>
+        <button 
+          type="button" 
+          class="btn btn-primary" 
+          (click)="onSave()"
+          [disabled]="isSubmitDisabled || isLoading">
+          {{ submitButtonText }}
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
