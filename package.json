@@ -31,8 +31,8 @@
     "ajv-keywords": "3.5.2",
     "bootstrap-sass": "3.4.3",
     "ng-packagr": "^20.3.2",
-    "rxjs": "6.5.4",
-    "tslib": "^2.0.0",
+    "rxjs": "~7.8.0",
+    "tslib": "^2.3.0",
     "zone.js": "~0.15.1"
   },
   "devDependencies": {
