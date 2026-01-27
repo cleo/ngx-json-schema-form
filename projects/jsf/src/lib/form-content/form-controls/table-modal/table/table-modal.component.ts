@@ -46,9 +46,14 @@ export class TableModalComponent extends FormControlBase {
     cellEditor: CellRendererComponent
   };
 
+  public rowSelectionOptions = {
+    mode: 'multiRow' as const,
+    checkboxes: true,
+    headerCheckbox: true,
+    enableClickSelection: false
+  };
+
   public colDefs: ColDef[] = [{
-    headerCheckboxSelection: true,
-    checkboxSelection: true,
     minWidth: 30,
     maxWidth: 40,
     colId: 'jsfCheckboxSelection',
