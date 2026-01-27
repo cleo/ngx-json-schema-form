@@ -8,7 +8,7 @@ import { FormDataItem, FormDataItemType } from '../models/form-data-item';
 import { ParentDataItem } from '../models/parent-data-item';
 import { XOfDataItem, XOfType } from '../models/xOf-data-item';
 import { ContentBaseComponent } from './content-base.component';
-import { CommonModule } from '@angular/common';
+
 import { FormControlComponent } from './form-controls/form-control.component';
 import { CheckboxWithChildrenComponent } from './checkbox-with-children/checkbox-with-children.component';
 import { SectionComponent } from './section/section.component';
@@ -20,15 +20,14 @@ import { TabComponent } from './tabs/tab/tab.component';
     selector: 'jsf-form-content',
     standalone: true,
     imports: [
-      CommonModule,
-      ReactiveFormsModule,
-      FormControlComponent,
-      CheckboxWithChildrenComponent,
-      SectionComponent,
-      OneOfComponent,
-      TabsComponent,
-      TabComponent
-    ],
+    ReactiveFormsModule,
+    FormControlComponent,
+    CheckboxWithChildrenComponent,
+    SectionComponent,
+    OneOfComponent,
+    TabsComponent,
+    TabComponent
+],
     templateUrl: 'form-content.component.html',
     styleUrls: ['./form-content.component.scss'],
 })

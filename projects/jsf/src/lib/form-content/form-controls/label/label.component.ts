@@ -1,12 +1,12 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { EnumDataItem, OptionDisplayType } from '../../../models/enum-data-item';
 import { FormDataItem, FormDataItemType } from '../../../models/form-data-item';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'jsf-label',
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './label.component.html',
     styleUrls: ['./label.component.scss']
 })

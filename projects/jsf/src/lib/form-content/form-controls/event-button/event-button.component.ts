@@ -1,11 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ButtonDataItem } from '../../../models/button-data-item';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'jsf-event-button',
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './event-button.component.html',
     styleUrls: ['./event-button.component.scss']
 })

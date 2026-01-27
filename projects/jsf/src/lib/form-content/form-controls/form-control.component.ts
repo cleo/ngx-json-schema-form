@@ -6,7 +6,7 @@ import { EnumDataItem, OptionDisplayType } from '../../models/enum-data-item';
 import { FormDataItem, FormDataItemType } from '../../models/form-data-item';
 import { StringDataItem } from '../../models/string-data-item';
 import { ContentBaseComponent } from '../content-base.component';
-import { CommonModule } from '@angular/common';
+
 import { TextComponent } from './text/text.component';
 import { SecuredTextComponent } from './secured-text/secured-text.component';
 import { TextAreaComponent } from './text-area/text-area.component';
@@ -20,17 +20,16 @@ import { TemplateComponent } from './template/template.component';
     selector: 'jsf-form-control',
     standalone: true,
     imports: [
-      CommonModule,
-      ReactiveFormsModule,
-      SecuredTextComponent,
-      TextComponent,
-      TextAreaComponent,
-      CheckboxComponent,
-      DropdownComponent,
-      RadioButtonComponent,
-      TableSummaryComponent,
-      TemplateComponent
-    ],
+    ReactiveFormsModule,
+    SecuredTextComponent,
+    TextComponent,
+    TextAreaComponent,
+    CheckboxComponent,
+    DropdownComponent,
+    RadioButtonComponent,
+    TableSummaryComponent,
+    TemplateComponent
+],
     templateUrl: './form-control.component.html',
     styleUrls: ['./form-control.component.scss'],
 })

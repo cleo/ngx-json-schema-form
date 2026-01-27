@@ -1,15 +1,14 @@
 import { Component } from '@angular/core';
 import { TemplateEvent } from '../app.component';
 import { FormsModule } from '@angular/forms';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'app-template-test',
     standalone: true,
     imports: [
-      CommonModule,
-      FormsModule
-    ],
+    FormsModule
+],
     templateUrl: 'template.component.html'
 })
 

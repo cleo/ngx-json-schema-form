@@ -1,12 +1,12 @@
 import { Component, Input } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ParentDataItem } from '../../../models/parent-data-item';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'jsf-tab',
     standalone: true,
-    imports: [CommonModule],
+    imports: [],
     templateUrl: './tab.component.html',
 })
 

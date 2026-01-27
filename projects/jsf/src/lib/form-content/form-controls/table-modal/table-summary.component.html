@@ -10,12 +10,14 @@
           Edit
         </button>
       </div>
-      <img *ngIf="formItem.helpText"
-           class="help"
-           [title]="formItem.helpText"
-           [src]="'assets/jsf-images/info.svg'">
+      @if (formItem.helpText) {
+        <img
+          class="help"
+          [title]="formItem.helpText"
+          [src]="'assets/jsf-images/info.svg'">
+        }
+      </div>
     </div>
   </div>
-</div>
 
-<jsf-modal-outlet [modalService]="modalService"></jsf-modal-outlet>
+  <jsf-modal-outlet [modalService]="modalService"></jsf-modal-outlet>

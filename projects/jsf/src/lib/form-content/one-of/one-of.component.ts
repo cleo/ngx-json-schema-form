@@ -6,16 +6,15 @@ import { EnumDataItem, OptionDisplayType } from '../../models/enum-data-item';
 import { ParentDataItem } from '../../models/parent-data-item';
 import { XOfDataItem } from '../../models/xOf-data-item';
 import { ContentBaseComponent } from '../content-base.component';
-import { CommonModule } from '@angular/common';
+
 import { DropdownComponent } from '../form-controls/dropdown/dropdown.component';
 
 @Component({
     selector: 'jsf-one-of',
     standalone: true,
     imports: [
-      CommonModule,
-      DropdownComponent
-    ],
+    DropdownComponent
+],
     styleUrls: ['one-of.component.scss'],
     templateUrl: 'one-of.component.html'
 })

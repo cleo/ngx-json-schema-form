@@ -6,16 +6,15 @@ import { ConditionalParentDataItem, CONDITIONAL_PARENT_VALUE_KEY } from '../../m
 import { FormDataItem } from '../../models/form-data-item';
 import { ContentBaseComponent } from '../content-base.component';
 import { CheckboxComponent } from '../form-controls/checkbox/checkbox.component';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'jsf-checkbox-with-children',
     standalone: true,
     imports: [
-      CommonModule,
-      ReactiveFormsModule,
-      CheckboxComponent
-    ],
+    ReactiveFormsModule,
+    CheckboxComponent
+],
     templateUrl: 'checkbox-with-children.component.html',
     styleUrls: ['../common.scss', './checkbox-with-children.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush

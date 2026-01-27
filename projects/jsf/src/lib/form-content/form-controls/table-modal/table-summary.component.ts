@@ -8,7 +8,7 @@ import { FormControlBase } from '../form-control-base';
 import { ModalService } from './modal/modal.service';
 import { ITableModalOptions, TableModalComponent } from './table/table-modal.component';
 import { cloneDeep, isEqual } from 'lodash';
-import { CommonModule } from '@angular/common';
+
 import { LabelComponent } from '../label/label.component';
 import { ModalOutletComponent } from './modal/modal-outlet.component';
 
@@ -16,11 +16,10 @@ import { ModalOutletComponent } from './modal/modal-outlet.component';
     selector: 'jsf-table-summary',
     standalone: true,
     imports: [
-      CommonModule,
-      ReactiveFormsModule,
-      LabelComponent,
-      ModalOutletComponent
-    ],
+    ReactiveFormsModule,
+    LabelComponent,
+    ModalOutletComponent
+],
     templateUrl: 'table-summary.component.html',
     styleUrls: ['table-summary.component.scss']
 })

@@ -2,14 +2,12 @@ import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, 
 import { take, takeUntil, tap } from 'rxjs/operators';
 import { ContentBaseComponent } from '../../../content-base.component';
 import { ModalService } from './modal.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'jsf-modal',
     standalone: true,
-    imports: [
-      CommonModule
-    ],
+    imports: [],
     templateUrl: 'modal.component.html',
     styleUrls: ['./modal.component.scss']
 })

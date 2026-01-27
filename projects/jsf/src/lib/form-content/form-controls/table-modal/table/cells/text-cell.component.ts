@@ -1,15 +1,14 @@
 import { AfterViewInit, Component, Input, ViewChild, ViewContainerRef } from '@angular/core';
 import { ContentBaseComponent } from '../../../../content-base.component';
-import { CommonModule } from '@angular/common';
+
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'jsf-text-cell',
     standalone: true,
     imports: [
-      CommonModule,
-      FormsModule
-    ],
+    FormsModule
+],
     template: `
     <input
       class="jsf-text-cell-input"

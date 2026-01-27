@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { StringDataItem } from '../../../models/string-data-item';
 import { FormControlBase } from '../form-control-base';
-import { CommonModule } from '@angular/common';
+
 import { ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
 
@@ -9,10 +9,9 @@ import { LabelComponent } from '../label/label.component';
     selector: 'jsf-text-area',
     standalone: true,
     imports: [
-      CommonModule,
-      ReactiveFormsModule,
-      LabelComponent
-      ],
+    ReactiveFormsModule,
+    LabelComponent
+],
     templateUrl: './text-area.component.html',
     styleUrls: ['./text-area.component.scss'],
 })

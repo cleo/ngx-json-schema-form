@@ -17,16 +17,15 @@ import { JSFTemplateTarget } from './jsf-template-target';
 import { FormDataItem } from './models/form-data-item';
 import { ParentDataItem } from './models/parent-data-item';
 import { XOfEnumDataItem } from './models/xOf-enum-data-item';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
   selector: 'jsf-component',
   standalone: true,
   imports: [
-    CommonModule,
     ReactiveFormsModule,
-    FormContentComponent,
-  ],
+    FormContentComponent
+],
   templateUrl: './jsf.component.html',
   styleUrls: ['./jsf.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
