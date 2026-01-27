@@ -11,10 +11,6 @@ import {
 import { CommonModule } from "@angular/common";
 import { JSFConfig, JSFSchemaData } from "jsf";
 import { JSFComponent, JSFModule } from "jsf";
-// import { JSFConfig } from '../../../../../jsf/src/lib/jsf-config';
-// import { JSFSchemaData } from '../../../../../jsf/src/lib/jsf-schema-data';
-// import { JSFComponent } from '../../../../../jsf/src/lib/jsf.component';
-// import { JSFModule } from '../../../../../jsf/src/lib/jsf.module';
 import { User } from "../../services/api.service";
 import schema from "../../api-example-schema.json";
 import values from "../../api-example-data.json";

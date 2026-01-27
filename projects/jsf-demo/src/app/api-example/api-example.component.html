@@ -29,12 +29,12 @@
       class="btn btn-primary" 
       (click)="showAddForm()"
       [disabled]="isLoading()">
-      ➕ Add New User
+      Add New User
     </button>
 
     <div class="stats">
       <span class="stat-badge">
-        👥 {{ users().length }} users loaded
+        {{ users().length }} users loaded
       </span>
     </div>
   </div>
@@ -67,25 +67,16 @@
             <td>{{ user.company?.name || 'N/A' }}</td>
             <td class="actions-cell">
               <button 
-                class="btn-icon btn-view" 
-                (click)="viewUserDetails(user)"
-                title="View Details"
-                [disabled]="isLoading()">
-                👁️
-              </button>
-              <button 
                 class="btn-icon btn-edit" 
                 (click)="editUser(user)"
                 title="Edit"
-                [disabled]="isLoading()">
-                ✏️
+                [disabled]="isLoading()">Edit
               </button>
               <button 
                 class="btn-icon btn-delete" 
                 (click)="deleteUser(user)"
                 title="Delete"
-                [disabled]="isLoading()">
-                🗑️
+                [disabled]="isLoading()">Delete
               </button>
             </td>
           </tr>

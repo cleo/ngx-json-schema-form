@@ -224,28 +224,38 @@
 
 .btn-icon {
   border: none;
-  background: none;
-  font-size: 1.3em;
+  font-size: 0.9em;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: 4px;
-  transition: all 0.2s;
+  padding: 6px 12px;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  font-weight: 600;
+  color: white;
 
-  &.btn-view:hover {
-    background: #f3e5f5;
+  &.btn-edit {
+    background: linear-gradient(135deg, #4CAF50 0%, #45a049 100%);
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #45a049 0%, #3d8b40 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(76, 175, 80, 0.4);
+    }
   }
 
-  &.btn-edit:hover {
-    background: #e3f2fd;
-  }
-
-  &.btn-delete:hover {
-    background: #ffebee;
+  &.btn-delete {
+    background: linear-gradient(135deg, #f44336 0%, #da190b 100%);
+    
+    &:hover:not(:disabled) {
+      background: linear-gradient(135deg, #da190b 0%, #c41408 100%);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(244, 67, 54, 0.4);
+    }
   }
 
   &:disabled {
     opacity: 0.5;
     cursor: not-allowed;
+    transform: none !important;
   }
 }
 
