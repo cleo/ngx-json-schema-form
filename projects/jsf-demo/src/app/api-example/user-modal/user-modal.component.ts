@@ -11,6 +11,10 @@ import {
 import { CommonModule } from "@angular/common";
 import { JSFConfig, JSFSchemaData } from "jsf";
 import { JSFComponent, JSFModule } from "jsf";
+// import { JSFConfig } from '../../../../../jsf/src/lib/jsf-config';
+// import { JSFSchemaData } from '../../../../../jsf/src/lib/jsf-schema-data';
+// import { JSFComponent } from '../../../../../jsf/src/lib/jsf.component';
+// import { JSFModule } from '../../../../../jsf/src/lib/jsf.module';
 import { User } from "../../services/api.service";
 import schema from "../../api-example-schema.json";
 import values from "../../api-example-data.json";
@@ -69,10 +73,11 @@ export class UserModalComponent implements OnChanges {
 
   resetForm() {
     if (!this.user) {
-      // Force recreation of schema data for new user (without security tab)
+      // Force recreation of schema data for new user
       const createSchema = this.getSchemaForCreating();
+      const fakeData = this.generateFakeUserData();
       this.schemaData.set(
-        new JSFSchemaData(createSchema, JSON.parse(JSON.stringify(values))),
+        new JSFSchemaData(createSchema, fakeData),
       );
     }
     this.currentFormData.set(null);
@@ -87,6 +92,141 @@ export class UserModalComponent implements OnChanges {
   private getSchemaForEditing(): any {
     // Clone schema for editing existing user
     return JSON.parse(JSON.stringify(schema));
+  }
+
+  private generateFakeUserData(): any {
+    // Arrays for random data generation
+    const firstNames = ['Juan', 'Maria', 'Carlos', 'Ana', 'Luis', 'Elena', 'Pedro', 'Sofia', 'Miguel', 'Laura'];
+    const lastNames = ['Garcia', 'Rodriguez', 'Martinez', 'Lopez', 'Gonzalez', 'Perez', 'Sanchez', 'Ramirez', 'Torres', 'Flores'];
+    const roles = ['admin', 'user', 'moderator', 'guest'];
+    const departments = ['engineering', 'sales', 'marketing', 'hr', 'finance', 'operations'];
+    const skills = ['JavaScript', 'TypeScript', 'Angular', 'React', 'Vue', 'Node.js', 'Python', 'Java', 'C#', 'Go'];
+    const languages = ['English', 'Spanish', 'French', 'German', 'Italian', 'Portuguese', 'Chinese', 'Japanese'];
+    const countries = ['usa', 'canada', 'mexico', 'uk', 'germany', 'france'];
+    const cities = ['Madrid', 'Barcelona', 'Valencia', 'Sevilla', 'Bilbao', 'Malaga', 'Zaragoza', 'Murcia'];
+
+    const firstName = firstNames[Math.floor(Math.random() * firstNames.length)];
+    const lastName = lastNames[Math.floor(Math.random() * lastNames.length)];
+    const fullName = `${firstName} ${lastName}`;
+    const username = `${firstName.toLowerCase()}.${lastName.toLowerCase()}${Math.floor(Math.random() * 100)}`;
+    const email = `${username}@example.com`;
+    const age = Math.floor(Math.random() * 40) + 20;
+    const role = roles[Math.floor(Math.random() * roles.length)];
+    const country = countries[Math.floor(Math.random() * countries.length)];
+    const city = cities[Math.floor(Math.random() * cities.length)];
+
+    const now = new Date();
+    const pastDate = new Date(now.getTime() - Math.floor(Math.random() * 365 * 24 * 60 * 60 * 1000));
+    const recentDate = new Date(now.getTime() - Math.floor(Math.random() * 30 * 24 * 60 * 60 * 1000));
+
+    // Build the complete object directly
+    return {
+      basicInfo: {
+        name: fullName,
+        username: username,
+        email: email,
+        age: age,
+        role: role,
+        status: 'active',
+        phone: `+1-555-${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`,
+        website: `https://www.${username}.com`,
+        newsletter: Math.random() > 0.5
+      },
+      address: {
+        street: `${Math.floor(Math.random() * 999) + 1} Main St`,
+        suite: `Apt ${Math.floor(Math.random() * 50) + 1}`,
+        city: city,
+        zipcode: `${Math.floor(Math.random() * 90000) + 10000}`,
+        country: country,
+        geo: {
+          lat: (Math.random() * 180 - 90).toFixed(4),
+          lng: (Math.random() * 360 - 180).toFixed(4)
+        }
+      },
+      contact: {
+        preferredContact: (() => {
+          const contactMethods = [
+            {
+              emailAddress: email,
+              emailFrequency: ['daily', 'weekly', 'monthly'][Math.floor(Math.random() * 3)]
+            },
+            {
+              phoneNumber: `+1-555-${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`,
+              bestTimeToCall: ['morning', 'afternoon', 'evening'][Math.floor(Math.random() * 3)]
+            },
+            {
+              smsNumber: `+1-555-${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`
+            }
+          ];
+          return contactMethods[Math.floor(Math.random() * contactMethods.length)];
+        })(),
+        emergencyContacts: [
+          {
+            name: `${firstNames[Math.floor(Math.random() * firstNames.length)]} ${lastNames[Math.floor(Math.random() * lastNames.length)]}`,
+            phone: `+1-555-${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`,
+            relationship: ['Spouse', 'Parent', 'Sibling', 'Friend'][Math.floor(Math.random() * 4)]
+          }
+        ]
+      },
+      company: {
+        hasCompany: Math.random() > 0.3,
+        companyDetails: {
+          name: `${lastNames[Math.floor(Math.random() * lastNames.length)]} Corp`,
+          position: ['Software Engineer', 'Manager', 'Director', 'Consultant'][Math.floor(Math.random() * 4)],
+          department: departments[Math.floor(Math.random() * departments.length)],
+          yearsOfExperience: Math.floor(Math.random() * 20) + 1,
+          catchPhrase: 'Innovation through technology',
+          bs: 'Providing cutting-edge solutions'
+        }
+      },
+      skills: {
+        primarySkills: [
+          {
+            skill: skills[Math.floor(Math.random() * skills.length)],
+            level: ['beginner', 'intermediate', 'advanced', 'expert'][Math.floor(Math.random() * 4)],
+            yearsExperience: Math.floor(Math.random() * 10) + 1,
+            certified: Math.random() > 0.6
+          }
+        ],
+        languages: [
+          {
+            language: languages[Math.floor(Math.random() * languages.length)],
+            proficiency: ['basic', 'conversational', 'fluent', 'native'][Math.floor(Math.random() * 4)]
+          }
+        ]
+      },
+      security: {
+        password: `Pass${Math.floor(Math.random() * 10000)}!`,
+        apiKey: Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15),
+        secretToken: 'hidden_token_value',
+        privacySettings: {
+          profileVisibility: ['public', 'friends', 'private'][Math.floor(Math.random() * 3)],
+          showEmail: Math.random() > 0.5,
+          allowMessages: Math.random() > 0.3
+        }
+      },
+      preferences: {
+        theme: ['light', 'dark', 'auto'][Math.floor(Math.random() * 3)],
+        language: ['en', 'es', 'fr', 'de', 'pt'][Math.floor(Math.random() * 5)],
+        timezone: ['UTC', 'America/New_York', 'America/Los_Angeles', 'Europe/London', 'Europe/Paris', 'Asia/Tokyo'][Math.floor(Math.random() * 6)],
+        notificationPreferences: {
+          emailDigest: ['daily', 'weekly', 'monthly', 'never'][Math.floor(Math.random() * 4)],
+          pushNotifications: Math.random() > 0.5,
+          smsAlerts: Math.random() > 0.7
+        },
+        advancedSettings: {
+          debugMode: Math.random() > 0.8,
+          autoSave: Math.random() > 0.3,
+          maxConcurrentSessions: Math.floor(Math.random() * 5) + 1
+        }
+      },
+      readOnlyInfo: {
+        accountCreated: pastDate.toISOString(),
+        lastLogin: recentDate.toISOString(),
+        accountType: ['Standard', 'Premium', 'Enterprise'][Math.floor(Math.random() * 3)],
+        subscriptionLevel: ['Free Plan', 'Basic Plan', 'Pro Plan', 'Enterprise Plan'][Math.floor(Math.random() * 4)]
+      }
+    };
   }
 
   onSave() {

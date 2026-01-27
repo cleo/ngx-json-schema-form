@@ -39,5 +39,36 @@
   "skills": {
     "primarySkills": [],
     "languages": []
+  },
+  "security": {
+    "password": "",
+    "apiKey": "",
+    "secretToken": "",
+    "privacySettings": {
+      "profileVisibility": "friends",
+      "showEmail": false,
+      "allowMessages": true
+    }
+  },
+  "preferences": {
+    "theme": "auto",
+    "language": "en",
+    "timezone": "UTC",
+    "notificationPreferences": {
+      "emailDigest": "weekly",
+      "pushNotifications": false,
+      "smsAlerts": false
+    },
+    "advancedSettings": {
+      "debugMode": false,
+      "autoSave": true,
+      "maxConcurrentSessions": 3
+    }
+  },
+  "readOnlyInfo": {
+    "accountCreated": "",
+    "lastLogin": "",
+    "accountType": "",
+    "subscriptionLevel": ""
   }
 }
