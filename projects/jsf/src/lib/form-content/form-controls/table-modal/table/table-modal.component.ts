@@ -131,9 +131,9 @@ export class TableModalComponent extends FormControlBase {
 
   @HostListener('window:resize')
   onResize() {
-    const allColumnIds = this.params.columnApi.getAllDisplayedColumns().map(col => col.getColId());
+    const allColumnIds = this.params.api.getAllDisplayedColumns().map(col => col.getColId());
     setTimeout(() =>
-      this.params.columnApi.autoSizeColumns(allColumnIds, false)
+      this.params.api.autoSizeColumns(allColumnIds, false)
     );
   }
 
