@@ -8,12 +8,7 @@
       "type": "object",
       "name": "Basic Information",
       "description": "User personal data",
-      "required": [
-        "name",
-        "email",
-        "role",
-        "status"
-      ],
+      "required": ["name", "email", "role", "status"],
       "properties": {
         "id": {
           "type": "integer",
@@ -55,33 +50,15 @@
           "name": "User Role",
           "helpText": "Select user role in the system",
           "tooltip": "Role defines user permissions",
-          "enum": [
-            "admin",
-            "user",
-            "guest",
-            "moderator"
-          ],
-          "enumNames": [
-            "Administrator",
-            "Regular User",
-            "Guest",
-            "Moderator"
-          ]
+          "enum": ["admin", "user", "guest", "moderator"],
+          "enumNames": ["Administrator", "Regular User", "Guest", "Moderator"]
         },
         "status": {
           "display": "radio-buttons",
           "name": "Account Status",
           "helpText": "Current account status",
-          "enum": [
-            "active",
-            "inactive",
-            "suspended"
-          ],
-          "enumNames": [
-            "Active",
-            "Inactive",
-            "Suspended"
-          ]
+          "enum": ["active", "inactive", "suspended"],
+          "enumNames": ["Active", "Inactive", "Suspended"]
         },
         "phone": {
           "type": "string",
@@ -152,14 +129,7 @@
           "display": "dropdown",
           "name": "Country",
           "helpText": "Select your country",
-          "enum": [
-            "usa",
-            "canada",
-            "mexico",
-            "uk",
-            "germany",
-            "france"
-          ],
+          "enum": ["usa", "canada", "mexico", "uk", "germany", "france"],
           "enumNames": [
             "United States",
             "Canada",
@@ -204,9 +174,7 @@
               "type": "object",
               "name": "Email",
               "key": "email",
-              "required": [
-                "emailAddress"
-              ],
+              "required": ["emailAddress"],
               "properties": {
                 "emailAddress": {
                   "type": "string",
@@ -217,16 +185,8 @@
                 "emailFrequency": {
                   "display": "dropdown",
                   "name": "Email Frequency",
-                  "enum": [
-                    "daily",
-                    "weekly",
-                    "monthly"
-                  ],
-                  "enumNames": [
-                    "Daily",
-                    "Weekly",
-                    "Monthly"
-                  ]
+                  "enum": ["daily", "weekly", "monthly"],
+                  "enumNames": ["Daily", "Weekly", "Monthly"]
                 }
               }
             },
@@ -234,9 +194,7 @@
               "type": "object",
               "name": "Phone",
               "key": "phone",
-              "required": [
-                "phoneNumber"
-              ],
+              "required": ["phoneNumber"],
               "properties": {
                 "phoneNumber": {
                   "type": "string",
@@ -247,11 +205,7 @@
                 "bestTimeToCall": {
                   "display": "dropdown",
                   "name": "Best Time to Call",
-                  "enum": [
-                    "morning",
-                    "afternoon",
-                    "evening"
-                  ],
+                  "enum": ["morning", "afternoon", "evening"],
                   "enumNames": [
                     "Morning (8AM-12PM)",
                     "Afternoon (12PM-5PM)",
@@ -264,9 +218,7 @@
               "type": "object",
               "name": "SMS",
               "key": "sms",
-              "required": [
-                "smsNumber"
-              ],
+              "required": ["smsNumber"],
               "properties": {
                 "smsNumber": {
                   "type": "string",
@@ -390,10 +342,7 @@
           "helpText": "List your main technical skills",
           "tooltip": "Add your technical skills and proficiency levels.",
           "items": {
-            "required": [
-              "skill",
-              "level"
-            ],
+            "required": ["skill", "level"],
             "properties": {
               "skill": {
                 "type": "string",
@@ -404,18 +353,8 @@
                 "name": "Proficiency Level",
                 "helpText": "Select your proficiency level",
                 "tooltip": "Choose from Beginner to Expert",
-                "enum": [
-                  "beginner",
-                  "intermediate",
-                  "advanced",
-                  "expert"
-                ],
-                "enumNames": [
-                  "Beginner",
-                  "Intermediate",
-                  "Advanced",
-                  "Expert"
-                ]
+                "enum": ["beginner", "intermediate", "advanced", "expert"],
+                "enumNames": ["Beginner", "Intermediate", "Advanced", "Expert"]
               },
               "yearsExperience": {
                 "type": "integer",
@@ -438,10 +377,7 @@
           "helpText": "Languages you can speak",
           "tooltip": "Add the languages you speak and your proficiency level.",
           "items": {
-            "required": [
-              "language",
-              "proficiency"
-            ],
+            "required": ["language", "proficiency"],
             "properties": {
               "language": {
                 "type": "string",
@@ -449,21 +385,13 @@
                 "placeholder": "e.g., English"
               },
               "proficiency": {
+                "type": "string",
+                "display": "dropdown",
                 "name": "Proficiency",
                 "helpText": "Select your language proficiency level",
                 "tooltip": "Choose from Basic to Native",
-                "enum": [
-                  "basic",
-                  "conversational",
-                  "fluent",
-                  "native"
-                ],
-                "enumNames": [
-                  "Basic",
-                  "Conversational",
-                  "Fluent",
-                  "Native"
-                ]
+                "enum": ["basic", "conversational", "fluent", "native"],
+                "enumNames": ["Basic", "Conversational", "Fluent", "Native"]
               }
             }
           }
@@ -474,9 +402,7 @@
       "type": "object",
       "name": "Security & Privacy",
       "description": "Secure credentials and privacy settings",
-      "required": [
-        "password"
-      ],
+      "required": ["password"],
       "properties": {
         "password": {
           "type": "string",
@@ -511,11 +437,7 @@
               "name": "Profile Visibility",
               "helpText": "Who can see your profile",
               "default": "friends",
-              "enum": [
-                "public",
-                "friends",
-                "private"
-              ],
+              "enum": ["public", "friends", "private"],
               "enumNames": [
                 "Public - Everyone",
                 "Friends Only",
@@ -548,29 +470,15 @@
           "name": "Theme Preference",
           "helpText": "Choose your preferred theme",
           "default": "auto",
-          "enum": [
-            "light",
-            "dark",
-            "auto"
-          ],
-          "enumNames": [
-            "Light Mode",
-            "Dark Mode",
-            "Auto (System)"
-          ]
+          "enum": ["light", "dark", "auto"],
+          "enumNames": ["Light Mode", "Dark Mode", "Auto (System)"]
         },
         "language": {
           "display": "dropdown",
           "name": "Interface Language",
           "helpText": "Select your preferred language",
           "default": "en",
-          "enum": [
-            "en",
-            "es",
-            "fr",
-            "de",
-            "pt"
-          ],
+          "enum": ["en", "es", "fr", "de", "pt"],
           "enumNames": [
             "English",
             "Español",
@@ -612,12 +520,7 @@
               "name": "Email Digest Frequency",
               "helpText": "How often to receive email digests",
               "default": "weekly",
-              "enum": [
-                "daily",
-                "weekly",
-                "monthly",
-                "never"
-              ],
+              "enum": ["daily", "weekly", "monthly", "never"],
               "enumNames": [
                 "Daily Summary",
                 "Weekly Digest",
