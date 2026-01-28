@@ -36,9 +36,6 @@ import { TemplateComponent } from './template/template.component';
 
 export class FormControlComponent extends ContentBaseComponent {
   @Input() formItem: FormDataItem;
-  @Input() formGroup: UntypedFormGroup;
-  @Input() config: JSFConfig;
-  @Input() isEdit: boolean;
   @Input() templates: any = {};
   @Input() labelLengthClass: string;
 

@@ -11,7 +11,6 @@
     "resolveJsonModule": true,
     "esModuleInterop": true,
     "importHelpers": true,
-    "target": "es2015",
     "typeRoots": [
       "node_modules/@types"
     ],
@@ -32,8 +31,7 @@
       "jsf-validation/*": [
         "dist/jsf-validation/*"
       ]
-    },
-    "useDefineForClassFields": false
+    }
   },
   "angularCompilerOptions": {
     "fullTemplateTypeCheck": true,

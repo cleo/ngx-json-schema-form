@@ -18,7 +18,6 @@ import { LabelComponent } from '../label/label.component';
     styleUrls: ['./secured-text.component.scss']
 })
 export class SecuredTextComponent extends FormControlBase {
-  @Input() config: JSFConfig;
   private securedFieldCleared = false;
   showSecuredField = false;
 
