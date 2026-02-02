@@ -2,11 +2,13 @@ import { Component, Input, OnInit } from '@angular/core';
 import { EnumDataItem, OptionDisplayType } from '../../../models/enum-data-item';
 import { FormDataItem, FormDataItemType } from '../../../models/form-data-item';
 
+
 @Component({
     selector: 'jsf-label',
+    standalone: true,
+    imports: [],
     templateUrl: './label.component.html',
-    styleUrls: ['./label.component.scss'],
-    standalone: false
+    styleUrls: ['./label.component.scss']
 })
 export class LabelComponent implements OnInit {
   @Input() formItem: FormDataItem;

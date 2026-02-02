@@ -1,11 +1,17 @@
 import { Component } from '@angular/core';
 import { TemplateEvent } from '../app.component';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
     selector: 'app-template-test',
-    templateUrl: 'template.component.html',
-    standalone: false
+    standalone: true,
+    imports: [
+    FormsModule
+],
+    templateUrl: 'template.component.html'
 })
+
 export class TemplateComponent {
 
   templateInput1 = '';

@@ -4,19 +4,27 @@
       {{title}}
     </div>
     <ul class="nav nav-tabs">
-      <li class="clickable" *ngFor="let tab of tabs; let i = index" (click)="onTabClicked(tab)" [class.active]="tab.selected" [class.disabled]="isDisabled(tab)" [class.has-error]="!isValid(tab) && !isDisabled(tab)">
-        <a>{{tab.dataItem.label}}<span class="required-star" *ngIf="tabHasRequiredFields(tab)">*</span></a>
-      </li>
+      @for (tab of tabs; track tab; let i = $index) {
+        <li class="clickable" (click)="onTabClicked(tab)" [class.active]="tab.selected" [class.disabled]="isDisabled(tab)" [class.has-error]="!isValid(tab) && !isDisabled(tab)">
+          <a>{{tab.dataItem.label}}@if (tabHasRequiredFields(tab)) {
+            <span class="required-star">*</span>
+          }</a>
+        </li>
+      }
     </ul>
-    <div *ngIf="selectedTab?.dataItem?.description" class="tab-description">
-      <span>{{selectedTab.dataItem.description}}</span>
-      <img *ngIf="selectedTab.dataItem.helpText"
-           class="help"
-           [title]="selectedTab.dataItem.helpText"
-           [src]="'assets/jsf-images/info.svg'">
+    @if (selectedTab?.dataItem?.description) {
+      <div class="tab-description">
+        <span>{{selectedTab.dataItem.description}}</span>
+        @if (selectedTab.dataItem.helpText) {
+          <img
+            class="help"
+            [title]="selectedTab.dataItem.helpText"
+            [src]="'assets/jsf-images/info.svg'">
+          }
+        </div>
+      }
+    </div>
+    <div class="panel-body">
+      <ng-content></ng-content>
     </div>
   </div>
-  <div class="panel-body">
-    <ng-content></ng-content>
-  </div>
-</div>

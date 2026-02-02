@@ -3,11 +3,13 @@ import { take, takeUntil, tap } from 'rxjs/operators';
 import { ContentBaseComponent } from '../../../content-base.component';
 import { ModalService } from './modal.service';
 
+
 @Component({
     selector: 'jsf-modal',
+    standalone: true,
+    imports: [],
     templateUrl: 'modal.component.html',
-    styleUrls: ['./modal.component.scss'],
-    standalone: false
+    styleUrls: ['./modal.component.scss']
 })
 
 export class ModalComponent extends ContentBaseComponent implements AfterViewInit {

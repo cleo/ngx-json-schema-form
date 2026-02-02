@@ -6,12 +6,20 @@ import { DropdownCellComponent } from '../cells/dropdown-cell.component';
 import { TextCellComponent } from '../cells/text-cell.component';
 import { TableModalService } from '../table-modal.service';
 
+import { CheckboxComponent } from '../../../checkbox/checkbox.component';
+
 @Component({
     selector: 'jsf-renderer',
+    standalone: true,
+    imports: [
+    DropdownCellComponent,
+    TextCellComponent,
+    CheckboxCellComponent
+],
     templateUrl: 'cell-renderer.component.html',
-    styleUrls: ['cell-renderer.component.scss'],
-    standalone: false
+    styleUrls: ['cell-renderer.component.scss']
 })
+
 export class CellRendererComponent extends ContentBaseComponent {
   @ViewChild('jsfTextCell') jsfTextCell: TextCellComponent;
   @ViewChild('jsfDropdownCell') jsfDropdownCell: DropdownCellComponent;
@@ -37,7 +45,7 @@ export class CellRendererComponent extends ContentBaseComponent {
 
   showAddButton(): boolean {
     return this.params.node.rowPinned &&
-      this.params.columnApi.getAllDisplayedColumns().indexOf(this.params.column) === this.params.columnApi.getAllDisplayedColumns().length - 1;
+      this.params.api.getAllDisplayedColumns().indexOf(this.params.column) === this.params.api.getAllDisplayedColumns().length - 1;
   }
 
   onAdd(): void {

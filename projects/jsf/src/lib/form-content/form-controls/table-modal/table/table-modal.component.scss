@@ -176,13 +176,22 @@ ag-grid-angular {
       justify-content: left;
       align-items: center;
       height: 100%;
-      margin: 0 5px 0 5px;
     }
 
     .ag-cell-inline-editing .jsf-required-cell-asterisk {
       display: none !important;
     }
 
+    .ag-cell-inline-editing {
+      background-color:var(--ag-pinned-row-background-color);
+      border-style: none;
+      box-shadow: none;
+    }
+
+    .ag-ltr .ag-cell-focus:not(.ag-cell-range-selected):focus-within {
+      border-style: none !important;
+    }
+    
     .ag-cell-inline-editing input[type=text] {
       height: initial;
       border: 1px solid $Black;

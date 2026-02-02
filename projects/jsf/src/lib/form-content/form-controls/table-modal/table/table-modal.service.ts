@@ -3,7 +3,9 @@ import { UntypedFormControl, Validators } from '@angular/forms';
 import { ValidatorService } from '../../../../validator.service';
 import { FormControlBase } from '../../form-control-base';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class TableModalService {
   constructor(private validationService: ValidatorService) { }
 

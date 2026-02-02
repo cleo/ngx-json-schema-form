@@ -1,18 +1,23 @@
 import { Component, EventEmitter, Input, Output, ViewChild, ViewContainerRef } from '@angular/core';
 import { ContentBaseComponent } from '../../../../content-base.component';
 
+import { FormsModule } from '@angular/forms';
+
 @Component({
     selector: 'jsf-checkbox-cell',
+    standalone: true,
+    imports: [
+    FormsModule
+],
     template: `
-    <input
-      type="checkbox"
-      [checked]="params.value"
-      [disabled]="params.item.disabledState.isReadOnly"
-      [(ngModel)]="params.value"
-      (ngModelChange)="onChange()"
-    />
-    `,
-    standalone: false
+      <input
+        type="checkbox"
+        [checked]="params.value"
+        [disabled]="params.item.disabledState.isReadOnly"
+        [(ngModel)]="params.value"
+        (ngModelChange)="onChange()"
+      />
+    `
 })
 export class CheckboxCellComponent extends ContentBaseComponent {
   @Input() params: any;

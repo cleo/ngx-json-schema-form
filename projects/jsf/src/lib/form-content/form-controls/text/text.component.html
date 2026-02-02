@@ -11,20 +11,32 @@
         (blur)="onStringBlur()"
         (focus)="onFocus()"
         autocomplete="new-password">
-      <div class="character-counter" *ngIf="showCounter">
-        <span class="max" [class.error]="hasMaxLengthError()" *ngIf="hasMaxLength()">{{getMaxCharacterCountInfo()}}</span>
-        <span class="min" [class.error]="hasMinLengthError()" *ngIf="hasMinLength()">{{getMinCharacterCountInfo()}}</span>
-      </div>
-      <div class="error-message" *ngIf="showError">{{getErrorMessage()}}</div>
+      @if (showCounter) {
+        <div class="character-counter">
+          @if (hasMaxLength()) {
+            <span class="max" [class.error]="hasMaxLengthError()">{{getMaxCharacterCountInfo()}}</span>
+          }
+          @if (hasMinLength()) {
+            <span class="min" [class.error]="hasMinLengthError()">{{getMinCharacterCountInfo()}}</span>
+          }
+        </div>
+      }
+      @if (showError) {
+        <div class="error-message">{{getErrorMessage()}}</div>
+      }
     </div>
-    <div class="event-btns" *ngFor="let button of getStringDataItem().buttons">
-      <jsf-event-button
-        [buttonData]="button"
+    @for (button of getStringDataItem().buttons; track button) {
+      <div class="event-btns">
+        <jsf-event-button
+          [buttonData]="button"
         (buttonEvent)="onButtonEvent($event)"></jsf-event-button>
+      </div>
+    }
+    @if (formItem.helpText) {
+      <img
+        class="help"
+        [title]="formItem.helpText"
+        [src]="'assets/jsf-images/info.svg'">
+      }
     </div>
-    <img *ngIf="formItem.helpText"
-         class="help"
-         [title]="formItem.helpText"
-         [src]="'assets/jsf-images/info.svg'">
   </div>
-</div>

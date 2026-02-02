@@ -15,7 +15,9 @@ import { TemplateDataItem } from './models/template-data-item';
 import { XOfDataItem, XOfType } from './models/xOf-data-item';
 import { SchemaTranslationService } from './schema-translation.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FormDataItemService {
   private isEdit = false;
 

@@ -11,11 +11,15 @@
         [cols]="cols"
         autocomplete="new-password">
       </textarea>
-      <img *ngIf="formItem.helpText"
-           class="help"
-           [title]="formItem.helpText"
-           [src]="'assets/jsf-images/info.svg'">
-      <div class="error-message" *ngIf="showError">{{getErrorMessage()}}</div>
+      @if (formItem.helpText) {
+        <img
+          class="help"
+          [title]="formItem.helpText"
+          [src]="'assets/jsf-images/info.svg'">
+        }
+        @if (showError) {
+          <div class="error-message">{{getErrorMessage()}}</div>
+        }
+      </div>
     </div>
   </div>
-</div>

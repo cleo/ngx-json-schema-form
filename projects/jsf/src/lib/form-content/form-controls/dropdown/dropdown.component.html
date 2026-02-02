@@ -8,15 +8,21 @@
         [formControlName]="formItem.key"
         [id]="formItem.path"
         (change)="onChange()">
-        <option *ngFor="let item of formItemAsEnumType.enumOptions"
-                [id]="item.path"
-                [value]="item.key">{{item.text}}</option>
+        @for (item of formItemAsEnumType.enumOptions; track item) {
+          <option
+            [id]="item.path"
+          [value]="item.key">{{item.text}}</option>
+        }
       </select>
-      <div class="error-message" *ngIf="showError">{{getErrorMessage()}}</div>
+      @if (showError) {
+        <div class="error-message">{{getErrorMessage()}}</div>
+      }
     </div>
-    <img *ngIf="formItem.helpText"
-         class="help"
-         [title]="formItem.helpText"
-         [src]="'assets/jsf-images/info.svg'">
+    @if (formItem.helpText) {
+      <img
+        class="help"
+        [title]="formItem.helpText"
+        [src]="'assets/jsf-images/info.svg'">
+      }
+    </div>
   </div>
-</div>

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormControl } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { filter, map, takeUntil, tap } from 'rxjs/operators';
 import { getInputValue$ } from '../../../component-life-cycle';
 import { ArrayDataItem } from '../../../models/array-data-item';
@@ -9,11 +9,19 @@ import { ModalService } from './modal/modal.service';
 import { ITableModalOptions, TableModalComponent } from './table/table-modal.component';
 import { cloneDeep, isEqual } from 'lodash';
 
+import { LabelComponent } from '../label/label.component';
+import { ModalOutletComponent } from './modal/modal-outlet.component';
+
 @Component({
     selector: 'jsf-table-summary',
+    standalone: true,
+    imports: [
+    ReactiveFormsModule,
+    LabelComponent,
+    ModalOutletComponent
+],
     templateUrl: 'table-summary.component.html',
-    styleUrls: ['table-summary.component.scss'],
-    standalone: false
+    styleUrls: ['table-summary.component.scss']
 })
 
 export class TableSummaryComponent extends FormControlBase implements OnInit {

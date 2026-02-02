@@ -12,7 +12,7 @@ describe('AlertService', () => {
       const message = 'message';
 
       const resultNextSpy = jasmine.createSpy('next');
-      service.getAlerts().subscribe(resultNextSpy);
+      service.getAlerts().subscribe({next: resultNextSpy});
 
       service.show(message);
 
@@ -23,7 +23,7 @@ describe('AlertService', () => {
   describe('hide()', () => {
     it('hides alert', () => {
       const resultNextSpy = jasmine.createSpy('next');
-      service.getAlerts().subscribe(resultNextSpy);
+      service.getAlerts().subscribe({next: resultNextSpy});
 
       service.hide();
 

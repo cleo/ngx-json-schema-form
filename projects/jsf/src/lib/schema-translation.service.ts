@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class SchemaTranslationService {
   readonly VALIDATION_KEY = 'validation';
   readonly FORMAT_KEY = 'format';

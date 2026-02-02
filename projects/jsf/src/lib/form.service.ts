@@ -6,7 +6,9 @@ import { ParentDataItem } from './models/parent-data-item';
 import { XOfDataItem } from './models/xOf-data-item';
 import { ValidatorService } from './validator.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FormService {
   constructor(private validatorService: ValidatorService) {}
 

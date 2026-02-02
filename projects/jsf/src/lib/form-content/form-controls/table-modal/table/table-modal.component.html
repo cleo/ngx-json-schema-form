@@ -2,23 +2,24 @@
   <jsf-alert [alertStream]="alertStreamService"></jsf-alert>
   <div class="modal-body">
     <div class="jsf-table-header">
-      <button *ngIf="showDelete"
-              class="btn btn-primary jsf-table-delete-button"
-              type="button"
-              (click)="onDelete()">
-        <img [src]="'assets/jsf-images/trash.svg'">
-      </button>
+      @if (showDelete) {
+        <button
+          class="btn btn-primary jsf-table-delete-button"
+          type="button"
+          (click)="onDelete()">
+          <img [src]="'assets/jsf-images/trash.svg'">
+        </button>
+      }
     </div>
     <ag-grid-angular
-      class="jsf-table"
+      class="jsf-table ag-theme-alpine"
       [rowData]="rowData$ | async"
       [columnDefs]="colDefs"
       [defaultColDef]="defaultColDef"
-      [frameworkComponents]="frameworkComponents"
+      [theme]="'legacy'"
       [rowHeight]="45"
       [suppressNoRowsOverlay]="true"
-      [rowSelection]="'multiple'"
-      [suppressRowClickSelection]="true"
+      [rowSelection]="rowSelectionOptions"
       [singleClickEdit]="true"
       [pinnedTopRowData]="pinnedTopRowData$ | async"
       (gridReady)="onGridReady($event)"
@@ -29,15 +30,15 @@
   </div>
   <div class="modal-footer">
     <button class="btn btn-primary"
-            type="button"
-            [disabled]="hasErrors"
-            (click)="onSubmit()">
+      type="button"
+      [disabled]="hasErrors"
+      (click)="onSubmit()">
       OK
     </button>
 
     <button class="btn btn-secondary"
-            type="button"
-            (click)="onClose()">
+      type="button"
+      (click)="onClose()">
       Cancel
     </button>
   </div>

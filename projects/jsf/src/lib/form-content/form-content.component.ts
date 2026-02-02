@@ -1,5 +1,5 @@
 import { Component, Input, QueryList, ViewChildren } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { JSFConfig } from '../jsf-config';
 
 import { ConditionalParentDataItem } from '../models/conditional-parent-data-item';
@@ -9,11 +9,27 @@ import { ParentDataItem } from '../models/parent-data-item';
 import { XOfDataItem, XOfType } from '../models/xOf-data-item';
 import { ContentBaseComponent } from './content-base.component';
 
+import { FormControlComponent } from './form-controls/form-control.component';
+import { CheckboxWithChildrenComponent } from './checkbox-with-children/checkbox-with-children.component';
+import { SectionComponent } from './section/section.component';
+import { OneOfComponent } from './one-of/one-of.component';
+import { TabsComponent } from './tabs/tabs.component';
+import { TabComponent } from './tabs/tab/tab.component';
+
 @Component({
     selector: 'jsf-form-content',
+    standalone: true,
+    imports: [
+    ReactiveFormsModule,
+    FormControlComponent,
+    CheckboxWithChildrenComponent,
+    SectionComponent,
+    OneOfComponent,
+    TabsComponent,
+    TabComponent
+],
     templateUrl: 'form-content.component.html',
     styleUrls: ['./form-content.component.scss'],
-    standalone: false
 })
 export class FormContentComponent extends ContentBaseComponent {
   @ViewChildren('contentDiv') divs: QueryList<any>;

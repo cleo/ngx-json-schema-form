@@ -7,11 +7,16 @@ import { ParentDataItem } from '../../models/parent-data-item';
 import { XOfDataItem } from '../../models/xOf-data-item';
 import { ContentBaseComponent } from '../content-base.component';
 
+import { DropdownComponent } from '../form-controls/dropdown/dropdown.component';
+
 @Component({
     selector: 'jsf-one-of',
+    standalone: true,
+    imports: [
+    DropdownComponent
+],
     styleUrls: ['one-of.component.scss'],
-    templateUrl: 'one-of.component.html',
-    standalone: false
+    templateUrl: 'one-of.component.html'
 })
 
 export class OneOfComponent extends ContentBaseComponent implements OnInit {

@@ -2,15 +2,22 @@ import { Component, Input } from '@angular/core';
 import { JSFConfig } from '../../../jsf-config';
 import { SecuredStringDataItem } from '../../../models/secured-string-data-item';
 import { FormControlBase } from '../form-control-base';
+import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
+import { LabelComponent } from '../label/label.component';
 
 @Component({
     selector: 'jsf-secured-text',
+    standalone: true,
+    imports: [
+      CommonModule,
+      ReactiveFormsModule,
+      LabelComponent
+    ],
     templateUrl: './secured-text.component.html',
-    styleUrls: ['./secured-text.component.scss'],
-    standalone: false
+    styleUrls: ['./secured-text.component.scss']
 })
 export class SecuredTextComponent extends FormControlBase {
-  @Input() config: JSFConfig;
   private securedFieldCleared = false;
   showSecuredField = false;
 

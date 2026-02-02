@@ -2,11 +2,14 @@ import { Component, Input } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ParentDataItem } from '../../../models/parent-data-item';
 
+
 @Component({
     selector: 'jsf-tab',
+    standalone: true,
+    imports: [],
     templateUrl: './tab.component.html',
-    standalone: false
 })
+
 export class TabComponent {
   @Input() dataItem: ParentDataItem;
   @Input() selected = false;
