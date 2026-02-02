@@ -38,22 +38,22 @@ export class TableModalComponent extends FormControlBase {
   public rowData$ = new ReplaySubject<any[] | null>(1);
   public pinnedTopRowData$ = new ReplaySubject<any[] | null>(1);
 
-  public frameworkComponents = {
-    jsfCellRenderer: CellRendererComponent
-  };
-
   public defaultColDef: ColDef = {
     editable: true,
     resizable: false,
     suppressMovable: true,
-    pinnedRowCellRenderer: 'jsfCellRenderer',
-    cellRenderer: 'jsfCellRenderer',
-    cellEditor: 'jsfCellRenderer'
+    cellRenderer: CellRendererComponent,
+    cellEditor: CellRendererComponent
+  };
+
+  public rowSelectionOptions = {
+    mode: 'multiRow' as const,
+    checkboxes: true,
+    headerCheckbox: true,
+    enableClickSelection: false
   };
 
   public colDefs: ColDef[] = [{
-    headerCheckboxSelection: true,
-    checkboxSelection: true,
     minWidth: 30,
     maxWidth: 40,
     colId: 'jsfCheckboxSelection',
@@ -136,9 +136,9 @@ export class TableModalComponent extends FormControlBase {
 
   @HostListener('window:resize')
   onResize() {
-    const allColumnIds = this.params.columnApi.getAllDisplayedColumns().map(col => col.getColId());
+    const allColumnIds = this.params.api.getAllDisplayedColumns().map(col => col.getColId());
     setTimeout(() =>
-      this.params.columnApi.autoSizeColumns(allColumnIds, false)
+      this.params.api.autoSizeColumns(allColumnIds, false)
     );
   }
 
@@ -155,10 +155,6 @@ export class TableModalComponent extends FormControlBase {
           headerName: item.label,
           editable: !item.disabledState.isReadOnly,
           headerTooltip: item.tooltip,
-          pinnedRowCellRendererParams: {
-            item: item,
-            onAdd: this.onAdd.bind(this)
-          },
           cellRendererParams: {
             item: item,
             onAdd: this.onAdd.bind(this)
@@ -176,10 +172,6 @@ export class TableModalComponent extends FormControlBase {
           headerName: item.label,
           headerTooltip: item.tooltip,
           editable: false, // Two clicks are required to edit (renderer is getting the first click). Prevent this by using the renderer to edit
-          pinnedRowCellRendererParams: {
-            item: item,
-            onAdd: this.onAdd.bind(this)
-          },
           cellRendererParams: {
             item: item,
             onAdd: this.onAdd.bind(this)

@@ -12,15 +12,14 @@
       }
     </div>
     <ag-grid-angular
-      class="jsf-table"
+      class="jsf-table ag-theme-alpine"
       [rowData]="rowData$ | async"
       [columnDefs]="colDefs"
       [defaultColDef]="defaultColDef"
-      [frameworkComponents]="frameworkComponents"
+      [theme]="'legacy'"
       [rowHeight]="45"
       [suppressNoRowsOverlay]="true"
-      [rowSelection]="'multiple'"
-      [suppressRowClickSelection]="true"
+      [rowSelection]="rowSelectionOptions"
       [singleClickEdit]="true"
       [pinnedTopRowData]="pinnedTopRowData$ | async"
       (gridReady)="onGridReady($event)"
