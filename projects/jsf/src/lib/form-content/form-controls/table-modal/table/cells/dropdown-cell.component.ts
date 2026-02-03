@@ -24,7 +24,7 @@ import { FormsModule } from '@angular/forms';
           </option>
         }
       </select>
-      `,
+      `
 })
 export class DropdownCellComponent extends ContentBaseComponent {
   @Input() params: any;

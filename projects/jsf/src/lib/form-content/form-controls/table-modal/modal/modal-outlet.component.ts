@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Injector, Input, OnInit, Type, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Injector, Input, OnInit, Type, ViewContainerRef } from '@angular/core';
 
 import { merge, Observable, of, timer } from 'rxjs';
 import { delay, map, switchAll, takeUntil, tap } from 'rxjs/operators';
@@ -23,10 +23,10 @@ export class ModalOutletComponent extends ComponentLifeCycle implements OnInit {
 
   @Input() modalService: ModalService;
 
-  constructor(
-    private changeDetectorRef: ChangeDetectorRef,
-    private viewContainerRef: ViewContainerRef
-  ) {
+  private changeDetectorRef = inject(ChangeDetectorRef);
+  private viewContainerRef = inject(ViewContainerRef);
+
+  constructor() {
     super();
   }
 
