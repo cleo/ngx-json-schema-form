@@ -20,6 +20,3 @@ export * from './lib/jsf-template-event';
 
 // 🔹 Services (if any are used externally)
 export * from './lib/form-data-item.service';
-
-// 🔹 Modules
-export * from './lib/ag-grid.module';

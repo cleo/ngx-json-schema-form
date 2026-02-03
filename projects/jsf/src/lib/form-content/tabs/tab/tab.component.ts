@@ -7,7 +7,7 @@ import { ParentDataItem } from '../../../models/parent-data-item';
     selector: 'jsf-tab',
     standalone: true,
     imports: [],
-    templateUrl: './tab.component.html',
+    templateUrl: './tab.component.html'
 })
 
 export class TabComponent {

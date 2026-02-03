@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, inject } from '@angular/core';
 import { FormDataItemType } from '../../../../../models/form-data-item';
 import { ContentBaseComponent } from '../../../../content-base.component';
 import { CheckboxCellComponent } from '../cells/checkbox-cell.component';
@@ -25,10 +25,12 @@ export class CellRendererComponent extends ContentBaseComponent {
   @ViewChild('jsfDropdownCell') jsfDropdownCell: DropdownCellComponent;
   @ViewChild('jsfCheckboxCell') jsfCheckboxCell: CheckboxCellComponent;
 
+  private tableModalService = inject(TableModalService);
+
   public params: any;
   public errorMessage: string;
 
-  constructor(private tableModalService: TableModalService) {
+  constructor() {
     super();
   }
 

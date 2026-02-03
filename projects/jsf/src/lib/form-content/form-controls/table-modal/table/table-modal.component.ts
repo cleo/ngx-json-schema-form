@@ -1,5 +1,5 @@
 import { ColDef } from 'ag-grid-community';
-import { ChangeDetectionStrategy, Component, HostListener, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { ArrayDataItem } from '../../../../models/array-data-item';
 import { FormDataItem, FormDataItemType } from '../../../../models/form-data-item';
@@ -12,17 +12,17 @@ import { TableModalService } from './table-modal.service';
 import { CommonModule } from '@angular/common';
 import { AlertComponent } from '../alert/alert.component';
 import { ModalComponent } from '../modal/modal.component';
-import { AgGridBridgeModule } from 'projects/jsf/src/public_api';
+import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
     selector: 'jsf-table-modal',
     standalone: true,
     imports: [
-      CommonModule,
-      AgGridBridgeModule,
-      AlertComponent,
-      ModalComponent
-    ],
+    CommonModule,
+    AgGridAngular,
+    AlertComponent,
+    ModalComponent
+],
     templateUrl: 'table-modal.component.html',
     styleUrls: ['./table-modal.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
@@ -62,12 +62,13 @@ export class TableModalComponent extends FormControlBase {
 
   private params: any;
 
-  constructor(private modalService: ModalService<ITableModalOptions, any>,
-              private tableModalService: TableModalService,
-              @Inject(MODAL_OPTIONS_TOKEN) private readonly modalOptions: ITableModalOptions
-  ) {
+  private modalService = inject(ModalService<ITableModalOptions, any>);
+  private tableModalService = inject(TableModalService);
+  private readonly modalOptions = inject(MODAL_OPTIONS_TOKEN);
+
+  constructor() {
     super();
-    this.arrayItem = modalOptions.arrayItem;
+    this.arrayItem = this.modalOptions.arrayItem;
     this.modalTitle = this.arrayItem.label;
     this.arrayItem.items.forEach(item => this.addItemToColDefs(item));
   }
@@ -109,6 +110,7 @@ export class TableModalComponent extends FormControlBase {
   }
 
   onAdd(): void {
+    this.params.api.stopEditing();
     this.params.api.applyTransaction({
       add: [this.params.api.getPinnedTopRow(0).data]
     });
