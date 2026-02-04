@@ -1,14 +1,14 @@
-@if (formItem.label) {
+@if (formItem().label) {
   <div class="item-label">
-    @if (config.enableCollapsibleSections) {
+    @if (config()?.enableCollapsibleSections) {
       <div class="arrows">
-        @if (!isContentShown) {
+        @if (!isContentShown()) {
           <img
             (click)="toggleContentShown()"
             class="arrow-up"
             [src]="'assets/jsf-images/arrow-up.svg'">
           }
-          @if (isContentShown) {
+          @if (isContentShown()) {
             <img
               (click)="toggleContentShown()"
               class="arrow-down"
@@ -18,21 +18,21 @@
         }
         <label
           class="header"
-          (click)="config.enableCollapsibleSections ? toggleContentShown() : noop()"
-          [ngClass]="{clickable: config.enableCollapsibleSections}"
-          [title]="formItem.tooltip"
-          [attr.for]="formItem.path">
-        {{formItem.label}}
+          (click)="config()?.enableCollapsibleSections ? toggleContentShown() : noop()"
+          [ngClass]="{clickable: config()?.enableCollapsibleSections}"
+          [title]="formItem().tooltip"
+          [attr.for]="formItem().path">
+        {{formItem().label}}
       </label>
-      @if (formItem.helpText) {
+      @if (formItem().helpText) {
         <img
           class="help"
-          [title]="formItem.helpText"
+          [title]="formItem().helpText"
           [src]="'assets/jsf-images/info.svg'">
         }
       </div>
     }
-    <div [class.collapsible-sections-padding]="config.enableCollapsibleSections" class="description">{{formItem.description}}</div>
-    <div [class.item-group]="formItem.label || formItem.description" [class.hidden]="!isContentShown">
+    <div [class.collapsible-sections-padding]="config()?.enableCollapsibleSections" class="description">{{formItem().description}}</div>
+    <div [class.item-group]="formItem().label || formItem().description" [class.hidden]="!isContentShown()">
       <ng-content></ng-content>
     </div>

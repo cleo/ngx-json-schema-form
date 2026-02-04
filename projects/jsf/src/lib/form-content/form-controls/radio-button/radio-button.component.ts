@@ -17,6 +17,6 @@ import { LabelComponent } from '../label/label.component';
 })
 export class RadioButtonComponent extends FormControlBase {
   get formItemAsEnumType(): EnumDataItem {
-    return this.formItem as EnumDataItem;
+    return this.formItem() as EnumDataItem;
   }
 }

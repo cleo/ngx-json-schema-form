@@ -1,12 +1,12 @@
-@if (xOfDataItem.display === display.DROPDOWN) {
+@if (xOfDataItem().display === display.DROPDOWN) {
   <div class="jsf-one-of-drop-down"
     >
     <jsf-drop-down
       [formItem]="getDropdownDataItem()"
-      [formGroup]="formGroup"
-      [config]="config"
+      [formGroup]="formGroup()"
+      [config]="config()"
       (selectedKey)="onDropdownChange($event)"
-      [labelLengthClass]="labelLengthClass">
+      [labelLengthClass]="labelLengthClass()">
     </jsf-drop-down>
     @if (selectedKey) {
       <div class="selected-schema-content">

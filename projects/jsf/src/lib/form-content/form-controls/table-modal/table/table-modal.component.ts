@@ -1,12 +1,12 @@
-import { ColDef } from 'ag-grid-community';
-import { ChangeDetectionStrategy, Component, HostListener, inject } from '@angular/core';
+import { ColDef, ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
+import { ChangeDetectionStrategy, Component, HostListener, inject, Inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { ArrayDataItem } from '../../../../models/array-data-item';
 import { FormDataItem, FormDataItemType } from '../../../../models/form-data-item';
 import { AlertService } from '../alert/alert.service';
 import { ModalService, MODAL_OPTIONS_TOKEN } from '../modal/modal.service';
 
-import { FormControlBase } from '../../form-control-base';
+import { ComponentLifeCycle } from '../../../../component-life-cycle';
 import { CellRendererComponent } from './renderers/cell-renderer.component';
 import { TableModalService } from './table-modal.service';
 import { CommonModule } from '@angular/common';
@@ -14,21 +14,27 @@ import { AlertComponent } from '../alert/alert.component';
 import { ModalComponent } from '../modal/modal.component';
 import { AgGridAngular } from 'ag-grid-angular';
 
+ModuleRegistry.registerModules([AllCommunityModule]);
+
 @Component({
     selector: 'jsf-table-modal',
     standalone: true,
     imports: [
-    CommonModule,
-    AgGridAngular,
-    AlertComponent,
-    ModalComponent
-],
+      CommonModule,
+      AgGridAngular,
+      AlertComponent,
+      ModalComponent
+    ],
     templateUrl: 'table-modal.component.html',
     styleUrls: ['./table-modal.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
 
-export class TableModalComponent extends FormControlBase {
+export class TableModalComponent extends ComponentLifeCycle {
+  private modalService = inject(ModalService<ITableModalOptions, any>);
+  private tableModalService = inject(TableModalService);
+  private readonly modalOptions = inject<ITableModalOptions>(MODAL_OPTIONS_TOKEN);
+  
   public alertStreamService = new AlertService();
 
   public arrayItem: ArrayDataItem;
@@ -61,11 +67,6 @@ export class TableModalComponent extends FormControlBase {
   }];
 
   private params: any;
-
-  private modalService = inject(ModalService<ITableModalOptions, any>);
-  private tableModalService = inject(TableModalService);
-  private readonly modalOptions = inject(MODAL_OPTIONS_TOKEN);
-
   constructor() {
     super();
     this.arrayItem = this.modalOptions.arrayItem;
@@ -110,7 +111,7 @@ export class TableModalComponent extends FormControlBase {
   }
 
   onAdd(): void {
-    this.params.api.stopEditing();
+    // this.params.api.stopEditing();
     this.params.api.applyTransaction({
       add: [this.params.api.getPinnedTopRow(0).data]
     });
@@ -168,12 +169,30 @@ export class TableModalComponent extends FormControlBase {
         });
         break;
       case FormDataItemType.Boolean:
+          this.colDefs.push({
+          field: item.key,
+          headerName: item.label,
+          headerTooltip: item.tooltip,
+          editable: true, 
+          singleClickEdit: true, 
+          suppressKeyboardEvent: () => true,
+          cellRendererParams: {
+            item: item,
+            onAdd: this.onAdd.bind(this)
+          },
+          cellEditorParams: {
+            item: item,
+            onAdd: this.onAdd.bind(this)
+          }
+        });
+        break;
+
       case FormDataItemType.Enum:
         this.colDefs.push({
           field: item.key,
           headerName: item.label,
           headerTooltip: item.tooltip,
-          editable: false, // Two clicks are required to edit (renderer is getting the first click). Prevent this by using the renderer to edit
+          editable: false, 
           cellRendererParams: {
             item: item,
             onAdd: this.onAdd.bind(this)

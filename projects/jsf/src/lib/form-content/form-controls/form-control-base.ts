@@ -1,4 +1,4 @@
-import { Directive, Input, OnInit } from '@angular/core';
+import { Directive, input, OnInit } from '@angular/core';
 import { UntypedFormControl, ValidationErrors } from '@angular/forms';
 
 import { FormDataItem } from '../../models/form-data-item';
@@ -8,12 +8,13 @@ import { ContentBaseComponent } from '../content-base.component';
 
 @Directive()
 export class FormControlBase extends ContentBaseComponent implements OnInit {
-  @Input() formItem: FormDataItem;
-  @Input() labelLengthClass: string;
-  @Input() templates: any = {};
+  // Migrated to signals
+  formItem = input.required<FormDataItem>();
+  labelLengthClass = input<string>('');
+  templates = input<any>({});
 
   get formControl(): UntypedFormControl {
-    return (this.formGroup.controls[this.formItem.key]) as UntypedFormControl;
+    return (this.formGroup()!.controls[this.formItem().key]) as UntypedFormControl;
   }
 
   get showError(): boolean {
@@ -64,6 +65,6 @@ export class FormControlBase extends ContentBaseComponent implements OnInit {
 
   getErrorMessage(): string {
     const errors = this.formControl.errors;
-    return FormControlBase.formatErrorMessage(errors, this.formItem);
+    return FormControlBase.formatErrorMessage(errors, this.formItem());
   }
 }

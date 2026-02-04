@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, inject, input, output, ViewChild } from '@angular/core';
 import { take, takeUntil, tap } from 'rxjs/operators';
 import { ContentBaseComponent } from '../../../content-base.component';
 import { ModalService } from './modal.service';
@@ -13,12 +13,15 @@ import { ModalService } from './modal.service';
 })
 
 export class ModalComponent extends ContentBaseComponent implements AfterViewInit {
+  private modalService = inject(ModalService);
+  private changeDetectorRef = inject(ChangeDetectorRef);
+  
   @ViewChild('modal', { static: true }) modalEl: ElementRef;
   @ViewChild('modalContent', { static: true }) modalContentEl: ElementRef;
 
-  @Input() title: string;
-  @Output() closeInput: EventEmitter<any> = new EventEmitter();
-  @Output() resizeInput: EventEmitter<any> = new EventEmitter();
+  title = input.required<string>();
+  closeInput = output<void>();
+  resizeInput = output<void>();
 
   shouldHaveFadeInClass = false;
 
@@ -32,13 +35,6 @@ export class ModalComponent extends ContentBaseComponent implements AfterViewIni
   minHeight: number;
   draggingCorner = false;
   draggingWindow = false;
-
-  constructor(
-    private modalService: ModalService,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
-    super();
-  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {

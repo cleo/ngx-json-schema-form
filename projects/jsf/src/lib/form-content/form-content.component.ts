@@ -1,4 +1,4 @@
-import { Component, Input, QueryList, ViewChildren } from '@angular/core';
+import { Component, input, QueryList, ViewChildren } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { JSFConfig } from '../jsf-config';
 
@@ -33,22 +33,22 @@ import { TabComponent } from './tabs/tab/tab.component';
 })
 export class FormContentComponent extends ContentBaseComponent {
   @ViewChildren('contentDiv') divs: QueryList<any>;
-  @Input() formItems: FormDataItem[] = [];
-  @Input() labelLengthClass: string;
+  formItems = input<FormDataItem[]>([]);
+  labelLengthClass = input<string>('');
 
   // non-tabbed items cannot be calculated only upon initialization, as the inputted items will change with oneOf dropdown selections.
   getNonTabbedItems(): FormDataItem[] {
-    return this.formItems.filter(item => !this.isTabbedItem(item));
+    return this.formItems().filter(item => !this.isTabbedItem(item));
   }
 
   getTabbedItems(): ParentDataItem[] {
-    return this.formItems
+    return this.formItems()
       .filter(item => !this.isHidden(item) && this.isTabbedItem(item))
       .map(item => item as ParentDataItem);
   }
 
   hasTabbedItems(): boolean {
-    return this.formItems && this.formItems.some(item => this.isTabbedItem(item));
+    return this.formItems() && this.formItems().some(item => this.isTabbedItem(item));
   }
 
   private isTabbedItem(item: FormDataItem): boolean {
@@ -64,7 +64,7 @@ export class FormContentComponent extends ContentBaseComponent {
   }
 
   shouldHaveSectionDivider(index: number): boolean {
-    return this.config.showSectionDivider
+    return this.config()?.showSectionDivider
       ? this.isStaticObject(this.getNonTabbedItems()[index]) || this.hasTabbedItems() && this.isLastNonTabbedItem(index)
       : false;
   }
@@ -78,7 +78,7 @@ export class FormContentComponent extends ContentBaseComponent {
   }
 
   getFormGroup(item: FormDataItem): UntypedFormGroup {
-    return this.formGroup.controls[item.key] as UntypedFormGroup;
+    return this.formGroup()!.controls[item.key] as UntypedFormGroup;
   }
 
   isSection(item: FormDataItem): boolean {

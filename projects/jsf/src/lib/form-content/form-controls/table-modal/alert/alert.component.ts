@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnInit } from '@angular/core';
+import { Component, HostBinding, input, OnInit } from '@angular/core';
 import { EMPTY, Observable, Subject, timer } from 'rxjs';
 import { switchAll, takeUntil, tap } from 'rxjs/operators';
 import { ComponentLifeCycle } from '../../../../component-life-cycle';
@@ -36,7 +36,7 @@ const SECONDARY_AUTO_HIDE_DELAY = 2000;
 })
 
 export class AlertComponent extends ComponentLifeCycle implements OnInit {
-  @Input() alertStream: AlertService;
+  alertStream = input.required<AlertService>();
   private autoHide$: Subject<Observable<any>> = new Subject();
   @HostBinding('class.active') active = false;
   message: string | undefined;
@@ -47,7 +47,7 @@ export class AlertComponent extends ComponentLifeCycle implements OnInit {
       tap(() => this.hide())
     ).subscribe();
 
-    this.alertStream.getAlerts().pipe(
+    this.alertStream().getAlerts().pipe(
       takeUntil(this.ngDestroy$),
       tap(alert => {
         if (alert) {

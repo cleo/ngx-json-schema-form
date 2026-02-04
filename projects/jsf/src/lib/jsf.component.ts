@@ -1,10 +1,10 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, Component, effect, ElementRef, inject, input, OnInit, output, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 
 import { NEVER } from 'rxjs';
 import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
 
-import { ComponentLifeCycle, getInputValue$ } from './component-life-cycle';
+import { ComponentLifeCycle } from './component-life-cycle';
 import { FormContentComponent } from './form-content/form-content.component';
 import { FormDataItemService } from './form-data-item.service';
 import { FormService, getLongestFieldLabelClass } from './form.service';
@@ -31,53 +31,60 @@ import { XOfEnumDataItem } from './models/xOf-enum-data-item';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, OnInit {
+  private formService = inject(FormService);
+  private dataItemService = inject(FormDataItemService);
+  
   @ViewChild(FormContentComponent, {static: true}) content: FormContentComponent;
   @ViewChild('formRoot', {static: true}) formElement: ElementRef<HTMLFormElement>;
-  @Input() config: JSFConfig;
-  @Input() schemaData;
-  @Input() templates: any = {};
-  @Output() disableSubmit: EventEmitter<boolean> = new EventEmitter<boolean>();
-  @Output() formHeightChange: EventEmitter<number> = new EventEmitter();
-  @Output() buttonEvent: EventEmitter<JSFEventButton> = new EventEmitter();
-  @Output() templateEvent: EventEmitter<JSFTemplateEvent> = new EventEmitter();
+  
+  // Migrated to signals
+  config = input.required<JSFConfig>();
+  schemaData = input<JSFSchemaData>();
+  templates = input<any>({});
+  disableSubmit = output<boolean>();
+  formHeightChange = output<number>();
+  buttonEvent = output<JSFEventButton>();
+  templateEvent = output<JSFTemplateEvent>();
 
   formDataItems: FormDataItem[] = [];
   formGroup: UntypedFormGroup = new UntypedFormGroup({});
   isEdit = false;
   sectionLabelLengthClass: string;
 
-  constructor(private formService: FormService, private dataItemService: FormDataItemService) {
+  constructor() {
     super();
+    
+    // Use effect to react to schemaData signal changes
+    effect(() => {
+      const data = this.schemaData();
+      if (!data || !data.schema) {
+        return;
+      }
+      
+      this.isEdit = this.dataItemService.isFormInEditMode(data);
+      this.formDataItems = this.dataItemService.getFormDataItems(data);
+      this.formGroup = this.formService.getForm(new UntypedFormGroup({}), this.formDataItems);
+      this.sectionLabelLengthClass = getLongestFieldLabelClass(this.formDataItems);
+
+      if (this.isEdit && this.formGroup.valid) {
+        this.disableSubmit.emit(false);
+      }
+
+      this.formGroup.statusChanges.pipe(
+        tap(status => {
+          if (status === 'INVALID' || status === 'DISABLED') {
+            this.disableSubmit.emit(true);
+          } else {
+            this.disableSubmit.emit(false);
+          }
+        }),
+        takeUntil(this.ngDestroy$)
+      ).subscribe();
+    });
   }
 
   ngOnInit() {
     super.ngOnInit();
-
-    getInputValue$(this, 'schemaData').pipe(
-      switchMap((data: JSFSchemaData) => {
-        if (!data || !data.schema) {
-          return NEVER;
-        }
-        this.isEdit = this.dataItemService.isFormInEditMode(data);
-        this.formDataItems = this.dataItemService.getFormDataItems(data);
-        this.formGroup = this.formService.getForm(new UntypedFormGroup({}), this.formDataItems);
-        this.sectionLabelLengthClass = getLongestFieldLabelClass(this.formDataItems);
-
-        if (this.isEdit && this.formGroup.valid) {
-          this.disableSubmit.next(false);
-        }
-
-        return this.formGroup.statusChanges.pipe(
-          tap(status => {
-            if (status === 'INVALID' || status === 'DISABLED') {
-              this.disableSubmit.next(true);
-            } else {
-              this.disableSubmit.next(false);
-            }
-          })
-        );
-      }),
-      takeUntil(this.ngDestroy$)).subscribe();
   }
 
   ngAfterViewInit(): void {
@@ -190,7 +197,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
         return { path: path, data: result };
       }
     }).filter(value => !!value);
-    this.buttonEvent.next({ key: event.key, targets: targets });
+    this.buttonEvent.emit({ key: event.key, targets: targets });
   }
 
   onTemplateEvent(event: { key: string; targetPaths: string[] }): void {
@@ -205,7 +212,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
         return { path: path, formControl: control, data: result };
       }
     }).filter(value => !!value);
-    this.templateEvent.next({ key: event.key, targetPaths: targets });
+    this.templateEvent.emit({ key: event.key, targetPaths: targets });
   }
 
   onManualFormChangeEvent(): void {

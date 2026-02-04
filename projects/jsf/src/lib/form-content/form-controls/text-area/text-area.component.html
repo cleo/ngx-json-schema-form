@@ -1,20 +1,20 @@
 <div class="form-item-with-label">
-  <jsf-label [formItem]="formItem" [labelLengthClass]="labelLengthClass"></jsf-label>
-  <div class="form-item" [class.default-col]="isDefaultColsWidth" [formGroup]="formGroup">
+  <jsf-label [formItem]="formItem()" [labelLengthClass]="labelLengthClass()"></jsf-label>
+  <div class="form-item" [class.default-col]="isDefaultColsWidth" [formGroup]="formGroup()">
     <div class="control-with-error">
       <textarea
         class="form-control"
         [placeholder]="stringDataItem.placeholder"
-        [formControlName]="formItem.key"
-        [id]="formItem.path"
+        [formControlName]="formItem().key"
+        [id]="formItem().path"
         [rows]="rows"
         [cols]="cols"
         autocomplete="new-password">
       </textarea>
-      @if (formItem.helpText) {
+      @if (formItem().helpText) {
         <img
           class="help"
-          [title]="formItem.helpText"
+          [title]="formItem().helpText"
           [src]="'assets/jsf-images/info.svg'">
         }
         @if (showError) {

@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, ContentChildren, Input, QueryList, ViewChildren } from '@angular/core';
+import { AfterContentInit, AfterViewInit, Component, ContentChildren, input, QueryList, ViewChildren } from '@angular/core';
 import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { getLongestFieldLabelClass } from '../../form.service';
 import { FormDataItem } from '../../models/form-data-item';
@@ -19,18 +19,18 @@ import { TabComponent } from './tab/tab.component';
 
 export class TabsComponent extends ContentBaseComponent implements AfterContentInit {
   @ContentChildren(TabComponent) public tabs: QueryList<TabComponent>;
-  @Input() items: ParentDataItem[];
-  @Input() public title = '';
+  items = input<ParentDataItem[]>([]);
+  title = input<string>('');
 
   selectedTab: TabComponent;
 
   ngAfterContentInit(): void {
-    this.tabs.first.selected = true;
+    this.tabs.first.selected.set(true);
     this.selectedTab = this.tabs.first;
   }
 
   getFormGroup(item: FormDataItem): UntypedFormGroup {
-    return this.formGroup.controls[item.key] as UntypedFormGroup;
+    return this.formGroup()!.controls[item.key] as UntypedFormGroup;
   }
 
   getLabelLengthClass(tab: ParentDataItem): string {
@@ -38,25 +38,25 @@ export class TabsComponent extends ContentBaseComponent implements AfterContentI
   }
 
   onTabClicked(clickedTab: TabComponent) {
-    if (clickedTab === undefined || clickedTab.selected) {
+    if (clickedTab === undefined || clickedTab.selected()) {
       return;
     }
 
-    this.selectedTab.selected = false;
-    this.selectedTab = this.tabs.find(tab => tab.dataItem.label === clickedTab.dataItem.label);
-    this.selectedTab.selected = true;
+    this.selectedTab.selected.set(false);
+    this.selectedTab = this.tabs.find(tab => tab.dataItem().label === clickedTab.dataItem().label);
+    this.selectedTab.selected.set(true);
   }
 
   isValid(tab: TabComponent) {
-    return tab.formGroup.valid;
+    return tab.formGroup().valid;
   }
 
   isDisabled(tab: TabComponent) {
-    return tab.formGroup.disabled;
+    return tab.formGroup().disabled;
   }
 
   tabHasRequiredFields(tab: TabComponent): boolean {
-    return this.formGroupHasRequiredFields(tab.formGroup);
+    return this.formGroupHasRequiredFields(tab.formGroup());
   }
 
   private formGroupHasRequiredFields(formGroup: UntypedFormGroup): boolean {

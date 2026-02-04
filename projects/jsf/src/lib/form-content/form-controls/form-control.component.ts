@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 
 import { JSFConfig } from '../../jsf-config';
@@ -35,45 +35,45 @@ import { TemplateComponent } from './template/template.component';
 })
 
 export class FormControlComponent extends ContentBaseComponent {
-  @Input() formItem: FormDataItem;
-  @Input() templates: any = {};
-  @Input() labelLengthClass: string;
+  formItem = input.required<FormDataItem>();
+  templates = input<any>({});
+  labelLengthClass = input<string>('');
 
   isStringInput(): boolean {
-    return this.formItem.type === FormDataItemType.String ||
-      this.formItem.type === FormDataItemType.Integer;
+    return this.formItem().type === FormDataItemType.String ||
+      this.formItem().type === FormDataItemType.Integer;
   }
 
   isDropdown(): boolean {
-    return this.isEnum() && (this.formItem as EnumDataItem).display === OptionDisplayType.DROPDOWN;
+    return this.isEnum() && (this.formItem() as EnumDataItem).display === OptionDisplayType.DROPDOWN;
   }
 
   isRadioButton(): boolean {
-    return this.isEnum() && (this.formItem as EnumDataItem).display === OptionDisplayType.RADIO_BUTTONS;
+    return this.isEnum() && (this.formItem() as EnumDataItem).display === OptionDisplayType.RADIO_BUTTONS;
   }
 
   private isEnum(): boolean {
-    return this.formItem.type === FormDataItemType.Enum;
+    return this.formItem().type === FormDataItemType.Enum;
   }
 
   isSecured(): boolean {
-    return this.formItem.type === FormDataItemType.SecuredString;
+    return this.formItem().type === FormDataItemType.SecuredString;
   }
 
   isCheckbox(): boolean {
-    return this.formItem.type === FormDataItemType.Boolean;
+    return this.formItem().type === FormDataItemType.Boolean;
   }
 
   isTextArea(): boolean {
-    const item = this.formItem as StringDataItem;
+    const item = this.formItem() as StringDataItem;
     return item.display && item.display.startsWith('textarea');
   }
 
   isArray(): boolean {
-    return this.formItem.type === FormDataItemType.Array;
+    return this.formItem().type === FormDataItemType.Array;
   }
 
   isTemplate(): boolean {
-    return this.formItem.type === FormDataItemType.Template;
+    return this.formItem().type === FormDataItemType.Template;
   }
 }

@@ -31,7 +31,7 @@ export class SecuredTextComponent extends FormControlBase {
   }
 
   get securedStringDataItem(): SecuredStringDataItem {
-    return this.formItem as SecuredStringDataItem;
+    return this.formItem() as SecuredStringDataItem;
   }
 
   getPlaceholderText(): string {
@@ -70,6 +70,6 @@ export class SecuredTextComponent extends FormControlBase {
     const value = this.formControl.value;
 
     // null indicates the input has been cleared and that a value should be returned.
-    this.formItem.disabledState.isDisabledOnSubmit = this.isEdit && (value === undefined || value === '');
+    this.formItem().disabledState.isDisabledOnSubmit = this.isEdit() && (value === undefined || value === '');
   }
 }

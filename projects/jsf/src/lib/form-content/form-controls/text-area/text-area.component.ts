@@ -29,7 +29,7 @@ export class TextAreaComponent extends FormControlBase implements OnInit {
     }
   }
   get stringDataItem(): StringDataItem {
-    return this.formItem as StringDataItem;
+    return this.formItem() as StringDataItem;
   }
 
   /**

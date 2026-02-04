@@ -1,14 +1,14 @@
 <div class="form-item-with-label">
-  @if (formItem.label) {
-    <jsf-label [formItem]="formItem"></jsf-label>
+  @if (formItem().label) {
+    <jsf-label [formItem]="formItem()"></jsf-label>
   }
-  <div class="form-item" [formGroup]="formGroup">
+  <div class="form-item" [formGroup]="formGroup()">
     @for (item of formItemAsEnumType.enumOptions; track item) {
       <div>
         <input type="radio"
           [id]="item.path"
-          [formControlName]="formItem.key"
-          [name]="formItem.key"
+          [formControlName]="formItem().key"
+          [name]="formItem().key"
           [value]="item.key">
         <label class="radiobutton-label" [for]="item.key">{{item.text}}</label>
       </div>

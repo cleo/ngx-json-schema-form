@@ -8,7 +8,7 @@
            [style.height.px]="height">
         <div class="modal-header" (mousedown)="onWindowPress($event)" (mousemove)="onWindowDrag($event)">
           <div class="modal-title">
-            <span>{{title}}</span>
+            <span>{{title()}}</span>
           </div>
           <img title="Close Dialog Box"
                [src]="'assets/jsf-images/close.svg'"

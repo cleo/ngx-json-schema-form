@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
 import { ButtonDataItem } from '../../../models/button-data-item';
 
 
@@ -11,10 +11,10 @@ import { ButtonDataItem } from '../../../models/button-data-item';
 })
 
 export class EventButtonComponent {
-  @Input() buttonData: ButtonDataItem;
-  @Output() buttonEvent: EventEmitter<{ key: string; targetPaths: string[] }> = new EventEmitter();
+  buttonData = input.required<ButtonDataItem>();
+  buttonEvent = output<{ key: string; targetPaths: string[] }>();
 
   onClick(): void {
-    this.buttonEvent.next({ key: this.buttonData.key, targetPaths: this.buttonData.targetPaths });
+    this.buttonEvent.emit({ key: this.buttonData().key, targetPaths: this.buttonData().targetPaths });
   }
 }

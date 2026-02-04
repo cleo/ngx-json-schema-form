@@ -1,17 +1,17 @@
 <div [class]="getLabelClasses()">
   <label
-    [title]="formItem.tooltip"
-    [attr.for]="formItem.path">
-    {{formItem.label}}
+    [title]="formItem().tooltip"
+    [attr.for]="formItem().path">
+    {{formItem().label}}
     @if (isRequired()) {
       <span class="required-star"> *</span>
     }
   </label>
 
-  @if (formItem.helpText && showHelpAfterLabel) {
+  @if (formItem().helpText && showHelpAfterLabel) {
     <img
       class="help"
-      [title]="formItem.helpText"
+      [title]="formItem().helpText"
       [src]="'assets/jsf-images/info.svg'">
     }
   </div>

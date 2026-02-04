@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, input, OnInit, signal } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ParentDataItem } from '../../../models/parent-data-item';
 
@@ -10,8 +10,13 @@ import { ParentDataItem } from '../../../models/parent-data-item';
     templateUrl: './tab.component.html'
 })
 
-export class TabComponent {
-  @Input() dataItem: ParentDataItem;
-  @Input() selected = false;
-  @Input() formGroup: UntypedFormGroup;
+export class TabComponent implements OnInit {
+  dataItem = input.required<ParentDataItem>();
+  selectedInput = input<boolean>(false, { alias: 'selected' });
+  selected = signal(false);
+  formGroup = input.required<UntypedFormGroup>();
+
+  ngOnInit(): void {
+    this.selected.set(this.selectedInput());
+  }
 }

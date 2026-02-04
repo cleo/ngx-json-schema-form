@@ -1,6 +1,6 @@
 <div class="form-item-with-label">
-  <jsf-label [formItem]="formItem" [labelLengthClass]="labelLengthClass"></jsf-label>
-  <div class="form-item" [formGroup]="formGroup">
+  <jsf-label [formItem]="formItem()" [labelLengthClass]="labelLengthClass()"></jsf-label>
+  <div class="form-item" [formGroup]="formGroup()">
     <div class="control-with-error array-input">
       <span>{{numItems}} Items</span>
       <div class="edit-btn">
@@ -10,10 +10,10 @@
           Edit
         </button>
       </div>
-      @if (formItem.helpText) {
+      @if (formItem().helpText) {
         <img
           class="help"
-          [title]="formItem.helpText"
+          [title]="formItem().helpText"
           [src]="'assets/jsf-images/info.svg'">
         }
       </div>

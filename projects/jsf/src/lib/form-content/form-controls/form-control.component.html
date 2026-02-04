@@ -1,20 +1,20 @@
 @if (isSecured()) {
   <jsf-secured-text
-    [formItem]="formItem"
-    [formGroup]="formGroup"
-    [config]="config"
-    [isEdit]="isEdit"
-    [labelLengthClass]="labelLengthClass">
+    [formItem]="formItem()"
+    [formGroup]="formGroup()"
+    [config]="config()"
+    [isEdit]="isEdit()"
+    [labelLengthClass]="labelLengthClass()">
   </jsf-secured-text>
 }
 
 @if (isStringInput() && !isTextArea()) {
   <jsf-text
-    [formItem]="formItem"
-    [formGroup]="formGroup"
-    [config]="config"
-    [isEdit]="isEdit"
-    [labelLengthClass]="labelLengthClass"
+    [formItem]="formItem()"
+    [formGroup]="formGroup()"
+    [config]="config()"
+    [isEdit]="isEdit()"
+    [labelLengthClass]="labelLengthClass()"
     (buttonEvent)="onButtonEvent($event)"
     (templateEvent)="onTemplateEvent($event)"
     (manualFormChangeEvent)="onManualFormChangeEvent()">
@@ -23,61 +23,61 @@
 
 @if (isTextArea()) {
   <jsf-text-area
-    [formItem]="formItem"
-    [formGroup]="formGroup"
-    [config]="config"
-    [isEdit]="isEdit"
-    [labelLengthClass]="labelLengthClass">
+    [formItem]="formItem()"
+    [formGroup]="formGroup()"
+    [config]="config()"
+    [isEdit]="isEdit()"
+    [labelLengthClass]="labelLengthClass()">
   </jsf-text-area>
 }
 
 @if (isCheckbox()) {
   <jsf-check-box
-    [formItem]="formItem"
-    [formGroup]="formGroup"
-    [isEdit]="isEdit"
-    [config]="config">
+    [formItem]="formItem()"
+    [formGroup]="formGroup()"
+    [isEdit]="isEdit()"
+    [config]="config()">
   </jsf-check-box>
 }
 
 @if (isDropdown()) {
   <jsf-drop-down
-    [formItem]="formItem"
-    [formGroup]="formGroup"
-    [labelLengthClass]="labelLengthClass"
-    [isEdit]="isEdit"
-    [config]="config">
+    [formItem]="formItem()"
+    [formGroup]="formGroup()"
+    [labelLengthClass]="labelLengthClass()"
+    [isEdit]="isEdit()"
+    [config]="config()">
   </jsf-drop-down>
 }
 
 @if (isRadioButton()) {
   <jsf-radio-button
-    [formItem]="formItem"
-    [formGroup]="formGroup"
-    [isEdit]="isEdit"
-    [config]="config">
+    [formItem]="formItem()"
+    [formGroup]="formGroup()"
+    [isEdit]="isEdit()"
+    [config]="config()">
   </jsf-radio-button>
 }
 
 @if (isArray()) {
   <jsf-table-summary
-    [formItem]="formItem"
-    [formGroup]="formGroup"
-    [labelLengthClass]="labelLengthClass"
-    [isEdit]="isEdit"
-    [config]="config"
+    [formItem]="formItem()"
+    [formGroup]="formGroup()"
+    [labelLengthClass]="labelLengthClass()"
+    [isEdit]="isEdit()"
+    [config]="config()"
     (manualFormChangeEvent)="onManualFormChangeEvent()"
   ></jsf-table-summary>
 }
 
 @if (isTemplate()) {
   <jsf-template
-    [formItem]="formItem"
-    [formGroup]="formGroup"
-    [labelLengthClass]="labelLengthClass"
-    [isEdit]="isEdit"
-    [config]="config"
-    [templates]="templates"
+    [formItem]="formItem()"
+    [formGroup]="formGroup()"
+    [labelLengthClass]="labelLengthClass()"
+    [isEdit]="isEdit()"
+    [config]="config()"
+    [templates]="templates()"
     (buttonEvent)="onButtonEvent($event)"
     (templateEvent)="onTemplateEvent($event)"
     (manualFormChangeEvent)="onManualFormChangeEvent()"

@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input, OnInit, signal } from '@angular/core';
 import { noop } from 'rxjs';
 import { getLongestFieldLabelClass } from '../../form.service';
 import { ParentDataItem } from '../../models/parent-data-item';
@@ -17,17 +17,19 @@ import { CommonModule } from '@angular/common';
 })
 
 export class SectionComponent extends ContentBaseComponent implements OnInit {
-  @Input() formItem: ParentDataItem;
-  @Input() isContentShown = true;
+  formItem = input.required<ParentDataItem>();
+  isContentShownInput = input<boolean>(true, { alias: 'isContentShown' });
+  isContentShown = signal(true);
   sectionLabelLengthClass: string;
 
   protected readonly noop = noop;
 
   ngOnInit(): void {
-    this.sectionLabelLengthClass = getLongestFieldLabelClass(this.formItem.items);
+    this.sectionLabelLengthClass = getLongestFieldLabelClass(this.formItem().items);
+    this.isContentShown.set(this.isContentShownInput());
   }
 
   toggleContentShown(): void {
-    this.isContentShown = !this.isContentShown;
+    this.isContentShown.update(value => !value);
   }
 }

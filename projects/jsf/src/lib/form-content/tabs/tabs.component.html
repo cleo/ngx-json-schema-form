@@ -1,24 +1,24 @@
 <div class="jsf-tabstrip panel panel-default panel-tabbed">
   <div class="panel-heading">
     <div class="panel-title">
-      {{title}}
+      {{title()}}
     </div>
     <ul class="nav nav-tabs">
       @for (tab of tabs; track tab; let i = $index) {
-        <li class="clickable" (click)="onTabClicked(tab)" [class.active]="tab.selected" [class.disabled]="isDisabled(tab)" [class.has-error]="!isValid(tab) && !isDisabled(tab)">
-          <a>{{tab.dataItem.label}}@if (tabHasRequiredFields(tab)) {
+        <li class="clickable" (click)="onTabClicked(tab)" [class.active]="tab.selected()" [class.disabled]="isDisabled(tab)" [class.has-error]="!isValid(tab) && !isDisabled(tab)">
+          <a>{{tab.dataItem().label}}@if (tabHasRequiredFields(tab)) {
             <span class="required-star">*</span>
           }</a>
         </li>
       }
     </ul>
-    @if (selectedTab?.dataItem?.description) {
+    @if (selectedTab?.dataItem()?.description) {
       <div class="tab-description">
-        <span>{{selectedTab.dataItem.description}}</span>
-        @if (selectedTab.dataItem.helpText) {
+        <span>{{selectedTab.dataItem().description}}</span>
+        @if (selectedTab.dataItem().helpText) {
           <img
             class="help"
-            [title]="selectedTab.dataItem.helpText"
+            [title]="selectedTab.dataItem().helpText"
             [src]="'assets/jsf-images/info.svg'">
           }
         </div>

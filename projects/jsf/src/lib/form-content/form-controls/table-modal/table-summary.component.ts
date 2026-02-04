@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
 import { filter, map, takeUntil, tap } from 'rxjs/operators';
-import { getInputValue$ } from '../../../component-life-cycle';
 import { ArrayDataItem } from '../../../models/array-data-item';
 import { FormDataItem } from '../../../models/form-data-item';
 import { FormControlBase } from '../form-control-base';
@@ -29,13 +28,13 @@ export class TableSummaryComponent extends FormControlBase implements OnInit {
   public modalService = new ModalService<ITableModalOptions, any>(TableModalComponent);
 
   ngOnInit() {
-    getInputValue$(this, 'formItem').pipe(
-      map((item: FormDataItem) => {
-        this.arrayItem = item as ArrayDataItem;
-      }),
-      takeUntil(this.ngDestroy$)).subscribe();
-
-    this.formGroup.addControl(this.formItem.key, new UntypedFormControl(this.arrayItem.value));
+    // Initialize arrayItem directly from signal
+    this.arrayItem = this.formItem() as ArrayDataItem;
+    
+    // Add control after arrayItem is set
+    if (!this.formGroup()!.controls[this.formItem().key]) {
+      this.formGroup()!.addControl(this.formItem().key, new UntypedFormControl(this.arrayItem.value));
+    }
   }
 
   onEdit() {
@@ -43,11 +42,11 @@ export class TableSummaryComponent extends FormControlBase implements OnInit {
     this.modalService.open({arrayItem: this.arrayItem}).pipe(
       filter(value => !!value),
       tap(value => this.arrayItem.value = value),
-      tap(value => this.formGroup.controls[this.formItem.key].setValue(value)),
+      tap(value => this.formGroup().controls[this.formItem().key].setValue(value)),
       tap(value => {
         if (!isEqual(value, arrayItemBefore)) {
-          this.formGroup.controls[this.formItem.key].markAsDirty();
-          this.manualFormChangeEvent.emit();
+          this.formGroup().controls[this.formItem().key].markAsDirty();
+          this.manualFormChangeEvent.emit(undefined);
         }
       })
     ).subscribe();

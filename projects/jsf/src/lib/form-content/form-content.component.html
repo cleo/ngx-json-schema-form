@@ -6,11 +6,11 @@
     @if (!isParent(item) && !isHidden(item)) {
       <jsf-form-control
         [formItem]="item"
-        [formGroup]="formGroup"
-        [isEdit]="isEdit"
-        [config]="config"
-        [labelLengthClass]="labelLengthClass"
-        [templates]="templates"
+        [formGroup]="formGroup()"
+        [isEdit]="isEdit()"
+        [config]="config()"
+        [labelLengthClass]="labelLengthClass()"
+        [templates]="templates()"
         (buttonEvent)="onButtonEvent($event)"
         (templateEvent)="onTemplateEvent($event)"
         (manualFormChangeEvent)="onManualFormChangeEvent()">
@@ -20,18 +20,18 @@
       <jsf-checkbox-with-children #checkboxWithChildrenComponent
         [formItem]="getConditionalParentFormItem(item)"
         [formGroup]="getFormGroup(item)"
-        [isEdit]="isEdit"
-        [config]="config"
-        [templates]="templates"
+        [isEdit]="isEdit()"
+        [config]="config()"
+        [templates]="templates()"
         (buttonEvent)="onButtonEvent($event)"
         (templateEvent)="onTemplateEvent($event)"
         (manualFormChangeEvent)="onManualFormChangeEvent()">
         <jsf-form-content
           [formItems]="checkboxWithChildrenComponent.visibleChildFormItems"
-          [formGroup]="checkboxWithChildrenComponent.formGroup"
-          [isEdit]="isEdit"
-          [config]="checkboxWithChildrenComponent.config"
-          [templates]="templates"
+          [formGroup]="checkboxWithChildrenComponent.formGroup()"
+          [isEdit]="isEdit()"
+          [config]="checkboxWithChildrenComponent.config()"
+          [templates]="templates()"
           [labelLengthClass]="checkboxWithChildrenComponent.labelLengthClass"
           (buttonEvent)="onButtonEvent($event)"
           (templateEvent)="onTemplateEvent($event)"
@@ -43,19 +43,19 @@
       <jsf-section #sectionComponent
         [formItem]="getParentFormItem(item)"
         [formGroup]="getFormGroup(item)"
-        [isEdit]="isEdit"
-        [config]="config"
-        [templates]="templates"
-        [isContentShown]="config.expandOuterSectionsByDefault"
+        [isEdit]="isEdit()"
+        [config]="config()"
+        [templates]="templates()"
+        [isContentShown]="config()?.expandOuterSectionsByDefault"
         (buttonEvent)="onButtonEvent($event)"
         (templateEvent)="onTemplateEvent($event)"
         (manualFormChangeEvent)="onManualFormChangeEvent()">
         <jsf-form-content
-          [formItems]="sectionComponent.formItem.items"
-          [formGroup]="sectionComponent.formGroup"
-          [isEdit]="isEdit"
-          [config]="getSubSectionConfig(sectionComponent.config)"
-          [templates]="templates"
+          [formItems]="sectionComponent.formItem().items"
+          [formGroup]="sectionComponent.formGroup()"
+          [isEdit]="isEdit()"
+          [config]="getSubSectionConfig(sectionComponent.config())"
+          [templates]="templates()"
           [labelLengthClass]="sectionComponent.sectionLabelLengthClass"
           (buttonEvent)="onButtonEvent($event)"
           (templateEvent)="onTemplateEvent($event)"
@@ -75,10 +75,10 @@
         [class.hidden]="isHidden(item)"
         [xOfDataItem]="item"
         [formGroup]="getFormGroup(item)"
-        [isEdit]="isEdit"
-        [config]="config"
-        [templates]="templates"
-        [labelLengthClass]="labelLengthClass"
+        [isEdit]="isEdit()"
+        [config]="config()"
+        [templates]="templates()"
+        [labelLengthClass]="labelLengthClass()"
         (buttonEvent)="onButtonEvent($event)"
         (templateEvent)="onTemplateEvent($event)"
         (manualFormChangeEvent)="onManualFormChangeEvent()">
@@ -86,10 +86,10 @@
           <jsf-form-content
             [formItems]="oneOfComponent.selectedChildDataItem.items"
             [formGroup]="oneOfComponent.selectedChildFormGroup"
-            [config]="config"
-            [templates]="templates"
-            [isEdit]="isEdit"
-            [labelLengthClass]="labelLengthClass"
+            [config]="config()"
+            [templates]="templates()"
+            [isEdit]="isEdit()"
+            [labelLengthClass]="labelLengthClass()"
             (buttonEvent)="onButtonEvent($event)"
             (templateEvent)="onTemplateEvent($event)"
           (manualFormChangeEvent)="onManualFormChangeEvent()"></jsf-form-content>
@@ -102,14 +102,14 @@
 @if (hasTabbedItems()) {
   <jsf-tabs #tabsComponent
     [items]="getTabbedItems()"
-    [formGroup]="formGroup"
-    [config]="config"
-    [templates]="templates"
-    [isEdit]="isEdit"
+    [formGroup]="formGroup()"
+    [config]="config()"
+    [templates]="templates()"
+    [isEdit]="isEdit()"
     (buttonEvent)="onButtonEvent($event)"
     (templateEvent)="onTemplateEvent($event)"
     (manualFormChangeEvent)="onManualFormChangeEvent()">
-    @for (item of tabsComponent.items; track item; let i = $index) {
+    @for (item of tabsComponent.items(); track item; let i = $index) {
       <jsf-tab
         [selected]="i === 0"
         [dataItem]="item"
@@ -117,13 +117,13 @@
         <jsf-form-content
           [formGroup]="tabsComponent.getFormGroup(item)"
           [formItems]="item.items"
-          [config]="tabsComponent.config"
-          [templates]="templates"
+          [config]="tabsComponent.config()"
+          [templates]="templates()"
           [labelLengthClass]="tabsComponent.getLabelLengthClass(item)"
           (buttonEvent)="onButtonEvent($event)"
           (templateEvent)="onTemplateEvent($event)"
           (manualFormChangeEvent)="onManualFormChangeEvent()"
-          [isEdit]="isEdit"
+          [isEdit]="isEdit()"
         ></jsf-form-content>
       </jsf-tab>
     }

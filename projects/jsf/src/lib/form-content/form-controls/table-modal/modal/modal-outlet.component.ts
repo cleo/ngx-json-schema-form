@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Injector, Input, OnInit, Type, ViewContainerRef } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, inject, Injector, input, OnInit, Type, ViewContainerRef } from '@angular/core';
 
 import { merge, Observable, of, timer } from 'rxjs';
 import { delay, map, switchAll, takeUntil, tap } from 'rxjs/operators';
@@ -16,24 +16,20 @@ import { CommonModule } from '@angular/common';
 })
 
 export class ModalOutletComponent extends ComponentLifeCycle implements OnInit {
+  private changeDetectorRef = inject(ChangeDetectorRef);
+  private viewContainerRef = inject(ViewContainerRef);
+  
   private readonly fadeOutDuration = 300;
 
   componentType: Type<any>;
   componentInjector: Injector;
 
-  @Input() modalService: ModalService;
-
-  private changeDetectorRef = inject(ChangeDetectorRef);
-  private viewContainerRef = inject(ViewContainerRef);
-
-  constructor() {
-    super();
-  }
+  modalService = input.required<ModalService>();
 
   ngOnInit(): void {
     merge(
-      this.modalService.getOpenEvents().pipe(map(options => this.open(options))),
-      this.modalService.getCloseEvents().pipe(map(() => this.close()))
+      this.modalService().getOpenEvents().pipe(map(options => this.open(options))),
+      this.modalService().getCloseEvents().pipe(map(() => this.close()))
     ).pipe(
       switchAll(),
       takeUntil(this.ngDestroy$)
@@ -49,7 +45,7 @@ export class ModalOutletComponent extends ComponentLifeCycle implements OnInit {
       }),
       delay(0), // wait for change detection
       tap(() => {
-        const modalService = this.modalService;
+        const modalService = this.modalService();
 
         this.componentInjector = Injector.create({
           providers: [
@@ -59,7 +55,7 @@ export class ModalOutletComponent extends ComponentLifeCycle implements OnInit {
           parent: this.viewContainerRef.injector
         });
 
-        this.componentType = this.modalService.getComponentType();
+        this.componentType = this.modalService().getComponentType();
 
         this.changeDetectorRef.markForCheck();
       })

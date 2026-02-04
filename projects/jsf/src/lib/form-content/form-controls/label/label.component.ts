@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, computed, input } from '@angular/core';
 import { EnumDataItem, OptionDisplayType } from '../../../models/enum-data-item';
 import { FormDataItem, FormDataItemType } from '../../../models/form-data-item';
 
@@ -10,25 +10,33 @@ import { FormDataItem, FormDataItemType } from '../../../models/form-data-item';
     templateUrl: './label.component.html',
     styleUrls: ['./label.component.scss']
 })
-export class LabelComponent implements OnInit {
-  @Input() formItem: FormDataItem;
-  @Input() labelLengthClass: string;
-  isRadioButtonDisplay: boolean;
-  showHelpAfterLabel: boolean;
+export class LabelComponent {
+  // Migrated to signals
+  formItem = input.required<FormDataItem>();
+  labelLengthClass = input<string>('');
 
-  ngOnInit(): void {
-    this.isRadioButtonDisplay = this.formItem.type === FormDataItemType.Enum && (this.formItem as EnumDataItem).display === OptionDisplayType.RADIO_BUTTONS;
-    this.showHelpAfterLabel = this.formItem.type === FormDataItemType.Boolean || this.isRadioButtonDisplay;
+  // Computed properties
+  get isRadioButtonDisplay(): boolean {
+    const item = this.formItem();
+    return item?.type === FormDataItemType.Enum && 
+      (item as EnumDataItem).display === OptionDisplayType.RADIO_BUTTONS;
+  }
+
+  get showHelpAfterLabel(): boolean {
+    const item = this.formItem();
+    return item?.type === FormDataItemType.Boolean || this.isRadioButtonDisplay;
   }
 
   getLabelClasses(): string {
     const classes = ['item-label'];
+    const lengthClass = this.labelLengthClass();
 
-    if (Boolean(this.labelLengthClass)) {
-      classes.push(this.labelLengthClass);
+    if (Boolean(lengthClass)) {
+      classes.push(lengthClass);
     }
 
-    if (this.formItem.type === FormDataItemType.Boolean || this.isRadioButtonDisplay) {
+    const item = this.formItem();
+    if (item?.type === FormDataItemType.Boolean || this.isRadioButtonDisplay) {
       classes.push('full-width');
     }
 
@@ -36,6 +44,7 @@ export class LabelComponent implements OnInit {
   }
 
   isRequired(): boolean {
-    return this.formItem.required || this.formItem.type === FormDataItemType.Enum;
+    const item = this.formItem();
+    return item?.required || item?.type === FormDataItemType.Enum;
   }
 }

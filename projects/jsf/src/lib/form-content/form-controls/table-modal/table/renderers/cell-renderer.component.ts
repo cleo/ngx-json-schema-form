@@ -1,4 +1,4 @@
-import { Component, ViewChild, inject } from '@angular/core';
+import { Component, inject, ViewChild } from '@angular/core';
 import { FormDataItemType } from '../../../../../models/form-data-item';
 import { ContentBaseComponent } from '../../../../content-base.component';
 import { CheckboxCellComponent } from '../cells/checkbox-cell.component';
@@ -21,11 +21,11 @@ import { CheckboxComponent } from '../../../checkbox/checkbox.component';
 })
 
 export class CellRendererComponent extends ContentBaseComponent {
+  private tableModalService = inject(TableModalService);
+  
   @ViewChild('jsfTextCell') jsfTextCell: TextCellComponent;
   @ViewChild('jsfDropdownCell') jsfDropdownCell: DropdownCellComponent;
   @ViewChild('jsfCheckboxCell') jsfCheckboxCell: CheckboxCellComponent;
-
-  private tableModalService = inject(TableModalService);
 
   public params: any;
   public errorMessage: string;
@@ -42,7 +42,7 @@ export class CellRendererComponent extends ContentBaseComponent {
 
   public getValue() {
     // Only text cells are editable due to issue with single click edit for checkboxes and dropdowns
-    return this.jsfTextCell?.params?.value;
+    return this.jsfTextCell?.params()?.value;
   }
 
   showAddButton(): boolean {
