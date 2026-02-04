@@ -12,9 +12,9 @@ import { TabComponent } from './tab/tab.component';
     standalone: true,
     imports: [
     TabComponent
-],
+    ],
     templateUrl: 'tabs.component.html',
-    styleUrls: ['tabs.component.scss'],
+    styleUrls: ['tabs.component.scss']
 })
 
 export class TabsComponent extends ContentBaseComponent implements AfterContentInit {

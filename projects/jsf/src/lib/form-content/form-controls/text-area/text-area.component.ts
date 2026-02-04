@@ -13,7 +13,7 @@ import { LabelComponent } from '../label/label.component';
     LabelComponent
 ],
     templateUrl: './text-area.component.html',
-    styleUrls: ['./text-area.component.scss'],
+    styleUrls: ['./text-area.component.scss']
 })
 
 export class TextAreaComponent extends FormControlBase implements OnInit {

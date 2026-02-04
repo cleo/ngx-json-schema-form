@@ -28,9 +28,8 @@ export class TableSummaryComponent extends FormControlBase implements OnInit {
   public modalService = new ModalService<ITableModalOptions, any>(TableModalComponent);
 
   ngOnInit() {
-    // Initialize arrayItem directly from signal
     this.arrayItem = this.formItem() as ArrayDataItem;
-    
+
     // Add control after arrayItem is set
     if (!this.formGroup()!.controls[this.formItem().key]) {
       this.formGroup()!.addControl(this.formItem().key, new UntypedFormControl(this.arrayItem.value));

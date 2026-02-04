@@ -29,7 +29,7 @@ import { TabComponent } from './tabs/tab/tab.component';
     TabComponent
 ],
     templateUrl: 'form-content.component.html',
-    styleUrls: ['./form-content.component.scss'],
+    styleUrls: ['./form-content.component.scss']
 })
 export class FormContentComponent extends ContentBaseComponent {
   @ViewChildren('contentDiv') divs: QueryList<any>;

@@ -11,8 +11,6 @@ import { CommonModule } from '@angular/common';
 })
 
 export class TemplateComponent extends FormControlBase implements AfterViewInit {
-  // templates inherited from ContentBaseComponent as signal
-
   @HostListener('click', ['$event', '$event.target'])
   @HostListener('change', ['$event', '$event.target'])
   run(event: any, targetElement: HTMLElement): void {

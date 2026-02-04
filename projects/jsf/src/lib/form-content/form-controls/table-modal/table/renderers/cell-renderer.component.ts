@@ -22,7 +22,7 @@ import { CheckboxComponent } from '../../../checkbox/checkbox.component';
 
 export class CellRendererComponent extends ContentBaseComponent {
   private tableModalService = inject(TableModalService);
-  
+
   @ViewChild('jsfTextCell') jsfTextCell: TextCellComponent;
   @ViewChild('jsfDropdownCell') jsfDropdownCell: DropdownCellComponent;
   @ViewChild('jsfCheckboxCell') jsfCheckboxCell: CheckboxCellComponent;

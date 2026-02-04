@@ -18,7 +18,7 @@ import { CommonModule } from '@angular/common';
 export class ModalOutletComponent extends ComponentLifeCycle implements OnInit {
   private changeDetectorRef = inject(ChangeDetectorRef);
   private viewContainerRef = inject(ViewContainerRef);
-  
+
   private readonly fadeOutDuration = 300;
 
   componentType: Type<any>;

@@ -16,7 +16,7 @@ import { EventButtonComponent } from '../event-button/event-button.component';
     EventButtonComponent
 ],
     templateUrl: './text.component.html',
-    styleUrls: ['text.component.scss'],
+    styleUrls: ['text.component.scss']
 })
 
 export class TextComponent extends FormControlBase {

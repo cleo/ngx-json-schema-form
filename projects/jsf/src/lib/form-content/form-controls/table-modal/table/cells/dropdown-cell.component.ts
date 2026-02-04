@@ -29,7 +29,7 @@ export class DropdownCellComponent extends ContentBaseComponent {
   valueChanged = output<string>();
 
   public options: EnumOption[];
-  
+
   // Effect as field initializer to react to params changes
   private readonly paramsEffect = effect(() => {
     const params = this.params();

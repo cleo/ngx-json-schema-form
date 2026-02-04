@@ -34,7 +34,7 @@ export class TableModalComponent extends ComponentLifeCycle {
   private modalService = inject(ModalService<ITableModalOptions, any>);
   private tableModalService = inject(TableModalService);
   private readonly modalOptions = inject<ITableModalOptions>(MODAL_OPTIONS_TOKEN);
-  
+
   public alertStreamService = new AlertService();
 
   public arrayItem: ArrayDataItem;
@@ -111,7 +111,6 @@ export class TableModalComponent extends ComponentLifeCycle {
   }
 
   onAdd(): void {
-    // this.params.api.stopEditing();
     this.params.api.applyTransaction({
       add: [this.params.api.getPinnedTopRow(0).data]
     });
@@ -173,8 +172,8 @@ export class TableModalComponent extends ComponentLifeCycle {
           field: item.key,
           headerName: item.label,
           headerTooltip: item.tooltip,
-          editable: true, 
-          singleClickEdit: true, 
+          editable: true,
+          singleClickEdit: true,
           suppressKeyboardEvent: () => true,
           cellRendererParams: {
             item: item,
@@ -186,13 +185,12 @@ export class TableModalComponent extends ComponentLifeCycle {
           }
         });
         break;
-
       case FormDataItemType.Enum:
         this.colDefs.push({
           field: item.key,
           headerName: item.label,
           headerTooltip: item.tooltip,
-          editable: false, 
+          editable: false,
           cellRendererParams: {
             item: item,
             onAdd: this.onAdd.bind(this)

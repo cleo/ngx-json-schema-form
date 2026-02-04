@@ -11,14 +11,12 @@ import { FormDataItem, FormDataItemType } from '../../../models/form-data-item';
     styleUrls: ['./label.component.scss']
 })
 export class LabelComponent {
-  // Migrated to signals
   formItem = input.required<FormDataItem>();
   labelLengthClass = input<string>('');
 
-  // Computed properties
   get isRadioButtonDisplay(): boolean {
     const item = this.formItem();
-    return item?.type === FormDataItemType.Enum && 
+    return item?.type === FormDataItemType.Enum &&
       (item as EnumDataItem).display === OptionDisplayType.RADIO_BUTTONS;
   }
 

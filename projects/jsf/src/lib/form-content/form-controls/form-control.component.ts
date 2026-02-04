@@ -31,7 +31,7 @@ import { TemplateComponent } from './template/template.component';
     TemplateComponent
 ],
     templateUrl: './form-control.component.html',
-    styleUrls: ['./form-control.component.scss'],
+    styleUrls: ['./form-control.component.scss']
 })
 
 export class FormControlComponent extends ContentBaseComponent {

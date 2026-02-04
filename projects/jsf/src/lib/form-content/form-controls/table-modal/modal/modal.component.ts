@@ -15,7 +15,7 @@ import { ModalService } from './modal.service';
 export class ModalComponent extends ContentBaseComponent implements AfterViewInit {
   private modalService = inject(ModalService);
   private changeDetectorRef = inject(ChangeDetectorRef);
-  
+
   @ViewChild('modal', { static: true }) modalEl: ElementRef;
   @ViewChild('modalContent', { static: true }) modalContentEl: ElementRef;
 

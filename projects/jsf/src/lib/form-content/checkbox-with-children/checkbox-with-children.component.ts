@@ -21,7 +21,7 @@ import { CheckboxComponent } from '../form-controls/checkbox/checkbox.component'
 })
 export class CheckboxWithChildrenComponent extends ContentBaseComponent  implements OnInit {
   private formService = inject(FormService);
-  
+
   formItem = input.required<ConditionalParentDataItem>();
 
   parentFormItem: FormDataItem;

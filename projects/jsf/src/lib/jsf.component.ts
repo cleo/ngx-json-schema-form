@@ -33,10 +33,10 @@ import { XOfEnumDataItem } from './models/xOf-enum-data-item';
 export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, OnInit {
   private formService = inject(FormService);
   private dataItemService = inject(FormDataItemService);
-  
+
   @ViewChild(FormContentComponent, {static: true}) content: FormContentComponent;
   @ViewChild('formRoot', {static: true}) formElement: ElementRef<HTMLFormElement>;
-  
+
   // Migrated to signals
   config = input.required<JSFConfig>();
   schemaData = input<JSFSchemaData>();
@@ -53,14 +53,14 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
 
   constructor() {
     super();
-    
+
     // Use effect to react to schemaData signal changes
     effect(() => {
       const data = this.schemaData();
       if (!data || !data.schema) {
         return;
       }
-      
+
       this.isEdit = this.dataItemService.isFormInEditMode(data);
       this.formDataItems = this.dataItemService.getFormDataItems(data);
       this.formGroup = this.formService.getForm(new UntypedFormGroup({}), this.formDataItems);

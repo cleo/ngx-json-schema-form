@@ -5,7 +5,6 @@ import { JSFConfig } from '../jsf-config';
 
 @Directive()
 export class ContentBaseComponent extends ComponentLifeCycle {
-  // Migrated to signals - made optional for components that don't use them
   formGroup = input<UntypedFormGroup | undefined>(undefined);
   config = input<JSFConfig | undefined>(undefined);
   isEdit = input<boolean>(false);

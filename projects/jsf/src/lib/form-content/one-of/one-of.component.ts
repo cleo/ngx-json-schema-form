@@ -21,7 +21,7 @@ import { DropdownComponent } from '../form-controls/dropdown/dropdown.component'
 
 export class OneOfComponent extends ContentBaseComponent implements OnInit {
   private formService = inject(FormService);
-  
+
   @ViewChild('oneOfSelect', { static: true }) select: ElementRef<HTMLSelectElement>;
   xOfDataItem = input.required<XOfDataItem>();
   labelLengthClass = input<string>('');

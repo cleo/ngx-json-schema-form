@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
     ],
     templateUrl: 'section.component.html',
     styleUrls: ['../common.scss', 'section.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush,
+    changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class SectionComponent extends ContentBaseComponent implements OnInit {
