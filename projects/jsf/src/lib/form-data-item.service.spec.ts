@@ -1,4 +1,5 @@
 import { FormControl, FormGroup } from '@angular/forms';
+import { TestBed } from '@angular/core/testing';
 import { FormDataItemService } from './form-data-item.service';
 import { JSFSchemaData } from './jsf-schema-data';
 import { ArrayDataItem } from './models/array-data-item';
@@ -32,7 +33,14 @@ describe('FormDataItemService', () => {
 
     translationService = jasmine.createSpyObj('schemaTranslationService', [ 'translateToLatest' ]);
     translationService.translateToLatest.and.returnValue(schema);
-    service = new FormDataItemService(translationService);
+    
+    TestBed.configureTestingModule({
+      providers: [
+        FormDataItemService,
+        { provide: SchemaTranslationService, useValue: translationService }
+      ]
+    });
+    service = TestBed.inject(FormDataItemService);
   });
 
   describe('Boolean Type', () => {

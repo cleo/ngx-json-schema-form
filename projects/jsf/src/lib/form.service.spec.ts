@@ -1,4 +1,5 @@
 import { UntypedFormControl, UntypedFormGroup, FormsModule } from '@angular/forms';
+import { TestBed } from '@angular/core/testing';
 import { FormService } from './form.service';
 import { OptionDisplayType } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
@@ -15,9 +16,18 @@ describe('FormService', () => {
   const pathParts = ['path1', 'path2'];
 
   let service: FormService;
+  let validatorService: jasmine.SpyObj<ValidatorService>;
 
   beforeEach(() => {
-    service = new FormService({} as ValidatorService);
+    validatorService = jasmine.createSpyObj('ValidatorService', ['getValidators']);
+    
+    TestBed.configureTestingModule({
+      providers: [
+        FormService,
+        { provide: ValidatorService, useValue: validatorService }
+      ]
+    });
+    service = TestBed.inject(FormService);
   });
 
   describe('findAbstractControl()', () => {

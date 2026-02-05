@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { JSFJsonSchema } from './jsf-json-schema';
 import { JSFSchemaData } from './jsf-schema-data';
@@ -19,9 +19,9 @@ import { SchemaTranslationService } from './schema-translation.service';
   providedIn: 'root'
 })
 export class FormDataItemService {
-  private isEdit = false;
+  private schemaTranslationService = inject(SchemaTranslationService);
 
-  constructor(private schemaTranslationService: SchemaTranslationService) {}
+  private isEdit = false;
 
   public isFormInEditMode(schemaData: JSFSchemaData): boolean {
     return !!schemaData.values && Object.keys(schemaData.values).length > 0;

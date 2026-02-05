@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { UntypedFormControl, Validators } from '@angular/forms';
 import { ValidatorService } from '../../../../validator.service';
 import { FormControlBase } from '../../form-control-base';
@@ -7,7 +7,8 @@ import { FormControlBase } from '../../form-control-base';
   providedIn: 'root'
 })
 export class TableModalService {
-  constructor(private validationService: ValidatorService) { }
+  private validationService = inject(ValidatorService);
+
 
   getErrorMessage(item: any, value: any): string {
     if (!item) {

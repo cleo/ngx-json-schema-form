@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { AbstractControl, FormGroup, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { EnumDataItem, OptionDisplayType } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
@@ -10,7 +10,8 @@ import { ValidatorService } from './validator.service';
   providedIn: 'root'
 })
 export class FormService {
-  constructor(private validatorService: ValidatorService) {}
+  private validatorService = inject(ValidatorService);
+
 
   getForm(form: UntypedFormGroup, itemsToAdd: FormDataItem[]): UntypedFormGroup {
     return this.fillForm(form, itemsToAdd);
