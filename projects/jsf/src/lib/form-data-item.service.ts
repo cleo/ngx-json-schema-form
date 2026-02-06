@@ -34,7 +34,11 @@ export class FormDataItemService {
   }
 
   private getItemsFromSubschema(schema: JSFJsonSchema, values: object, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): FormDataItem[] {
-    return Object.keys(schema.properties ?? schema.items.properties).map(key => {
+    const properties = schema.properties ?? schema.items?.properties;
+    if (!properties) {
+      return [];
+    }
+    return Object.keys(properties).map(key => {
       return this.getItemFromSchema(schema, values, key, pathParts.slice(), isParentReadOnly, isParentHidden);
     });
   }
