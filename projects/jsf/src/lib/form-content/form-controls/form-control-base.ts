@@ -8,13 +8,18 @@ import { ContentBaseComponent } from '../content-base.component';
 
 @Directive()
 export class FormControlBase extends ContentBaseComponent implements OnInit {
-  // Migrated to signals
   formItem = input.required<FormDataItem>();
   labelLengthClass = input<string>('');
   templates = input<any>({});
 
   get formControl(): UntypedFormControl {
-    return (this.formGroup()!.controls[this.formItem().key]) as UntypedFormControl;
+    const formGroup = this.formGroup();
+
+    if (!formGroup) {
+      throw new Error('Form group is not available');
+    }
+
+    return formGroup.controls[this.formItem().key] as UntypedFormControl;
   }
 
   get showError(): boolean {

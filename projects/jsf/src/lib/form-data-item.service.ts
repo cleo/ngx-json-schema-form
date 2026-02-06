@@ -128,15 +128,15 @@ export class FormDataItemService {
     }
 
     switch (schemaProperty.type) {
-      case SchemaTypes.Boolean:
+      case 'boolean':
         return FormDataItemType.Boolean;
-      case SchemaTypes.Integer:
+      case 'integer':
         return FormDataItemType.Integer;
-      case SchemaTypes.Object:
+      case 'object':
         return FormDataItemType.Object;
-      case SchemaTypes.Array:
+      case 'array':
         return FormDataItemType.Array;
-      case SchemaTypes.Template:
+      case 'template':
         return FormDataItemType.Template;
       default:
         return Boolean(schemaProperty.isSecured) ? FormDataItemType.SecuredString : FormDataItemType.String;
@@ -194,7 +194,9 @@ export class FormDataItemService {
    * A 'tabs' array without an accompanying 'display: tabs' is ignored. Default display is as sections.
    */
   private getSectionDisplayFromParentSchema(schema: JSFJsonSchema, key: string): OptionDisplayType {
-    return !schema.display || schema.display !== OptionDisplayType.TABS || (schema.tabs && !schema.tabs.includes(key))
+    return !schema.display ||
+        (schema.display as OptionDisplayType) !== OptionDisplayType.TABS ||
+        (schema.tabs && !schema.tabs.includes(key))
       ? OptionDisplayType.SECTIONS
       : OptionDisplayType.TABS;
   }

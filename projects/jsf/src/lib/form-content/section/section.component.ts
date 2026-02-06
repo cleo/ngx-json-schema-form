@@ -18,18 +18,18 @@ import { CommonModule } from '@angular/common';
 
 export class SectionComponent extends ContentBaseComponent implements OnInit {
   formItem = input.required<ParentDataItem>();
-  isContentShownInput = input<boolean>(true, { alias: 'isContentShown' });
-  isContentShown = signal(true);
+  isContentShown = input<boolean>(true);
+  isContentShownSignal = signal(true);
   sectionLabelLengthClass: string;
 
   protected readonly noop = noop;
 
   ngOnInit(): void {
     this.sectionLabelLengthClass = getLongestFieldLabelClass(this.formItem().items);
-    this.isContentShown.set(this.isContentShownInput());
+    this.isContentShownSignal.set(this.isContentShown());
   }
 
   toggleContentShown(): void {
-    this.isContentShown.update(value => !value);
+    this.isContentShownSignal.update(value => !value);
   }
 }

@@ -6,13 +6,12 @@ import { ParentDataItem } from '../../models/parent-data-item';
 import { ContentBaseComponent } from '../content-base.component';
 import { TabComponent } from './tab/tab.component';
 
-
 @Component({
     selector: 'jsf-tabs',
     standalone: true,
     imports: [
     TabComponent
-    ],
+],
     templateUrl: 'tabs.component.html',
     styleUrls: ['tabs.component.scss']
 })
@@ -30,7 +29,13 @@ export class TabsComponent extends ContentBaseComponent implements AfterContentI
   }
 
   getFormGroup(item: FormDataItem): UntypedFormGroup {
-    return this.formGroup()!.controls[item.key] as UntypedFormGroup;
+    const formGroup = this.formGroup();
+
+    if (!formGroup) {
+      throw new Error('Form group is not available');
+    }
+
+    return formGroup.controls[item.key] as UntypedFormGroup;
   }
 
   getLabelLengthClass(tab: ParentDataItem): string {

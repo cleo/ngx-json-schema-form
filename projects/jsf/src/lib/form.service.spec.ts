@@ -20,7 +20,7 @@ describe('FormService', () => {
 
   beforeEach(() => {
     validatorService = jasmine.createSpyObj('ValidatorService', ['getValidators']);
-    
+
     TestBed.configureTestingModule({
       providers: [
         FormService,

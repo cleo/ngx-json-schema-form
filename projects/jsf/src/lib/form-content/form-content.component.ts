@@ -78,7 +78,8 @@ export class FormContentComponent extends ContentBaseComponent {
   }
 
   getFormGroup(item: FormDataItem): UntypedFormGroup {
-    return this.formGroup()!.controls[item.key] as UntypedFormGroup;
+    const formGroup = this.formGroup();
+    return formGroup ? formGroup.controls[item.key] as UntypedFormGroup : new UntypedFormGroup({});
   }
 
   isSection(item: FormDataItem): boolean {

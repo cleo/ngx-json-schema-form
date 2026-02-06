@@ -31,18 +31,23 @@ export class OneOfComponent extends ContentBaseComponent implements OnInit {
 
   ngOnInit(): void {
     this.selectedKey = this.getDropdownFormControl().value;
+    const formGroup = this.formGroup();
+    if (!formGroup) return;
+
     if (!this.selectedKey) {
-      this.formService.setVisibilityForAllConditionalChildren(this.xOfDataItem(), this.formGroup()!, false);
+      this.formService.setVisibilityForAllConditionalChildren(this.xOfDataItem(), formGroup, false);
     } else {
       this.selectedKey = this.selectedChildDataItem.key;
-      this.formService.showNecessaryConditionalChildren(this.xOfDataItem(), this.formGroup()!, [ this.selectedKey ]);
+      this.formService.showNecessaryConditionalChildren(this.xOfDataItem(), formGroup, [ this.selectedKey ]);
     }
 
     this.formService.setVisibilityForConditionalChild(this.getDropdownDataItem(), this.getDropdownFormControl(), true);
   }
 
   getDropdownFormControl(): UntypedFormControl {
-    return this.formGroup()!.controls[this.xOfDataItem().key] as UntypedFormControl;
+    const formGroup = this.formGroup();
+    if (!formGroup) throw new Error('Form group is not available');
+    return formGroup.controls[this.xOfDataItem().key] as UntypedFormControl;
   }
 
   getDropdownDataItem(): EnumDataItem {
@@ -58,7 +63,9 @@ export class OneOfComponent extends ContentBaseComponent implements OnInit {
   }
 
   get selectedChildFormGroup(): UntypedFormGroup {
-    return this.formGroup()!.controls[this.selectedKey] as UntypedFormGroup;
+    const formGroup = this.formGroup();
+    if (!formGroup) throw new Error('Form group is not available');
+    return formGroup.controls[this.selectedKey] as UntypedFormGroup;
   }
 
   get selectedChildDataItem(): ParentDataItem {

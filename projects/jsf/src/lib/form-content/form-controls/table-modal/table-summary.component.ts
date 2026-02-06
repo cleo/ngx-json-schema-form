@@ -31,8 +31,9 @@ export class TableSummaryComponent extends FormControlBase implements OnInit {
     this.arrayItem = this.formItem() as ArrayDataItem;
 
     // Add control after arrayItem is set
-    if (!this.formGroup()!.controls[this.formItem().key]) {
-      this.formGroup()!.addControl(this.formItem().key, new UntypedFormControl(this.arrayItem.value));
+    const formGroup = this.formGroup();
+    if (formGroup && !formGroup.controls[this.formItem().key]) {
+      formGroup.addControl(this.formItem().key, new UntypedFormControl(this.arrayItem.value));
     }
   }
 

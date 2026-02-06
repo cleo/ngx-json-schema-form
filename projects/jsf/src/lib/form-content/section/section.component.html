@@ -2,13 +2,13 @@
   <div class="item-label">
     @if (config()?.enableCollapsibleSections) {
       <div class="arrows">
-        @if (!isContentShown()) {
+        @if (!isContentShownSignal()) {
           <img
             (click)="toggleContentShown()"
             class="arrow-up"
             [src]="'assets/jsf-images/arrow-up.svg'">
           }
-          @if (isContentShown()) {
+          @if (isContentShownSignal()) {
             <img
               (click)="toggleContentShown()"
               class="arrow-down"
@@ -33,6 +33,6 @@
       </div>
     }
     <div [class.collapsible-sections-padding]="config()?.enableCollapsibleSections" class="description">{{formItem().description}}</div>
-    <div [class.item-group]="formItem().label || formItem().description" [class.hidden]="!isContentShown()">
+    <div [class.item-group]="formItem().label || formItem().description" [class.hidden]="!isContentShownSignal()">
       <ng-content></ng-content>
     </div>

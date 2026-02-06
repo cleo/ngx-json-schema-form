@@ -1,7 +1,6 @@
-import { Directive } from '@angular/core';
 import { FormDataItem } from './form-data-item';
 import { FormDataItemType } from './form-data-item';
-@Directive()
+
 export class TemplateDataItem extends FormDataItem {
   public targetPaths: string[];
   constructor(key: string,

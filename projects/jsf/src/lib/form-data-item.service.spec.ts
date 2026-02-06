@@ -33,7 +33,7 @@ describe('FormDataItemService', () => {
 
     translationService = jasmine.createSpyObj('schemaTranslationService', [ 'translateToLatest' ]);
     translationService.translateToLatest.and.returnValue(schema);
-    
+
     TestBed.configureTestingModule({
       providers: [
         FormDataItemService,
