@@ -201,6 +201,26 @@ export class TableModalComponent extends ComponentLifeCycle {
           }
         });
         break;
+      case FormDataItemType.Object:
+      case FormDataItemType.Array:
+      case FormDataItemType.xOf:
+      case FormDataItemType.Template:
+      case FormDataItemType.SecuredString:
+        this.colDefs.push({
+          field: item.key,
+          headerName: item.label,
+          headerTooltip: item.tooltip,
+          editable: false,
+          cellRendererParams: {
+            item: item,
+            onAdd: this.onAdd.bind(this)
+          },
+          cellEditorParams: {
+            item: item,
+            onAdd: this.onAdd.bind(this)
+          }
+        });
+        break;
       default :
         throw new Error('Unsupported item in table-modal');
     }

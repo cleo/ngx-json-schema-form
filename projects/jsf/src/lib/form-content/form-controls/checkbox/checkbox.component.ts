@@ -15,9 +15,9 @@ import { LabelComponent } from '../label/label.component';
     styleUrls: ['./checkbox.component.scss']
 })
 export class CheckboxComponent extends FormControlBase {
-  togle = output<boolean>();
+  toggle = output<boolean>();
 
   onClick(): void {
-    setTimeout(() => this.togle.emit(this.formGroup()?.controls[this.formItem().key].value));
+    setTimeout(() => this.toggle.emit(this.formGroup()?.controls[this.formItem().key].value));
   }
 }

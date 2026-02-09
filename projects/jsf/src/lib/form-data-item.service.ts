@@ -64,6 +64,20 @@ export class FormDataItemService {
         display = schemaProperty.oneOf && schemaProperty.display ? schemaProperty.display : this.getSectionDisplayFromParentSchema(schema, key);
         return new XOfDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, display, children, schemaProperty.description, xOfType);
       case FormDataItemType.Enum:
+                 // Fix corrupted enum arrays where values are undefined but JSON.stringify shows nulls
+        const fixedSchemaProperty = { ...schemaProperty };
+        if (schemaProperty.enum && Array.isArray(schemaProperty.enum)) {
+          // Use JSON.parse(JSON.stringify()) to get the real values
+          try {
+            const enumJson = JSON.stringify(schemaProperty.enum);
+            fixedSchemaProperty.enum = JSON.parse(enumJson);
+            if (schemaProperty.enumNames && Array.isArray(schemaProperty.enumNames)) {
+              const enumNamesJson = JSON.stringify(schemaProperty.enumNames);
+              fixedSchemaProperty.enumNames = JSON.parse(enumNamesJson);
+            }
+          } catch (e) {
+          }
+        }
         return new EnumDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, schemaProperty.display, schemaProperty);
       case FormDataItemType.Boolean:
         return new FormDataItem(key, name, tooltip, helpText, required, pathParts, type, !!fieldValue, isReadOnly, isHidden);
