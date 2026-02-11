@@ -39,6 +39,29 @@
         </jsf-form-content>
       </jsf-checkbox-with-children>
     }
+    @if (isConditionalDisabledObject(item) && !isHidden(item)) {
+      <jsf-checkbox-with-disabled-children #checkboxWithDisabledChildrenComponent
+        [formItem]="getConditionalDisabledParentFormItem(item)"
+        [formGroup]="getFormGroup(item)"
+        [isEdit]="isEdit()"
+        [config]="config()"
+        [templates]="templates()"
+        (buttonEvent)="onButtonEvent($event)"
+        (templateEvent)="onTemplateEvent($event)"
+        (manualFormChangeEvent)="onManualFormChangeEvent()">
+        <jsf-form-content
+          [formItems]="checkboxWithDisabledChildrenComponent.childFormItems"
+          [formGroup]="checkboxWithDisabledChildrenComponent.formGroup()"
+          [isEdit]="isEdit()"
+          [config]="checkboxWithDisabledChildrenComponent.config()"
+          [templates]="templates()"
+          [labelLengthClass]="checkboxWithDisabledChildrenComponent.labelLengthClass"
+          (buttonEvent)="onButtonEvent($event)"
+          (templateEvent)="onTemplateEvent($event)"
+          (manualFormChangeEvent)="onManualFormChangeEvent()">
+        </jsf-form-content>
+      </jsf-checkbox-with-disabled-children>
+    }
     @if (isSection(item) && !isHidden(item)) {
       <jsf-section #sectionComponent
         [formItem]="getParentFormItem(item)"

@@ -51,6 +51,7 @@
         "checkboxWithChildren1": {
           "type": "object",
           "isConditional": true,
+          "isStrongLabel": true,
           "name": "Checkboxes With Children",
           "helpText": "This help text will display when you hover over the information icon",
           "tooltip": "This tooltip will display when you hover over the label.",
@@ -145,6 +146,31 @@
               "type": "string",
               "name": "Text Input 2",
               "helpText": "This help text will display when you hover over the information icon",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "placeholder": "This is placeholder text"
+            }
+          }
+        },
+        "checkboxWithDisabledChildren": {
+          "type": "object",
+          "isDisabled": true,
+          "name": "Checkbox With Disabled Children",
+          "default": false,
+          "helpText": "When unchecked, children are disabled but remain visible",
+          "tooltip": "This checkbox disables/enables children instead of hiding them",
+          "properties": {
+            "textInput1": {
+              "type": "string",
+              "name": "Text Input 1",
+              "default": "This field will be disabled when checkbox is unchecked",
+              "helpText": "This field will be disabled when parent checkbox is unchecked",
+              "tooltip": "This tooltip will display when you hover over the label.",
+              "placeholder": "This is placeholder text"
+            },
+            "textInput2": {
+              "type": "string",
+              "name": "Text Input 2",
+              "helpText": "This field will also be disabled when parent checkbox is unchecked",
               "tooltip": "This tooltip will display when you hover over the label.",
               "placeholder": "This is placeholder text"
             }
