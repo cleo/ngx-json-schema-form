@@ -1,6 +1,7 @@
 export class FormDataItem {
   public path: string;
   public disabledState: ControlDisabledState = { isCurrentlyDisabled: false, isReadOnly: false, isDisabledOnSubmit: false, isHidden: false };
+  public isStrongLabel: boolean = false;
 
   constructor(public key: string,
               public label: string,
@@ -11,7 +12,8 @@ export class FormDataItem {
               public type: FormDataItemType,
               public value: any,
               isReadOnly: boolean,
-              public isHidden: boolean) {
+              public isHidden: boolean,
+              isStrongLabel?: boolean) {
     this.value = value === null || value === undefined ? '' : value;
     if (this.value === '' && type === FormDataItemType.Array) {
       this.value = [];
@@ -21,6 +23,7 @@ export class FormDataItem {
     this.path = pathParts.join('.');
     this.disabledState.isReadOnly = isReadOnly;
     this.disabledState.isHidden = isHidden; // value from schema definition: do not update.
+    this.isStrongLabel = isStrongLabel || false;
   }
 }
 

@@ -54,6 +54,7 @@ export class FormDataItemService {
     const isReadOnly = Boolean(schemaProperty.isReadOnly) || isParentReadOnly;
     const type = this.getFormDataItemType(schemaProperty);
     const isHidden = Boolean(schemaProperty.isHidden) || isParentHidden;
+    const isStrongLabel = Boolean(schemaProperty.isStrongLabel);
     const fieldValue = values && !isNullOrUndefined(values[key]) ? values[key] : schemaProperty.default;
     let display: OptionDisplayType;
 
@@ -62,7 +63,7 @@ export class FormDataItemService {
         const children = this.getXOfChildren(schemaProperty, values, key, pathParts, isReadOnly, isHidden);
         const xOfType = Object.values(XOfType).find(xOf => schemaProperty[xOf]);
         display = schemaProperty.oneOf && schemaProperty.display ? schemaProperty.display : this.getSectionDisplayFromParentSchema(schema, key);
-        return new XOfDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, display, children, schemaProperty.description, xOfType);
+        return new XOfDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, display, children, schemaProperty.description, xOfType, isStrongLabel);
       case FormDataItemType.Enum:
                  // Fix corrupted enum arrays where values are undefined but JSON.stringify shows nulls
         const fixedSchemaProperty = { ...schemaProperty };
@@ -78,24 +79,24 @@ export class FormDataItemService {
           } catch (e) {
           }
         }
-        return new EnumDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, schemaProperty.display, schemaProperty);
+        return new EnumDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, schemaProperty.display, schemaProperty, isStrongLabel);
       case FormDataItemType.Boolean:
-        return new FormDataItem(key, name, tooltip, helpText, required, pathParts, type, !!fieldValue, isReadOnly, isHidden);
+        return new FormDataItem(key, name, tooltip, helpText, required, pathParts, type, !!fieldValue, isReadOnly, isHidden, isStrongLabel);
       case FormDataItemType.Object:
         const childItems = this.getItemsFromSubschema(schemaProperty, fieldValue, pathParts, isReadOnly, isHidden);
         if (!schemaProperty.isConditional) {
           display = this.getSectionDisplayFromParentSchema(schema, key);
-          return new ParentDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, childItems, schemaProperty.description, display);
+          return new ParentDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, childItems, schemaProperty.description, display, isStrongLabel);
         }
-        return new ConditionalParentDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, childItems);
+        return new ConditionalParentDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, childItems, isStrongLabel);
       case FormDataItemType.Array:
         const arrayItems = this.getItemsFromSubschema(schemaProperty, fieldValue, pathParts, isReadOnly, isHidden);
-        return new ArrayDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, arrayItems);
+        return new ArrayDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, arrayItems, isStrongLabel);
       case FormDataItemType.Template:
         return new TemplateDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden,
-          schemaProperty.templateName, schemaProperty.targetPaths);
+          schemaProperty.templateName, schemaProperty.targetPaths, isStrongLabel);
       case FormDataItemType.SecuredString:
-        return new SecuredStringDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, this.isEdit, schemaProperty.placeholder);
+        return new SecuredStringDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, this.isEdit, schemaProperty.placeholder, isStrongLabel);
       case FormDataItemType.Integer:
         const intButtons = this.getButtonDataItems(schemaProperty, pathParts);
         const integerOptions: SchemaIntegerOptions = {
@@ -106,7 +107,7 @@ export class FormDataItemService {
           exclusiveMinimum: schemaProperty.exclusiveMinimum,
           exclusiveMaximum: schemaProperty.exclusiveMaximum
         };
-        return new IntegerDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, intButtons, integerOptions);
+        return new IntegerDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, intButtons, integerOptions, isStrongLabel);
       default: // String
         const buttons = this.getButtonDataItems(schemaProperty, pathParts);
         const stringOptions: SchemaStringOptions = {
@@ -118,7 +119,7 @@ export class FormDataItemService {
           maxLength: schemaProperty.maxLength,
           pattern: schemaProperty.pattern
         };
-        return new StringDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, buttons, stringOptions);
+        return new StringDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, buttons, stringOptions, isStrongLabel);
     }
   }
 

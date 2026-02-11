@@ -14,8 +14,9 @@ export class TemplateDataItem extends FormDataItem {
               isReadOnly: boolean,
               isHidden: boolean,
               public templateName: string,
-              targetPaths: string[]) {
-    super(key, label, tooltip, helpText, required, pathParts, type, value, isReadOnly, isHidden);
+              targetPaths: string[],
+              isStrongLabel?: boolean) {
+    super(key, label, tooltip, helpText, required, pathParts, type, value, isReadOnly, isHidden, isStrongLabel);
     this.targetPaths = targetPaths && Array.isArray(targetPaths) && targetPaths.every(i => typeof i === 'string') ? targetPaths : [];
   }
 }

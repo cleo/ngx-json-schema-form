@@ -12,8 +12,9 @@ export class ArrayDataItem extends FormDataItem {
               value: any,
               isReadOnly: boolean,
               isHidden: boolean,
-              items: FormDataItem[]) {
-    super(key, label, tooltip, helpText, required, pathParts, type, value, isReadOnly, isHidden);
+              items: FormDataItem[],
+              isStrongLabel?: boolean) {
+    super(key, label, tooltip, helpText, required, pathParts, type, value, isReadOnly, isHidden, isStrongLabel);
     this.items = items;
   }
 }

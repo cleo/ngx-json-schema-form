@@ -4,8 +4,8 @@ import { FormDataItemType } from './form-data-item';
 export class SecuredStringDataItem extends FormDataItem {
   constructor(key: string, label: string, tooltip: string, helpText: string, public wasRequired: boolean,
               pathParts: string[], value: any, isReadOnly: boolean, isHidden: boolean,
-              isEdit: boolean, public placeholder: string) {
-    super(key, label, tooltip, helpText, wasRequired, pathParts, FormDataItemType.SecuredString, value, isReadOnly, isHidden);
+              isEdit: boolean, public placeholder: string, isStrongLabel?: boolean) {
+    super(key, label, tooltip, helpText, wasRequired, pathParts, FormDataItemType.SecuredString, value, isReadOnly, isHidden, isStrongLabel);
     this.placeholder = placeholder || '';
 
     if (isEdit) {

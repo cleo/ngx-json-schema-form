@@ -19,8 +19,9 @@ export class StringDataItem extends FormDataItem {
               isReadOnly: boolean,
               isHidden: boolean,
               public buttons: ButtonDataItem[],
-              schemaOptions: SchemaStringOptions) {
-    super(key, label, tooltip, helpText, required, pathParts, type, value, isReadOnly, isHidden);
+              schemaOptions: SchemaStringOptions,
+              isStrongLabel?: boolean) {
+    super(key, label, tooltip, helpText, required, pathParts, type, value, isReadOnly, isHidden, isStrongLabel);
     this.placeholder = schemaOptions.placeholder;
     this.display = schemaOptions.display;
     this.validationSettings = {

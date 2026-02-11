@@ -14,7 +14,8 @@ export class ParentDataItem extends FormDataItem {
               isHidden: boolean,
               public items: FormDataItem[],
               public description: string = '',
-              public display: OptionDisplayType = OptionDisplayType.SECTIONS) {
-    super(key, label, tooltip, helpText, required, pathParts, type, value, isReadOnly, isHidden);
+              public display: OptionDisplayType = OptionDisplayType.SECTIONS,
+              isStrongLabel?: boolean) {
+    super(key, label, tooltip, helpText, required, pathParts, type, value, isReadOnly, isHidden, isStrongLabel);
   }
 }

@@ -13,8 +13,9 @@ export class ConditionalParentDataItem extends ParentDataItem {
               value: any,
               isReadOnly: boolean,
               isHidden: boolean ,
-              items: FormDataItem[]) {
-    super(key, label, tooltip, helpText, required, pathParts, FormDataItemType.Object, value, isReadOnly, isHidden, items, '');
+              items: FormDataItem[],
+              isStrongLabel?: boolean) {
+    super(key, label, tooltip, helpText, required, pathParts, FormDataItemType.Object, value, isReadOnly, isHidden, items, '', undefined, isStrongLabel);
     const valuePathParts = this.pathParts.slice();
     valuePathParts.push(CONDITIONAL_PARENT_VALUE_KEY);
 
@@ -34,7 +35,8 @@ export class ConditionalParentDataItem extends ParentDataItem {
       FormDataItemType.Boolean,
       booleanValue,
       isReadOnly,
-      isHidden);
+      isHidden,
+      isStrongLabel);
 
     this.items.push(booleanDataItem);
   }
