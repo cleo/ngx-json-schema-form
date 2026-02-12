@@ -1,9 +1,8 @@
 <div [class]="getLabelClasses()">
   <label
     [title]="formItem().tooltip"
-    [attr.for]="formItem().path"
-    [class]="getClassLabel()">
-      {{formItem().label}}
+    [attr.for]="formItem().path">
+    {{formItem().label}}
     @if (isRequired()) {
       <span class="required-star"> *</span>
     }

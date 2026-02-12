@@ -15,9 +15,8 @@ export class EnumDataItem extends FormDataItem {
               isReadOnly: boolean,
               isHidden: boolean,
               public display: OptionDisplayType,
-              schema?: JSONSchemaProperty,
-              isStrongLabel?: boolean) {
-    super(key, label, tooltip, helpText, required, pathParts, FormDataItemType.Enum, value, isReadOnly, isHidden, isStrongLabel);
+              schema?: JSONSchemaProperty) {
+    super(key, label, tooltip, helpText, required, pathParts, FormDataItemType.Enum, value, isReadOnly, isHidden);
     if (schema) {
       const enumValues = schema.enum ?? [];
       this.enumOptions = enumValues.map((item: any, i: number) => {

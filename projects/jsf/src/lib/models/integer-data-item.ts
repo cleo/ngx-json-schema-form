@@ -19,9 +19,8 @@ export class IntegerDataItem extends FormDataItem {
               isReadOnly: boolean,
               isHidden: boolean,
               public buttons: ButtonDataItem[],
-              schemaOptions: SchemaIntegerOptions,
-              isStrongLabel?: boolean) {
-    super(key, label, tooltip, helpText, required, pathParts, type, value, isReadOnly, isHidden, isStrongLabel);
+              schemaOptions: SchemaIntegerOptions) {
+    super(key, label, tooltip, helpText, required, pathParts, type, value, isReadOnly, isHidden);
     this.placeholder = schemaOptions.placeholder;
     this.display = schemaOptions.display;
     this.validationSettings = {

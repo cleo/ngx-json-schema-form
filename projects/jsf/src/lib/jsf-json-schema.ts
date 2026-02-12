@@ -10,8 +10,6 @@ export interface JSFJsonSchema {
   required?: string[];
   conditionallyRequired?: string[];
   isConditional?: boolean;
-  isStrongLabel?: boolean;
-  isDisabled?: boolean;
   key?: string;
   helpText?: string;
   tooltip?: string;
