@@ -155,7 +155,7 @@ describe("JSF E2E - Complete Form Submit", () => {
       // Check Available checkbox
       cy.get('.ag-floating-top [col-id="available"] input[type="checkbox"]')
         .should("exist")
-        .check();
+        .check({ force: true });
 
       cy.get('.ag-floating-top [col-id="price"] input')
         .should("exist")
@@ -195,7 +195,7 @@ describe("JSF E2E - Complete Form Submit", () => {
 
       cy.get("#textInputs\\.textAreaInput")
         .should("exist")
-        .clear()
+        .clear({ force: true })
         .type("test@example.com");
 
       // 2. Navigate to another tab
@@ -231,7 +231,7 @@ describe("JSF E2E - Complete Form Submit", () => {
 
       cy.get("#textInputs\\.textAreaInput")
         .should("exist")
-        .clear()
+        .clear({ force: true })
         .type("usuario@example.com");
 
       // Fill optional fields
@@ -322,7 +322,7 @@ describe("JSF E2E - Complete Form Submit", () => {
       // Marcar Available checkbox
       cy.get('.ag-floating-top [col-id="available"] input[type="checkbox"]')
         .should("exist")
-        .check();
+        .check({force: true});
 
       cy.get('.ag-floating-top [col-id="price"] input')
         .should("exist")
@@ -437,7 +437,7 @@ describe("JSF E2E - Complete Form Submit", () => {
         '.ag-floating-top [col-id="available"] input[type="checkbox"]',
       )
         .should("exist")
-        .check();
+        .check({ force: true });
       cy.get('.ag-floating-top [col-id="price"] input')
         .should("exist")
         .type("20000");
@@ -461,7 +461,7 @@ describe("JSF E2E - Complete Form Submit", () => {
       cy.contains("Text Inputs").click();
       cy.wait(300);
 
-      cy.get("#textInputs\\.textAreaInput").should("exist").clear().blur();
+      cy.get("#textInputs\\.textAreaInput").should("exist").clear({ force: true }).blur();
       cy.wait(500);
 
       // 3. Verify that Submit button is disabled
@@ -486,7 +486,7 @@ describe("JSF E2E - Complete Form Submit", () => {
       cy.wait(300);
       cy.get("#textInputs\\.textAreaInput")
         .should("exist")
-        .clear()
+        .clear({ force: true })
         .type("usuario@example.com");
 
       cy.contains("Dropdowns with Children").click();
@@ -557,7 +557,7 @@ describe("JSF E2E - Complete Form Submit", () => {
         '.ag-floating-top [col-id="available"] input[type="checkbox"]',
       )
         .should("exist")
-        .check();
+        .check({ force: true });
       cy.get('.ag-floating-top [col-id="price"] input')
         .should("exist")
         .type("30000");
@@ -612,7 +612,7 @@ describe("JSF E2E - Complete Form Submit", () => {
       cy.wait(300);
       cy.get("#textInputs\\.textAreaInput")
         .should("exist")
-        .clear()
+        .clear({ force: true })
         .type("usuario@example.com");
 
       cy.contains("Secured Text Inputs").click();
@@ -692,7 +692,7 @@ describe("JSF E2E - Complete Form Submit", () => {
 
       cy.get("#textInputs\\.textAreaInput")
         .should("exist")
-        .clear()
+        .clear({ force: true })
         .type("email-invalido")
         .blur();
       cy.wait(500);
@@ -721,7 +721,7 @@ describe("JSF E2E - Complete Form Submit", () => {
       // Valid required textarea
       cy.get("#textInputs\\.textAreaInput")
         .should("exist")
-        .clear()
+        .clear({ force: true })
         .type("usuario@example.com");
 
       // 2. Fill other required fields
@@ -802,7 +802,7 @@ describe("JSF E2E - Complete Form Submit", () => {
 
       cy.get("#textInputs\\.textAreaInput")
         .should("exist")
-        .clear()
+        .clear({ force: true })
         .type("test@example.com");
 
       // 2. Click Cancel (if it exists)

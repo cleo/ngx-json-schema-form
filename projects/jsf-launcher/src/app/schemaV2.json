@@ -154,7 +154,7 @@
     },
     "checkboxesWithDisabledChildren": {
       "type": "object",
-      "name": "Checkboxes With Disabled Childre2n",
+      "name": "Checkboxes With Disabled Children",
       "description": "This section displays checkbox with disabled children functionality of the JSF. ",
       "helpText": "This help text will display when you hover over the information icon",
       "tooltip": "This tooltip will display when you hover over the label.",

@@ -263,4 +263,155 @@ describe('JSF E2E - Checkboxes and Dropdowns', () => {
         .should('be.disabled');
     });
   });
+
+  describe('Checkboxes With Disabled Children', () => {
+    
+    it('should disable children when checkbox is unchecked', () => {
+      // 1. Navigate to Checkboxes With Disabled Children tab
+      cy.contains('Checkboxes With Disabled Children').click();
+      cy.wait(300);
+      
+      // 2. Verify that the checkbox exists and is unchecked by default
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.value')
+        .should('exist')
+        .should('not.be.checked');
+      
+      // 3. Verify that children are visible but disabled
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput1')
+        .should('be.visible')
+        .should('be.disabled');
+      
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput2')
+        .should('be.visible')
+        .should('be.disabled');
+    });
+
+    it('should enable children when checkbox is checked', () => {
+      // 1. Navigate to Checkboxes With Disabled Children tab
+      cy.contains('Checkboxes With Disabled Children').click();
+      cy.wait(300);
+      
+      // 2. Check the checkbox
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.value')
+        .should('exist')
+        .check({ force: true });
+      cy.wait(300);
+      
+      // 3. Verify that children are now enabled
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput1')
+        .should('be.visible')
+        .should('not.be.disabled');
+      
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput2')
+        .should('be.visible')
+        .should('not.be.disabled');
+    });
+
+    it('should re-disable children when checkbox is unchecked again', () => {
+      // 1. Navigate to Checkboxes With Disabled Children tab
+      cy.contains('Checkboxes With Disabled Children').click();
+      cy.wait(300);
+      
+      // 2. Check the checkbox first
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.value')
+        .should('exist')
+        .check({ force: true });
+      cy.wait(300);
+      
+      // 3. Verify children are enabled
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput1')
+        .should('not.be.disabled');
+      
+      // 4. Uncheck the checkbox
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.value')
+        .uncheck({ force: true });
+      cy.wait(300);
+      
+      // 5. Verify that children are disabled again
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput1')
+        .should('be.disabled');
+      
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput2')
+        .should('be.disabled');
+    });
+
+    it('should allow editing children when enabled', () => {
+      // 1. Navigate to Checkboxes With Disabled Children tab
+      cy.contains('Checkboxes With Disabled Children').click();
+      cy.wait(300);
+      
+      // 2. Check the checkbox to enable children
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.value')
+        .should('exist')
+        .check({ force: true });
+      cy.wait(300);
+      
+      // 3. Edit the first text input
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput1')
+        .should('not.be.disabled')
+        .clear({ force: true })
+        .type('New value for text input 1', { force: true });
+      
+      // 4. Verify the value was set
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput1')
+        .should('have.value', 'New value for text input 1');
+      
+      // 5. Edit the second text input
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput2')
+        .should('not.be.disabled')
+        .clear({ force: true })
+        .type('New value for text input 2', { force: true });
+      
+      // 6. Verify the value was set
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput2')
+        .should('have.value', 'New value for text input 2');
+    });
+
+    it('should preserve default values when disabled', () => {
+      // 1. Navigate to Checkboxes With Disabled Children tab
+      cy.contains('Checkboxes With Disabled Children').click();
+      cy.wait(300);
+      
+      // 2. Verify that checkbox is unchecked and children are disabled
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.value')
+        .should('not.be.checked');
+      
+      // 3. Verify that textInput1 has the default value even when disabled
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput1')
+        .should('be.disabled')
+        .should('have.value', 'This field will be disabled when checkbox is unchecked');
+    });
+
+    it('should maintain visibility of children regardless of disabled state', () => {
+      // 1. Navigate to Checkboxes With Disabled Children tab
+      cy.contains('Checkboxes With Disabled Children').click();
+      cy.wait(300);
+      
+      // 2. Children should be visible when unchecked (but disabled)
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.value')
+        .should('not.be.checked');
+      
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput1')
+        .should('be.visible')
+        .should('be.disabled');
+      
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput2')
+        .should('be.visible')
+        .should('be.disabled');
+      
+      // 3. Check the checkbox
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.value')
+        .check({ force: true });
+      cy.wait(300);
+      
+      // 4. Children should still be visible when checked (and enabled)
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput1')
+        .should('be.visible')
+        .should('not.be.disabled');
+      
+      cy.get('#checkboxesWithDisabledChildren\\.checkboxWithDisabledChildren1\\.textInput2')
+        .should('be.visible')
+        .should('not.be.disabled');
+    });
+  });
 });
