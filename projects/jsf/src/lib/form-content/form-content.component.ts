@@ -3,7 +3,6 @@ import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { JSFConfig } from '../jsf-config';
 
 import { ConditionalParentDataItem } from '../models/conditional-parent-data-item';
-import { ConditionalDisabledParentDataItem } from '../models/conditional-disabled-parent-data-item';
 import { OptionDisplayType } from '../models/enum-data-item';
 import { FormDataItem, FormDataItemType } from '../models/form-data-item';
 import { ParentDataItem } from '../models/parent-data-item';
@@ -12,7 +11,6 @@ import { ContentBaseComponent } from './content-base.component';
 
 import { FormControlComponent } from './form-controls/form-control.component';
 import { CheckboxWithChildrenComponent } from './checkbox-with-children/checkbox-with-children.component';
-import { CheckboxWithDisabledChildrenComponent } from './checkbox-with-disabled-children/checkbox-with-disabled-children.component';
 import { SectionComponent } from './section/section.component';
 import { OneOfComponent } from './one-of/one-of.component';
 import { TabsComponent } from './tabs/tabs.component';
@@ -25,7 +23,6 @@ import { TabComponent } from './tabs/tab/tab.component';
     ReactiveFormsModule,
     FormControlComponent,
     CheckboxWithChildrenComponent,
-    CheckboxWithDisabledChildrenComponent,
     SectionComponent,
     OneOfComponent,
     TabsComponent,
@@ -101,16 +98,8 @@ export class FormContentComponent extends ContentBaseComponent {
      return this.isObject(item) && item instanceof ConditionalParentDataItem;
   }
 
-  isConditionalDisabledObject(item: FormDataItem): boolean {
-    return this.isObject(item) && item instanceof ConditionalDisabledParentDataItem;
-  }
-
-  getConditionalDisabledParentFormItem(item: FormDataItem): ConditionalDisabledParentDataItem {
-    return item as ConditionalDisabledParentDataItem;
-  }
-
   isStaticObject(item: FormDataItem): boolean {
-    return this.isObject(item) && !(item instanceof ConditionalParentDataItem) && !(item instanceof ConditionalDisabledParentDataItem);
+    return this.isObject(item) && !(item instanceof ConditionalParentDataItem);
 }
 
   isXOf(item: FormDataItem): boolean {

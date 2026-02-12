@@ -94,29 +94,6 @@ export class FormService {
     }
   }
 
-  /**
-   * Sets the disabled state for a conditional child without hiding it.
-   * The form control will not be toggled as enabled/disabled if it is marked as read only.
-   *
-   * @param {FormDataItem} formDataItem: the data item that is toggled
-   * @param {AbstractControl} control: the form control that is enabled/disabled
-   * @param {boolean} isEnabled: whether or not the form should be enabled or disabled
-   */
-  setDisabledStateForConditionalChild(formDataItem: FormDataItem, control: AbstractControl, isEnabled: boolean): void {
-    formDataItem.disabledState.isCurrentlyDisabled = !isEnabled || formDataItem.disabledState.isReadOnly;
-    if (formDataItem.disabledState.isCurrentlyDisabled) {
-      control.disable();
-    } else {
-      control.enable();
-    }
-
-    if (formDataItem instanceof ParentDataItem) {
-      (formDataItem as ParentDataItem).items.forEach(child => {
-        this.setDisabledStateForConditionalChild(child, (control as FormGroup).controls[child.key], isEnabled);
-      });
-    }
-  }
-
   setVisibilityForAllConditionalChildren(parentDataItem: ParentDataItem, formGroup: UntypedFormGroup, isVisible: boolean): void {
     parentDataItem.items.forEach(item => {
         const control = formGroup.controls[item.key];
