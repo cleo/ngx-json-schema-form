@@ -34,6 +34,44 @@ To run the unit tests locally, run the following command:
 npm run test
 ```
 
+#### Running E2E Tests
+
+To run the Cypress E2E tests:
+
+```bash
+# Interactive mode (recommended for development)
+npm run e2e:open
+
+# Headless mode (for CI/CD)
+npm run e2e
+```
+
+The E2E tests cover:
+- Text inputs with various validations (email, URL, phone, minLength, maxLength)
+- Secured/password inputs
+- Integer inputs with min/max ranges
+- Checkboxes and dropdowns with children
+- Complete form submission workflows
+- Array inputs with ag-grid modals
+
+For more details, see [TESTING.md](TESTING.md).
+
+**Recent E2E Improvements:**
+- ✅ Standardized test patterns across all suites  
+- ✅ All 43 tests passing (100% success rate)
+- ✅ Fixed form-submit tests with proper modal handling
+- ✅ Improved ag-grid modal interactions
+- ✅ Complete validation of dropdowns with children
+
+### Front End Project Development
+
+**Recent E2E Updates:**
+- ✅ All test files translated to English
+- ✅ Standardized test patterns across all suites  
+- ✅ All 43 tests passing (100% success rate)
+- ✅ Fixed form-submit tests with proper modal handling
+- ✅ Sequential comment numbering in all tests
+
 ### Front End Project Development
 #### Prerequisites
 
