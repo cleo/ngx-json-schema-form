@@ -1,0 +1,10 @@
+<jsf-check-box
+  [formItem]="parentFormItem"
+  [formGroup]="formGroup()"
+  [config]="config()"
+  (toggle)="onToggle($event)">
+</jsf-check-box>
+
+<div class="item-group">
+  <ng-content></ng-content>
+</div>

@@ -5,6 +5,7 @@ import { JSFSchemaData } from './jsf-schema-data';
 import { ArrayDataItem } from './models/array-data-item';
 import { ButtonDataItem } from './models/button-data-item';
 import { ConditionalParentDataItem } from './models/conditional-parent-data-item';
+import { ConditionalDisabledParentDataItem } from './models/conditional-disabled-parent-data-item';
 import { EnumDataItem, OptionDisplayType } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
 import { IntegerDataItem } from './models/integer-data-item';
@@ -83,6 +84,9 @@ export class FormDataItemService {
         return new FormDataItem(key, name, tooltip, helpText, required, pathParts, type, !!fieldValue, isReadOnly, isHidden);
       case FormDataItemType.Object:
         const childItems = this.getItemsFromSubschema(schemaProperty, fieldValue, pathParts, isReadOnly, isHidden);
+        if (schemaProperty.isDisabled) {
+          return new ConditionalDisabledParentDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, childItems);
+        }
         if (!schemaProperty.isConditional) {
           display = this.getSectionDisplayFromParentSchema(schema, key);
           return new ParentDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, childItems, schemaProperty.description, display);

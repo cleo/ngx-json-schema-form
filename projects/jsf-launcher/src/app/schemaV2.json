@@ -51,7 +51,6 @@
         "checkboxWithChildren1": {
           "type": "object",
           "isConditional": true,
-          "isStrongLabel": true,
           "name": "Checkboxes With Children",
           "helpText": "This help text will display when you hover over the information icon",
           "tooltip": "This tooltip will display when you hover over the label.",
@@ -150,8 +149,17 @@
               "placeholder": "This is placeholder text"
             }
           }
-        },
-        "checkboxWithDisabledChildren": {
+        }
+      }
+    },
+    "checkboxesWithDisabledChildren": {
+      "type": "object",
+      "name": "Checkboxes With Disabled Childre2n",
+      "description": "This section displays checkbox with disabled children functionality of the JSF. ",
+      "helpText": "This help text will display when you hover over the information icon",
+      "tooltip": "This tooltip will display when you hover over the label.",
+      "properties": {
+        "checkboxWithDisabledChildren1": {
           "type": "object",
           "isDisabled": true,
           "name": "Checkbox With Disabled Children",
@@ -176,7 +184,6 @@
             }
           }
         }
-
       }
     },
     "enums": {

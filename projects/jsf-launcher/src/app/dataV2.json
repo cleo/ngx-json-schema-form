@@ -19,6 +19,13 @@
       "value": true
     }
   },
+  "checkboxesWithDisabledChildren": {
+    "checkboxWithDisabledChildren1": {
+      "value": false,
+      "textInput1": "",
+      "textInput2": ""
+    }
+  },
   "enums": {
     "dropdowns": {
       "dropdown1": "option1",
