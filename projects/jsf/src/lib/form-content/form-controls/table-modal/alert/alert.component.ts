@@ -37,7 +37,7 @@ const SECONDARY_AUTO_HIDE_DELAY = 2000;
 
 export class AlertComponent extends ComponentLifeCycle implements OnInit {
   alertStream = input.required<AlertService>();
-  private autoHide$: Subject<Observable<any>> = new Subject();
+  private autoHide$ = new Subject<Observable<any>>();
   @HostBinding('class.active') active = false;
   message: string | undefined;
 

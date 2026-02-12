@@ -157,7 +157,7 @@ export class FormDataItemService {
       case 'template':
         return FormDataItemType.Template;
       default:
-        return Boolean(schemaProperty.isSecured) ? FormDataItemType.SecuredString : FormDataItemType.String;
+        return schemaProperty.isSecured ? FormDataItemType.SecuredString : FormDataItemType.String;
     }
   }
 

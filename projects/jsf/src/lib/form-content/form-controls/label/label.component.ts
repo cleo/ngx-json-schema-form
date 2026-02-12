@@ -29,7 +29,7 @@ export class LabelComponent {
     const classes = ['item-label'];
     const lengthClass = this.labelLengthClass();
 
-    if (Boolean(lengthClass)) {
+    if (lengthClass) {
       classes.push(lengthClass);
     }
 

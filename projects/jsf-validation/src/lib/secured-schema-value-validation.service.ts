@@ -51,7 +51,7 @@ export class SecuredSchemaValueValidationService {
   private static getNonSecuredValuesFromObject(securedKeyPaths: string[], parentPath: string, values: any, returnNullForSecuredValues: boolean, result: any): any {
     Object.keys(values)
       .forEach(key => {
-        const currentPath = !!parentPath ? `${parentPath}.${key}` : key;
+        const currentPath = parentPath ? `${parentPath}.${key}` : key;
         const child = values[ key ];
 
         if (!securedKeyPaths.some(keyPath => keyPath === currentPath)) {
