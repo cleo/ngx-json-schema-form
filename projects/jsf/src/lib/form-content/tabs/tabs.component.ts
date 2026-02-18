@@ -9,9 +9,7 @@ import { TabComponent } from './tab/tab.component';
 @Component({
     selector: 'jsf-tabs',
     standalone: true,
-    imports: [
-    TabComponent
-],
+    imports: [],
     templateUrl: 'tabs.component.html',
     styleUrls: ['tabs.component.scss']
 })
