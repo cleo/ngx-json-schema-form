@@ -1,4 +1,4 @@
-import {  Component, Inject, Injectable, output } from '@angular/core';
+import {  Component, Injectable, output } from '@angular/core';
 import { FormControlBase } from '../form-control-base';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';

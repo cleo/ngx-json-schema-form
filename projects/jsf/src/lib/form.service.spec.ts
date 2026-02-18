@@ -1,4 +1,4 @@
-import { UntypedFormControl, UntypedFormGroup, FormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { TestBed } from '@angular/core/testing';
 import { FormService } from './form.service';
 import { OptionDisplayType } from './models/enum-data-item';

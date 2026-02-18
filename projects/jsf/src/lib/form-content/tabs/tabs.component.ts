@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, ContentChildren, input, QueryList, ViewChildren } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, input, QueryList } from '@angular/core';
 import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { getLongestFieldLabelClass } from '../../form.service';
 import { FormDataItem } from '../../models/form-data-item';

@@ -34,6 +34,7 @@ export class FormControlBase extends ContentBaseComponent implements OnInit {
     } else if (hasRequiredPattern && errors.pattern.requiredPattern.toString() === EMAIL_REGEX.toString()) {
       return 'Please enter a valid email.';
     } else if (errors.invalidEmails) {
+      // eslint-disable-next-line no-useless-escape
       return `Please enter a list of valid emails separated by \"${(formItem as StringDataItem).validationSettings.listDelimiter}\"
       Invalid emails:
       ${errors.invalidEmails.join(', ')}`;
@@ -42,6 +43,7 @@ export class FormControlBase extends ContentBaseComponent implements OnInit {
     } else if (hasRequiredPattern) {
       return `Please enter a valid value.`;
     } else if (errors.invalidUris) {
+      // eslint-disable-next-line no-useless-escape
       return `Please enter a list of valid urls separated by \"${(formItem as StringDataItem).validationSettings.listDelimiter}\"
       Invalid urls:
       ${errors.invalidUris.join(', ')}`;

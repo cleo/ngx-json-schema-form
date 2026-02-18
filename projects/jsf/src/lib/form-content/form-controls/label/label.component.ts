@@ -1,4 +1,4 @@
-import { Component, computed, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 import { EnumDataItem, OptionDisplayType } from '../../../models/enum-data-item';
 import { FormDataItem, FormDataItemType } from '../../../models/form-data-item';
 

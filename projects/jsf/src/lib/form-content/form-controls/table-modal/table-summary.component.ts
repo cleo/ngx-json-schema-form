@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormControl } from '@angular/forms';
-import { filter, map, takeUntil, tap } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { ArrayDataItem } from '../../../models/array-data-item';
-import { FormDataItem } from '../../../models/form-data-item';
 import { FormControlBase } from '../form-control-base';
 import { ModalService } from './modal/modal.service';
 import { ITableModalOptions, TableModalComponent } from './table/table-modal.component';

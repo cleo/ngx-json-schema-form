@@ -6,13 +6,15 @@
           <img
             (click)="toggleContentShown()"
             class="arrow-up"
-            [src]="'assets/jsf-images/arrow-up.svg'">
+            [src]="'assets/jsf-images/arrow-up.svg'"
+            alt="arrow-up">
           }
           @if (isContentShownSignal()) {
             <img
               (click)="toggleContentShown()"
               class="arrow-down"
-              [src]="'assets/jsf-images/arrow-down.svg'">
+              [src]="'assets/jsf-images/arrow-down.svg'"
+              alt="arrow-down">
             }
           </div>
         }

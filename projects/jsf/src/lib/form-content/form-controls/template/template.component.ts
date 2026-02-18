@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, HostListener, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener } from '@angular/core';
 import { TemplateDataItem } from '../../../models/template-data-item';
 import { FormControlBase } from '../form-control-base';
 import { CommonModule } from '@angular/common';

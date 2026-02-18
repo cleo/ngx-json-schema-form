@@ -1,4 +1,3 @@
-import { FormControl, FormGroup } from '@angular/forms';
 import { TestBed } from '@angular/core/testing';
 import { FormDataItemService } from './form-data-item.service';
 import { JSFSchemaData } from './jsf-schema-data';

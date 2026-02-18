@@ -1,15 +1,12 @@
 import { Component, effect, input, output } from '@angular/core';
 import { EnumDataItem, EnumOption } from '../../../../../models/enum-data-item';
 import { ContentBaseComponent } from '../../../../content-base.component';
-
 import { FormsModule } from '@angular/forms';
 
 @Component({
     selector: 'jsf-dropdown-cell',
     standalone: true,
-    imports: [
-    FormsModule
-],
+    imports: [FormsModule],
     template: `
       <select [(ngModel)]="params().value"
         (ngModelChange)="onChange()"
@@ -22,22 +19,26 @@ import { FormsModule } from '@angular/forms';
           </option>
         }
       </select>
-      `
+    `
 })
 export class DropdownCellComponent extends ContentBaseComponent {
   params = input.required<any>();
   valueChanged = output<string>();
 
-  public options: EnumOption[];
+  public options: EnumOption[] = [];
 
-  // Effect as field initializer to react to params changes
   private readonly paramsEffect = effect(() => {
     const params = this.params();
-    this.options = (params.item as EnumDataItem).enumOptions;
+    
+    if (params?.item) {
+      this.options = (params.item as EnumDataItem).enumOptions;
+    }
   });
 
   onChange() {
-    this.params().data[this.params().item.key] = this.params().value;
-    this.valueChanged.emit(this.params().value);
+    if (this.params()?.item) {
+      this.params().data[this.params().item.key] = this.params().value;
+      this.valueChanged.emit(this.params().value);
+    }
   }
 }

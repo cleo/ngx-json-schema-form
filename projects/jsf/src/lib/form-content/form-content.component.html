@@ -1,4 +1,4 @@
-@for (item of getNonTabbedItems(); track item; let i = $index) {
+@for (item of getNonTabbedItems(); track item.key; let i = $index) {
   <div #contentDiv class="form-content"
     [class.section]="isSection(item) && item.label"
     [class.section-divider]="shouldHaveSectionDivider(i)"

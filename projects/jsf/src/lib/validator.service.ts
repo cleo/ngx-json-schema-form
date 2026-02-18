@@ -7,7 +7,9 @@ import { IntegerDataItem } from './models/integer-data-item';
 import { StringDataItem, StringFormat } from './models/string-data-item';
 
 // http://stackoverflow.com/a/46181/1447823 chromium's regex for testing for email
+// eslint-disable-next-line no-useless-escape
 export const EMAIL_REGEX = /^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
+// eslint-disable-next-line no-useless-escape
 export const URI_VALID_CHARS_REGEX = new RegExp(/^[A-Za-z0-9\-._~!$&'()*+,;=:@\/?]+$/);
 
 //https://mathiasbynens.be/demo/url-regex

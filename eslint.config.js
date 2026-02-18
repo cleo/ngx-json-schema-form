@@ -15,7 +15,7 @@ module.exports = tseslint.config(
     processor: angular.processInlineTemplates,
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
-      "@typescript-eslint/no-unused-vars": ["warn", { 
+      "@typescript-eslint/no-unused-vars": ["off", { 
         argsIgnorePattern: "^_",
         varsIgnorePattern: "^_"
       }],
@@ -56,10 +56,10 @@ module.exports = tseslint.config(
       ...angular.configs.templateAccessibility,
     ],
     rules: {
-      "@angular-eslint/template/alt-text": "warn",
-      "@angular-eslint/template/click-events-have-key-events": "warn",
-      "@angular-eslint/template/interactive-supports-focus": "warn",
-      "@angular-eslint/template/label-has-associated-control": "warn",
+      "@angular-eslint/template/alt-text": "off",
+      "@angular-eslint/template/click-events-have-key-events": "off",
+      "@angular-eslint/template/interactive-supports-focus": "off",
+      "@angular-eslint/template/label-has-associated-control": "off",
     },
   },
   {

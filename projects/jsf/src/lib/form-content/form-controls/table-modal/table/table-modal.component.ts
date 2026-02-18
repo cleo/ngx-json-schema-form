@@ -1,5 +1,5 @@
 import { ColDef, ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
-import { ChangeDetectionStrategy, Component, HostListener, inject, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { ArrayDataItem } from '../../../../models/array-data-item';
 import { FormDataItem, FormDataItemType } from '../../../../models/form-data-item';

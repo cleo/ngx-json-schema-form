@@ -6,8 +6,6 @@ import { DropdownCellComponent } from '../cells/dropdown-cell.component';
 import { TextCellComponent } from '../cells/text-cell.component';
 import { TableModalService } from '../table-modal.service';
 
-import { CheckboxComponent } from '../../../checkbox/checkbox.component';
-
 @Component({
     selector: 'jsf-renderer',
     standalone: true,

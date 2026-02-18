@@ -1,8 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, effect, ElementRef, inject, input, OnInit, output, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 
-import { NEVER } from 'rxjs';
-import { switchMap, take, takeUntil, tap } from 'rxjs/operators';
+import { take, takeUntil, tap } from 'rxjs/operators';
 
 import { ComponentLifeCycle } from './component-life-cycle';
 import { FormContentComponent } from './form-content/form-content.component';

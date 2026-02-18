@@ -78,7 +78,7 @@ export class FormDataItemService {
           } catch (e) {
           }
         }
-        return new EnumDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, schemaProperty.display, schemaProperty);
+        return new EnumDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, fixedSchemaProperty.display, fixedSchemaProperty);
       case FormDataItemType.Boolean:
         return new FormDataItem(key, name, tooltip, helpText, required, pathParts, type, !!fieldValue, isReadOnly, isHidden);
       case FormDataItemType.Object:
