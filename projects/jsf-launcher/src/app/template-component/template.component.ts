@@ -23,6 +23,7 @@ export class TemplateComponent {
   public doJsfEvent(event: TemplateEvent): void {
     if (this.initValues) {
 
+      // eslint-disable-next-line @typescript-eslint/prefer-for-of
       for (let i = 0; i < event.targetPaths.length; i++) {
         const target = event.targetPaths[i];
         if (target.path.endsWith('templateValue')) {
@@ -37,6 +38,7 @@ export class TemplateComponent {
       }
       this.initValues = false;
     } else {
+      // eslint-disable-next-line @typescript-eslint/prefer-for-of
       for (let i = 0; i < event.targetPaths.length; i++) {
         const target = event.targetPaths[i];
         if (target.path.endsWith('templateValue')) {

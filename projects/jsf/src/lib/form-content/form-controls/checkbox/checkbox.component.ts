@@ -3,7 +3,6 @@ import { FormControlBase } from '../form-control-base';
 import { ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
 
-@Injectable({ providedIn: 'root' })
 @Component({
     selector: 'jsf-check-box',
     standalone: true,
@@ -15,6 +14,7 @@ import { LabelComponent } from '../label/label.component';
     styleUrls: ['./checkbox.component.scss']
 })
 export class CheckboxComponent extends FormControlBase {
+  // eslint-disable-next-line @angular-eslint/no-output-native
   toggle = output<boolean>();
 
   onClick(): void {

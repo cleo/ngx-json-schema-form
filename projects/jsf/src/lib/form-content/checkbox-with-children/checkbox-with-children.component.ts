@@ -1,12 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
-import { FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { FormService, getLongestFieldLabelClass } from '../../form.service';
 import { ConditionalParentDataItem, CONDITIONAL_PARENT_VALUE_KEY } from '../../models/conditional-parent-data-item';
 import { FormDataItem } from '../../models/form-data-item';
 import { ContentBaseComponent } from '../content-base.component';
 import { CheckboxComponent } from '../form-controls/checkbox/checkbox.component';
-
 
 @Component({
     selector: 'jsf-checkbox-with-children',

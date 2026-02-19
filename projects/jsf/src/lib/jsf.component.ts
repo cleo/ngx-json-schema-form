@@ -17,7 +17,6 @@ import { FormDataItem } from './models/form-data-item';
 import { ParentDataItem } from './models/parent-data-item';
 import { XOfEnumDataItem } from './models/xOf-enum-data-item';
 
-
 @Component({
   selector: 'jsf-component',
   standalone: true,
@@ -69,7 +68,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
         this.disableSubmit.emit(false);
       }
 
-      this.formGroup.statusChanges.pipe(
+      const statusSubscription = this.formGroup.statusChanges.pipe(
         tap(status => {
           if (status === 'INVALID' || status === 'DISABLED') {
             this.disableSubmit.emit(true);
@@ -79,6 +78,8 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
         }),
         takeUntil(this.ngDestroy$)
       ).subscribe();
+
+      return () => statusSubscription.unsubscribe();
     });
   }
 

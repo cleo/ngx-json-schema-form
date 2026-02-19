@@ -75,8 +75,9 @@ export class FormDataItemService {
               const enumNamesJson = JSON.stringify(schemaProperty.enumNames);
               fixedSchemaProperty.enumNames = JSON.parse(enumNamesJson);
             }
-          } catch (e) {
-          }
+          } catch (e) { 
+            console.warn(`Failed to fix enum values for property ${key}. Enum values may be corrupted.`, e);
+           }
         }
         return new EnumDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, fixedSchemaProperty.display, fixedSchemaProperty);
       case FormDataItemType.Boolean:

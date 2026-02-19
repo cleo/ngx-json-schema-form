@@ -12,6 +12,7 @@ import { ParentDataItem } from '../../../models/parent-data-item';
 
 export class TabComponent implements OnInit {
   dataItem = input.required<ParentDataItem>();
+  // eslint-disable-next-line @angular-eslint/no-input-rename
   selectedInput = input<boolean>(false, { alias: 'selected' });
   selected = signal(false);
   formGroup = input.required<UntypedFormGroup>();
