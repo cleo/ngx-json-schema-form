@@ -21,7 +21,7 @@ npm install @cleo/ngx-json-schema-form
   templateUrl: 'example.component.html',
   styleUrls: ['./example.component.scss']
 })
-export class ExampleComponent { }
+export class ExampleJSFComponent { }
 ```
 
 (3) Configure your Angular component to use the JSON Schema Form. Reference the example below as well as a detailed list below of the necessary steps.
