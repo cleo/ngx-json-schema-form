@@ -1,6 +1,6 @@
 # JSON Schema Form
 
-This project is a [JSON Schema 7](http://json-schema.org) form builder for Angular 8+. This project contains the front end code that consumes JSON Schema 
+This project is a [JSON Schema 7](http://json-schema.org) form builder for Angular 20+. This project contains the front end code that consumes JSON Schema 
 and generates a user friendly form that can be used in a web interface.
 
 This code needs to work in tandem with the back end [JSON Schema Form Validation](https://www.npmjs.com/package/@cleo/ngx-json-schema-form-validation) package.
@@ -12,8 +12,8 @@ This code needs to work in tandem with the back end [JSON Schema Form Validation
 npm install @cleo/ngx-json-schema-form
 ```
 
-(2) Import the JSFComponent directly into your standalone component.
-```
+(2) Import `JSFComponent` directly into your standalone component.
+```typescript
 @Component({
   selector: 'example',
   standalone: true,
@@ -21,7 +21,7 @@ npm install @cleo/ngx-json-schema-form
   templateUrl: 'example.component.html',
   styleUrls: ['./example.component.scss']
 })
-export class ExampleModule { }
+export class ExampleComponent { }
 ```
 
 (3) Configure your Angular component to use the JSON Schema Form. Reference the example below as well as a detailed list below of the necessary steps.
@@ -34,26 +34,33 @@ export class ExampleModule { }
    - Create a ViewChild property in your component to reference your JSFComponent. Use this property to get the submitted form values by calling `this.schemaFormComponent.getFormValues();`
    - [Optional] Listen to the `formHeightChange` event emitted from the JSON Schema Form.
 
-```
+```typescript
 @Component({
   selector: 'example',
+  standalone: true,
+  imports: [JSFComponent],
   templateUrl: 'example.component.html',
   styleUrls: ['./example.component.scss']
 })
 export class ExampleComponent {
-  @ViewChild(JSFComponent, { static: false }) schemaFormComponent: JSFComponent;
-  config = new JSFConfig(false, false, true);
-  formDataItems: FormDataItem[];
-  isSubmitDisabled = true;
+  @ViewChild(JSFComponent, { static: false }) schemaFormComponent!: JSFComponent;
+  private jsfDataItemService = inject(JSFDataItemService);
+  readonly config: JSFConfig = {
+    enableCollapsibleSections: false,
+    showSectionDivider: true,
+    expandOuterSectionsByDefault: true,
+  };
+  readonly formDataItems = signal<FormDataItem[]>([]);
+  readonly isSubmitDisabled = signal<boolean>(true);
 
-  constructor(private jsfDataItemService: JSFDataItemService) {
+  constructor() {
     // grab schema and values from some service
-    this.formDataItems = this.formDataItemService.getFormDataItems(schema, values, this.config.isEdit);
+    this.formDataItems.set(this.jsfDataItemService.getFormDataItems(schema, values));
   }
 
   // this event allows you to enable/disable the submit button in the parent container
   onDisableSubmit(disableSubmit: boolean): void {
-    this.isSubmitDisabled = disableSubmit;
+    this.isSubmitDisabled.set(disableSubmit);
   }
 
   // this event allows you to modify parent container height to match the height of the form
@@ -69,7 +76,7 @@ export class ExampleComponent {
 
 ``` HTML
   <jsf-component
-   [formDataItems]="formDataItems"
+   [formDataItems]="formDataItems()"
    [config]="config"
    (disableSubmit)="onDisableSubmit($event)"
    (formHeightChange)="onFormHeightChange($event)">
