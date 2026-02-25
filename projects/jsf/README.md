@@ -12,15 +12,14 @@ This code needs to work in tandem with the back end [JSON Schema Form Validation
 npm install @cleo/ngx-json-schema-form
 ```
 
-(2) Import the JSFModule into your project.
+(2) Import the JSFComponent directly into your standalone component.
 ```
-@NgModule({
-  declarations: [],
-  exports: [],
-  imports: [
-    JSFModule
-  ],
-  providers: []
+@Component({
+  selector: 'example',
+  standalone: true,
+  imports: [JSFComponent],
+  templateUrl: 'example.component.html',
+  styleUrls: ['./example.component.scss']
 })
 export class ExampleModule { }
 ```
