@@ -8,8 +8,8 @@ import { FormsModule } from '@angular/forms';
     standalone: true,
     imports: [FormsModule],
     template: `
-      <select [(ngModel)]="params().value"
-        (ngModelChange)="onChange()"
+      <select [ngModel]="params().value"
+        (ngModelChange)="onChange($event)"
         [disabled]="params().item.disabledState.isReadOnly">
         @for (option of options; track option) {
           <option
@@ -35,10 +35,11 @@ export class DropdownCellComponent extends ContentBaseComponent {
     }
   });
 
-  onChange() {
+  onChange(newValue: string) {
     if (this.params()?.item) {
-      this.params().data[this.params().item.key] = this.params().value;
-      this.valueChanged.emit(this.params().value);
+      this.params().value = newValue;
+      this.params().data[this.params().item.key] = newValue;
+      this.valueChanged.emit(newValue);
     }
   }
 }

@@ -53,7 +53,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
     super();
 
     // Use effect to react to schemaData signal changes
-    effect(() => {
+    effect((onCleanup) => {
       const data = this.schemaData();
       if (!data || !data.schema) {
         return;
@@ -79,7 +79,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
         takeUntil(this.ngDestroy$)
       ).subscribe();
 
-      return () => statusSubscription.unsubscribe();
+      onCleanup(() => statusSubscription.unsubscribe());
     });
   }
 

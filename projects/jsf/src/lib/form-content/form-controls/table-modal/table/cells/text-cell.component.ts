@@ -17,7 +17,7 @@ import { FormsModule } from '@angular/forms';
       [title]="params().value"
       [value]="params().value"
       [disabled]="params().item.disabledState.isReadOnly"
-      [(ngModel)]="params().value"
+      [ngModel]="params().value"
       (ngModelChange)="onChange($event)"
     />
     `
@@ -30,6 +30,7 @@ export class TextCellComponent extends ContentBaseComponent implements AfterView
   onChange(newValue: string) {
     const params = this.params();
     params.data[params.item.key] = newValue;
+    params.value = newValue;
   }
 
   ngAfterViewInit() {
