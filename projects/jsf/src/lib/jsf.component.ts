@@ -1,7 +1,7 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, effect, ElementRef, inject, input, OnInit, output, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 
-import { take, takeUntil, tap } from 'rxjs/operators';
+import { take, tap } from 'rxjs/operators';
 
 import { ComponentLifeCycle } from './component-life-cycle';
 import { FormContentComponent } from './form-content/form-content.component';
@@ -75,8 +75,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
           } else {
             this.disableSubmit.emit(false);
           }
-        }),
-        takeUntil(this.ngDestroy$)
+        })
       ).subscribe();
 
       onCleanup(() => statusSubscription.unsubscribe());

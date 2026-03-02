@@ -1,4 +1,4 @@
-import { ColDef, ModuleRegistry, AllCommunityModule } from 'ag-grid-community';
+import { ColDef } from 'ag-grid-community';
 import { ChangeDetectionStrategy, Component, HostListener, inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { ArrayDataItem } from '../../../../models/array-data-item';
@@ -13,8 +13,6 @@ import { CommonModule } from '@angular/common';
 import { AlertComponent } from '../alert/alert.component';
 import { ModalComponent } from '../modal/modal.component';
 import { AgGridAngular } from 'ag-grid-angular';
-
-ModuleRegistry.registerModules([AllCommunityModule]);
 
 @Component({
     selector: 'jsf-table-modal',
@@ -138,6 +136,10 @@ export class TableModalComponent extends ComponentLifeCycle {
 
   @HostListener('window:resize')
   onResize() {
+    if (!this.params?.api) {
+      return;
+    }
+
     const allColumnIds = this.params.api.getAllDisplayedColumns().map(col => col.getColId());
     setTimeout(() =>
       this.params.api.autoSizeColumns(allColumnIds, false)
