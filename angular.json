@@ -118,7 +118,9 @@
           "builder": "@angular/build:karma",
           "options": {
             "main": "projects/jsf-launcher/src/test.ts",
-            "polyfills": "projects/jsf-launcher/src/polyfills.ts",
+            "polyfills": [
+              "projects/jsf-launcher/src/polyfills.ts"
+            ],
             "tsConfig": "projects/jsf-launcher/tsconfig.spec.json",
             "karmaConfig": "projects/jsf-launcher/karma.conf.js",
             "assets": [
@@ -186,5 +188,8 @@
     "@schematics/angular:resolver": {
       "typeSeparator": "."
     }
+  },
+  "cli": {
+    "analytics": false
   }
 }
