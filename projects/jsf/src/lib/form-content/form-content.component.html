@@ -109,7 +109,7 @@
     (buttonEvent)="onButtonEvent($event)"
     (templateEvent)="onTemplateEvent($event)"
     (manualFormChangeEvent)="onManualFormChangeEvent()">
-    @for (item of tabsComponent.items(); track item; let i = $index) {
+    @for (item of tabsComponent.items(); track item.key; let i = $index) {
       <jsf-tab
         [selected]="i === 0"
         [dataItem]="item"

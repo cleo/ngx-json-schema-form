@@ -8,7 +8,7 @@
         [formControlName]="formItem().key"
         [id]="formItem().path"
         (change)="onChange()">
-        @for (item of formItemAsEnumType.enumOptions; track item) {
+        @for (item of formItemAsEnumType.enumOptions; track item.key) {
           <option
             [id]="item.path"
           [value]="item.key">{{item.text}}</option>

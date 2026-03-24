@@ -174,7 +174,7 @@ export class FormService {
         break;
       case FormDataItemType.Enum:
       case FormDataItemType.SecuredString:
-        if (item.disabledState.isDisabledOnSubmit) {
+        if (item.disabledState.isDisabledOnSubmit && !control?.value) {
           if (shouldDisable) {
             control.disable();
           } else if (!item.disabledState.isReadOnly) {

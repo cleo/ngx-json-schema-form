@@ -25,7 +25,7 @@
         <div class="error-message">{{getErrorMessage()}}</div>
       }
     </div>
-    @for (button of getStringDataItem().buttons; track button) {
+    @for (button of getStringDataItem().buttons; track button.key) {
       <div class="event-btns">
         <jsf-event-button
           [buttonData]="button"

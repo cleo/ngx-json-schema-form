@@ -3,7 +3,7 @@
     <jsf-label [formItem]="formItem()"></jsf-label>
   }
   <div class="form-item" [formGroup]="formGroup()">
-    @for (item of formItemAsEnumType.enumOptions; track item) {
+    @for (item of formItemAsEnumType.enumOptions; track item.key) {
       <div>
         <input type="radio"
           [id]="item.path"

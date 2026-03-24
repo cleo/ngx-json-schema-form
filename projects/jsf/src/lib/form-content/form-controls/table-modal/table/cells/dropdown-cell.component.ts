@@ -11,7 +11,7 @@ import { FormsModule } from '@angular/forms';
       <select [ngModel]="params().value"
         (ngModelChange)="onChange($event)"
         [disabled]="params().item.disabledState.isReadOnly">
-        @for (option of options; track option) {
+        @for (option of options; track option.key) {
           <option
             [id]="option.path"
             [ngValue]="option.key">

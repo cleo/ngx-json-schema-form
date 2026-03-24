@@ -4,7 +4,7 @@
       {{title()}}
     </div>
     <ul class="nav nav-tabs">
-      @for (tab of tabs; track tab; let i = $index) {
+      @for (tab of tabs; track tab.dataItem().key; let i = $index) {
         <li class="clickable" (click)="onTabClicked(tab)" [class.active]="tab.selected()" [class.disabled]="isDisabled(tab)" [class.has-error]="!isValid(tab) && !isDisabled(tab)">
           <a>{{tab.dataItem().label}}@if (tabHasRequiredFields(tab)) {
             <span class="required-star">*</span>
