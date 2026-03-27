@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 import { SecuredStringDataItem } from '../../../models/secured-string-data-item';
 import { FormControlBase } from '../form-control-base';
 import { CommonModule } from '@angular/common';

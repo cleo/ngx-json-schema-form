@@ -56,7 +56,11 @@ export class CheckboxWithChildrenComponent extends ContentBaseComponent  impleme
     this.visibleChildFormItems = parentValue ? this.childFormItems : [];
     const formGroup = this.formGroup();
     this.childFormItems.forEach(child => {
-      this.formService.setVisibilityForConditionalChild(child, formGroup?.controls[child.key], parentValue);
+      const control = formGroup?.controls[child.key];
+      if (!control) {
+        return;
+      }
+      this.formService.setVisibilityForConditionalChild(child, control, parentValue);
     });
   }
 }

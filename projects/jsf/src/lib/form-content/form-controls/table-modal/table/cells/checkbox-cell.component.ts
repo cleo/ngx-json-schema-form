@@ -10,15 +10,15 @@ import { FormsModule } from '@angular/forms';
     FormsModule
 ],
     template: `
-      <div (click)="toggle($event)" style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 45px; height: 45px;">
+      <label style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 45px; height: 45px;">
         <input
           #checkbox
           type="checkbox"
           [checked]="params().value"
           [disabled]="params().item.disabledState.isReadOnly"
-          style="pointer-events: none; cursor: pointer !important;"
+          (change)="onChange($event)"
         />
-      </div>
+      </label>
     `
 })
 export class CheckboxCellComponent extends ContentBaseComponent {
@@ -27,12 +27,11 @@ export class CheckboxCellComponent extends ContentBaseComponent {
   params = input.required<any>();
   valueChanged = output<boolean>();
 
-  toggle(event: Event) {
+  onChange(event: Event) {
     event.stopPropagation();
-    event.preventDefault();
 
     const p = this.params();
-    const newValue = !p.value;
+    const newValue = (event.target as HTMLInputElement).checked;
 
     this.valueChanged.emit(newValue);
 
