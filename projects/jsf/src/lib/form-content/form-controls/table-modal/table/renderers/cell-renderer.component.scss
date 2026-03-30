@@ -56,12 +56,24 @@
     }
 
     .jsf-cell-renderer {
-      display: inline-flex;
+      display: flex;
       align-items: center;
+      gap: 10px;
     }
 
     .jsf-cell-input {
       position: relative;
+      flex: 1 1 auto;
+      min-width: 0;
+    }
+
+    .jsf-table-add-button {
+      flex: 0 0 auto;
+    }
+
+    jsf-text-cell,
+    .jsf-text-cell-input {
+      width: 100%;
     }
 
     .jsf-dropdown-cell {

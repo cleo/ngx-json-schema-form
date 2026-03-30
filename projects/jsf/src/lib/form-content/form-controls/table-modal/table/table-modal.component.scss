@@ -178,21 +178,10 @@ ag-grid-angular {
       height: 100%;
     }
 
-    // .ag-cell-inline-editing .jsf-required-cell-asterisk {
-    //   display: none !important;
-    // }
-
     .ag-cell-inline-editing {
       background-color:var(--ag-pinned-row-background-color);
       border-style: none;
-      box-shadow: none;
-      // box-shadow: none;
-      // border: none !important;
     }
-
-    // .ag-ltr .ag-cell-focus:not(.ag-cell-range-selected):focus-within {
-    //   border-style: none !important;
-    // }
     
     .ag-cell-inline-editing input[type=text] {
       height: initial;
@@ -201,10 +190,6 @@ ag-grid-angular {
       vertical-align: middle;
       align-self: center;
     }
-
-    // .ag-input-field-input {
-    //   min-width: 17px;
-    // }
 
     :where(.ag-ltr) .ag-cell:not(.ag-cell-inline-editing), :where(.ag-ltr) .ag-full-width-row .ag-cell-wrapper.ag-row-group {
       padding-left: 0;
