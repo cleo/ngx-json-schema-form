@@ -199,7 +199,7 @@ describe('FormService', () => {
     beforeEach(() => {
       dataItem = new FormDataItem(key, label, tooltip, helpText, required, pathParts, FormDataItemType.SecuredString, value, false, false);
       dataItem.disabledState.isDisabledOnSubmit = true;
-      formControl = new UntypedFormControl(value);
+      formControl = new UntypedFormControl('');
     });
 
     describe('when a single item is passed in', () => {

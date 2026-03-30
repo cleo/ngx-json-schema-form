@@ -22,6 +22,9 @@ export class TabsComponent extends ContentBaseComponent implements AfterContentI
   selectedTab: TabComponent;
 
   ngAfterContentInit(): void {
+    if (!this.tabs || this.tabs.length === 0) {
+      return;
+    }
     this.tabs.first.selected.set(true);
     this.selectedTab = this.tabs.first;
   }

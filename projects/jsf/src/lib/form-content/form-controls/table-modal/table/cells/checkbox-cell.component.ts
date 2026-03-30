@@ -1,14 +1,10 @@
 import { ChangeDetectorRef, Component, inject, input, output } from '@angular/core';
 import { ContentBaseComponent } from '../../../../content-base.component';
 
-import { FormsModule } from '@angular/forms';
-
 @Component({
     selector: 'jsf-checkbox-cell',
     standalone: true,
-    imports: [
-    FormsModule
-],
+    imports: [],
     template: `
       <label style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 45px; height: 45px;">
         <input

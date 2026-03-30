@@ -60,7 +60,7 @@ export class FormContentComponent extends ContentBaseComponent {
   }
 
   private isTabbable(item: FormDataItem): boolean {
-    return !this.isHidden(item) && this.isObject(item) || this.isAllOf(item);
+    return !this.isHidden(item) && (this.isObject(item) || this.isAllOf(item));
   }
 
   shouldHaveSectionDivider(index: number): boolean {
