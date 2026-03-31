@@ -14,6 +14,8 @@ npm install @cleo/ngx-json-schema-form
 
 (2) Import `JSFComponent` directly into your standalone component.
 ```typescript
+import { Component, ViewChild, signal } from '@angular/core';
+
 @Component({
   selector: 'example',
   standalone: true,

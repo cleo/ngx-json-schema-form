@@ -12,7 +12,7 @@ _See our wiki on how to configure JSON 7 Schema into a visual form._
 
 ### Local Development
 
-1. Install [Node.js](https://nodejs.org/download/release/v22.15.0/)
+1. Install [Node.js 22.15.0](https://nodejs.org/download/release/v22.15.0/)
 
 2. Install project dependencies
 ```
@@ -34,6 +34,11 @@ To run the unit tests locally, run the following command:
 npm run test
 ```
 
+To run the validation tests for the backend project, run:
+```
+npm run test-validation
+```
+
 ### Front End Project Development
 #### Prerequisites
 
@@ -50,15 +55,16 @@ npm run test
 #### UI Component Configuration
 1. Import the JSFModule into your project.
 ```
-@NgModule({
-  declarations: [],
-  exports: [],
-  imports: [
-    JSFModule
-  ],
-  providers: []
+import { Component, ViewChild, signal } from '@angular/core';
+
+@Component({
+  selector: 'example',
+  standalone: true,
+  imports: [JSFComponent],
+  templateUrl: 'example.component.html',
+  styleUrls: ['./example.component.scss']
 })
-export class ExampleModule { }
+export class ExampleJSFComponent { }
 ```
 
 2. Configure your Angular component to use the JSON Schema Form. Reference the example below as well as a detailed list below of the necessary steps.
@@ -74,19 +80,20 @@ export class ExampleModule { }
 ```
 @Component({
   selector: 'example',
+  standalone: true,
+  imports: [JSFComponent],
   templateUrl: 'example.component.html',
   styleUrls: ['./example.component.scss']
 })
 export class ExampleComponent {
-  @ViewChild(JSFComponent, { static: false }) jsfComponent: JSFComponent;
-  config = new JSFConfig(false, false, true);
-  schemaData: JSFSchemaData;
-  isSubmitDisabled = true;
-
-  constructor(private jsfDataItemService: JSFDataItemService) {
-    // grab schema and values from some service
-	this.schemaData = new JSFSchemaData(schema, values);
-  }
+   @ViewChild(JSFComponent, { static: false }) schemaFormComponent!: JSFComponent;
+  readonly config: JSFConfig = {
+    enableCollapsibleSections: false,
+    showSectionDivider: true,
+    expandOuterSectionsByDefault: true,
+  };
+  readonly isSubmitDisabled = signal<boolean>(true);
+  readonly schemaData = signal<JSFSchemaData>(new JSFSchemaData(schema, values));
 
   // this event allows you to enable/disable the submit button in the parent container
   onDisableSubmit(disableSubmit: boolean): void {
