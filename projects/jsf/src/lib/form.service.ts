@@ -174,7 +174,8 @@ export class FormService {
         break;
       case FormDataItemType.Enum:
       case FormDataItemType.SecuredString:
-        if (item.disabledState.isDisabledOnSubmit && !control?.value) {
+        const shouldToggleForItem = item.type !== FormDataItemType.SecuredString || !control?.value;
+        if (item.disabledState.isDisabledOnSubmit && shouldToggleForItem) {
           if (shouldDisable) {
             control.disable();
           } else if (!item.disabledState.isReadOnly) {

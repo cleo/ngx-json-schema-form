@@ -34,11 +34,11 @@ export class SecuredTextComponent extends FormControlBase {
   }
 
   getPlaceholderText(): string {
-    if (!this.isEdit) {
+    if (!this.isEdit()) {
       return this.securedStringDataItem.placeholder;
     }
 
-    if (!this.securedFieldCleared && this.isEdit) {
+    if (!this.securedFieldCleared && this.isEdit()) {
       return '**************';
     }
 
@@ -46,7 +46,7 @@ export class SecuredTextComponent extends FormControlBase {
   }
 
   isOptionalSecuredDataItem(): boolean {
-    return this.securedStringDataItem && !this.securedStringDataItem.wasRequired && this.isEdit && !this.securedStringDataItem.disabledState.isReadOnly;
+    return this.securedStringDataItem && !this.securedStringDataItem.wasRequired && this.isEdit() && !this.securedStringDataItem.disabledState.isReadOnly;
   }
 
   toggleSecuredFieldView(): void {
