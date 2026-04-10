@@ -667,14 +667,16 @@
           "name": "Required Secured Text Input",
           "helpText": "This help text will display when you hover over the information icon",
           "tooltip": "This tooltip will display when you hover over the label.",
-          "isSecured": true
+          "isSecured": true,
+          "placeholder": "**************"
         },
         "securedTextInputOptional": {
           "type": "string",
           "name": "Optional Secured Text Input",
           "helpText": "This help text will display when you hover over the information icon",
           "tooltip": "This tooltip will display when you hover over the label.",
-          "isSecured": true
+          "isSecured": true,
+          "placeholder": "**************"
         },
         "readOnlySecuredTextInput": {
           "type": "string",
@@ -682,7 +684,8 @@
           "helpText": "This help text will display when you hover over the information icon",
           "tooltip": "This tooltip will display when you hover over the label.",
           "isSecured": true,
-          "isReadOnly": true
+          "isReadOnly": true,
+          "placeholder": "**************"
         },
         "hiddenSecuredTextInput": {
           "type": "string",
