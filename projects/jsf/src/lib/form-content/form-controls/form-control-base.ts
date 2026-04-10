@@ -65,7 +65,7 @@ export class FormControlBase extends ContentBaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.isEdit && !this.formControl.valid) {
+    if (this.isEdit() && !this.formControl.valid) {
       this.formControl.markAsTouched();
     }
   }
