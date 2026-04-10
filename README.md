@@ -98,7 +98,7 @@ export class ExampleComponent {
 
   // this event allows you to enable/disable the submit button in the parent container
   onDisableSubmit(disableSubmit: boolean): void {
-    this.isSubmitDisabled = disableSubmit;
+    this.isSubmitDisabled.set(disableSubmit);
   }
 
   // this event allows you to modify parent container height to match the height of the form
@@ -114,7 +114,7 @@ export class ExampleComponent {
 
 ``` HTML
   <jsf-component
-   [schemaData]="schemaData"
+   [schemaData]="schemaData()"
    [config]="config"
    (disableSubmit)="onDisableSubmit($event)"
    (formHeightChange)="onFormHeightChange($event)">
