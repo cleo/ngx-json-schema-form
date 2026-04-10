@@ -53,9 +53,10 @@ npm run test-validation
    2. Copy the directory `./projects/jsf-launcher/src/assets/jsf-images` into your project's assets directory.
 
 #### UI Component Configuration
-1. Import the JSFModule into your project.
+1. Import the JSFComponent into your project.
 ```
 import { Component, ViewChild, signal } from '@angular/core';
+import { JSFComponent } from '@cleoai/ngx-json-schema-form';
 
 @Component({
   selector: 'example',
