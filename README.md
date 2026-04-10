@@ -56,7 +56,7 @@ npm run test-validation
 1. Import the JSFComponent into your project.
 ```
 import { Component, ViewChild, signal } from '@angular/core';
-import { JSFComponent } from '@cleoai/ngx-json-schema-form';
+import { JSFComponent } from '@cleo/ngx-json-schema-form';
 
 @Component({
   selector: 'example',

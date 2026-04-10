@@ -147,15 +147,15 @@ export class FormDataItemService {
     }
 
     switch (schemaProperty.type) {
-      case 'boolean':
+      case SchemaTypes.Boolean:
         return FormDataItemType.Boolean;
-      case 'integer':
+      case SchemaTypes.Integer:
         return FormDataItemType.Integer;
-      case 'object':
+      case SchemaTypes.Object:
         return FormDataItemType.Object;
-      case 'array':
+      case SchemaTypes.Array:
         return FormDataItemType.Array;
-      case 'template':
+      case SchemaTypes.Template:
         return FormDataItemType.Template;
       default:
         return schemaProperty.isSecured ? FormDataItemType.SecuredString : FormDataItemType.String;
