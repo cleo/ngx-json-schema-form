@@ -29,10 +29,10 @@ export class CheckboxCellComponent extends ContentBaseComponent {
     const p = this.params();
     const newValue = (event.target as HTMLInputElement).checked;
 
-    this.valueChanged.emit(newValue);
-
     p.data[p.item.key] = newValue;
     p.value = newValue;
+
+    this.valueChanged.emit(newValue);
 
     this.cdr.detectChanges();
   }

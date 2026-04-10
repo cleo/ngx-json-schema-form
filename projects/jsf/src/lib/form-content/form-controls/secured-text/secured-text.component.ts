@@ -38,7 +38,7 @@ export class SecuredTextComponent extends FormControlBase {
       return this.securedStringDataItem.placeholder;
     }
 
-    if (!this.securedFieldCleared && this.isEdit()) {
+    if (!this.securedFieldCleared) {
       return '**************';
     }
 
