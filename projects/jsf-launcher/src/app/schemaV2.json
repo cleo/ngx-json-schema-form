@@ -51,7 +51,6 @@
         "checkboxWithChildren1": {
           "type": "object",
           "isConditional": true,
-          "isStrongLabel": true,
           "name": "Checkboxes With Children",
           "helpText": "This help text will display when you hover over the information icon",
           "tooltip": "This tooltip will display when you hover over the label.",
