@@ -27,14 +27,16 @@
       <img
         [title]="errorMessage"
         [src]="'assets/jsf-images/exclamation.svg'"
-        alt="exclamation-icon"
+        alt=""
+        aria-hidden="true"
         class="jsf-error-cell">
     }
     @if (showRequiredError()) {
       <img
         [title]="errorMessage"
         [src]="'assets/jsf-images/exclamation.svg'"
-        alt="exclamation-icon"
+        alt=""
+        aria-hidden="true"
         class="jsf-error-cell-required">
     }
     @if (showRequiredError()) {
