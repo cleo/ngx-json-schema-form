@@ -79,7 +79,14 @@ export class FormContentComponent extends ContentBaseComponent {
 
   getFormGroup(item: FormDataItem): UntypedFormGroup {
     const formGroup = this.formGroup();
-    return formGroup ? formGroup.controls[item.key] as UntypedFormGroup : new UntypedFormGroup({});
+    if (!formGroup) {
+      throw new Error(`FormContentComponent: formGroup is not set for item "${item.key}"`);
+    }
+    const childGroup = formGroup.controls[item.key] as UntypedFormGroup;
+    if (!childGroup) {
+      throw new Error(`FormContentComponent: no child FormGroup found for key "${item.key}"`);
+    }
+    return childGroup;
   }
 
   isSection(item: FormDataItem): boolean {

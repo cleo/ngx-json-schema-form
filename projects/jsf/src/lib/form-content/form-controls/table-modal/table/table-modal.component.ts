@@ -29,7 +29,7 @@ import { AgGridAngular } from 'ag-grid-angular';
 })
 
 export class TableModalComponent extends ComponentLifeCycle {
-  private modalService = inject(ModalService<ITableModalOptions, any>);
+  private modalService = inject<ModalService<ITableModalOptions, any>>(ModalService);
   private tableModalService = inject(TableModalService);
   private readonly modalOptions = inject<ITableModalOptions>(MODAL_OPTIONS_TOKEN);
 
