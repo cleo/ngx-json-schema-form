@@ -73,7 +73,7 @@ export class ExampleJSFComponent { }
       - If this is an edit case
       - If sections are collapsible
       - If there are dividers between sections
-   - Inject the JSFDataItemService into your constructor and use the `getFormDataItems()` method to transform the JSON 7 schema and corresponding values into an array of FormDataItems. FormDataItems are the data model that the JSF understands and uses to generate the angular forms.
+   - Create a `JSFSchemaData` instance by passing your JSON 7 schema and the corresponding values. The component handles the transformation internally — no service injection is required.
    - Create a Submit button in your component. Listen to the `disableSubmit` event emitted from the JSON Schema Form and disable your submit button.
    - Create a ViewChild property in your component to reference your JSFComponent. Use this property to get the submitted form values by calling `this.jsfComponent.getFormValues();`
    - [Optional] Listen to the `formHeightChange` event emitted from the JSON Schema Form.
