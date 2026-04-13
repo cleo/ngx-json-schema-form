@@ -1,4 +1,4 @@
-import { Component, input, linkedSignal } from '@angular/core';
+import { Component, input, OnInit, signal } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ParentDataItem } from '../../../models/parent-data-item';
 
@@ -8,10 +8,14 @@ import { ParentDataItem } from '../../../models/parent-data-item';
     standalone: true,
     templateUrl: './tab.component.html'
 })
-export class TabComponent {
+export class TabComponent implements OnInit {
   dataItem = input.required<ParentDataItem>();
   // eslint-disable-next-line @angular-eslint/no-input-rename
   selectedInput = input<boolean>(false, { alias: 'selected' });
-  selected = linkedSignal(() => this.selectedInput());
+  selected = signal(false);
   formGroup = input.required<UntypedFormGroup>();
+
+  ngOnInit(): void {
+    this.selected.set(this.selectedInput());
+  }
 }
