@@ -15,12 +15,14 @@
         <img
           [src]=" 'assets/jsf-images/obscure.svg'"
           class="obscure"
+          alt="obscure-icon"
           (click)="toggleSecuredFieldView()">
       }
       @if (showViewIcon()) {
         <img
           [src]="'assets/jsf-images/view.svg'"
           class="view"
+          alt="view-icon"
           (click)="toggleSecuredFieldView()">
       }
       @if (showError) {
