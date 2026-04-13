@@ -6,7 +6,6 @@ import { FormDataItem, FormDataItemType } from '../../../models/form-data-item';
 @Component({
     selector: 'jsf-label',
     standalone: true,
-    imports: [],
     templateUrl: './label.component.html',
     styleUrls: ['./label.component.scss']
 })

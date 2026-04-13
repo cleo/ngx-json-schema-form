@@ -14,7 +14,6 @@ import { CommonModule } from '@angular/common';
     template: `<ng-container *ngComponentOutlet="componentType; injector: componentInjector"></ng-container>`,
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class ModalOutletComponent extends ComponentLifeCycle implements OnInit {
   private changeDetectorRef = inject(ChangeDetectorRef);
   private viewContainerRef = inject(ViewContainerRef);

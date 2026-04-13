@@ -9,7 +9,6 @@ import { CommonModule } from '@angular/common';
     imports: [CommonModule],
     templateUrl: './template.component.html'
 })
-
 export class TemplateComponent extends FormControlBase implements AfterViewInit {
   @HostListener('click', ['$event', '$event.target'])
   @HostListener('change', ['$event', '$event.target'])

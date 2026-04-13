@@ -34,7 +34,6 @@ const SECONDARY_AUTO_HIDE_DELAY = 2000;
     `,
     styleUrls: ['./alert.component.scss']
 })
-
 export class AlertComponent extends ComponentLifeCycle implements OnInit {
   alertStream = input.required<AlertService>();
   private autoHide$ = new Subject<Observable<any>>();

@@ -24,7 +24,6 @@ import { CommonModule } from '@angular/common';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-
 export class AppComponent implements OnInit, AfterViewInit {
   @ViewChild(JSFComponent) jsfComponent: JSFComponent;
   @ViewChild(TemplateComponent) templateComponent: TemplateComponent;

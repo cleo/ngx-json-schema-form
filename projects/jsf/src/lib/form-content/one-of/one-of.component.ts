@@ -1,4 +1,4 @@
-import { Component, ElementRef, inject, input, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { FormService } from '../../form.service';
 
@@ -18,11 +18,9 @@ import { DropdownComponent } from '../form-controls/dropdown/dropdown.component'
     styleUrls: ['one-of.component.scss'],
     templateUrl: 'one-of.component.html'
 })
-
 export class OneOfComponent extends ContentBaseComponent implements OnInit {
   private formService = inject(FormService);
 
-  @ViewChild('oneOfSelect', { static: true }) select: ElementRef<HTMLSelectElement>;
   xOfDataItem = input.required<XOfDataItem>();
   labelLengthClass = input<string>('');
 

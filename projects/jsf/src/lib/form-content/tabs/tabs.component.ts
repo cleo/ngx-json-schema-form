@@ -9,11 +9,9 @@ import { TabComponent } from './tab/tab.component';
 @Component({
     selector: 'jsf-tabs',
     standalone: true,
-    imports: [],
     templateUrl: 'tabs.component.html',
     styleUrls: ['tabs.component.scss']
 })
-
 export class TabsComponent extends ContentBaseComponent implements AfterContentInit {
   @ContentChildren(TabComponent) public tabs: QueryList<TabComponent>;
   items = input<ParentDataItem[]>([]);

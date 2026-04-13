@@ -5,9 +5,7 @@ export interface IAlert {
   message: string;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class AlertService {
   private alert$: ReplaySubject<IAlert> = new ReplaySubject<IAlert>(1);
   private alert: IAlert = null;

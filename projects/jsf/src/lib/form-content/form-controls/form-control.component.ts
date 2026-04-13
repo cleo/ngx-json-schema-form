@@ -33,7 +33,6 @@ import { TemplateComponent } from './template/template.component';
     templateUrl: './form-control.component.html',
     styleUrls: ['./form-control.component.scss']
 })
-
 export class FormControlComponent extends ContentBaseComponent {
   formItem = input.required<FormDataItem>();
   templates = input<any>({});

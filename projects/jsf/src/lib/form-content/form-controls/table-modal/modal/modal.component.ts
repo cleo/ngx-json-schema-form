@@ -7,11 +7,9 @@ import { ModalService } from './modal.service';
 @Component({
     selector: 'jsf-modal',
     standalone: true,
-    imports: [],
     templateUrl: 'modal.component.html',
     styleUrls: ['./modal.component.scss']
 })
-
 export class ModalComponent extends ContentBaseComponent implements AfterViewInit {
   private modalService = inject(ModalService);
   private changeDetectorRef = inject(ChangeDetectorRef);

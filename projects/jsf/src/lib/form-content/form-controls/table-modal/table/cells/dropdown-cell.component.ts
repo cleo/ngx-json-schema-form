@@ -1,4 +1,4 @@
-import { Component, effect, inject, Injector, input, OnInit, output } from '@angular/core';
+import { Component, effect, input, output } from '@angular/core';
 import { EnumDataItem, EnumOption } from '../../../../../models/enum-data-item';
 import { ContentBaseComponent } from '../../../../content-base.component';
 import { FormsModule } from '@angular/forms';
@@ -21,21 +21,20 @@ import { FormsModule } from '@angular/forms';
       </select>
     `
 })
-export class DropdownCellComponent extends ContentBaseComponent implements OnInit {
-  private readonly injector = inject(Injector);
-
+export class DropdownCellComponent extends ContentBaseComponent {
   params = input.required<any>();
   valueChanged = output<string>();
 
   public options: EnumOption[] = [];
 
-  ngOnInit(): void {
+  constructor() {
+    super();
     effect(() => {
       const params = this.params();
       if (params?.item) {
         this.options = (params.item as EnumDataItem).enumOptions;
       }
-    }, { injector: this.injector });
+    });
   }
 
   onChange(newValue: string) {

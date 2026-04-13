@@ -27,7 +27,6 @@ import { AgGridAngular } from 'ag-grid-angular';
     styleUrls: ['./table-modal.component.scss'],
     changeDetection: ChangeDetectionStrategy.OnPush
 })
-
 export class TableModalComponent extends ComponentLifeCycle {
   private modalService = inject<ModalService<ITableModalOptions, any>>(ModalService);
   private tableModalService = inject(TableModalService);

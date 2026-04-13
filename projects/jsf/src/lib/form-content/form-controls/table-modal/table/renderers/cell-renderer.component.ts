@@ -17,7 +17,6 @@ import { TableModalService } from '../table-modal.service';
     templateUrl: 'cell-renderer.component.html',
     styleUrls: ['cell-renderer.component.scss']
 })
-
 export class CellRendererComponent extends ContentBaseComponent {
   private tableModalService = inject(TableModalService);
 

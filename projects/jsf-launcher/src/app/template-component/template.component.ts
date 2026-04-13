@@ -11,7 +11,6 @@ import { FormsModule } from '@angular/forms';
 ],
     templateUrl: 'template.component.html'
 })
-
 export class TemplateComponent {
 
   templateInput1 = '';

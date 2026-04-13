@@ -4,7 +4,6 @@ import { ContentBaseComponent } from '../../../../content-base.component';
 @Component({
     selector: 'jsf-checkbox-cell',
     standalone: true,
-    imports: [],
     template: `
       <label style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 45px; height: 45px;">
         <input

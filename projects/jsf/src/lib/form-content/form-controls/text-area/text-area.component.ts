@@ -15,7 +15,6 @@ import { LabelComponent } from '../label/label.component';
     templateUrl: './text-area.component.html',
     styleUrls: ['./text-area.component.scss']
 })
-
 export class TextAreaComponent extends FormControlBase implements OnInit {
   rows: string;
   cols: string;

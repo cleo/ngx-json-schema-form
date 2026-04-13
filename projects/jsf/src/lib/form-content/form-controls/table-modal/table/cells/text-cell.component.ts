@@ -22,7 +22,6 @@ import { FormsModule } from '@angular/forms';
     />
     `
 })
-
 export class TextCellComponent extends ContentBaseComponent implements AfterViewInit {
   params = input.required<any>();
   @ViewChild('input', {read: ViewContainerRef}) public input;

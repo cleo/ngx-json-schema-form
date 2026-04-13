@@ -18,7 +18,6 @@ import { EventButtonComponent } from '../event-button/event-button.component';
     templateUrl: './text.component.html',
     styleUrls: ['text.component.scss']
 })
-
 export class TextComponent extends FormControlBase {
   showCounter = false;
 

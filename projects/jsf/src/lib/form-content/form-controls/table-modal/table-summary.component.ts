@@ -21,7 +21,6 @@ import { ModalOutletComponent } from './modal/modal-outlet.component';
     templateUrl: 'table-summary.component.html',
     styleUrls: ['table-summary.component.scss']
 })
-
 export class TableSummaryComponent extends FormControlBase implements OnInit {
   public arrayItem: ArrayDataItem;
   public modalService = new ModalService<ITableModalOptions, any>(TableModalComponent);
