@@ -61,7 +61,9 @@ export class TableModalComponent extends ComponentLifeCycle {
     minWidth: 30,
     maxWidth: 40,
     colId: 'jsfCheckboxSelection',
-    pinned: 'left'
+    pinned: 'left',
+    cellRenderer: undefined,
+    cellEditor: undefined
   }];
 
   private params: any;
