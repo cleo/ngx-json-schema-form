@@ -15,14 +15,14 @@
         <img
           [src]=" 'assets/jsf-images/obscure.svg'"
           class="obscure"
-          alt="obscure-icon"
+          alt="Hide password"
           (click)="toggleSecuredFieldView()">
       }
       @if (showViewIcon()) {
         <img
           [src]="'assets/jsf-images/view.svg'"
           class="view"
-          alt="view-icon"
+          alt="Show password"
           (click)="toggleSecuredFieldView()">
       }
       @if (showError) {
@@ -37,7 +37,8 @@
         class="help"
         [title]="formItem().helpText"
         [src]="'assets/jsf-images/info.svg'"
-        alt="help">
+        alt=""
+        aria-hidden="true">
       }
     </div>
   </div>
