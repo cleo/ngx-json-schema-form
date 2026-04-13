@@ -81,11 +81,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   onLogForm(): void {
-    // console.log(this.jsfComponent.form);
+    console.log(this.jsfComponent.formGroup);
   }
 
   onLogFormValues(): void {
-    // console.log(this.jsfComponent.getFormValues());
+    console.log(this.jsfComponent.getFormValues());
   }
 
   private validate(schema: any, values: any): boolean {
