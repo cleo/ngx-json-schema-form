@@ -23,7 +23,7 @@ import { Component, ViewChild, signal } from '@angular/core';
   templateUrl: 'example.component.html',
   styleUrls: ['./example.component.scss']
 })
-export class ExampleJSFComponent { }
+export class ExampleComponent { }
 ```
 
 (3) Configure your Angular component to use the JSON Schema Form. Reference the example below as well as a detailed list below of the necessary steps.
@@ -37,6 +37,9 @@ export class ExampleJSFComponent { }
    - [Optional] Listen to the `formHeightChange` event emitted from the JSON Schema Form.
 
 ```typescript
+import { Component, ViewChild, signal } from '@angular/core';
+import { JSFComponent, JSFConfig, JSFSchemaData } from '@cleo/ngx-json-schema-form';
+
 @Component({
   selector: 'example',
   standalone: true,

@@ -65,20 +65,23 @@ import { JSFComponent } from '@cleo/ngx-json-schema-form';
   templateUrl: 'example.component.html',
   styleUrls: ['./example.component.scss']
 })
-export class ExampleJSFComponent { }
+export class ExampleComponent { }
 ```
 
 2. Configure your Angular component to use the JSON Schema Form. Reference the example below as well as a detailed list below of the necessary steps.
-   - Create a JSFConfig object to control the commonly used confguration items:
-      - If this is an edit case
+   - Create a `JSFConfig` object to control the commonly used configuration items:
       - If sections are collapsible
       - If there are dividers between sections
-   - Create a `JSFSchemaData` instance by passing your JSON 7 schema and the corresponding values. The component handles the transformation internally — no service injection is required.
+      - If outer sections are expanded by default
+   - Create a `JSFSchemaData` object by passing your JSON Schema 7 object and a corresponding values object. The component will internally transform these into its data model.
    - Create a Submit button in your component. Listen to the `disableSubmit` event emitted from the JSON Schema Form and disable your submit button.
-   - Create a ViewChild property in your component to reference your JSFComponent. Use this property to get the submitted form values by calling `this.jsfComponent.getFormValues();`
+   - Create a `ViewChild` property to reference your `JSFComponent`. Use it to retrieve submitted form values by calling `this.schemaFormComponent.getFormValues()`.
    - [Optional] Listen to the `formHeightChange` event emitted from the JSON Schema Form.
 
-```
+```typescript
+import { Component, ViewChild, signal } from '@angular/core';
+import { JSFComponent, JSFConfig, JSFSchemaData } from '@cleo/ngx-json-schema-form';
+
 @Component({
   selector: 'example',
   standalone: true,
@@ -87,7 +90,7 @@ export class ExampleJSFComponent { }
   styleUrls: ['./example.component.scss']
 })
 export class ExampleComponent {
-   @ViewChild(JSFComponent, { static: false }) schemaFormComponent!: JSFComponent;
+  @ViewChild(JSFComponent, { static: false }) schemaFormComponent!: JSFComponent;
   readonly config: JSFConfig = {
     enableCollapsibleSections: false,
     showSectionDivider: true,
@@ -105,7 +108,7 @@ export class ExampleComponent {
   onFormHeightChange(formHeight: number): void { }
 
   getJSFFormValues(): void {
-    const jsonData = this.jsfComponent.getFormValues();
+    const jsonData = this.schemaFormComponent.getFormValues();
   }
 }
 ```
