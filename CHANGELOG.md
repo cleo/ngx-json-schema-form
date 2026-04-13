@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [7.0.0] (2024-05-28)
+### Enhancement
+- Updated to Angular 20, Typescript 5.8.3, Node 22.14
+
 ## [6.0.6] (2024-05-28)
 ### Enhancement
 - Clicking a section name will expand/collapse a section (same functionality as clicking the small arrow icon)
