@@ -5,17 +5,17 @@
       <span>{{numItems}} Items</span>
       <div class="edit-btn">
         <button
-          (click)="onEdit()"
-          class="btn btn-primary">
+          class="btn btn-primary"
+          (click)="onEdit()">
           Edit
         </button>
       </div>
       @if (formItem().helpText) {
         <img
           class="help"
+          alt="help"
           [title]="formItem().helpText"
-          [src]="'assets/jsf-images/info.svg'"
-          alt="help">
+          [src]="'assets/jsf-images/info.svg'">
       }
     </div>
   </div>

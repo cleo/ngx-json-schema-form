@@ -1,38 +1,28 @@
-import { ChangeDetectorRef, Component, inject, input, output } from '@angular/core';
+import { Component, input, output } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 import { ContentBaseComponent } from '../../../../content-base.component';
 
 @Component({
   selector: 'jsf-checkbox-cell',
   standalone: true,
+  imports: [FormsModule],
   template: `
-    <label style="cursor: pointer; display: flex; align-items: center; justify-content: center; width: 45px; height: 45px;">
-      <input
-        #checkbox
-        type="checkbox"
-        [checked]="params().value"
-        [disabled]="params().item.disabledState.isReadOnly"
-        (change)="onChange($event)"
-      />
-    </label>
+    <input
+      type="checkbox"
+      [checked]="params().value"
+      [disabled]="params().item.disabledState.isReadOnly"
+      [(ngModel)]="params().value"
+      (ngModelChange)="onChange()"
+    />
   `
 })
 export class CheckboxCellComponent extends ContentBaseComponent {
-  private cdr = inject(ChangeDetectorRef);
-
   params = input.required<any>();
-  valueChanged = output<boolean>();
+  valueChanged = output<string>();
 
-  onChange(event: Event) {
-    event.stopPropagation();
-
-    const p = this.params();
-    const newValue = (event.target as HTMLInputElement).checked;
-
-    p.data[p.item.key] = newValue;
-    p.value = newValue;
-
-    this.valueChanged.emit(newValue);
-
-    this.cdr.detectChanges();
+  onChange() {
+    const params = this.params();
+    params.data[params.item.key] = params.value;
+    this.valueChanged.emit(params.value);
   }
 }

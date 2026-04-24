@@ -5,8 +5,8 @@
       [formItem]="getDropdownDataItem()"
       [formGroup]="formGroup()"
       [config]="config()"
-      (selectedKey)="onDropdownChange($event)"
-      [labelLengthClass]="labelLengthClass()">
+      [labelLengthClass]="labelLengthClass()"
+      (selectedKey)="onDropdownChange($event)">
     </jsf-drop-down>
     @if (selectedKey) {
       <div class="selected-schema-content">

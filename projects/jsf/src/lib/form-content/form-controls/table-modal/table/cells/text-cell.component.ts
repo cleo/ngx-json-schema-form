@@ -1,14 +1,11 @@
 import { AfterViewInit, Component, input, ViewChild, ViewContainerRef } from '@angular/core';
 import { ContentBaseComponent } from '../../../../content-base.component';
-
 import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'jsf-text-cell',
   standalone: true,
-  imports: [
-    FormsModule
-  ],
+  imports: [FormsModule],
   template: `
     <input
       class="jsf-text-cell-input"
@@ -17,8 +14,8 @@ import { FormsModule } from '@angular/forms';
       [title]="params().value"
       [value]="params().value"
       [disabled]="params().item.disabledState.isReadOnly"
-      [ngModel]="params().value"
-      (ngModelChange)="onChange($event)"
+      [(ngModel)]="params().value"
+      (ngModelChange)="onChange()"
     />
   `
 })
@@ -26,10 +23,9 @@ export class TextCellComponent extends ContentBaseComponent implements AfterView
   params = input.required<any>();
   @ViewChild('input', {read: ViewContainerRef}) public input;
 
-  onChange(newValue: string) {
+  onChange() {
     const params = this.params();
-    params.data[params.item.key] = newValue;
-    params.value = newValue;
+    params.data[params.item.key] = params.value;
   }
 
   ngAfterViewInit() {

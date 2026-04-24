@@ -1,4 +1,4 @@
-<jsf-modal [title]="modalTitle" (closeInput)="onClose()" (resizeInput)="onResize()">
+<jsf-modal [title]="modalTitle" [columnCount]="colDefs.length" (closeInput)="onClose()" (resizeInput)="onResize()">
   <jsf-alert [alertStream]="alertStreamService"></jsf-alert>
   <div class="modal-body">
     <div class="jsf-table-header">
@@ -12,7 +12,8 @@
       }
     </div>
     <ag-grid-angular
-      class="jsf-table ag-theme-alpine"
+      class="jsf-table"
+      [theme]="'legacy'"
       [rowData]="rowData$ | async"
       [columnDefs]="colDefs"
       [defaultColDef]="defaultColDef"
@@ -21,9 +22,9 @@
       [rowSelection]="rowSelectionOptions"
       [singleClickEdit]="true"
       [pinnedTopRowData]="pinnedTopRowData$ | async"
-      (gridReady)="onGridReady($event)"
       [ensureDomOrder]="true"
       [suppressColumnVirtualisation]="true"
+      (gridReady)="onGridReady($event)"
       (rowSelected)="onRowSelected()">
     </ag-grid-angular>
   </div>

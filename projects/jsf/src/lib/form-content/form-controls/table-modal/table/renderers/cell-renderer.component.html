@@ -25,19 +25,19 @@
     }
     @if (errorMessage && !showRequiredError()) {
       <img
-        [title]="errorMessage"
-        [src]="'assets/jsf-images/exclamation.svg'"
+        class="jsf-error-cell"
         alt=""
         aria-hidden="true"
-        class="jsf-error-cell">
+        [title]="errorMessage"
+        [src]="'assets/jsf-images/exclamation.svg'">
     }
     @if (showRequiredError()) {
       <img
-        [title]="errorMessage"
-        [src]="'assets/jsf-images/exclamation.svg'"
+        class="jsf-error-cell-required"
         alt=""
         aria-hidden="true"
-        class="jsf-error-cell-required">
+        [title]="errorMessage"
+        [src]="'assets/jsf-images/exclamation.svg'">
     }
     @if (showRequiredError()) {
       <div

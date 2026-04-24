@@ -2,8 +2,18 @@
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
 ## [7.0.0] (2024-05-28)
+### Breaking Changes
+- `JSFModule` has been removed. Import `JSFComponent` directly into your standalone component's `imports` array.
+- ag-grid upgraded from v28 to v35. If you have custom CSS targeting ag-grid classes, review for compatibility.
+- All `@Input()` properties on `JSFComponent` are now signal inputs. Passing values via property binding (`[schemaData]="value"`) still works, but if you were accessing inputs programmatically, use signal accessors (e.g., `component.schemaData()` instead of `component.schemaData`).
+- All `@Output()` properties on `JSFComponent` now use `output()` instead of `EventEmitter`. Event binding (`(disableSubmit)="handler($event)"`) still works with no changes needed.
+
 ### Enhancement
 - Updated to Angular 20, Typescript 5.8.3, Node 22.14
+- All components converted to standalone
+- Replaced `*ngFor`/`*ngIf` with `@for`/`@if` control flow blocks
+- Replaced constructor injection with `inject()`
+- Replaced `OnChanges`/`getInputValue$` pattern with `effect()` for reactive input handling
 
 ## [6.0.6] (2024-05-28)
 ### Enhancement

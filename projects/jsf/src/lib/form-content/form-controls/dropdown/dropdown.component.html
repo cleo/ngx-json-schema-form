@@ -11,7 +11,7 @@
         @for (item of formItemAsEnumType.enumOptions; track item.key) {
           <option
             [id]="item.path"
-          [value]="item.key">{{item.text}}</option>
+            [value]="item.key">{{item.text}}</option>
         }
       </select>
       @if (showError) {
@@ -21,8 +21,8 @@
     @if (formItem().helpText) {
       <img
         class="help"
-        [title]="formItem().helpText"
         alt="help"
+        [title]="formItem().helpText"
         [src]="'assets/jsf-images/info.svg'">
     }
   </div>

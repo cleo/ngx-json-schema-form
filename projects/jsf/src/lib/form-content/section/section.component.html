@@ -4,33 +4,33 @@
       <div class="arrows">
         @if (!isContentShownSignal()) {
           <img
-            (click)="toggleContentShown()"
             class="arrow-up"
+            alt="arrow-up"
             [src]="'assets/jsf-images/arrow-up.svg'"
-            alt="arrow-up">
+            (click)="toggleContentShown()">
         }
         @if (isContentShownSignal()) {
           <img
-            (click)="toggleContentShown()"
             class="arrow-down"
+            alt="arrow-down"
             [src]="'assets/jsf-images/arrow-down.svg'"
-            alt="arrow-down">
+            (click)="toggleContentShown()">
         }
       </div>
     }
     <label
       class="header"
-      (click)="config()?.enableCollapsibleSections ? toggleContentShown() : noop()"
       [ngClass]="{clickable: config()?.enableCollapsibleSections}"
       [title]="formItem().tooltip"
-      [attr.for]="formItem().path">
+      [attr.for]="formItem().path"
+      (click)="config()?.enableCollapsibleSections ? toggleContentShown() : noop()">
       {{formItem().label}}
     </label>
     @if (formItem().helpText) {
       <img
         class="help"
-        [title]="formItem().helpText"
         alt="help"
+        [title]="formItem().helpText"
         [src]="'assets/jsf-images/info.svg'">
     }
   </div>

@@ -3,7 +3,6 @@ import { take, takeUntil, tap } from 'rxjs/operators';
 import { ContentBaseComponent } from '../../../content-base.component';
 import { ModalService } from './modal.service';
 
-
 @Component({
   selector: 'jsf-modal',
   standalone: true,
@@ -18,6 +17,7 @@ export class ModalComponent extends ContentBaseComponent implements AfterViewIni
   @ViewChild('modalContent', { static: true }) modalContentEl: ElementRef;
 
   title = input.required<string>();
+  columnCount = input<number>(0);
   closeInput = output<void>();
   resizeInput = output<void>();
 
@@ -49,9 +49,18 @@ export class ModalComponent extends ContentBaseComponent implements AfterViewIni
 
     this.modalEl.nativeElement.focus();
 
-    this.width = this.modalContentEl.nativeElement.offsetWidth;
+    const cols = this.columnCount();
+    if (cols > 0) {
+      const viewportWidth = window.innerWidth;
+      const contentWidth = this.modalContentEl.nativeElement.offsetWidth;
+      const dynamicWidth = Math.min((cols - 1) * 200 + 100, viewportWidth * 0.9);
+      this.width = Math.max(dynamicWidth, contentWidth + 40);
+      this.minWidth = contentWidth;
+    } else {
+      this.width = this.modalContentEl.nativeElement.offsetWidth;
+      this.minWidth = this.modalContentEl.nativeElement.offsetWidth;
+    }
     this.height = this.modalContentEl.nativeElement.offsetHeight;
-    this.minWidth = this.modalContentEl.nativeElement.offsetWidth;
     this.minHeight = this.modalContentEl.nativeElement.offsetHeight;
   }
 

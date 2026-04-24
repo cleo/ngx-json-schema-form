@@ -4,13 +4,13 @@
     <div [class]="getClass()">
       <input
         class="form-control"
+        autocomplete="new-password"
         [placeholder]="getStringDataItem().placeholder"
         [formControlName]="formItem().key"
         [id]="formItem().path"
         [type]="getInputType()"
         (blur)="onStringBlur()"
-        (focus)="onFocus()"
-        autocomplete="new-password">
+        (focus)="onFocus()">
       @if (showCounter) {
         <div class="character-counter">
           @if (hasMaxLength()) {
@@ -29,14 +29,14 @@
       <div class="event-btns">
         <jsf-event-button
           [buttonData]="button"
-        (buttonEvent)="onButtonEvent($event)"></jsf-event-button>
+          (buttonEvent)="onButtonEvent($event)"></jsf-event-button>
       </div>
     }
     @if (formItem().helpText) {
       <img
         class="help"
-        [title]="formItem().helpText"
         alt="help"
+        [title]="formItem().helpText"
         [src]="'assets/jsf-images/info.svg'">
     }
   </div>

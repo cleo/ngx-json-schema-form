@@ -120,10 +120,10 @@
           [config]="tabsComponent.config()"
           [templates]="templates()"
           [labelLengthClass]="tabsComponent.getLabelLengthClass(item)"
+          [isEdit]="isEdit()"
           (buttonEvent)="onButtonEvent($event)"
           (templateEvent)="onTemplateEvent($event)"
           (manualFormChangeEvent)="onManualFormChangeEvent()"
-          [isEdit]="isEdit()"
         ></jsf-form-content>
       </jsf-tab>
     }

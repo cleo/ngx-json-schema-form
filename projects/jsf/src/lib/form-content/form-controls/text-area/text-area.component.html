@@ -4,18 +4,18 @@
     <div class="control-with-error">
       <textarea
         class="form-control"
+        autocomplete="new-password"
         [placeholder]="stringDataItem.placeholder"
         [formControlName]="formItem().key"
         [id]="formItem().path"
         [rows]="rows"
-        [cols]="cols"
-        autocomplete="new-password">
+        [cols]="cols">
       </textarea>
       @if (formItem().helpText) {
         <img
           class="help"
-          [title]="formItem().helpText"
           alt="help"
+          [title]="formItem().helpText"
           [src]="'assets/jsf-images/info.svg'">
       }
       @if (showError) {

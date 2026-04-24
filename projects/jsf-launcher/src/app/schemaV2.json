@@ -641,16 +641,14 @@
           "name": "Required Secured Text Input",
           "helpText": "This help text will display when you hover over the information icon",
           "tooltip": "This tooltip will display when you hover over the label.",
-          "isSecured": true,
-          "placeholder": "**************"
+          "isSecured": true
         },
         "securedTextInputOptional": {
           "type": "string",
           "name": "Optional Secured Text Input",
           "helpText": "This help text will display when you hover over the information icon",
           "tooltip": "This tooltip will display when you hover over the label.",
-          "isSecured": true,
-          "placeholder": "**************"
+          "isSecured": true
         },
         "readOnlySecuredTextInput": {
           "type": "string",
@@ -658,8 +656,7 @@
           "helpText": "This help text will display when you hover over the information icon",
           "tooltip": "This tooltip will display when you hover over the label.",
           "isSecured": true,
-          "isReadOnly": true,
-          "placeholder": "**************"
+          "isReadOnly": true
         },
         "hiddenSecuredTextInput": {
           "type": "string",
@@ -968,6 +965,36 @@
                 "type": "string",
                 "name": "Model"
               }
+            }
+          }
+        },
+        "wideArrayInput": {
+          "type": "array",
+          "name": "Wide Array Input (10 cols)",
+          "helpText": "Tests scrollbar behavior with many columns",
+          "tooltip": "This array has 10 columns to test horizontal scrolling.",
+          "items": {
+            "properties": {
+              "col1": { "type": "string", "name": "Column 1" },
+              "col2": { "type": "string", "name": "Column 2" },
+              "col3": { "type": "string", "name": "Column 3" },
+              "col4": { "type": "string", "name": "Column 4" },
+              "col5": { "type": "string", "name": "Column 5" },
+              "col6": { "type": "string", "name": "Column 6" },
+              "col7": { "type": "string", "name": "Column 7" },
+              "col8": { "type": "string", "name": "Column 8" },
+              "col9": { "type": "string", "name": "Column 9" }
+            }
+          }
+        },
+        "shortArrayInput": {
+          "type": "array",
+          "name": "Short Array Input (1 col)",
+          "helpText": "Tests modal with a single data column",
+          "tooltip": "This array has only 1 column.",
+          "items": {
+            "properties": {
+              "name": { "type": "string", "name": "Name" }
             }
           }
         }
