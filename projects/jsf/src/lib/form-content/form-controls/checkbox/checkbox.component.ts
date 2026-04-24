@@ -14,10 +14,9 @@ import { LabelComponent } from '../label/label.component';
     styleUrls: ['./checkbox.component.scss']
 })
 export class CheckboxComponent extends FormControlBase {
-  // eslint-disable-next-line @angular-eslint/no-output-native
-  toggle = output<boolean>();
+  toggled = output<boolean>();
 
   onClick(): void {
-    setTimeout(() => this.toggle.emit(this.formControl.value));
+    setTimeout(() => this.toggled.emit(this.formControl.value));
   }
 }
