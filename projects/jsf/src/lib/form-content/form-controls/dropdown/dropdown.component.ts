@@ -6,14 +6,14 @@ import { LabelComponent } from '../label/label.component';
 
 
 @Component({
-    selector: 'jsf-drop-down',
-    standalone: true,
-    imports: [
+  selector: 'jsf-drop-down',
+  standalone: true,
+  imports: [
     ReactiveFormsModule,
     LabelComponent
-],
-    templateUrl: './dropdown.component.html',
-    styleUrls: ['./dropdown.component.scss']
+  ],
+  templateUrl: './dropdown.component.html',
+  styleUrls: ['./dropdown.component.scss']
 })
 export class DropdownComponent extends FormControlBase {
   selectedKey = output<string>();

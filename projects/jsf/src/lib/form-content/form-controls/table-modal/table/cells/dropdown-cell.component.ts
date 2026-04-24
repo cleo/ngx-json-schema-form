@@ -4,22 +4,22 @@ import { ContentBaseComponent } from '../../../../content-base.component';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'jsf-dropdown-cell',
-    standalone: true,
-    imports: [FormsModule],
-    template: `
-      <select [ngModel]="params().value"
-        (ngModelChange)="onChange($event)"
-        [disabled]="params().item.disabledState.isReadOnly">
-        @for (option of options; track option.key) {
-          <option
-            [id]="option.path"
-            [ngValue]="option.key">
-            {{option.text}}
-          </option>
-        }
-      </select>
-    `
+  selector: 'jsf-dropdown-cell',
+  standalone: true,
+  imports: [FormsModule],
+  template: `
+    <select [ngModel]="params().value"
+      (ngModelChange)="onChange($event)"
+      [disabled]="params().item.disabledState.isReadOnly">
+      @for (option of options; track option.key) {
+        <option
+          [id]="option.path"
+          [ngValue]="option.key">
+          {{option.text}}
+        </option>
+      }
+    </select>
+  `
 })
 export class DropdownCellComponent extends ContentBaseComponent {
   params = input.required<any>();

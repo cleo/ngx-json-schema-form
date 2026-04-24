@@ -8,11 +8,11 @@ import { ModalService, MODAL_OPTIONS_TOKEN } from './modal.service';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'jsf-modal-outlet',
-    standalone: true,
-    imports: [CommonModule],
-    template: `<ng-container *ngComponentOutlet="componentType; injector: componentInjector"></ng-container>`,
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'jsf-modal-outlet',
+  standalone: true,
+  imports: [CommonModule],
+  template: `<ng-container *ngComponentOutlet="componentType; injector: componentInjector"></ng-container>`,
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ModalOutletComponent extends ComponentLifeCycle implements OnInit {
   private changeDetectorRef = inject(ChangeDetectorRef);

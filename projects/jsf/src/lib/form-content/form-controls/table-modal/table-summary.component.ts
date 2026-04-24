@@ -11,15 +11,15 @@ import { LabelComponent } from '../label/label.component';
 import { ModalOutletComponent } from './modal/modal-outlet.component';
 
 @Component({
-    selector: 'jsf-table-summary',
-    standalone: true,
-    imports: [
+  selector: 'jsf-table-summary',
+  standalone: true,
+  imports: [
     ReactiveFormsModule,
     LabelComponent,
     ModalOutletComponent
-],
-    templateUrl: 'table-summary.component.html',
-    styleUrls: ['table-summary.component.scss']
+  ],
+  templateUrl: 'table-summary.component.html',
+  styleUrls: ['table-summary.component.scss']
 })
 export class TableSummaryComponent extends FormControlBase implements OnInit {
   public arrayItem: ArrayDataItem;

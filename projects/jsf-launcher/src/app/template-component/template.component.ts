@@ -4,12 +4,12 @@ import { FormsModule } from '@angular/forms';
 
 
 @Component({
-    selector: 'app-template-test',
-    standalone: true,
-    imports: [
+  selector: 'app-template-test',
+  standalone: true,
+  imports: [
     FormsModule
-],
-    templateUrl: 'template.component.html'
+  ],
+  templateUrl: 'template.component.html'
 })
 export class TemplateComponent {
 

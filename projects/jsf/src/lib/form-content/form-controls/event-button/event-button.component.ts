@@ -3,10 +3,10 @@ import { ButtonDataItem } from '../../../models/button-data-item';
 
 
 @Component({
-    selector: 'jsf-event-button',
-    standalone: true,
-    templateUrl: './event-button.component.html',
-    styleUrls: ['./event-button.component.scss']
+  selector: 'jsf-event-button',
+  standalone: true,
+  templateUrl: './event-button.component.html',
+  styleUrls: ['./event-button.component.scss']
 })
 export class EventButtonComponent {
   buttonData = input.required<ButtonDataItem>();

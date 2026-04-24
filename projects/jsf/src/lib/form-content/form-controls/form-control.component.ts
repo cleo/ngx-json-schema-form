@@ -17,9 +17,9 @@ import { TableSummaryComponent } from './table-modal/table-summary.component';
 import { TemplateComponent } from './template/template.component';
 
 @Component({
-    selector: 'jsf-form-control',
-    standalone: true,
-    imports: [
+  selector: 'jsf-form-control',
+  standalone: true,
+  imports: [
     ReactiveFormsModule,
     SecuredTextComponent,
     TextComponent,
@@ -29,9 +29,9 @@ import { TemplateComponent } from './template/template.component';
     RadioButtonComponent,
     TableSummaryComponent,
     TemplateComponent
-],
-    templateUrl: './form-control.component.html',
-    styleUrls: ['./form-control.component.scss']
+  ],
+  templateUrl: './form-control.component.html',
+  styleUrls: ['./form-control.component.scss']
 })
 export class FormControlComponent extends ContentBaseComponent {
   formItem = input.required<FormDataItem>();

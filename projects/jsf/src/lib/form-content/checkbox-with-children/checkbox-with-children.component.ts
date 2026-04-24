@@ -8,15 +8,15 @@ import { ContentBaseComponent } from '../content-base.component';
 import { CheckboxComponent } from '../form-controls/checkbox/checkbox.component';
 
 @Component({
-    selector: 'jsf-checkbox-with-children',
-    standalone: true,
-    imports: [
+  selector: 'jsf-checkbox-with-children',
+  standalone: true,
+  imports: [
     ReactiveFormsModule,
     CheckboxComponent
-],
-    templateUrl: 'checkbox-with-children.component.html',
-    styleUrls: ['../common.scss', './checkbox-with-children.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  ],
+  templateUrl: 'checkbox-with-children.component.html',
+  styleUrls: ['../common.scss', './checkbox-with-children.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckboxWithChildrenComponent extends ContentBaseComponent  implements OnInit {
   private formService = inject(FormService);

@@ -4,12 +4,12 @@ import { ContentBaseComponent } from '../../../../content-base.component';
 import { FormsModule } from '@angular/forms';
 
 @Component({
-    selector: 'jsf-text-cell',
-    standalone: true,
-    imports: [
+  selector: 'jsf-text-cell',
+  standalone: true,
+  imports: [
     FormsModule
-],
-    template: `
+  ],
+  template: `
     <input
       class="jsf-text-cell-input"
       type="text"
@@ -20,7 +20,7 @@ import { FormsModule } from '@angular/forms';
       [ngModel]="params().value"
       (ngModelChange)="onChange($event)"
     />
-    `
+  `
 })
 export class TextCellComponent extends ContentBaseComponent implements AfterViewInit {
   params = input.required<any>();

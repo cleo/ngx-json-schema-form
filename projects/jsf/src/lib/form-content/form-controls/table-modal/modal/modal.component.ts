@@ -5,10 +5,10 @@ import { ModalService } from './modal.service';
 
 
 @Component({
-    selector: 'jsf-modal',
-    standalone: true,
-    templateUrl: 'modal.component.html',
-    styleUrls: ['./modal.component.scss']
+  selector: 'jsf-modal',
+  standalone: true,
+  templateUrl: 'modal.component.html',
+  styleUrls: ['./modal.component.scss']
 })
 export class ModalComponent extends ContentBaseComponent implements AfterViewInit {
   private modalService = inject(ModalService);

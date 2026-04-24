@@ -7,15 +7,15 @@ import { TextCellComponent } from '../cells/text-cell.component';
 import { TableModalService } from '../table-modal.service';
 
 @Component({
-    selector: 'jsf-renderer',
-    standalone: true,
-    imports: [
+  selector: 'jsf-renderer',
+  standalone: true,
+  imports: [
     DropdownCellComponent,
     TextCellComponent,
     CheckboxCellComponent
-],
-    templateUrl: 'cell-renderer.component.html',
-    styleUrls: ['cell-renderer.component.scss']
+  ],
+  templateUrl: 'cell-renderer.component.html',
+  styleUrls: ['cell-renderer.component.scss']
 })
 export class CellRendererComponent extends ContentBaseComponent {
   private tableModalService = inject(TableModalService);

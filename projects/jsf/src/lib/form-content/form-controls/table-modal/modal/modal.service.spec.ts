@@ -5,7 +5,7 @@ describe('ModalService', () => {
   @Component({
     template: ``,
     standalone: true
-})
+  })
 
   class MockComponent {}
 

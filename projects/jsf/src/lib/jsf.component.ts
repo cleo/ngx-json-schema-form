@@ -23,7 +23,7 @@ import { XOfEnumDataItem } from './models/xOf-enum-data-item';
   imports: [
     ReactiveFormsModule,
     FormContentComponent
-],
+  ],
   templateUrl: './jsf.component.html',
   styleUrls: ['./jsf.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush

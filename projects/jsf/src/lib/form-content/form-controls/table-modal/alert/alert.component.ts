@@ -9,30 +9,30 @@ const AUTO_HIDE_DELAY = 3000;
 const SECONDARY_AUTO_HIDE_DELAY = 2000;
 
 @Component({
-    selector: 'jsf-alert',
-    standalone: true,
-    imports: [
-      CommonModule
-    ],
-    template: `
-      <div class="alert alert-success"
-          [ngClass]="{'active': active}"
-          (mouseenter)="onMouseEnter()"
-          (mouseleave)="onMouseLeave()">
-        <img title="Success"
-            [src]="'assets/jsf-images/success.svg'"
-            alt="Success"
-            class="alert-success-icon"
-            (click)="onCloseClick()">
-        <span class="alert-message pull-left">{{message}}</span>
-        <img title="Click to close this alert"
-            [src]="'assets/jsf-images/close.svg'"
-            alt="Click to close this alert"
-            class="alert-close"
-            (click)="onCloseClick()">
-      </div>
-    `,
-    styleUrls: ['./alert.component.scss']
+  selector: 'jsf-alert',
+  standalone: true,
+  imports: [
+    CommonModule
+  ],
+  template: `
+    <div class="alert alert-success"
+      [ngClass]="{'active': active}"
+      (mouseenter)="onMouseEnter()"
+      (mouseleave)="onMouseLeave()">
+      <img title="Success"
+        [src]="'assets/jsf-images/success.svg'"
+        alt="Success"
+        class="alert-success-icon"
+        (click)="onCloseClick()">
+      <span class="alert-message pull-left">{{message}}</span>
+      <img title="Click to close this alert"
+        [src]="'assets/jsf-images/close.svg'"
+        alt="Click to close this alert"
+        class="alert-close"
+        (click)="onCloseClick()">
+    </div>
+  `,
+  styleUrls: ['./alert.component.scss']
 })
 export class AlertComponent extends ComponentLifeCycle implements OnInit {
   alertStream = input.required<AlertService>();

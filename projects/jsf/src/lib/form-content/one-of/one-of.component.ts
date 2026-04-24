@@ -10,13 +10,13 @@ import { ContentBaseComponent } from '../content-base.component';
 import { DropdownComponent } from '../form-controls/dropdown/dropdown.component';
 
 @Component({
-    selector: 'jsf-one-of',
-    standalone: true,
-    imports: [
+  selector: 'jsf-one-of',
+  standalone: true,
+  imports: [
     DropdownComponent
-],
-    styleUrls: ['one-of.component.scss'],
-    templateUrl: 'one-of.component.html'
+  ],
+  styleUrls: ['one-of.component.scss'],
+  templateUrl: 'one-of.component.html'
 })
 export class OneOfComponent extends ContentBaseComponent implements OnInit {
   private formService = inject(FormService);

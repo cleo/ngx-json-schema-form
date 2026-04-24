@@ -4,10 +4,10 @@ import { FormDataItem, FormDataItemType } from '../../../models/form-data-item';
 
 
 @Component({
-    selector: 'jsf-label',
-    standalone: true,
-    templateUrl: './label.component.html',
-    styleUrls: ['./label.component.scss']
+  selector: 'jsf-label',
+  standalone: true,
+  templateUrl: './label.component.html',
+  styleUrls: ['./label.component.scss']
 })
 export class LabelComponent {
   formItem = input.required<FormDataItem>();

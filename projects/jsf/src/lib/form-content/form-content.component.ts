@@ -17,9 +17,9 @@ import { TabsComponent } from './tabs/tabs.component';
 import { TabComponent } from './tabs/tab/tab.component';
 
 @Component({
-    selector: 'jsf-form-content',
-    standalone: true,
-    imports: [
+  selector: 'jsf-form-content',
+  standalone: true,
+  imports: [
     ReactiveFormsModule,
     FormControlComponent,
     CheckboxWithChildrenComponent,
@@ -27,9 +27,9 @@ import { TabComponent } from './tabs/tab/tab.component';
     OneOfComponent,
     TabsComponent,
     TabComponent
-],
-    templateUrl: 'form-content.component.html',
-    styleUrls: ['./form-content.component.scss']
+  ],
+  templateUrl: 'form-content.component.html',
+  styleUrls: ['./form-content.component.scss']
 })
 export class FormContentComponent extends ContentBaseComponent {
   @ViewChildren('contentDiv') divs: QueryList<any>;

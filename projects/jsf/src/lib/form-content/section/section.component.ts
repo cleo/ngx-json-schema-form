@@ -6,14 +6,14 @@ import { ContentBaseComponent } from '../content-base.component';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'jsf-section',
-    standalone: true,
-    imports: [
-      CommonModule
-    ],
-    templateUrl: 'section.component.html',
-    styleUrls: ['../common.scss', 'section.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'jsf-section',
+  standalone: true,
+  imports: [
+    CommonModule
+  ],
+  templateUrl: 'section.component.html',
+  styleUrls: ['../common.scss', 'section.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SectionComponent extends ContentBaseComponent implements OnInit {
   formItem = input.required<ParentDataItem>();

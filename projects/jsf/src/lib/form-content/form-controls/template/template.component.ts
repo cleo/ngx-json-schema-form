@@ -4,10 +4,10 @@ import { FormControlBase } from '../form-control-base';
 import { CommonModule } from '@angular/common';
 
 @Component({
-    selector: 'jsf-template',
-    standalone: true,
-    imports: [CommonModule],
-    templateUrl: './template.component.html'
+  selector: 'jsf-template',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './template.component.html'
 })
 export class TemplateComponent extends FormControlBase implements AfterViewInit {
   @HostListener('click', ['$event', '$event.target'])

@@ -15,17 +15,17 @@ import { ModalComponent } from '../modal/modal.component';
 import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
-    selector: 'jsf-table-modal',
-    standalone: true,
-    imports: [
-      CommonModule,
-      AgGridAngular,
-      AlertComponent,
-      ModalComponent
-    ],
-    templateUrl: 'table-modal.component.html',
-    styleUrls: ['./table-modal.component.scss'],
-    changeDetection: ChangeDetectionStrategy.OnPush
+  selector: 'jsf-table-modal',
+  standalone: true,
+  imports: [
+    CommonModule,
+    AgGridAngular,
+    AlertComponent,
+    ModalComponent
+  ],
+  templateUrl: 'table-modal.component.html',
+  styleUrls: ['./table-modal.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TableModalComponent extends ComponentLifeCycle {
   private modalService = inject<ModalService<ITableModalOptions, any>>(ModalService);

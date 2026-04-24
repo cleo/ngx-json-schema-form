@@ -6,15 +6,15 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LabelComponent } from '../label/label.component';
 
 @Component({
-    selector: 'jsf-secured-text',
-    standalone: true,
-    imports: [
-      CommonModule,
-      ReactiveFormsModule,
-      LabelComponent
-    ],
-    templateUrl: './secured-text.component.html',
-    styleUrls: ['./secured-text.component.scss']
+  selector: 'jsf-secured-text',
+  standalone: true,
+  imports: [
+    CommonModule,
+    ReactiveFormsModule,
+    LabelComponent
+  ],
+  templateUrl: './secured-text.component.html',
+  styleUrls: ['./secured-text.component.scss']
 })
 export class SecuredTextComponent extends FormControlBase {
   private securedFieldCleared = false;
