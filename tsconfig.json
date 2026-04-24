@@ -1,7 +1,7 @@
 {
   "compileOnSave": false,
   "compilerOptions": {
-    "baseUrl": "./",
+    "rootDir": "./projects",
     "outDir": "./dist/out-tsc",
     "sourceMap": true,
     "declaration": false,
@@ -21,16 +21,16 @@
     ],
     "paths": {
       "jsf": [
-        "dist/jsf"
+        "./dist/jsf"
       ],
       "jsf/*": [
-        "dist/jsf/*"
+        "./dist/jsf/*"
       ],
       "jsf-validation": [
-        "dist/jsf-validation"
+        "./dist/jsf-validation"
       ],
       "jsf-validation/*": [
-        "dist/jsf-validation/*"
+        "./dist/jsf-validation/*"
       ]
     }
   },

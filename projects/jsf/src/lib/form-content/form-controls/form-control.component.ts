@@ -65,7 +65,7 @@ export class FormControlComponent extends ContentBaseComponent {
 
   isTextArea(): boolean {
     const item = this.formItem() as StringDataItem;
-    return item.display && item.display.startsWith('textarea');
+    return typeof item.display === 'string' && item.display.startsWith('textarea');
   }
 
   isArray(): boolean {
