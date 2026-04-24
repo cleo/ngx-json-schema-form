@@ -1,4 +1,4 @@
-@import '../form-control.component';
+@use '../form-control.component';
 .secured-edit {
   &::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+*/
     -webkit-text-security: disc;

@@ -62,6 +62,11 @@
               "node_modules/bootstrap-sass/assets/stylesheets/_bootstrap.scss"
             ],
             "scripts": [],
+            "stylePreprocessorOptions": {
+              "sass": {
+                "silenceDeprecations": ["import", "global-builtin", "color-functions", "mixed-decls"]
+              }
+            },
             "extractLicenses": false,
             "sourceMap": true,
             "optimization": false,
