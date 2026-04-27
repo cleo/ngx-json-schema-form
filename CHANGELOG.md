@@ -1,7 +1,7 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
-## [7.0.0] (2024-05-28)
+## [7.0.0] (2026-04-27)
 ### Breaking Changes
 - `JSFModule` has been removed. Import `JSFComponent` directly into your standalone component's `imports` array.
 - ag-grid upgraded from v28 to v35. If you have custom CSS targeting ag-grid classes, review for compatibility.

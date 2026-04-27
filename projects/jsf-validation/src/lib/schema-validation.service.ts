@@ -1,5 +1,5 @@
 import Ajv, { ErrorObject } from 'ajv';
-import { get, isEmpty } from 'lodash';
+import { get, isEmpty } from 'lodash-es';
 import { SchemaHelperService } from './schema-helper.service';
 
 export const URI_VALID_CHARS_REGEX = /^[A-Za-z0-9\-._~!$&'()*+,;=:@/?]+$/;

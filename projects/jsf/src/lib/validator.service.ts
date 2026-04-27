@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { AbstractControl, ValidatorFn, Validators } from '@angular/forms';
-import { isEmpty } from 'lodash';
+import { isEmpty } from 'lodash-es';
 import { EnumDataItem } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
 import { IntegerDataItem } from './models/integer-data-item';
@@ -87,16 +87,16 @@ export class ValidatorService {
   }
 
   private isUriValid(uri: string): boolean {
-      if (isEmpty(uri) || !URI_VALID_CHARS_REGEX.test(uri)) {
-        return false;
-      }
+    if (isEmpty(uri) || !URI_VALID_CHARS_REGEX.test(uri)) {
+      return false;
+    }
 
-      let isValid = URI_REGEX.test(uri);
-      //if invalid, try adding 'https://' (allow scheme to be missing)
-      if (!isValid) {
-        isValid = URI_REGEX.test(`https://${uri}`);
-      }
-      return isValid;
+    let isValid = URI_REGEX.test(uri);
+    //if invalid, try adding 'https://' (allow scheme to be missing)
+    if (!isValid) {
+      isValid = URI_REGEX.test(`https://${uri}`);
+    }
+    return isValid;
   }
 
   private getIntegerValidators(item: IntegerDataItem): ValidatorFn[] {

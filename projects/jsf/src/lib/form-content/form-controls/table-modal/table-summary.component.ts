@@ -5,7 +5,7 @@ import { ArrayDataItem } from '../../../models/array-data-item';
 import { FormControlBase } from '../form-control-base';
 import { ModalService } from './modal/modal.service';
 import { ITableModalOptions, TableModalComponent } from './table/table-modal.component';
-import { cloneDeep, isEqual } from 'lodash';
+import { cloneDeep, isEqual } from 'lodash-es';
 
 import { LabelComponent } from '../label/label.component';
 import { ModalOutletComponent } from './modal/modal-outlet.component';
