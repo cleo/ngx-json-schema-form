@@ -73,7 +73,7 @@
     @if (isOneOf(item)) {
       <jsf-one-of #oneOfComponent
         [class.hidden]="isHidden(item)"
-        [xOfDataItem]="item"
+        [xOfDataItem]="$any(item)"
         [formGroup]="getFormGroup(item)"
         [isEdit]="isEdit()"
         [config]="config()"

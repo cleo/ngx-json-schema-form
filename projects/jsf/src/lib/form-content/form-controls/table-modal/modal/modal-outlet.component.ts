@@ -23,7 +23,7 @@ export class ModalOutletComponent extends ComponentLifeCycle implements OnInit {
   componentType: Type<any>;
   componentInjector: Injector;
 
-  modalService = input.required<ModalService>();
+  modalService = input.required<ModalService<any, any>>();
 
   ngOnInit(): void {
     merge(

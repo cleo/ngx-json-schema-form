@@ -11,6 +11,7 @@ export * from './lib/jsf-schema-data';
 export * from './lib/jsf-json-schema';
 
 export * from './lib/models/form-data-item';
+export * from './lib/models/enum-data-item';
 
 // Events
 export * from './lib/jsf-event-button';

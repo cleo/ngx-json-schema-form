@@ -1,4 +1,4 @@
-<div class="modal-open" (click)="onOutsideClick($event)" (keydown.Escape)="onEscapeKeyDown($event)">
+<div class="modal-open" (click)="onOutsideClick($event)" (keydown.Escape)="onEscapeKeyDown($any($event))">
   <div #modal class="modal fade" [class.in]="shouldHaveFadeInClass" tabindex="-1" role="dialog">
     <div class="modal-dialog" [style.width.px]="width">
       <div #modalContent class="modal-content"
