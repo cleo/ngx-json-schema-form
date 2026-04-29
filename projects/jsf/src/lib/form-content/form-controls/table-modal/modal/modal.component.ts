@@ -1,21 +1,25 @@
-import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, EventEmitter, HostListener, Input, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectorRef, Component, ElementRef, HostListener, inject, input, output, ViewChild } from '@angular/core';
 import { take, takeUntil, tap } from 'rxjs/operators';
 import { ContentBaseComponent } from '../../../content-base.component';
 import { ModalService } from './modal.service';
 
 @Component({
   selector: 'jsf-modal',
+  standalone: true,
   templateUrl: 'modal.component.html',
   styleUrls: ['./modal.component.scss']
 })
-
 export class ModalComponent extends ContentBaseComponent implements AfterViewInit {
+  private modalService = inject(ModalService);
+  private changeDetectorRef = inject(ChangeDetectorRef);
+
   @ViewChild('modal', { static: true }) modalEl: ElementRef;
   @ViewChild('modalContent', { static: true }) modalContentEl: ElementRef;
 
-  @Input() title: string;
-  @Output() closeInput: EventEmitter<any> = new EventEmitter();
-  @Output() resizeInput: EventEmitter<any> = new EventEmitter();
+  title = input.required<string>();
+  columnCount = input<number>(0);
+  closeInput = output<void>();
+  resizeInput = output<void>();
 
   shouldHaveFadeInClass = false;
 
@@ -29,13 +33,6 @@ export class ModalComponent extends ContentBaseComponent implements AfterViewIni
   minHeight: number;
   draggingCorner = false;
   draggingWindow = false;
-
-  constructor(
-    private modalService: ModalService,
-    private changeDetectorRef: ChangeDetectorRef
-  ) {
-    super();
-  }
 
   ngAfterViewInit(): void {
     setTimeout(() => {
@@ -52,9 +49,18 @@ export class ModalComponent extends ContentBaseComponent implements AfterViewIni
 
     this.modalEl.nativeElement.focus();
 
-    this.width = this.modalContentEl.nativeElement.offsetWidth;
+    const cols = this.columnCount();
+    if (cols > 0) {
+      const viewportWidth = window.innerWidth;
+      const contentWidth = this.modalContentEl.nativeElement.offsetWidth;
+      const dynamicWidth = Math.min((cols - 1) * 200 + 100, viewportWidth * 0.9);
+      this.width = Math.max(dynamicWidth, contentWidth + 40);
+      this.minWidth = contentWidth;
+    } else {
+      this.width = this.modalContentEl.nativeElement.offsetWidth;
+      this.minWidth = this.modalContentEl.nativeElement.offsetWidth;
+    }
     this.height = this.modalContentEl.nativeElement.offsetHeight;
-    this.minWidth = this.modalContentEl.nativeElement.offsetWidth;
     this.minHeight = this.modalContentEl.nativeElement.offsetHeight;
   }
 
@@ -64,7 +70,10 @@ export class ModalComponent extends ContentBaseComponent implements AfterViewIni
 
   onOutsideClick(event: MouseEvent): void {
     event.stopPropagation();
+  }
 
+  onCloseClick(event: MouseEvent): void {
+    event.stopPropagation();
     this.closeInput.emit();
   }
 

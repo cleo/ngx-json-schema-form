@@ -8,27 +8,33 @@
   (templateEvent)="templateEvent($event)">
 </jsf-component>
 
-<div *ngIf="showValidationMessage"
-     class="validation"
-     [ngClass]="isValid ? 'valid' : 'not-valid'">
-    <p *ngIf="isValid">Validation Successful!</p>
-    <p *ngIf="!isValid">Validation NOT Successful!</p>
-</div>
+@if (showValidationMessage) {
+  <div
+    class="validation"
+    [ngClass]="isValid ? 'valid' : 'not-valid'">
+    @if (isValid) {
+      <p>Validation Successful!</p>
+    }
+    @if (!isValid) {
+      <p>Validation NOT Successful!</p>
+    }
+  </div>
+}
 
 <div class="submit-row">
   <button class="btn btn-secondary"
-          (click)="onLogForm()"
-          title="This will log the form.">Log Form</button>
+    title="This will log the form."
+    (click)="onLogForm()">Log Form</button>
   <button class="btn btn-secondary"
-          (click)="onLogFormValues()"
-          title="This will log the form values from JSF without validating them.">Log Form Values</button>
+    title="This will log the form values from JSF without validating them."
+    (click)="onLogFormValues()">Log Form Values</button>
   <button class="btn btn-secondary"
-          (click)="onCancel()"
-          title="This will reload the form.">Cancel</button>
+    title="This will reload the form."
+    (click)="onCancel()">Cancel</button>
   <button class="btn btn-primary"
-          [disabled]="isSubmitDisabled"
-          (click)="onSubmit()"
-          title="This will validate the form.">Submit</button>
+    title="This will validate the form."
+    [disabled]="isSubmitDisabled"
+    (click)="onSubmit()">Submit</button>
 </div>
 
 <ng-template #testTemplate1>

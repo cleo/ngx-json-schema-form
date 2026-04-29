@@ -1,14 +1,15 @@
-import { AfterViewInit, Component, HostListener, Input, OnInit } from '@angular/core';
+import { AfterViewInit, Component, HostListener } from '@angular/core';
 import { TemplateDataItem } from '../../../models/template-data-item';
 import { FormControlBase } from '../form-control-base';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'jsf-template',
+  standalone: true,
+  imports: [CommonModule],
   templateUrl: './template.component.html'
 })
 export class TemplateComponent extends FormControlBase implements AfterViewInit {
-  @Input() templates: any = {};
-
   @HostListener('click', ['$event', '$event.target'])
   @HostListener('change', ['$event', '$event.target'])
   run(event: any, targetElement: HTMLElement): void {
@@ -18,11 +19,11 @@ export class TemplateComponent extends FormControlBase implements AfterViewInit 
   }
 
   get formItemAsTemplateType(): TemplateDataItem {
-    return this.formItem as TemplateDataItem;
+    return this.formItem() as TemplateDataItem;
   }
 
   get template() {
-    return this.templates[this.formItemAsTemplateType.templateName];
+    return this.templates()[this.formItemAsTemplateType.templateName];
   }
 
   ngAfterViewInit() {

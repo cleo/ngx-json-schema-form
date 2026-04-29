@@ -1,4 +1,4 @@
-@import '../../../variables';
+@use '../../../variables' as *;
 
 .modal-body {
   width: 100%;
@@ -176,13 +176,13 @@ ag-grid-angular {
       justify-content: left;
       align-items: center;
       height: 100%;
-      margin: 0 5px 0 5px;
     }
 
-    .ag-cell-inline-editing .jsf-required-cell-asterisk {
-      display: none !important;
+    .ag-cell-inline-editing {
+      background-color:var(--ag-pinned-row-background-color);
+      border-style: none;
     }
-
+    
     .ag-cell-inline-editing input[type=text] {
       height: initial;
       border: 1px solid $Black;
@@ -191,8 +191,8 @@ ag-grid-angular {
       align-self: center;
     }
 
-    .ag-input-field-input {
-      min-width: 17px;
+    :where(.ag-ltr) .ag-cell:not(.ag-cell-inline-editing), :where(.ag-ltr) .ag-full-width-row .ag-cell-wrapper.ag-row-group {
+      padding-left: 0;
     }
   }
 }

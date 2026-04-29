@@ -5,6 +5,8 @@
     "entryFile": "src/projects.ts"
   },
   "allowedNonPeerDependencies": [
-    "@cleo/ngx-json-schema-form"
+    "@cleo/ngx-json-schema-form",
+    "ajv",
+    "lodash-es"
   ]
 }

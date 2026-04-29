@@ -1,20 +1,20 @@
-import { Directive, EventEmitter, Input, Output } from '@angular/core';
+import { Directive, input, output } from '@angular/core';
 import { UntypedFormGroup } from '@angular/forms';
 import { ComponentLifeCycle } from '../component-life-cycle';
 import { JSFConfig } from '../jsf-config';
 
 @Directive()
 export class ContentBaseComponent extends ComponentLifeCycle {
-  @Input() formGroup: UntypedFormGroup;
-  @Input() config: JSFConfig;
-  @Input() isEdit: boolean;
-  @Input() templates: any = {};
-  @Output() buttonEvent: EventEmitter<{ key: string; targetPaths: string[] }> = new EventEmitter();
-  @Output() templateEvent: EventEmitter<{ key: string; targetPaths: string[] }> = new EventEmitter();
-  @Output() manualFormChangeEvent: EventEmitter<any> = new EventEmitter();
+  formGroup = input<UntypedFormGroup | undefined>(undefined);
+  config = input<JSFConfig | undefined>(undefined);
+  isEdit = input<boolean>(false);
+  templates = input<any>({});
+  buttonEvent = output<{ key: string; targetPaths: string[] }>();
+  templateEvent = output<{ key: string; targetPaths: string[] }>();
+  manualFormChangeEvent = output<any>();
 
   onButtonEvent(event: { key: string; targetPaths: string[] }): void {
-    this.buttonEvent.next(event);
+    this.buttonEvent.emit(event);
   }
 
   onTemplateEvent(event: { key: string; targetPaths: string[] }): void {
@@ -22,6 +22,6 @@ export class ContentBaseComponent extends ComponentLifeCycle {
   }
 
   onManualFormChangeEvent(): void {
-    this.manualFormChangeEvent.emit();
+    this.manualFormChangeEvent.emit(undefined);
   }
 }

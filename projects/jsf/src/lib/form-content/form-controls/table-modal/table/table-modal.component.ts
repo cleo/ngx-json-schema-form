@@ -1,23 +1,37 @@
 import { ColDef } from 'ag-grid-community';
-import { ChangeDetectionStrategy, Component, HostListener, Inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostListener, inject } from '@angular/core';
 import { ReplaySubject } from 'rxjs';
 import { ArrayDataItem } from '../../../../models/array-data-item';
 import { FormDataItem, FormDataItemType } from '../../../../models/form-data-item';
 import { AlertService } from '../alert/alert.service';
 import { ModalService, MODAL_OPTIONS_TOKEN } from '../modal/modal.service';
 
-import { FormControlBase } from '../../form-control-base';
+import { ComponentLifeCycle } from '../../../../component-life-cycle';
 import { CellRendererComponent } from './renderers/cell-renderer.component';
 import { TableModalService } from './table-modal.service';
+import { CommonModule } from '@angular/common';
+import { AlertComponent } from '../alert/alert.component';
+import { ModalComponent } from '../modal/modal.component';
+import { AgGridAngular } from 'ag-grid-angular';
 
 @Component({
   selector: 'jsf-table-modal',
+  standalone: true,
+  imports: [
+    CommonModule,
+    AgGridAngular,
+    AlertComponent,
+    ModalComponent
+  ],
   templateUrl: 'table-modal.component.html',
   styleUrls: ['./table-modal.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
+export class TableModalComponent extends ComponentLifeCycle {
+  private modalService = inject<ModalService<ITableModalOptions, any>>(ModalService);
+  private tableModalService = inject(TableModalService);
+  private readonly modalOptions = inject<ITableModalOptions>(MODAL_OPTIONS_TOKEN);
 
-export class TableModalComponent extends FormControlBase {
   public alertStreamService = new AlertService();
 
   public arrayItem: ArrayDataItem;
@@ -27,36 +41,31 @@ export class TableModalComponent extends FormControlBase {
   public rowData$ = new ReplaySubject<any[] | null>(1);
   public pinnedTopRowData$ = new ReplaySubject<any[] | null>(1);
 
-  public frameworkComponents = {
-    jsfCellRenderer: CellRendererComponent
-  };
-
   public defaultColDef: ColDef = {
     editable: true,
     resizable: false,
     suppressMovable: true,
-    pinnedRowCellRenderer: 'jsfCellRenderer',
-    cellRenderer: 'jsfCellRenderer',
-    cellEditor: 'jsfCellRenderer'
+    cellRenderer: CellRendererComponent,
+    cellEditor: CellRendererComponent
   };
 
+  public rowSelectionOptions: any = 'multiple';
+
   public colDefs: ColDef[] = [{
-    headerCheckboxSelection: true,
-    checkboxSelection: true,
     minWidth: 30,
     maxWidth: 40,
     colId: 'jsfCheckboxSelection',
-    pinned: 'left'
+    pinned: 'left',
+    cellRenderer: undefined,
+    cellEditor: undefined,
+    checkboxSelection: true,
+    headerCheckboxSelection: true
   }];
 
   private params: any;
-
-  constructor(private modalService: ModalService<ITableModalOptions, any>,
-              private tableModalService: TableModalService,
-              @Inject(MODAL_OPTIONS_TOKEN) private readonly modalOptions: ITableModalOptions
-  ) {
+  constructor() {
     super();
-    this.arrayItem = modalOptions.arrayItem;
+    this.arrayItem = this.modalOptions.arrayItem;
     this.modalTitle = this.arrayItem.label;
     this.arrayItem.items.forEach(item => this.addItemToColDefs(item));
   }
@@ -125,10 +134,16 @@ export class TableModalComponent extends FormControlBase {
 
   @HostListener('window:resize')
   onResize() {
-    const allColumnIds = this.params.columnApi.getAllDisplayedColumns().map(col => col.getColId());
-    setTimeout(() =>
-      this.params.columnApi.autoSizeColumns(allColumnIds, false)
-    );
+    if (!this.params?.api) {
+      return;
+    }
+
+    const columns = this.params.api.getAllDisplayedColumns?.() ?? this.params.columnApi?.getAllDisplayedColumns?.() ?? [];
+    const allColumnIds = columns.map(col => col.getColId());
+    const autoSize = this.params.api.autoSizeColumns?.bind(this.params.api) ?? this.params.columnApi?.autoSizeColumns?.bind(this.params.columnApi);
+    if (autoSize) {
+      setTimeout(() => autoSize(allColumnIds, false));
+    }
   }
 
   private addItemToColDefs(item: FormDataItem): void {
@@ -144,10 +159,6 @@ export class TableModalComponent extends FormControlBase {
           headerName: item.label,
           editable: !item.disabledState.isReadOnly,
           headerTooltip: item.tooltip,
-          pinnedRowCellRendererParams: {
-            item: item,
-            onAdd: this.onAdd.bind(this)
-          },
           cellRendererParams: {
             item: item,
             onAdd: this.onAdd.bind(this)
@@ -159,16 +170,49 @@ export class TableModalComponent extends FormControlBase {
         });
         break;
       case FormDataItemType.Boolean:
+          this.colDefs.push({
+          field: item.key,
+          headerName: item.label,
+          headerTooltip: item.tooltip,
+          editable: true,
+          singleClickEdit: true,
+          suppressKeyboardEvent: () => true,
+          cellRendererParams: {
+            item: item,
+            onAdd: this.onAdd.bind(this)
+          },
+          cellEditorParams: {
+            item: item,
+            onAdd: this.onAdd.bind(this)
+          }
+        });
+        break;
       case FormDataItemType.Enum:
         this.colDefs.push({
           field: item.key,
           headerName: item.label,
           headerTooltip: item.tooltip,
-          editable: false, // Two clicks are required to edit (renderer is getting the first click). Prevent this by using the renderer to edit
-          pinnedRowCellRendererParams: {
+          editable: false,
+          cellRendererParams: {
             item: item,
             onAdd: this.onAdd.bind(this)
           },
+          cellEditorParams: {
+            item: item,
+            onAdd: this.onAdd.bind(this)
+          }
+        });
+        break;
+      case FormDataItemType.Object:
+      case FormDataItemType.Array:
+      case FormDataItemType.xOf:
+      case FormDataItemType.Template:
+      case FormDataItemType.SecuredString:
+        this.colDefs.push({
+          field: item.key,
+          headerName: item.label,
+          headerTooltip: item.tooltip,
+          editable: false,
           cellRendererParams: {
             item: item,
             onAdd: this.onAdd.bind(this)

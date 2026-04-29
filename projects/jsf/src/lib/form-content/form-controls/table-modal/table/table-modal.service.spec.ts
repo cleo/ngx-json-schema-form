@@ -1,7 +1,9 @@
 import { Validators } from '@angular/forms';
+import { TestBed } from '@angular/core/testing';
 import { SchemaStringOptions } from '../../../../form-data-item.service';
 import { FormDataItemType } from '../../../../models/form-data-item';
 import { StringDataItem, StringFormat } from '../../../../models/string-data-item';
+import { ValidatorService } from '../../../../validator.service';
 import { TableModalService } from './table-modal.service';
 
 describe('TableModalService', () => {
@@ -19,7 +21,13 @@ describe('TableModalService', () => {
   const item = new StringDataItem('key', 'label', null, null, false, ['path', 'parts'], FormDataItemType.String, null, false, false, null, itemOptions);
 
   beforeEach(() => {
-    service = new TableModalService(mockValidationService);
+    TestBed.configureTestingModule({
+      providers: [
+        TableModalService,
+        { provide: ValidatorService, useValue: mockValidationService }
+      ]
+    });
+    service = TestBed.inject(TableModalService);
   });
 
   describe('getErrorMessage()', () => {

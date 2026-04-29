@@ -1,4 +1,4 @@
-import { Directive, Input, OnInit } from '@angular/core';
+import { Directive, input, OnInit } from '@angular/core';
 import { UntypedFormControl, ValidationErrors } from '@angular/forms';
 
 import { FormDataItem } from '../../models/form-data-item';
@@ -8,12 +8,18 @@ import { ContentBaseComponent } from '../content-base.component';
 
 @Directive()
 export class FormControlBase extends ContentBaseComponent implements OnInit {
-  @Input() formItem: FormDataItem;
-  @Input() labelLengthClass: string;
-  @Input() templates: any = {};
+  formItem = input.required<FormDataItem>();
+  labelLengthClass = input<string>('');
+  templates = input<any>({});
 
   get formControl(): UntypedFormControl {
-    return (this.formGroup.controls[this.formItem.key]) as UntypedFormControl;
+    const formGroup = this.formGroup();
+
+    if (!formGroup) {
+      throw new Error('Form group is not available');
+    }
+
+    return formGroup.controls[this.formItem().key] as UntypedFormControl;
   }
 
   get showError(): boolean {
@@ -28,7 +34,7 @@ export class FormControlBase extends ContentBaseComponent implements OnInit {
     } else if (hasRequiredPattern && errors.pattern.requiredPattern.toString() === EMAIL_REGEX.toString()) {
       return 'Please enter a valid email.';
     } else if (errors.invalidEmails) {
-      return `Please enter a list of valid emails separated by \"${(formItem as StringDataItem).validationSettings.listDelimiter}\"
+      return `Please enter a list of valid emails separated by "${(formItem as StringDataItem).validationSettings.listDelimiter}"
       Invalid emails:
       ${errors.invalidEmails.join(', ')}`;
     } else if (errors.invalidUri) {
@@ -36,7 +42,7 @@ export class FormControlBase extends ContentBaseComponent implements OnInit {
     } else if (hasRequiredPattern) {
       return `Please enter a valid value.`;
     } else if (errors.invalidUris) {
-      return `Please enter a list of valid urls separated by \"${(formItem as StringDataItem).validationSettings.listDelimiter}\"
+      return `Please enter a list of valid urls separated by "${(formItem as StringDataItem).validationSettings.listDelimiter}"
       Invalid urls:
       ${errors.invalidUris.join(', ')}`;
     } else if (errors.integer) {
@@ -57,13 +63,13 @@ export class FormControlBase extends ContentBaseComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if (this.isEdit && !this.formControl.valid) {
+    if (this.isEdit() && !this.formControl.valid) {
       this.formControl.markAsTouched();
     }
   }
 
   getErrorMessage(): string {
     const errors = this.formControl.errors;
-    return FormControlBase.formatErrorMessage(errors, this.formItem);
+    return FormControlBase.formatErrorMessage(errors, this.formItem());
   }
 }

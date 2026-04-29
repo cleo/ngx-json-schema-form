@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
 import { FormService } from '../../form.service';
 
@@ -7,43 +7,49 @@ import { ParentDataItem } from '../../models/parent-data-item';
 import { XOfDataItem } from '../../models/xOf-data-item';
 import { ContentBaseComponent } from '../content-base.component';
 
+import { DropdownComponent } from '../form-controls/dropdown/dropdown.component';
+
 @Component({
   selector: 'jsf-one-of',
+  standalone: true,
+  imports: [
+    DropdownComponent
+  ],
   styleUrls: ['one-of.component.scss'],
   templateUrl: 'one-of.component.html'
 })
-
 export class OneOfComponent extends ContentBaseComponent implements OnInit {
-  @ViewChild('oneOfSelect', { static: true }) select: ElementRef<HTMLSelectElement>;
-  @Input() xOfDataItem: XOfDataItem;
-  @Input() labelLengthClass: string;
+  private formService = inject(FormService);
+
+  xOfDataItem = input.required<XOfDataItem>();
+  labelLengthClass = input<string>('');
 
   public selectedKey: string;
   display: any = OptionDisplayType;
 
-
-  constructor(private formService: FormService) {
-    super();
-  }
-
   ngOnInit(): void {
     this.selectedKey = this.getDropdownFormControl().value;
+    const formGroup = this.formGroup();
+    if (!formGroup) return;
+
     if (!this.selectedKey) {
-      this.formService.setVisibilityForAllConditionalChildren(this.xOfDataItem, this.formGroup, false);
+      this.formService.setVisibilityForAllConditionalChildren(this.xOfDataItem(), formGroup, false);
     } else {
       this.selectedKey = this.selectedChildDataItem.key;
-      this.formService.showNecessaryConditionalChildren(this.xOfDataItem, this.formGroup, [ this.selectedKey ]);
+      this.formService.showNecessaryConditionalChildren(this.xOfDataItem(), formGroup, [ this.selectedKey ]);
     }
 
     this.formService.setVisibilityForConditionalChild(this.getDropdownDataItem(), this.getDropdownFormControl(), true);
   }
 
   getDropdownFormControl(): UntypedFormControl {
-    return this.formGroup.controls[this.xOfDataItem.key] as UntypedFormControl;
+    const formGroup = this.formGroup();
+    if (!formGroup) throw new Error('Form group is not available');
+    return formGroup.controls[this.xOfDataItem().key] as UntypedFormControl;
   }
 
   getDropdownDataItem(): EnumDataItem {
-    return this.xOfDataItem.items.find(item => item.key === this.xOfDataItem.key) as EnumDataItem;
+    return this.xOfDataItem().items.find(item => item.key === this.xOfDataItem().key) as EnumDataItem;
   }
 
   onDropdownChange(key: string): void {
@@ -55,11 +61,13 @@ export class OneOfComponent extends ContentBaseComponent implements OnInit {
   }
 
   get selectedChildFormGroup(): UntypedFormGroup {
-    return this.formGroup.controls[this.selectedKey] as UntypedFormGroup;
+    const formGroup = this.formGroup();
+    if (!formGroup) throw new Error('Form group is not available');
+    return formGroup.controls[this.selectedKey] as UntypedFormGroup;
   }
 
   get selectedChildDataItem(): ParentDataItem {
-    return this.xOfDataItem.items.find(item => item.key === this.selectedKey || ((item as any).items !== undefined &&
+    return this.xOfDataItem().items.find(item => item.key === this.selectedKey || ((item as any).items !== undefined &&
       (item as any).items.find(childItem => childItem.key === this.selectedKey))) as ParentDataItem;
   }
 }

@@ -1,8 +1,15 @@
-@import 'bootstrap-sass/assets/stylesheets/bootstrap/variables';
-@import '../../../variables';
+@use '../../../variables' as *;
 
 .modal-open .modal {
   display: block;
+}
+
+.modal-dialog {
+  margin: 30px auto;
+}
+
+.modal-content {
+  width: 100%;
 }
 
 .corner-resize {

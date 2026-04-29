@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { JSFJsonSchema } from './jsf-json-schema';
 import { JSFSchemaData } from './jsf-schema-data';
@@ -15,11 +15,13 @@ import { TemplateDataItem } from './models/template-data-item';
 import { XOfDataItem, XOfType } from './models/xOf-data-item';
 import { SchemaTranslationService } from './schema-translation.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FormDataItemService {
-  private isEdit = false;
+  private schemaTranslationService = inject(SchemaTranslationService);
 
-  constructor(private schemaTranslationService: SchemaTranslationService) {}
+  private isEdit = false;
 
   public isFormInEditMode(schemaData: JSFSchemaData): boolean {
     return !!schemaData.values && Object.keys(schemaData.values).length > 0;
@@ -32,7 +34,11 @@ export class FormDataItemService {
   }
 
   private getItemsFromSubschema(schema: JSFJsonSchema, values: object, pathParts: string[], isParentReadOnly: boolean, isParentHidden: boolean): FormDataItem[] {
-    return Object.keys(schema.properties ?? schema.items.properties).map(key => {
+    const properties = schema.properties ?? schema.items?.properties;
+    if (!properties) {
+      return [];
+    }
+    return Object.keys(properties).map(key => {
       return this.getItemFromSchema(schema, values, key, pathParts.slice(), isParentReadOnly, isParentHidden);
     });
   }
@@ -58,7 +64,22 @@ export class FormDataItemService {
         display = schemaProperty.oneOf && schemaProperty.display ? schemaProperty.display : this.getSectionDisplayFromParentSchema(schema, key);
         return new XOfDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, display, children, schemaProperty.description, xOfType);
       case FormDataItemType.Enum:
-        return new EnumDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, schemaProperty.display, schemaProperty);
+                 // Fix corrupted enum arrays where values are undefined but JSON.stringify shows nulls
+        const fixedSchemaProperty = { ...schemaProperty };
+        if (schemaProperty.enum && Array.isArray(schemaProperty.enum)) {
+          // Use JSON.parse(JSON.stringify()) to get the real values
+          try {
+            const enumJson = JSON.stringify(schemaProperty.enum);
+            fixedSchemaProperty.enum = JSON.parse(enumJson);
+            if (schemaProperty.enumNames && Array.isArray(schemaProperty.enumNames)) {
+              const enumNamesJson = JSON.stringify(schemaProperty.enumNames);
+              fixedSchemaProperty.enumNames = JSON.parse(enumNamesJson);
+            }
+          } catch (e) { 
+            console.warn(`Failed to fix enum values for property ${key}. Enum values may be corrupted.`, e);
+           }
+        }
+        return new EnumDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, fixedSchemaProperty.display, fixedSchemaProperty);
       case FormDataItemType.Boolean:
         return new FormDataItem(key, name, tooltip, helpText, required, pathParts, type, !!fieldValue, isReadOnly, isHidden);
       case FormDataItemType.Object:
@@ -137,7 +158,7 @@ export class FormDataItemService {
       case SchemaTypes.Template:
         return FormDataItemType.Template;
       default:
-        return Boolean(schemaProperty.isSecured) ? FormDataItemType.SecuredString : FormDataItemType.String;
+        return schemaProperty.isSecured ? FormDataItemType.SecuredString : FormDataItemType.String;
     }
   }
 
@@ -192,7 +213,9 @@ export class FormDataItemService {
    * A 'tabs' array without an accompanying 'display: tabs' is ignored. Default display is as sections.
    */
   private getSectionDisplayFromParentSchema(schema: JSFJsonSchema, key: string): OptionDisplayType {
-    return !schema.display || schema.display !== OptionDisplayType.TABS || (schema.tabs && !schema.tabs.includes(key))
+    return !schema.display ||
+        (schema.display as OptionDisplayType) !== OptionDisplayType.TABS ||
+        (schema.tabs && !schema.tabs.includes(key))
       ? OptionDisplayType.SECTIONS
       : OptionDisplayType.TABS;
   }

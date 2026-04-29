@@ -3,7 +3,7 @@ import { FormDataItem } from './form-data-item';
 import { FormDataItemType } from './form-data-item';
 
 export class EnumDataItem extends FormDataItem {
-  enumOptions: EnumOption[];
+  enumOptions: EnumOption[] = [];
 
   constructor(key: string,
               label: string,
@@ -18,11 +18,16 @@ export class EnumDataItem extends FormDataItem {
               schema?: JSONSchemaProperty) {
     super(key, label, tooltip, helpText, required, pathParts, FormDataItemType.Enum, value, isReadOnly, isHidden);
     if (schema) {
-      this.enumOptions = schema.enum.map((item: any, i: number) => {
-        const text = schema.enumNames && schema.enumNames[i] ? schema.enumNames[i] : this.camelCaseToTitleCase(item);
+      const enumValues = schema.enum ?? [];
+      this.enumOptions = enumValues.map((item: any, i: number) => {
+        const text = schema.enumNames && schema.enumNames[i] 
+          ? schema.enumNames[i] 
+          : (item != null ? this.camelCaseToTitleCase(String(item)) : '');
         return getEnumOption(item, text, this.path);
       });
-      this.setEmptyValue();
+      if (this.enumOptions.length) {
+        this.setEmptyValue();
+      }
     }
 
     if (this.display === OptionDisplayType.RADIO_BUTTONS) {
@@ -38,6 +43,9 @@ export class EnumDataItem extends FormDataItem {
 
   // https://stackoverflow.com/a/35953318
   private camelCaseToTitleCase(str: string) {
+    if (!str) {
+      return '';
+    }
     const result = str
       .replace(/([a-z])([A-Z][a-z])/g, '$1 $2')
       .replace(/([A-Z][a-z])([A-Z])/g, '$1 $2')

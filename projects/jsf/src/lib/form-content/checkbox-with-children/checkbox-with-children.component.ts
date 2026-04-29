@@ -1,28 +1,32 @@
-import { ChangeDetectionStrategy, Component, Input, OnInit } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, inject, input, OnInit } from '@angular/core';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { FormService, getLongestFieldLabelClass } from '../../form.service';
 import { ConditionalParentDataItem, CONDITIONAL_PARENT_VALUE_KEY } from '../../models/conditional-parent-data-item';
 import { FormDataItem } from '../../models/form-data-item';
 import { ContentBaseComponent } from '../content-base.component';
+import { CheckboxComponent } from '../form-controls/checkbox/checkbox.component';
 
 @Component({
   selector: 'jsf-checkbox-with-children',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    CheckboxComponent
+  ],
   templateUrl: 'checkbox-with-children.component.html',
-  styleUrls: [ '../common.scss', './checkbox-with-children.component.scss'],
+  styleUrls: ['../common.scss', './checkbox-with-children.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class CheckboxWithChildrenComponent extends ContentBaseComponent  implements OnInit {
-  @Input() formItem: ConditionalParentDataItem;
+  private formService = inject(FormService);
+
+  formItem = input.required<ConditionalParentDataItem>();
 
   parentFormItem: FormDataItem;
   childFormItems: FormDataItem[] = [];
   visibleChildFormItems: FormDataItem[] = [];
   labelLengthClass: string;
-
-  constructor(private formService: FormService) {
-    super();
-  }
 
   ngOnInit(): void {
     this.initializeItems();
@@ -33,7 +37,7 @@ export class CheckboxWithChildrenComponent extends ContentBaseComponent  impleme
   }
 
   private initializeItems(): void {
-    this.formItem.items.forEach(item => {
+    this.formItem().items.forEach(item => {
       if (item.key === CONDITIONAL_PARENT_VALUE_KEY) {
         this.parentFormItem = item;
       } else {
@@ -50,8 +54,13 @@ export class CheckboxWithChildrenComponent extends ContentBaseComponent  impleme
 
   private updateChildControls(parentValue: boolean): void {
     this.visibleChildFormItems = parentValue ? this.childFormItems : [];
+    const formGroup = this.formGroup();
     this.childFormItems.forEach(child => {
-      this.formService.setVisibilityForConditionalChild(child, this.formGroup.controls[child.key], parentValue);
+      const control = formGroup?.controls[child.key];
+      if (!control) {
+        return;
+      }
+      this.formService.setVisibilityForConditionalChild(child, control, parentValue);
     });
   }
 }

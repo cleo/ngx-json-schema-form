@@ -1,4 +1,5 @@
-import { UntypedFormControl, UntypedFormGroup, FormsModule } from '@angular/forms';
+import { UntypedFormControl, UntypedFormGroup } from '@angular/forms';
+import { TestBed } from '@angular/core/testing';
 import { FormService } from './form.service';
 import { OptionDisplayType } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
@@ -15,9 +16,18 @@ describe('FormService', () => {
   const pathParts = ['path1', 'path2'];
 
   let service: FormService;
+  let validatorService: jasmine.SpyObj<ValidatorService>;
 
   beforeEach(() => {
-    service = new FormService({} as ValidatorService);
+    validatorService = jasmine.createSpyObj('ValidatorService', ['getValidators']);
+
+    TestBed.configureTestingModule({
+      providers: [
+        FormService,
+        { provide: ValidatorService, useValue: validatorService }
+      ]
+    });
+    service = TestBed.inject(FormService);
   });
 
   describe('findAbstractControl()', () => {
@@ -189,7 +199,7 @@ describe('FormService', () => {
     beforeEach(() => {
       dataItem = new FormDataItem(key, label, tooltip, helpText, required, pathParts, FormDataItemType.SecuredString, value, false, false);
       dataItem.disabledState.isDisabledOnSubmit = true;
-      formControl = new UntypedFormControl(value);
+      formControl = new UntypedFormControl('');
     });
 
     describe('when a single item is passed in', () => {
@@ -197,6 +207,14 @@ describe('FormService', () => {
         expect(formControl.disabled).toEqual(false);
         service.toggleDisabledOnSubmit(formControl, [dataItem], true);
         expect(formControl.disabled).toEqual(true);
+      });
+
+      it('should not disable a secured string control on submit when a value is present', () => {
+        formControl = new UntypedFormControl('new-secret-value');
+
+        expect(formControl.disabled).toEqual(false);
+        service.toggleDisabledOnSubmit(formControl, [dataItem], true);
+        expect(formControl.disabled).toEqual(false);
       });
 
       it('it should toggle the form control to be enabled', () => {
@@ -255,6 +273,16 @@ describe('FormService', () => {
         expect(formGroup.controls[key2].disabled).toEqual(false);
         service.toggleDisabledOnSubmit(formGroup, [dataItem, dataItem2], true);
         expect(formGroup.controls[key2].disabled).toEqual(false);
+      });
+
+      it('should disable enum controls on submit even when they have a value', () => {
+        const enumItem = new FormDataItem(key, label, tooltip, helpText, required, pathParts, FormDataItemType.Enum, value, false, false);
+        enumItem.disabledState.isDisabledOnSubmit = true;
+        formGroup.controls[key].setValue('enum-selected-value');
+
+        expect(formGroup.controls[key].disabled).toEqual(false);
+        service.toggleDisabledOnSubmit(formGroup, [enumItem], true);
+        expect(formGroup.controls[key].disabled).toEqual(true);
       });
     });
   });
