@@ -3,8 +3,18 @@ import { FormDataItemType } from '../../../models/form-data-item';
 import { StringDataItem, StringFormat, StringLengthOptions } from '../../../models/string-data-item';
 import { FormControlBase } from '../form-control-base';
 
+import { ReactiveFormsModule } from '@angular/forms';
+import { LabelComponent } from '../label/label.component';
+import { EventButtonComponent } from '../event-button/event-button.component';
+
 @Component({
   selector: 'jsf-text',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    LabelComponent,
+    EventButtonComponent
+  ],
   templateUrl: './text.component.html',
   styleUrls: ['text.component.scss']
 })
@@ -16,7 +26,7 @@ export class TextComponent extends FormControlBase {
   }
 
   getClass(): string {
-    switch (this.formItem.type) {
+    switch (this.formItem().type) {
       case FormDataItemType.String:
         return 'control-with-error string-control';
       case FormDataItemType.Integer:
@@ -27,13 +37,13 @@ export class TextComponent extends FormControlBase {
   }
 
   getInputType(): StringFormat {
-    return this.formItem.type === FormDataItemType.Integer || !!this.getStringDataItem().validationSettings.listDelimiter
+    return this.formItem().type === FormDataItemType.Integer || !!this.getStringDataItem().validationSettings.listDelimiter
       ? StringFormat.None
       : this.getStringDataItem().validationSettings.format;
   }
 
   getStringDataItem(): StringDataItem {
-    return this.formItem as StringDataItem;
+    return this.formItem() as StringDataItem;
   }
 
   getLengthOptions(): StringLengthOptions {
@@ -41,7 +51,7 @@ export class TextComponent extends FormControlBase {
   }
 
   onStringBlur(): void {
-    if (!this.formControl.value && !this.formItem.required) {
+    if (!this.formControl.value && !this.formItem().required) {
       this.showCounter = false;
     }
 
@@ -52,7 +62,7 @@ export class TextComponent extends FormControlBase {
 
     if (typeof val === 'string') {
       val = val.trim();
-      if (this.formItem.type === FormDataItemType.Integer && !isNaN(val)) {
+      if (this.formItem().type === FormDataItemType.Integer && !isNaN(val)) {
         val = parseInt(val, 10);
       }
     }

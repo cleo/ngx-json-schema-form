@@ -1,8 +1,8 @@
 <jsf-check-box
   [formItem]="parentFormItem"
-  [formGroup]="formGroup"
-  [config]="config"
-  (toggle)="onToggle($event)">
+  [formGroup]="formGroup()"
+  [config]="config()"
+  (toggled)="onToggle($event)">
 </jsf-check-box>
 
 <div class="item-group">

@@ -1,4 +1,4 @@
-import { AfterContentInit, AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { RequiredSchemaValueValidationService } from '../../../jsf-validation/src/lib/required-schema-value-validation.service';
 import { JSFConfig } from '../../../jsf/src/lib/jsf-config';
 import { JSFJsonSchema } from '../../../jsf/src/lib/jsf-json-schema';
@@ -11,9 +11,16 @@ import dataV1 from './outdatedSchema/dataV1.json';
 import schemaV1 from './outdatedSchema/schemaV1.json';
 import schemaV2 from './schemaV2.json';
 import { TemplateComponent } from './template-component/template.component';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-root',
+  standalone: true,
+  imports: [
+    CommonModule,
+    JSFComponent,
+    TemplateComponent
+  ],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
@@ -74,11 +81,11 @@ export class AppComponent implements OnInit, AfterViewInit {
   }
 
   onLogForm(): void {
-    // console.log(this.jsfComponent.form);
+    console.log(this.jsfComponent.formGroup);
   }
 
   onLogFormValues(): void {
-    // console.log(this.jsfComponent.getFormValues());
+    console.log(this.jsfComponent.getFormValues());
   }
 
   private validate(schema: any, values: any): boolean {

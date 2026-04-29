@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { AbstractControl, FormGroup, UntypedFormArray, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { EnumDataItem, OptionDisplayType } from './models/enum-data-item';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
@@ -6,9 +6,12 @@ import { ParentDataItem } from './models/parent-data-item';
 import { XOfDataItem } from './models/xOf-data-item';
 import { ValidatorService } from './validator.service';
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class FormService {
-  constructor(private validatorService: ValidatorService) {}
+  private validatorService = inject(ValidatorService);
+
 
   getForm(form: UntypedFormGroup, itemsToAdd: FormDataItem[]): UntypedFormGroup {
     return this.fillForm(form, itemsToAdd);
@@ -171,7 +174,8 @@ export class FormService {
         break;
       case FormDataItemType.Enum:
       case FormDataItemType.SecuredString:
-        if (item.disabledState.isDisabledOnSubmit) {
+        const shouldToggleForItem = item.type !== FormDataItemType.SecuredString || !control?.value;
+        if (item.disabledState.isDisabledOnSubmit && shouldToggleForItem) {
           if (shouldDisable) {
             control.disable();
           } else if (!item.disabledState.isReadOnly) {

@@ -1,5 +1,5 @@
-import { Component, Input, QueryList, ViewChildren } from '@angular/core';
-import { UntypedFormGroup } from '@angular/forms';
+import { Component, input, QueryList, ViewChildren } from '@angular/core';
+import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { JSFConfig } from '../jsf-config';
 
 import { ConditionalParentDataItem } from '../models/conditional-parent-data-item';
@@ -9,29 +9,46 @@ import { ParentDataItem } from '../models/parent-data-item';
 import { XOfDataItem, XOfType } from '../models/xOf-data-item';
 import { ContentBaseComponent } from './content-base.component';
 
+import { FormControlComponent } from './form-controls/form-control.component';
+import { CheckboxWithChildrenComponent } from './checkbox-with-children/checkbox-with-children.component';
+import { SectionComponent } from './section/section.component';
+import { OneOfComponent } from './one-of/one-of.component';
+import { TabsComponent } from './tabs/tabs.component';
+import { TabComponent } from './tabs/tab/tab.component';
+
 @Component({
   selector: 'jsf-form-content',
+  standalone: true,
+  imports: [
+    ReactiveFormsModule,
+    FormControlComponent,
+    CheckboxWithChildrenComponent,
+    SectionComponent,
+    OneOfComponent,
+    TabsComponent,
+    TabComponent
+  ],
   templateUrl: 'form-content.component.html',
-  styleUrls: [ './form-content.component.scss']
+  styleUrls: ['./form-content.component.scss']
 })
 export class FormContentComponent extends ContentBaseComponent {
   @ViewChildren('contentDiv') divs: QueryList<any>;
-  @Input() formItems: FormDataItem[] = [];
-  @Input() labelLengthClass: string;
+  formItems = input<FormDataItem[]>([]);
+  labelLengthClass = input<string>('');
 
   // non-tabbed items cannot be calculated only upon initialization, as the inputted items will change with oneOf dropdown selections.
   getNonTabbedItems(): FormDataItem[] {
-    return this.formItems.filter(item => !this.isTabbedItem(item));
+    return this.formItems().filter(item => !this.isTabbedItem(item));
   }
 
   getTabbedItems(): ParentDataItem[] {
-    return this.formItems
+    return this.formItems()
       .filter(item => !this.isHidden(item) && this.isTabbedItem(item))
       .map(item => item as ParentDataItem);
   }
 
   hasTabbedItems(): boolean {
-    return this.formItems && this.formItems.some(item => this.isTabbedItem(item));
+    return this.formItems() && this.formItems().some(item => this.isTabbedItem(item));
   }
 
   private isTabbedItem(item: FormDataItem): boolean {
@@ -43,11 +60,11 @@ export class FormContentComponent extends ContentBaseComponent {
   }
 
   private isTabbable(item: FormDataItem): boolean {
-    return !this.isHidden(item) && this.isObject(item) || this.isAllOf(item);
+    return !this.isHidden(item) && (this.isObject(item) || this.isAllOf(item));
   }
 
   shouldHaveSectionDivider(index: number): boolean {
-    return this.config.showSectionDivider
+    return this.config()?.showSectionDivider
       ? this.isStaticObject(this.getNonTabbedItems()[index]) || this.hasTabbedItems() && this.isLastNonTabbedItem(index)
       : false;
   }
@@ -61,7 +78,15 @@ export class FormContentComponent extends ContentBaseComponent {
   }
 
   getFormGroup(item: FormDataItem): UntypedFormGroup {
-    return this.formGroup.controls[item.key] as UntypedFormGroup;
+    const formGroup = this.formGroup();
+    if (!formGroup) {
+      throw new Error(`FormContentComponent: formGroup is not set for item "${item.key}"`);
+    }
+    const childGroup = formGroup.controls[item.key] as UntypedFormGroup;
+    if (!childGroup) {
+      throw new Error(`FormContentComponent: no child FormGroup found for key "${item.key}"`);
+    }
+    return childGroup;
   }
 
   isSection(item: FormDataItem): boolean {

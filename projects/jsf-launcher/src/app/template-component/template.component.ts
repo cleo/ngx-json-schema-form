@@ -1,8 +1,14 @@
 import { Component } from '@angular/core';
 import { TemplateEvent } from '../app.component';
+import { FormsModule } from '@angular/forms';
+
 
 @Component({
   selector: 'app-template-test',
+  standalone: true,
+  imports: [
+    FormsModule
+  ],
   templateUrl: 'template.component.html'
 })
 export class TemplateComponent {
@@ -16,8 +22,7 @@ export class TemplateComponent {
   public doJsfEvent(event: TemplateEvent): void {
     if (this.initValues) {
 
-      for (let i = 0; i < event.targetPaths.length; i++) {
-        const target = event.targetPaths[i];
+      for (const target of event.targetPaths) {
         if (target.path.endsWith('templateValue')) {
           this.templateInput1 = target.data;
         }
@@ -30,8 +35,7 @@ export class TemplateComponent {
       }
       this.initValues = false;
     } else {
-      for (let i = 0; i < event.targetPaths.length; i++) {
-        const target = event.targetPaths[i];
+      for (const target of event.targetPaths) {
         if (target.path.endsWith('templateValue')) {
           target.formControl.setValue(this.templateInput1);
         }

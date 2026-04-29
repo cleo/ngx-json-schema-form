@@ -1,4 +1,3 @@
-// @dynamic
 export class SchemaHelperService {
   public static readonly PROPERTIES_KEY = 'properties';
   public static readonly SECURED_KEY = 'isSecured';
@@ -62,15 +61,15 @@ export class SchemaHelperService {
         while (index < length) {
             char = path.charAt(index);
             if (char === '[') {
-                start = index + 1,
-                end = path.indexOf(']', start),
-                cursor = cursor[property] = cursor[property] || [],
-                property = path.slice(start, end),
+                start = index + 1;
+                end = path.indexOf(']', start);
+                cursor = cursor[property] = cursor[property] || [];
+                property = path.slice(start, end);
                 index = end + 1;
             } else {
-                cursor = cursor[property] = cursor[property] || {},
-                start = char === '.' ? index + 1 : index,
-                bracket = path.indexOf('[', start),
+                cursor = cursor[property] = cursor[property] || {};
+                start = char === '.' ? index + 1 : index;
+                bracket = path.indexOf('[', start);
                 dot = path.indexOf('.', start);
 
                 if (bracket < 0 && dot < 0) {

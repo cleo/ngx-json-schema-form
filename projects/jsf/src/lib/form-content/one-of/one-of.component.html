@@ -1,13 +1,17 @@
-<div class="jsf-one-of-drop-down"
-  *ngIf="xOfDataItem.display === display.DROPDOWN">
-  <jsf-drop-down
-    [formItem]="getDropdownDataItem()"
-    [formGroup]="formGroup"
-    [config]="config"
-    (selectedKey)="onDropdownChange($event)"
-    [labelLengthClass]="labelLengthClass">
-  </jsf-drop-down>
-  <div class="selected-schema-content" *ngIf="selectedKey">
-    <ng-content></ng-content>
+@if (xOfDataItem().display === display.DROPDOWN) {
+  <div class="jsf-one-of-drop-down"
+    >
+    <jsf-drop-down
+      [formItem]="getDropdownDataItem()"
+      [formGroup]="formGroup()"
+      [config]="config()"
+      [labelLengthClass]="labelLengthClass()"
+      (selectedKey)="onDropdownChange($event)">
+    </jsf-drop-down>
+    @if (selectedKey) {
+      <div class="selected-schema-content">
+        <ng-content></ng-content>
+      </div>
+    }
   </div>
-</div>
+}

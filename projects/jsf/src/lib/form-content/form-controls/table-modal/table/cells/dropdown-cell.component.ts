@@ -1,40 +1,45 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { map, takeUntil } from 'rxjs/operators';
-import { getInputValue$ } from '../../../../../component-life-cycle';
+import { Component, effect, input, output } from '@angular/core';
 import { EnumDataItem, EnumOption } from '../../../../../models/enum-data-item';
 import { ContentBaseComponent } from '../../../../content-base.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'jsf-dropdown-cell',
+  standalone: true,
+  imports: [FormsModule],
   template: `
-    <select [(ngModel)]="params.value"
-            (ngModelChange)="onChange()"
-            [disabled]="params.item.disabledState.isReadOnly">
-      <option *ngFor="let option of options"
-              [id]="option.path"
-              [ngValue]="option.key">
-        {{option.text}}
-      </option>
+    <select [(ngModel)]="params().value"
+      (ngModelChange)="onChange()"
+      [disabled]="params().item.disabledState.isReadOnly">
+      @for (option of options; track option.key) {
+        <option
+          [id]="option.path"
+          [ngValue]="option.key">
+          {{option.text}}
+        </option>
+      }
     </select>
-    `
+  `
 })
 export class DropdownCellComponent extends ContentBaseComponent {
-  @Input() params: any;
-  @Output() valueChanged: EventEmitter<string> = new EventEmitter();
+  params = input.required<any>();
+  valueChanged = output<string>();
 
-  public options: EnumOption[];
+  public options: EnumOption[] = [];
 
   constructor() {
     super();
-    getInputValue$(this, 'params').pipe(
-      map((params: any) => {
+    effect(() => {
+      const params = this.params();
+      if (params?.item) {
         this.options = (params.item as EnumDataItem).enumOptions;
-      }),
-      takeUntil(this.ngDestroy$)).subscribe();
+      }
+    });
   }
 
   onChange() {
-    this.params.data[this.params.item.key] = this.params.value;
-    this.valueChanged.next(this.params.value);
+    const params = this.params();
+    params.data[params.item.key] = params.value;
+    this.valueChanged.emit(params.value);
   }
 }
