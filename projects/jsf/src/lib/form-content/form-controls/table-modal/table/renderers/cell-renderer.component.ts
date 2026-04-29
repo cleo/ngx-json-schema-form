@@ -50,8 +50,9 @@ export class CellRendererComponent extends ContentBaseComponent {
   }
 
   showAddButton(): boolean {
+    const columns = this.params.api.getAllDisplayedColumns?.() ?? this.params.columnApi?.getAllDisplayedColumns?.() ?? [];
     return this.params.node.rowPinned &&
-      this.params.api.getAllDisplayedColumns().indexOf(this.params.column) === this.params.api.getAllDisplayedColumns().length - 1;
+      columns.indexOf(this.params.column) === columns.length - 1;
   }
 
   onAdd(): void {

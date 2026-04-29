@@ -70,7 +70,10 @@ export class ModalComponent extends ContentBaseComponent implements AfterViewIni
 
   onOutsideClick(event: MouseEvent): void {
     event.stopPropagation();
+  }
 
+  onCloseClick(event: MouseEvent): void {
+    event.stopPropagation();
     this.closeInput.emit();
   }
 

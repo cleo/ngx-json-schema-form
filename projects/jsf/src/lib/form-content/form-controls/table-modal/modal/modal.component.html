@@ -4,6 +4,7 @@
       <div #modalContent class="modal-content"
            [style.top.px]="top"
            [style.left.px]="left"
+           [style.width.px]="width"
            [style.height.px]="height"
            (click)="onClick($event)">
         <div class="modal-header" (mousedown)="onWindowPress($event)" (mousemove)="onWindowDrag($event)">
@@ -14,7 +15,7 @@
                class="modal-close"
                alt="Close Dialog Box"
                [src]="'assets/jsf-images/close.svg'"
-               (click)="onOutsideClick($event)">
+               (click)="onCloseClick($event)">
         </div>
 
         <ng-content></ng-content>

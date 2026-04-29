@@ -49,12 +49,7 @@ export class TableModalComponent extends ComponentLifeCycle {
     cellEditor: CellRendererComponent
   };
 
-  public rowSelectionOptions = {
-    mode: 'multiRow' as const,
-    checkboxes: true,
-    headerCheckbox: true,
-    enableClickSelection: false
-  };
+  public rowSelectionOptions: any = 'multiple';
 
   public colDefs: ColDef[] = [{
     minWidth: 30,
@@ -62,7 +57,9 @@ export class TableModalComponent extends ComponentLifeCycle {
     colId: 'jsfCheckboxSelection',
     pinned: 'left',
     cellRenderer: undefined,
-    cellEditor: undefined
+    cellEditor: undefined,
+    checkboxSelection: true,
+    headerCheckboxSelection: true
   }];
 
   private params: any;
@@ -141,10 +138,12 @@ export class TableModalComponent extends ComponentLifeCycle {
       return;
     }
 
-    const allColumnIds = this.params.api.getAllDisplayedColumns().map(col => col.getColId());
-    setTimeout(() =>
-      this.params.api.autoSizeColumns(allColumnIds, false)
-    );
+    const columns = this.params.api.getAllDisplayedColumns?.() ?? this.params.columnApi?.getAllDisplayedColumns?.() ?? [];
+    const allColumnIds = columns.map(col => col.getColId());
+    const autoSize = this.params.api.autoSizeColumns?.bind(this.params.api) ?? this.params.columnApi?.autoSizeColumns?.bind(this.params.columnApi);
+    if (autoSize) {
+      setTimeout(() => autoSize(allColumnIds, false));
+    }
   }
 
   private addItemToColDefs(item: FormDataItem): void {
