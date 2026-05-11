@@ -43,6 +43,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
   formHeightChange = output<number>();
   buttonEvent = output<JSFEventButton>();
   templateEvent = output<JSFTemplateEvent>();
+  tabChange = output<string>();
 
   formDataItems: FormDataItem[] = [];
   formGroup: UntypedFormGroup = new UntypedFormGroup({});

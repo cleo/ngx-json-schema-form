@@ -1,4 +1,4 @@
-import { AfterContentInit, Component, ContentChildren, input, QueryList } from '@angular/core';
+import { AfterContentInit, Component, ContentChildren, input, output, QueryList } from '@angular/core';
 import { AbstractControl, UntypedFormGroup } from '@angular/forms';
 import { getLongestFieldLabelClass } from '../../form.service';
 import { FormDataItem } from '../../models/form-data-item';
@@ -16,6 +16,7 @@ export class TabsComponent extends ContentBaseComponent implements AfterContentI
   @ContentChildren(TabComponent) public tabs: QueryList<TabComponent>;
   items = input<ParentDataItem[]>([]);
   title = input<string>('');
+  tabChange = output<string>();
 
   selectedTab: TabComponent;
 
@@ -25,6 +26,7 @@ export class TabsComponent extends ContentBaseComponent implements AfterContentI
     }
     this.tabs.first.selected.set(true);
     this.selectedTab = this.tabs.first;
+    this.tabChange.emit(this.tabs.first.dataItem().key);
   }
 
   getFormGroup(item: FormDataItem): UntypedFormGroup {
@@ -49,6 +51,7 @@ export class TabsComponent extends ContentBaseComponent implements AfterContentI
     this.selectedTab.selected.set(false);
     this.selectedTab = this.tabs.find(tab => tab.dataItem().label === clickedTab.dataItem().label);
     this.selectedTab.selected.set(true);
+    this.tabChange.emit(clickedTab.dataItem().key);
   }
 
   isValid(tab: TabComponent) {

@@ -108,7 +108,8 @@
     [isEdit]="isEdit()"
     (buttonEvent)="onButtonEvent($event)"
     (templateEvent)="onTemplateEvent($event)"
-    (manualFormChangeEvent)="onManualFormChangeEvent()">
+    (manualFormChangeEvent)="onManualFormChangeEvent()"
+    (tabChange)="tabChange.emit($event)">
     @for (item of tabsComponent.items(); track item.key; let i = $index) {
       <jsf-tab
         [selected]="i === 0"

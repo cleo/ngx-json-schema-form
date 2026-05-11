@@ -35,10 +35,13 @@ export class ExampleComponent { }
    - Create a Submit button in your component. Listen to the `disableSubmit` event emitted from the JSON Schema Form and disable your submit button.
    - Create a `ViewChild` property to reference your `JSFComponent`. Use it to retrieve submitted form values by calling `this.schemaFormComponent.getFormValues()`.
    - [Optional] Listen to the `formHeightChange` event emitted from the JSON Schema Form.
+   - [Optional] Listen to the `buttonEvent` event to handle button clicks defined in the schema. The event emits a `JSFEventButton` with the button's key and targets.
+   - [Optional] Listen to the `templateEvent` event to handle events from custom templates. The event emits a `JSFTemplateEvent` with the template's key and target paths.
+   - [Optional] Listen to the `tabChange` event to be notified when the active tab changes. The event emits the tab's property key from the JSON schema.
 
 ```typescript
 import { Component, ViewChild, signal } from '@angular/core';
-import { JSFComponent, JSFConfig, JSFSchemaData } from '@cleo/ngx-json-schema-form';
+import { JSFComponent, JSFConfig, JSFSchemaData, JSFEventButton, JSFTemplateEvent } from '@cleo/ngx-json-schema-form';
 
 @Component({
   selector: 'example',
@@ -65,6 +68,15 @@ export class ExampleComponent {
   // this event allows you to modify parent container height to match the height of the form
   onFormHeightChange(formHeight: number): void { }
 
+  // this event is emitted when a schema-defined button is clicked
+  onButtonEvent(event: JSFEventButton): void { }
+
+  // this event is emitted when a custom template triggers an event
+  onTemplateEvent(event: JSFTemplateEvent): void { }
+
+  // this event emits the key of the active tab whenever it changes
+  onTabChange(tabKey: string): void { }
+
   getJSFFormValues(): void {
     const jsonData = this.schemaFormComponent.getFormValues();
   }
@@ -78,7 +90,10 @@ export class ExampleComponent {
    [schemaData]="schemaData()"
    [config]="config"
    (disableSubmit)="onDisableSubmit($event)"
-   (formHeightChange)="onFormHeightChange($event)">
+   (formHeightChange)="onFormHeightChange($event)"
+   (buttonEvent)="onButtonEvent($event)"
+   (templateEvent)="onTemplateEvent($event)"
+   (tabChange)="onTabChange($event)">
   </jsf-component>
 ```
 

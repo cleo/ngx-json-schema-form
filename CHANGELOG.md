@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [7.0.2] (2026-05-11)
+### Enhancement
+- Added `tabChange` output event to `JSFComponent` that emits the active tab's property key whenever the tab changes, including on initial render
+
 ## [7.0.1] (2026-04-27)
 ### Breaking Changes
 - `JSFModule` has been removed. Import `JSFComponent` directly into your standalone component's `imports` array.
