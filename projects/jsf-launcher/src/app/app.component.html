@@ -5,8 +5,15 @@
   (disableSubmit)="updateSubmitButtonStatus($event)"
   (formHeightChange)="emitTotalHeight($event)"
   (buttonEvent)="buttonEvent($event)"
-  (templateEvent)="templateEvent($event)">
+  (templateEvent)="templateEvent($event)"
+  (tabChange)="activeTab = $event">
 </jsf-component>
+
+@if (activeTab) {
+  <div class="active-tab-indicator">
+    Active tab: <strong>{{ activeTab }}</strong>
+  </div>
+}
 
 @if (showValidationMessage) {
   <div

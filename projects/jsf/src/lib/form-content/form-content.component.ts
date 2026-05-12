@@ -1,4 +1,4 @@
-import { Component, input, QueryList, ViewChildren } from '@angular/core';
+import { Component, input, output, QueryList, ViewChildren } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 import { JSFConfig } from '../jsf-config';
 
@@ -35,6 +35,7 @@ export class FormContentComponent extends ContentBaseComponent {
   @ViewChildren('contentDiv') divs: QueryList<any>;
   formItems = input<FormDataItem[]>([]);
   labelLengthClass = input<string>('');
+  tabChange = output<string>();
 
   // non-tabbed items cannot be calculated only upon initialization, as the inputted items will change with oneOf dropdown selections.
   getNonTabbedItems(): FormDataItem[] {

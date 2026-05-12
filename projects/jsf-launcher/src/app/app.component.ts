@@ -38,6 +38,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   isEdit = false;
 
   templateInitEvent: TemplateEvent;
+  activeTab: string;
 
   ngOnInit(): void {
     this.setSchemas();
