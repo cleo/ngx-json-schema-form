@@ -112,7 +112,6 @@
     (tabChange)="tabChange.emit($event)">
     @for (item of tabsComponent.items(); track item.key; let i = $index) {
       <jsf-tab
-        [selected]="i === 0"
         [dataItem]="item"
         [formGroup]="tabsComponent.getFormGroup(item)">
         <jsf-form-content

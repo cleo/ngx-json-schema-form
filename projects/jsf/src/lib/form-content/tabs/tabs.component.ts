@@ -1,5 +1,6 @@
 import { AfterContentInit, Component, ContentChildren, input, output, QueryList } from '@angular/core';
 import { AbstractControl, UntypedFormGroup } from '@angular/forms';
+import { takeUntil } from 'rxjs/operators';
 import { getLongestFieldLabelClass } from '../../form.service';
 import { FormDataItem } from '../../models/form-data-item';
 import { ParentDataItem } from '../../models/parent-data-item';
@@ -21,12 +22,30 @@ export class TabsComponent extends ContentBaseComponent implements AfterContentI
   selectedTab: TabComponent;
 
   ngAfterContentInit(): void {
-    if (!this.tabs || this.tabs.length === 0) {
-      return;
-    }
-    this.tabs.first.selected.set(true);
-    this.selectedTab = this.tabs.first;
-    this.tabChange.emit(this.tabs.first.dataItem().key);
+    super.ngAfterContentInit();
+    this.initializeSelectedTab();
+
+    this.tabs.changes.pipe(
+      takeUntil(this.ngDestroy$)
+    ).subscribe(() => {
+      if (!this.tabs.length) {
+        this.selectedTab = undefined;
+        return;
+      }
+
+      //deselect all tabs first
+      this.tabs.forEach(tab => tab.selected.set(false));
+
+      //try to find a tab with the same label as the previously selected tab, if it exists select it, otherwise select the first tab
+      const previousLabel = this.selectedTab?.dataItem()?.label;
+      const matchingTab = previousLabel && this.tabs.find(tab => tab.dataItem().label === previousLabel);
+      if (matchingTab) {
+        matchingTab.selected.set(true);
+        this.selectedTab = matchingTab;
+      } else {
+        this.initializeSelectedTab();
+      }
+    });
   }
 
   getFormGroup(item: FormDataItem): UntypedFormGroup {
@@ -64,6 +83,16 @@ export class TabsComponent extends ContentBaseComponent implements AfterContentI
 
   tabHasRequiredFields(tab: TabComponent): boolean {
     return this.formGroupHasRequiredFields(tab.formGroup());
+  }
+
+  private initializeSelectedTab(): void {
+    if (!this.tabs || !this.tabs.length) {
+      return;
+    }
+    this.tabs.forEach(tab => tab.selected.set(false));
+    this.tabs.first.selected.set(true);
+    this.selectedTab = this.tabs.first;
+    this.tabChange.emit(this.tabs.first.dataItem().key);
   }
 
   private formGroupHasRequiredFields(formGroup: UntypedFormGroup): boolean {
