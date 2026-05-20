@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [7.0.4] (2026-05-20)
+### Bug Fix
+- Fixed required asterisk (*) not displaying on secured (password) fields in edit mode.
+
 ## [7.0.3] (2026-05-12)
 ### Bug Fix
 - Fixed `TabsComponent` not updating when tabs are dynamically added or removed, causing stale `selectedTab` reference and broken tab switching
