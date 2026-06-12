@@ -6,8 +6,15 @@
   (formHeightChange)="emitTotalHeight($event)"
   (buttonEvent)="buttonEvent($event)"
   (templateEvent)="templateEvent($event)"
-  (tabChange)="activeTab = $event">
+  (tabChange)="activeTab = $event"
+  (formReady)="onFormReady()">
 </jsf-component>
+
+@if (formReadyCount) {
+  <div class="active-tab-indicator">
+    formReady fired: <strong>{{ formReadyCount }}</strong> time(s)
+  </div>
+}
 
 @if (activeTab) {
   <div class="active-tab-indicator">

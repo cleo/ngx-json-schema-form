@@ -1,6 +1,12 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [7.0.5] (2026-06-12)
+### Bug Fix
+- Fixed `JSFComponent` rendering a blank form intermittently when `schemaData` is provided asynchronously. The form structure was built after the last change-detection pass, but because the component is `OnPush` it never re-rendered, leaving the child `jsf-form-content` with an empty `[formItems]` binding. `JSFComponent` now calls `ChangeDetectorRef.markForCheck()` after building the form on every `schemaData` change.
+### Enhancement
+- Added `formReady` output event to `JSFComponent` that emits once the form's internal structure (FormGroup, controls, and data items) has been built from the current `schemaData`. It emits even when `getFormValues()` is empty (e.g. all-hidden or template-only schemas), and emits again whenever `schemaData` changes and the form is rebuilt. Consumers can use this instead of polling `getFormValues()` to detect readiness.
+
 ## [7.0.4] (2026-05-20)
 ### Bug Fix
 - Fixed required asterisk (*) not displaying on secured (password) fields in edit mode.
