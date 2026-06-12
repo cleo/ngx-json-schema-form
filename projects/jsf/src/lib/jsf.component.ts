@@ -1,4 +1,4 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, effect, ElementRef, inject, input, OnInit, output, ViewChild } from '@angular/core';
+import { AfterViewInit, ChangeDetectionStrategy, ChangeDetectorRef, Component, effect, ElementRef, inject, input, OnInit, output, ViewChild } from '@angular/core';
 import { ReactiveFormsModule, UntypedFormGroup } from '@angular/forms';
 
 import { take, tap } from 'rxjs/operators';
@@ -31,6 +31,7 @@ import { XOfEnumDataItem } from './models/xOf-enum-data-item';
 export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, OnInit {
   private formService = inject(FormService);
   private dataItemService = inject(FormDataItemService);
+  private cd = inject(ChangeDetectorRef);
 
   @ViewChild(FormContentComponent, {static: true}) content: FormContentComponent;
   @ViewChild('formRoot', {static: true}) formElement: ElementRef<HTMLFormElement>;
@@ -44,6 +45,7 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
   buttonEvent = output<JSFEventButton>();
   templateEvent = output<JSFTemplateEvent>();
   tabChange = output<string>();
+  formReady = output<void>();
 
   formDataItems: FormDataItem[] = [];
   formGroup: UntypedFormGroup = new UntypedFormGroup({});
@@ -68,6 +70,17 @@ export class JSFComponent extends ComponentLifeCycle implements AfterViewInit, O
       if (this.isEdit && this.formGroup.valid) {
         this.disableSubmit.emit(false);
       }
+
+      // The form was (re)built outside of (or after) the change-detection pass that
+      // processed the schemaData signal. Because this component is OnPush, mark it for
+      // check so the child jsf-form-content re-evaluates its [formItems] binding and the
+      // fields actually render. This runs on every schemaData change.
+      this.cd.markForCheck();
+
+      // The form structure (FormGroup/controls/formDataItems) has now been built from the
+      // current schema and the view has been flagged for re-render. Notify consumers exactly
+      // once per successful build, regardless of whether getFormValues() produces any values.
+      this.formReady.emit();
 
       const statusSubscription = this.formGroup.statusChanges.pipe(
         tap(status => {
