@@ -38,6 +38,7 @@ export class ExampleComponent { }
    - [Optional] Listen to the `buttonEvent` event to handle button clicks defined in the schema. The event emits a `JSFEventButton` with the button's key and targets.
    - [Optional] Listen to the `templateEvent` event to handle events from custom templates. The event emits a `JSFTemplateEvent` with the template's key and target paths.
    - [Optional] Listen to the `tabChange` event to be notified when the active tab changes. The event emits the tab's property key from the JSON schema.
+   - [Optional] Listen to the `formReady` event to be notified once the form's internal structure (FormGroup, controls, and data items) has been built from the current `schemaData`. This is the reliable way to know the form is ready to be read (e.g. via `getFormValues()` or `formGroup.get(...)`), and it emits even when the form produces no values (e.g. an all-hidden or template-only schema). It emits again whenever `schemaData` changes and the form is rebuilt.
 
 ```typescript
 import { Component, ViewChild, signal } from '@angular/core';
@@ -77,6 +78,10 @@ export class ExampleComponent {
   // this event emits the key of the active tab whenever it changes
   onTabChange(tabKey: string): void { }
 
+  // this event is emitted once the form structure has been built from the schemaData,
+  // and again whenever a new schema is provided and the form is rebuilt
+  onFormReady(): void { }
+
   getJSFFormValues(): void {
     const jsonData = this.schemaFormComponent.getFormValues();
   }
@@ -93,7 +98,8 @@ export class ExampleComponent {
    (formHeightChange)="onFormHeightChange($event)"
    (buttonEvent)="onButtonEvent($event)"
    (templateEvent)="onTemplateEvent($event)"
-   (tabChange)="onTabChange($event)">
+   (tabChange)="onTabChange($event)"
+   (formReady)="onFormReady()">
   </jsf-component>
 ```
 

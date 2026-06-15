@@ -39,6 +39,7 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   templateInitEvent: TemplateEvent;
   activeTab: string;
+  formReadyCount = 0;
 
   ngOnInit(): void {
     this.setSchemas();
@@ -95,6 +96,11 @@ export class AppComponent implements OnInit, AfterViewInit {
 
   buttonEvent(event: any): void {
     //console.log('in buttonEvent in app.component.ts: \n', event);
+  }
+
+  onFormReady(): void {
+    this.formReadyCount++;
+    // console.log('formReady fired', this.formReadyCount);
   }
 
   templateEvent(event: any): void {
