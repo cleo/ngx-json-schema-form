@@ -1,6 +1,10 @@
 # Changelog
 All notable changes to this project will be documented in this file. The changes are grouped by the date (ISO-8601) and the package version they have been added to. The `Unreleased` section keeps track of upcoming changes.
 
+## [7.0.6] (2026-06-16)
+### Enhancement
+- Added a `fixedRows` boolean flag for array (table) schema properties. When set to `true`, the table renders as a fixed list: existing rows cannot be added to or deleted (the "Add" input row and delete checkboxes are hidden), but their cells remain editable. Defaults to `false`.
+
 ## [7.0.5] (2026-06-12)
 ### Bug Fix
 - Fixed `JSFComponent` rendering a blank form intermittently when `schemaData` is provided asynchronously. The form structure was built after the last change-detection pass, but because the component is `OnPush` it never re-rendered, leaving the child `jsf-form-content` with an empty `[formItems]` binding. `JSFComponent` now calls `ChangeDetectorRef.markForCheck()` after building the form on every `schemaData` change.
