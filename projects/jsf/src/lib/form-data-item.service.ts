@@ -91,7 +91,7 @@ export class FormDataItemService {
         return new ConditionalParentDataItem(key, name, tooltip, helpText, required, pathParts, fieldValue, isReadOnly, isHidden, childItems);
       case FormDataItemType.Array:
         const arrayItems = this.getItemsFromSubschema(schemaProperty, fieldValue, pathParts, isReadOnly, isHidden);
-        return new ArrayDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, arrayItems);
+        return new ArrayDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden, arrayItems, !!schemaProperty.fixedRows);
       case FormDataItemType.Template:
         return new TemplateDataItem(key, name, tooltip, helpText, required, pathParts, type, fieldValue, isReadOnly, isHidden,
           schemaProperty.templateName, schemaProperty.targetPaths);

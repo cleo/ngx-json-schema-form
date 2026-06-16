@@ -583,6 +583,17 @@ describe('FormDataItemService', () => {
       expect(result[1].required).toEqual(true);
       expect(result[2].required).toEqual(false);
     });
+
+    it('should default fixedRows to false when flag absent', () => {
+      const result = service.getFormDataItems(schemaData)[0] as ArrayDataItem;
+      expect(result.fixedRows).toEqual(false);
+    });
+
+    it('should set fixedRows when flag present', () => {
+      schemaData.schema.properties.arrayKey.fixedRows = true;
+      const result = service.getFormDataItems(schemaData)[0] as ArrayDataItem;
+      expect(result.fixedRows).toEqual(true);
+    });
   });
 
   describe('Conditional Parent Object', () => {
