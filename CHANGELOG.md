@@ -4,6 +4,9 @@ All notable changes to this project will be documented in this file. The changes
 ## [7.0.6] (2026-06-16)
 ### Enhancement
 - Added a `fixedRows` boolean flag for array (table) schema properties. When set to `true`, the table renders as a fixed list: existing rows cannot be added to or deleted (the "Add" input row and delete checkboxes are hidden), but their cells remain editable. Defaults to `false`.
+### Bug Fix
+- Enum fields (dropdowns) are no longer implicitly treated as always required. An enum's required state is now driven solely by the schema's `required` array, so optional dropdowns no longer render a required asterisk on their label or block submission when left unselected. This reverses the behavior introduced in 3.0.0 where every enum was forced to be required. Note: radio-button enums remain required by design.
+- Invalid enum selections now surface a dedicated "Please select a valid option." message instead of reusing the "This field is required." message. Required enums that are left empty still show the standard required message.
 
 ## [7.0.5] (2026-06-12)
 ### Bug Fix
