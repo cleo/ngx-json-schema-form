@@ -58,5 +58,11 @@ describe('TableModalService', () => {
 
       expect(service.getErrorMessage(item, 'value')).toBeNull();
     });
+
+    it('gets enum error message for an invalid enum value', () => {
+      mockValidationService.getValidators.and.returnValue([() => ({ enum: { label: 'label' } })]);
+
+      expect(service.getErrorMessage(item, 'bad')).toBe('Please select a valid option.');
+    });
   });
 });

@@ -62,7 +62,7 @@ export class CellRendererComponent extends ContentBaseComponent {
   }
 
   showRequiredError(): boolean {
-    return this.errorMessage && (this.params.item.required || this.params.item.enumOptions) && this.errorMessage.includes('required');
+    return this.errorMessage && this.params.item.required && this.errorMessage.includes('required');
   }
 
   isCheckboxType(): boolean {

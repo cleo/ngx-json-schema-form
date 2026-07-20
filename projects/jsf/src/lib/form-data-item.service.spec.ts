@@ -814,7 +814,7 @@ describe('FormDataItemService', () => {
       expect(result.label).toEqual(parentName);
       expect(result.tooltip).toEqual('');
       expect(result.helpText).toEqual('');
-      expect(result.required).toEqual(true);
+      expect(result.required).toEqual(false);
       expect(result.path).toEqual('tabsWithAllOf');
       expect(result.type).toEqual(FormDataItemType.xOf);
       expect(result.disabledState.isReadOnly).toEqual(false);
