@@ -583,6 +583,17 @@ describe('FormDataItemService', () => {
       expect(result[1].required).toEqual(true);
       expect(result[2].required).toEqual(false);
     });
+
+    it('should default fixedRows to false when flag absent', () => {
+      const result = service.getFormDataItems(schemaData)[0] as ArrayDataItem;
+      expect(result.fixedRows).toEqual(false);
+    });
+
+    it('should set fixedRows when flag present', () => {
+      schemaData.schema.properties.arrayKey.fixedRows = true;
+      const result = service.getFormDataItems(schemaData)[0] as ArrayDataItem;
+      expect(result.fixedRows).toEqual(true);
+    });
   });
 
   describe('Conditional Parent Object', () => {
@@ -803,7 +814,7 @@ describe('FormDataItemService', () => {
       expect(result.label).toEqual(parentName);
       expect(result.tooltip).toEqual('');
       expect(result.helpText).toEqual('');
-      expect(result.required).toEqual(true);
+      expect(result.required).toEqual(false);
       expect(result.path).toEqual('tabsWithAllOf');
       expect(result.type).toEqual(FormDataItemType.xOf);
       expect(result.disabledState.isReadOnly).toEqual(false);

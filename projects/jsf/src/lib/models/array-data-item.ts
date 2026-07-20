@@ -2,6 +2,7 @@ import { FormDataItem, FormDataItemType } from './form-data-item';
 
 export class ArrayDataItem extends FormDataItem {
   public items: FormDataItem[];
+  public fixedRows?: boolean;
   constructor(key: string,
               label: string,
               tooltip: string,
@@ -12,8 +13,10 @@ export class ArrayDataItem extends FormDataItem {
               value: any,
               isReadOnly: boolean,
               isHidden: boolean,
-              items: FormDataItem[]) {
+              items: FormDataItem[],
+              fixedRows?: boolean) {
     super(key, label, tooltip, helpText, required, pathParts, type, value, isReadOnly, isHidden);
     this.items = items;
+    this.fixedRows = fixedRows;
   }
 }

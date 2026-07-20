@@ -19,7 +19,6 @@ export class XOfDataItem extends ParentDataItem {
     description: string,
     public xOfType: XOfType) {
     super(key, label, tooltip, helpText, required, pathParts, FormDataItemType.xOf, value, isReadOnly, isHidden, items, description, display);
-    this.required = true;
 
     // TODO: The XOf Enum item is added for the purpose of display. Possibly improve in the future so that this is not needed.
     if (this.display !== OptionDisplayType.TABS && this.display !== OptionDisplayType.SECTIONS) {
@@ -47,7 +46,7 @@ export class XOfDataItem extends ParentDataItem {
       this.label,
       this.tooltip,
       this.helpText,
-      true,
+      this.required,
       this.pathParts,
       this.value,
       this.disabledState.isReadOnly,

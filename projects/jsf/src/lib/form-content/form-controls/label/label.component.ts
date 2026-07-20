@@ -43,6 +43,6 @@ export class LabelComponent {
 
   isRequired(): boolean {
     const item = this.formItem();
-    return item?.required || (item instanceof SecuredStringDataItem && item.wasRequired) || item?.type === FormDataItemType.Enum;
+    return Boolean(item?.required) || (item instanceof SecuredStringDataItem && item.wasRequired);
   }
 }
