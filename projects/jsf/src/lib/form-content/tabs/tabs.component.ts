@@ -110,7 +110,7 @@ export class TabsComponent extends ContentBaseComponent implements AfterContentI
       return false;
     }
 
-    const validator = control.validator({} as AbstractControl);
-    return validator && validator.required;
+    const validator = control.validator({ value: undefined } as AbstractControl);
+    return Boolean(validator && validator.required);
   }
 }

@@ -1,5 +1,6 @@
 import { UntypedFormControl, ValidatorFn, Validators } from '@angular/forms';
 import { FormDataItem, FormDataItemType } from './models/form-data-item';
+import { EnumDataItem, OptionDisplayType } from './models/enum-data-item';
 import { IntegerDataItem, IntegerRangeOptions } from './models/integer-data-item';
 import { StringDataItem, StringFormat, StringLengthOptions } from './models/string-data-item';
 import { ValidatorService } from './validator.service';
@@ -26,6 +27,18 @@ describe('ValidatorService', () => {
     it('adds the Required validator', () => {
       item.required = true;
       expect(service.getValidators(item)).toContain(Validators.required);
+    });
+
+    it('adds the Required validator for a required enum', () => {
+      const enumItem = new EnumDataItem(key, label, tooltip, '', true, ['path'], '', false, false,
+        OptionDisplayType.DROPDOWN, { enum: ['', 'a'], type: 'string' } as any);
+      expect(service.getValidators(enumItem)).toContain(Validators.required);
+    });
+
+    it('does not add the Required validator for a non-required enum', () => {
+      const enumItem = new EnumDataItem(key, label, tooltip, '', false, ['path'], '', false, false,
+        OptionDisplayType.DROPDOWN, { enum: ['', 'a'], type: 'string' } as any);
+      expect(service.getValidators(enumItem)).not.toContain(Validators.required);
     });
 
     describe('integer validators', () => {
@@ -422,6 +435,34 @@ describe('ValidatorService', () => {
           expect(validation.pattern.requiredPattern).toEqual(phoneNumberRegex, 'The pattern value should be the regex');
         });
       });
+    });
+  });
+
+  describe('getEnumValidator()', () => {
+    let enumItem: EnumDataItem;
+
+    beforeEach(() => {
+      enumItem = new EnumDataItem(key, label, tooltip, '', false, ['path'], '', false, false,
+        OptionDisplayType.DROPDOWN, { enum: ['', 'a', 'b'], type: 'string' } as any);
+      validatorFn = Validators.compose(service.getValidators(enumItem));
+    });
+
+    it('returns null for a valid option key', () => {
+      control.setValue('a');
+      expect(validatorFn(control)).toBeNull();
+    });
+
+    it('returns null for the empty option key', () => {
+      control.setValue('');
+      expect(validatorFn(control)).toBeNull();
+    });
+
+    it('returns an enum error (not required) for an invalid value', () => {
+      control.setValue('not-an-option');
+      const validation = validatorFn(control);
+      expect(validation.enum).toBeDefined();
+      expect(validation.enum.label).toEqual(label);
+      expect(validation.required).toBeUndefined();
     });
   });
 });

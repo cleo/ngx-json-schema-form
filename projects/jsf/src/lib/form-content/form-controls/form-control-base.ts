@@ -31,6 +31,8 @@ export class FormControlBase extends ContentBaseComponent implements OnInit {
 
     if (errors.required) {
       return 'This field is required.';
+    } else if (errors.enum) {
+      return 'Please select a valid option.';
     } else if (hasRequiredPattern && errors.pattern.requiredPattern.toString() === EMAIL_REGEX.toString()) {
       return 'Please enter a valid email.';
     } else if (errors.invalidEmails) {

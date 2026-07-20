@@ -67,8 +67,17 @@ export class TableModalComponent extends ComponentLifeCycle {
     super();
     this.arrayItem = this.modalOptions.arrayItem;
     this.modalTitle = this.arrayItem.label;
+    this.colDefs[0].headerCheckboxSelection = !this.isFixed;
     this.arrayItem.items.forEach(item => this.addItemToColDefs(item));
   }
+
+  /** Fixed rows are seeded rows that can be edited but never added to, removed, or selected. */
+  private get isFixed(): boolean {
+    return !!this.arrayItem.fixedRows;
+  }
+
+  // Fixed rows are never selectable, which also hides their delete checkbox. Works in ag-grid 28 and 35.
+  isRowSelectable = (): boolean => !this.isFixed;
 
   onGridReady(params): void {
     this.params = params;
@@ -107,6 +116,9 @@ export class TableModalComponent extends ComponentLifeCycle {
   }
 
   onAdd(): void {
+    if (this.isFixed) {
+      return;
+    }
     this.params.api.applyTransaction({
       add: [this.params.api.getPinnedTopRow(0).data]
     });
@@ -229,6 +241,11 @@ export class TableModalComponent extends ComponentLifeCycle {
   }
 
   private setPinnedRowData() {
+    // When rows are fixed, no new rows can be added, so hide the pinned "add" input row.
+    if (this.isFixed) {
+      this.pinnedTopRowData$.next(null);
+      return;
+    }
     const pinnedData = {};
     this.arrayItem.items.forEach(item => {
       pinnedData[item.key] = item.value;

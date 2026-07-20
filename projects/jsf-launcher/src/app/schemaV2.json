@@ -997,6 +997,25 @@
               "name": { "type": "string", "name": "Name" }
             }
           }
+        },
+        "fixedArrayInput": {
+          "type": "array",
+          "name": "Fixed Array Input",
+          "fixedRows": true,
+          "helpText": "Rows are fixed: existing rows are editable but cannot be added or deleted.",
+          "tooltip": "With fixedRows enabled, the seeded rows have no delete checkbox and the Add row is hidden, but cells stay editable.",
+          "default": [
+            { "channel": "CONNECT", "host": "localhost", "port": 1414 },
+            { "channel": "PUT", "host": "localhost", "port": 1415 }
+          ],
+          "items": {
+            "required": ["channel"],
+            "properties": {
+              "channel": { "type": "string", "name": "Channel", "isReadOnly": true},
+              "host": { "type": "string", "name": "Host" },
+              "port": { "type": "integer", "name": "Port" }
+            }
+          }
         }
       }
     },

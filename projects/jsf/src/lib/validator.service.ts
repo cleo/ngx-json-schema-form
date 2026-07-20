@@ -23,7 +23,7 @@ export class ValidatorService {
   getValidators(item: FormDataItem): ValidatorFn[] {
     let validators = [];
 
-    if (item.required && item.type !== FormDataItemType.Enum) {
+    if (item.required) {
       validators.push(Validators.required);
     }
 
@@ -170,7 +170,7 @@ export class ValidatorService {
   private getEnumValidator(formItem: EnumDataItem): ValidatorFn {
     return (control: AbstractControl) => {
       const value = control.value === 'null' ? null : control.value;
-      return formItem.enumOptions.map(x => x.key).includes(value) ? null : { required: formItem.label };
+      return formItem.enumOptions.some(x => x.key === value) ? null : { enum: { label: formItem.label } };
     };
   }
 
